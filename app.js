@@ -12,7 +12,7 @@ const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://jll541:mean-quiz@clusterquiz.inacn.mongodb.net/quizdb?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
-  const collection = client.db("test").collection("devices");
+  const collection = client.db("quizdb").collection("test");
   // perform actions on the collection object
   console.log('connected to db', uri);
   client.close();
