@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const config = require('../config/database');
-const MongoClient = require('mongodb').MongoClient;
-// Use Schema
-MongoClient.s
+
 const UserSchema = mongoose.Schema( {
 name: {type: String},
 email: {
@@ -17,7 +15,7 @@ password: {
     required: true},
 });
 
-const User = module.exports = MongoClient.model('User', UserSchema);
+const User = module.exports = mongoose.model('User', UserSchema);
 
 // NOTE: could rewrite w new syntax
 module.exports.getUserById = function(id, callback){
