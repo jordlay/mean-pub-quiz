@@ -11,24 +11,24 @@ const app = express();
 const users = require('./routes/users');
 let port = process.env.PORT || 8080;
 
-const MongoClient = require('mongodb').MongoClient;
+// const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://jll541:mean-quiz@clusterquiz.inacn.mongodb.net/quizdb?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-client.connect(err => {
-  const collection = client.db("quizdb").collection("test");
-  // perform actions on the collection object
-  console.log('connected to db', uri);
-  console.log('collection', collection);
-//   client.close();
-})
+// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+// client.connect(err => {
+//   const collection = client.db("quizdb").collection("test");
+//   // perform actions on the collection object
+//   console.log('connected to db', uri);
+//   console.log('collection', collection);
+// //   client.close();
+// })
 
 // client.uri;
 
 // // Connect to Database
-// mongoose.connect('mongodb+srv://jll541:mean-quiz@clusterquiz.inacn.mongodb.net/test?authSource=admin&replicaSet=atlas-wgqxem-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true', {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true
-// } );
+mongoose.connect(uri, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+} );
 // // On Connection
 mongoose.connection.on('connected', () => {
     console.log('Connected to DB ' + uri)
