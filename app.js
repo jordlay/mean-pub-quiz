@@ -7,15 +7,25 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const config = require('./config/database')
 
-// Connect to Database
-mongoose.connect('mongodb+srv://jll541:mean-quiz@clusterquiz.inacn.mongodb.net/test?authSource=admin&replicaSet=atlas-wgqxem-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-} );
-// On Connection
-mongoose.connection.on('connected', () => {
-    console.log('Connected to DB ' + 'mongodb+srv://jll541:mean-quiz@clusterquiz.inacn.mongodb.net/quizdb?retryWrites=true&w=majority')
+
+const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://jll541:mean-quiz@clusterquiz.inacn.mongodb.net/quizdb?retryWrites=true&w=majority";
+const client = new MongoClient(uri, { useNewUrlParser: true });
+client.connect(err => {
+  const collection = client.db("test").collection("devices");
+  // perform actions on the collection object
+  client.close();
 });
+
+// // Connect to Database
+// mongoose.connect('mongodb+srv://jll541:mean-quiz@clusterquiz.inacn.mongodb.net/test?authSource=admin&replicaSet=atlas-wgqxem-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true', {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true
+// } );
+// // On Connection
+// mongoose.connection.on('connected', () => {
+//     console.log('Connected to DB ' + 'mongodb+srv://jll541:mean-quiz@clusterquiz.inacn.mongodb.net/quizdb?retryWrites=true&w=majority')
+// });
 
 // On Error
 mongoose.connection.on('error', (err) => {
