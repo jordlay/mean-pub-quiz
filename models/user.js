@@ -3,8 +3,8 @@ const bcrypt = require('bcryptjs');
 const config = require('../config/database');
 const MongoClient = require('mongodb').MongoClient;
 // Use Schema
-// MongoClient.
-const UserSchema = new Schema( {
+MongoClient.s
+const UserSchema = mongoose.Schema( {
 name: {type: String},
 email: {
     type: String,
