@@ -14,7 +14,7 @@ mongoose.connect('mongodb+srv://jll541:mean-quiz@clusterquiz.inacn.mongodb.net/t
 } );
 // On Connection
 mongoose.connection.on('connected', () => {
-    console.log('Connected to DB ' + config.mongoURI)
+    console.log('Connected to DB ' + 'mongodb+srv://jll541:mean-quiz@clusterquiz.inacn.mongodb.net/quizdb?retryWrites=true&w=majority')
 });
 
 // On Error
