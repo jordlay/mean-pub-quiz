@@ -7,6 +7,9 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const config = require('./config/database')
 
+const app = express();
+const users = require('./routes/users');
+let port = 8080 || process.env.port;
 
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://jll541:mean-quiz@clusterquiz.inacn.mongodb.net/quizdb?retryWrites=true&w=majority";
@@ -35,9 +38,6 @@ mongoose.connection.on('error', (err) => {
     console.log('DB Error ' + err)
 });
 
-const app = express();
-const users = require('./routes/users');
-const port = 8080 || process.env.port;
 
 // CORS Middleware
 app.use(cors());
@@ -65,6 +65,6 @@ app.get('*', (req,res) => {
     res.sendFile(path.join(__dirname, 'public/index.html'))
 });
 // Start Server
-app.listen(port, "0.0.0.0", () => {
+app.listen(port, '0.0.0.0', () => {
     console.log ('server started on port  ' + port)
 });
