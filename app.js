@@ -8,13 +8,13 @@ const mongoose = require('mongoose');
 const config = require('./config/database')
 
 // Connect to Database
-mongoose.connect( process.env.MONGODB_URI, {
+mongoose.connect( config.mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 } );
 // On Connection
 mongoose.connection.on('connected', () => {
-    console.log('Connected to DB ' + process.env.MONGODB_URI)
+    console.log('Connected to DB ' + config.mongoURI)
 });
 
 // On Error
