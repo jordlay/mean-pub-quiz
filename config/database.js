@@ -1,5 +1,5 @@
 module.exports = {
-    mongoURI: process.env.MONGO_URI,
+    mongoURI: process.env.MONGOD_URI,
     database: 'mongodb://localhost:27017/quizdb',
     secret: 'yoursecret'
 }
