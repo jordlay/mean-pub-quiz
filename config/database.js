@@ -1,4 +1,4 @@
 module.exports = {
-    database: 'mongodb://localhost:27017/quizdb',
+    database: 'mongodb+srv://jll541:mean-quiz@clusterquiz.inacn.mongodb.net/test',
     secret: 'yoursecret'
 }
