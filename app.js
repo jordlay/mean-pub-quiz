@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 const config = require('./config/database')
 
 // Connect to Database
-mongoose.connect( config.mongoURI, {
+mongoose.connect('mongodb+srv://jll541:mean-quiz@clusterquiz.inacn.mongodb.net/test?authSource=admin&replicaSet=atlas-wgqxem-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 } );
