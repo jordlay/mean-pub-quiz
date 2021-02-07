@@ -10,7 +10,7 @@ const config = require('./config/database')
 
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://jll541:mean-quiz@clusterquiz.inacn.mongodb.net/quizdb?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true });
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
   const collection = client.db("test").collection("devices");
   // perform actions on the collection object
@@ -62,6 +62,6 @@ app.get('*', (req,res) => {
     res.sendFile(path.join(__dirname, 'public/index.html'))
 });
 // Start Server
-app.listen(port, () => {
+app.listen(port, "0.0.0.0", () => {
     console.log ('server started on port ' + port)
 });
