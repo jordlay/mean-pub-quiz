@@ -9,7 +9,7 @@ const config = require('./config/database')
 
 const app = express();
 const users = require('./routes/users');
-let port = 8080 || process.env.port;
+let port = 8080 || process.env.PORT;
 
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://jll541:mean-quiz@clusterquiz.inacn.mongodb.net/quizdb?retryWrites=true&w=majority";
@@ -66,5 +66,5 @@ app.get('*', (req,res) => {
 });
 // Start Server
 app.listen(port, '0.0.0.0', () => {
-    console.log ('server started on port  ' + port)
+    console.log('server started on port ' + port);
 });
