@@ -18,6 +18,7 @@ client.connect(err => {
   const collection = client.db("quizdb").collection("test");
   // perform actions on the collection object
   console.log('connected to db', uri);
+  console.log('collection', collection);
 //   client.close();
 })
 
