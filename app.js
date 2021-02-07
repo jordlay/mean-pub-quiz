@@ -14,8 +14,11 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 client.connect(err => {
   const collection = client.db("test").collection("devices");
   // perform actions on the collection object
+  console.log('connected to db', uri);
   client.close();
-});
+})
+
+// client.uri;
 
 // // Connect to Database
 // mongoose.connect('mongodb+srv://jll541:mean-quiz@clusterquiz.inacn.mongodb.net/test?authSource=admin&replicaSet=atlas-wgqxem-shard-0&readPreference=primary&appname=MongoDB%20Compass&ssl=true', {
@@ -23,9 +26,9 @@ client.connect(err => {
 //     useUnifiedTopology: true
 // } );
 // // On Connection
-// mongoose.connection.on('connected', () => {
-//     console.log('Connected to DB ' + 'mongodb+srv://jll541:mean-quiz@clusterquiz.inacn.mongodb.net/quizdb?retryWrites=true&w=majority')
-// });
+mongoose.connection.on('connected', () => {
+    console.log('Connected to DB ' + uri)
+});
 
 // On Error
 mongoose.connection.on('error', (err) => {
