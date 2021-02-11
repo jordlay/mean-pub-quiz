@@ -25,6 +25,31 @@ router.post('/register', (req,res,next) => {
 
 });
 
+// Check Exisiting Username + Password
+router.post('/existingUsername', (req,res,next) => {
+    const username = req.body.username;
+    User.getUserByUsername(username, (err,user) => {
+        if (err) {throw err;}
+        if (!user) {
+            return res.json({success: false, msg: 'Username not found'});
+        } else {
+            return res.json({success: true, msg: 'Username already exists'});
+        }
+    });
+});
+
+router.post('/existingEmail', (req,res,next) => {
+    const email = req.body.email;
+    User.getUserByEmail(email, (err,user) => {
+        if (err) { throw err; }
+        if (!user) {
+            return res.json({success: false, msg: 'User with that email not found'});
+        } else {
+            return res.json({success: true, msg: 'User with that email exists'});
+        }
+    });
+});
+
 // Authenticate
 router.post('/authenticate', (req,res,next) => {
     // res.send('AUTHENTICATE');
@@ -34,7 +59,7 @@ router.post('/authenticate', (req,res,next) => {
     User.getUserByUsername(username, (err,user) => {
         if (err) {throw err;}
         if (!user) {
-            return res.json({sucess: false, msg: 'User not found'});
+            return res.json({success: false, msg: 'User not found'});
         }
         User.comparePassword(password, user.password, (err, isMatch) => {
             if (err) { throw err;}
@@ -54,7 +79,7 @@ router.post('/authenticate', (req,res,next) => {
                     }
                 });
             } else {
-                return res.json({sucess: false, msg: 'Wrong Password'});
+                return res.json({success: false, msg: 'Wrong Password'});
             }
         });
     });

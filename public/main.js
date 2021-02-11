@@ -425,31 +425,47 @@ class RegisterComponent {
                 username: this.username,
                 password: this.password
             };
-            this.authService.authenticateUser(user).subscribe(data => {
-                console.log(data.username, user.username, this.username);
-                console.log(data.email, user.email, this.username);
-                if (data.username === user.username) {
-                    this.errorMessage = "That username is taken, please try a different one!";
-                }
-                else if (data.email === user.email) {
-                    this.errorMessage = "That email is already associated with an account, try logging in instead!";
+            this.authService.checkUsernameExists(user).subscribe(data => {
+                console.log(user, data, this.username, "user compare");
+                if (data.msg === "Username already exists") {
+                    this.errorMessage = "This username is already taken, please choose another!";
+                    console.log(data.msg);
                 }
                 else {
-                    this.authService.registerUser(user).subscribe(data => {
-                        if (data.success) {
-                            this.success = true;
-                            this.router.navigate(['/login']);
+                    this.authService.checkEmailExists(user).subscribe(data => {
+                        if (data.msg === "User with that email exists") {
+                            this.errorMessage = "That email is already associated with an account, try logging in instead!";
+                            console.log(data.msg);
                         }
                         else {
-                            this.router.navigate(['/register']);
-                            this.success = false;
+                            this.authService.registerUser(user).subscribe(data => {
+                                if (data.success) {
+                                    this.success = true;
+                                    this.router.navigate(['/login']);
+                                }
+                                else {
+                                    this.router.navigate(['/register']);
+                                    this.success = false;
+                                }
+                            });
                         }
                     });
+                    console.log("user doesnt exist");
                 }
-                setTimeout(() => {
-                    this.errorMessage = "";
-                }, 3000);
             });
+            // this.authService.authenticateUser(user).subscribe(data => {
+            //   console.log((data as any).username ,user.usern1ame, this.username);
+            //   console.log((data as any).email ,user.email, this.username);
+            //   if ((data as any).username === user.username) {
+            //     this.errorMessage = "That username is taken, please try a different one!";
+            //   } else if ((data as any).email === user.email) {
+            //     this.errorMessage = "That email is already associated with an account, try logging in instead!"
+            //   } else {
+            // }
+            // setTimeout(()=>{                           //<<<---using ()=> syntax
+            //   this.errorMessage = "";
+            // }, 3000);
+            // });
         }
     }
 }
@@ -777,9 +793,17 @@ class AuthService {
         let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]().append('Authorization', this.authToken).append('Content-Type', 'application/json');
         return this.http.get('users/profile', { headers: headers });
     }
-    checkUserExists() {
-        let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]().append('Content-Type', 'application/json');
-        return this.http.get('users/exists', { headers: headers });
+    checkUsernameExists(user) {
+        let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('users/existingUsername', user, { headers: headers })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])((res) => res));
+    }
+    checkEmailExists(user) {
+        let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('users/existingEmail', user, { headers: headers })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])((res) => res));
     }
     storeUserData(token, user) {
         localStorage.setItem('id_token', token);
