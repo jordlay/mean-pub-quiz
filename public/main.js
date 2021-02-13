@@ -302,21 +302,11 @@ class ProfileComponent {
             }, 3000);
         }
         else {
-            this.authService.checkEmailExists(this.user).subscribe(data => {
-                if (data.success === true) {
-                    this.errorMessage = "That email is already associated with an account, try logging in instead!";
-                    setTimeout(() => {
-                        this.errorMessage = "";
-                    }, 3000);
-                }
-                else {
-                    this.authService.editEmail(this.user, this.email).subscribe(() => { }, (err) => {
-                        console.log(err);
-                        return false;
-                    });
-                    this.emailBoolean = !this.emailBoolean;
-                }
+            this.authService.editEmail(this.user, this.email).subscribe(() => { }, (err) => {
+                console.log(err);
+                return false;
             });
+            this.emailBoolean = !this.emailBoolean;
         }
     }
     editPassword() {
