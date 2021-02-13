@@ -40,7 +40,6 @@ router.post('/editEmail', (req,res,next) => {
 // Edit Password
 router.post('/editPassword', (req,res,next) => { 
     const user = req.body;
-    console.log('in user js', user);
         User.editPassword(user, (err, user) => {
             if (err) {
                 res.json({success: false, msg: 'Failed to Edit Password'});  
@@ -53,7 +52,6 @@ router.post('/editPassword', (req,res,next) => {
 // Delete User
 router.post('/deleteUser', (req,res,next) => { 
     const user = req.body;
-    console.log('in user js', user);
         User.deleteUser(user, (err, user) => {
             if (err) {
                 res.json({success: false, msg: 'Failed to Delete User'});  
