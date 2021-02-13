@@ -289,18 +289,34 @@ class ProfileComponent {
         return this.emailBoolean = !this.emailBoolean;
     }
     onEditEmailSubmit() {
-        if (this.email === undefined || this.email === "" || !(this.email.includes("@")) || !(this.email.endsWith(".com") || this.email.endsWith(".co.uk") || this.email.endsWith(".ac.uk"))) {
+        if (this.email === this.user.email) {
+            this.errorMessage = "That is your current email address!";
+            setTimeout(() => {
+                this.errorMessage = "";
+            }, 3000);
+        }
+        else if (this.email === undefined || this.email === "" || !(this.email.includes("@")) || !(this.email.endsWith(".com") || this.email.endsWith(".co.uk") || this.email.endsWith(".ac.uk"))) {
             this.errorMessage = "Invalid Email Address!";
             setTimeout(() => {
                 this.errorMessage = "";
             }, 3000);
         }
         else {
-            this.authService.editEmail(this.user, this.email).subscribe(() => { }, (err) => {
-                console.log(err);
-                return false;
+            this.authService.checkEmailExists(this.user).subscribe(data => {
+                if (data.success === true) {
+                    this.errorMessage = "That email is already associated with an account, try logging in instead!";
+                    setTimeout(() => {
+                        this.errorMessage = "";
+                    }, 3000);
+                }
+                else {
+                    this.authService.editEmail(this.user, this.email).subscribe(() => { }, (err) => {
+                        console.log(err);
+                        return false;
+                    });
+                    this.emailBoolean = !this.emailBoolean;
+                }
             });
-            this.emailBoolean = !this.emailBoolean;
         }
     }
     editPassword() {
