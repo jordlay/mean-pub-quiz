@@ -25,6 +25,18 @@ router.post('/register', (req,res,next) => {
 
 });
 
+// Edit (Email)
+router.post('/edit', (req,res,next) => { 
+    const user = req.body;
+        User.editEmail(user, (err, user) => {
+            if (err) {
+                res.json({success: false, msg: 'Failed to Edit Email'});  
+            } else {
+                res.json({success: true, msg: 'Email Edited'})
+            }
+        });
+});
+
 // Check Exisiting Username + Password
 router.post('/existingUsername', (req,res,next) => {
     const username = req.body.username;

@@ -17,7 +17,6 @@ password: {
 
 const User = module.exports = mongoose.model('User', UserSchema);
 
-// NOTE: could rewrite w new syntax
 module.exports.getUserById = function(id, callback){
     User.findById(id, callback);
 }
@@ -30,6 +29,13 @@ module.exports.getUserByUsername = function(username, callback){
 module.exports.getUserByEmail = function(email, callback){
     const query = {email: email}
     User.findOne(query, callback);
+}
+
+module.exports.editEmail = function(user, callback){
+    // user.username = username;
+    const query = {username : user.username };
+    const newEmail = { $set: {email: user.email}};
+    User.updateOne(query,newEmail, callback);
 }
 
 module.exports.addUser = function(newUser, callback){
