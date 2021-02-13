@@ -32,12 +32,28 @@ module.exports.getUserByEmail = function(email, callback){
 }
 
 module.exports.editEmail = function(user, callback){
-    // user.username = username;
     const query = {username : user.username };
     const newEmail = { $set: {email: user.email}};
     User.updateOne(query,newEmail, callback);
 }
 
+module.exports.editPassword = function(user, callback){
+    const query = {username : user.username };
+    bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(user.password, salt, (err,hash) => {
+            if (err) { throw err} ;
+            user.password = hash;
+            console.log(user.password);
+            const newPassword = { $set: {password: user.password}};
+            User.updateOne(query,newPassword, callback);
+        });
+    });
+}
+
+module.exports.deleteUser = function(user,callback){
+    const query = {username : user.username };
+    User.deleteOne(query, callback);
+}
 module.exports.addUser = function(newUser, callback){
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err,hash) => {

@@ -25,8 +25,8 @@ router.post('/register', (req,res,next) => {
 
 });
 
-// Edit (Email)
-router.post('/edit', (req,res,next) => { 
+// Edit Email
+router.post('/editEmail', (req,res,next) => { 
     const user = req.body;
         User.editEmail(user, (err, user) => {
             if (err) {
@@ -37,7 +37,33 @@ router.post('/edit', (req,res,next) => {
         });
 });
 
-// Check Exisiting Username + Password
+// Edit Password
+router.post('/editPassword', (req,res,next) => { 
+    const user = req.body;
+    console.log('in user js', user);
+        User.editPassword(user, (err, user) => {
+            if (err) {
+                res.json({success: false, msg: 'Failed to Edit Password'});  
+            } else {
+                res.json({success: true, msg: 'Password Edited'});
+            }
+        });
+});
+
+// Delete User
+router.post('/deleteUser', (req,res,next) => { 
+    const user = req.body;
+    console.log('in user js', user);
+        User.deleteUser(user, (err, user) => {
+            if (err) {
+                res.json({success: false, msg: 'Failed to Delete User'});  
+            } else {
+                res.json({success: true, msg: 'User Deleted'});
+            }
+        });
+});
+
+// Check Exisiting Username
 router.post('/existingUsername', (req,res,next) => {
     const username = req.body.username;
     User.getUserByUsername(username, (err,user) => {
@@ -50,6 +76,7 @@ router.post('/existingUsername', (req,res,next) => {
     });
 });
 
+// Check Existing Email
 router.post('/existingEmail', (req,res,next) => {
     const email = req.body.email;
     User.getUserByEmail(email, (err,user) => {
@@ -64,7 +91,6 @@ router.post('/existingEmail', (req,res,next) => {
 
 // Authenticate
 router.post('/authenticate', (req,res,next) => {
-    // res.send('AUTHENTICATE');
     const username = req.body.username;
     const password = req.body.password;
 
@@ -99,7 +125,6 @@ router.post('/authenticate', (req,res,next) => {
 
 // Profile
 router.get('/profile', passport.authenticate('jwt', {session:false}),(req,res,next) => {
-    // res.send('PROFILE');
     res.json({user: req.user});
 });
 
