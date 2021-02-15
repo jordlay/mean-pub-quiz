@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
     // this.user.username = "test";
     // this.user.password = "test";
 
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/profile']);
     if (this.username === undefined || this.username === "" || this.password === undefined || this.password === "") {
       this.success = false;
       setTimeout(()=>{                        
@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
       this.authService.authenticateUser(user).subscribe(data => {
         if ((data as any).success) {
           this.authService.storeUserData((data as any).token, (data as any).user);
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/profile']);
         } else {
           this.router.navigate(['/login']);
           this.errorMessage = (data as any).msg;

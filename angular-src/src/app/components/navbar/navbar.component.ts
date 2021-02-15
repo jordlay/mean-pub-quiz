@@ -10,11 +10,17 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
 
   constructor(public authService: AuthService, private router: Router) { }
-
+  navbarOpen = false;
   ngOnInit(): void {
+
   }
   onLogOutClick() {
     this.authService.logout();
     this.router.navigate(['/login']);
+  }
+  
+
+  toggleNavbar() {
+    this.navbarOpen = !this.navbarOpen;
   }
 }
