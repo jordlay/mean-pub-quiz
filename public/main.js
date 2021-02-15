@@ -302,12 +302,25 @@ class ProfileComponent {
             }, 3000);
         }
         else {
-            this.authService.editEmail(this.user, this.email).subscribe(() => { }, (err) => {
-                console.log(err);
-                return false;
+            const originalEmail = this.user.email;
+            this.user.email = this.email;
+            this.authService.checkEmailExists(this.user).subscribe(data => {
+                if (data.success === true) {
+                    this.user.email = originalEmail;
+                    this.errorMessage = "That email is already associated with an account, try logging in instead!";
+                    setTimeout(() => {
+                        this.errorMessage = "";
+                    }, 3000);
+                }
+                else {
+                    this.authService.editEmail(this.user).subscribe(() => { }, (err) => {
+                        console.log(err);
+                        return false;
+                    });
+                }
             });
-            this.emailBoolean = !this.emailBoolean;
         }
+        this.emailBoolean = !this.emailBoolean;
     }
     editPassword() {
         this.emailBoolean = false;
@@ -315,7 +328,7 @@ class ProfileComponent {
         return this.passwordBoolean = !this.passwordBoolean;
     }
     onEditPasswordSubmit() {
-        if (this.email === undefined || this.email === "") {
+        if (this.user.email === undefined || this.user.email === "") {
             this.errorMessage = "Invalid Password!";
         }
         else {
@@ -1043,9 +1056,8 @@ class AuthService {
         return this.http.post('users/register', user, { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])((res) => res));
     }
-    editEmail(user, newEmail) {
+    editEmail(user) {
         let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]();
-        user.email = newEmail;
         headers.append('Content-Type', 'application/json');
         return this.http.post('users/editEmail', user, { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])((res) => res));

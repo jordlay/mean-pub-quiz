@@ -59,13 +59,25 @@ onEditEmailSubmit() {
       this.errorMessage = "";
     }, 3000); 
   } else {
-        this.authService.editEmail(this.user, this.email).subscribe( () => {},
+    const originalEmail = this.user.email;
+    this.user.email = this.email;
+    this.authService.checkEmailExists(this.user).subscribe(data => {
+      if ((data as any).success === true) {
+        this.user.email = originalEmail;
+        this.errorMessage = "That email is already associated with an account, try logging in instead!";
+        setTimeout(()=>{                     
+          this.errorMessage = "";
+        }, 3000);
+      } else {
+        this.authService.editEmail(this.user).subscribe( () => {},
         (err: any) => {
         console.log(err);
         return false;
         });
-        this.emailBoolean = !this.emailBoolean;
+      }
+    });
   }
+  this.emailBoolean = !this.emailBoolean;
 }
 
 editPassword() {
@@ -75,7 +87,7 @@ editPassword() {
 }
 
 onEditPasswordSubmit() {
-  if ( this.email === undefined || this.email === "") {
+  if ( this.user.email === undefined || this.user.email === "") {
     this.errorMessage = "Invalid Password!"
   } else {
     this.authService.editPassword(this.user, this.password).subscribe( () => {},

@@ -43,7 +43,6 @@ module.exports.editPassword = function(user, callback){
         bcrypt.hash(user.password, salt, (err,hash) => {
             if (err) { throw err} ;
             user.password = hash;
-            console.log(user.password);
             const newPassword = { $set: {password: user.password}};
             User.updateOne(query,newPassword, callback);
         });
