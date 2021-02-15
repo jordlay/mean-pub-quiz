@@ -1,0 +1,23 @@
+<h2 class="page-header">Login</h2>
+<div *ngIf="success === false" class="alert alert-dismissible fade show alert-danger">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>You have not filled out all the required fields.</strong> 
+</div>
+<div *ngIf="this.errorMessage.length > 0" class="alert alert-dismissible fade show alert-danger">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>{{this.errorMessage}}</strong> 
+</div>
+<form (submit)="onLoginSubmit()" novalidate>
+    <fieldset>
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" [(ngModel)]="username" name="username" class="form-control" placeholder="Enter Username">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" [(ngModel)]="password" name="password" class="form-control" placeholder="Enter Password">
+      </div>
+   
+      <button type="submit" class="btn btn-primary" value="Login">Submit</button>
+    </fieldset>
+  </form>
