@@ -1,5 +1,5 @@
-<div> </div>
-<div class="jumbotron">
+<div #meet></div>
+<div *ngIf="!gameStarted" class="jumbotron">
     <h1 class="display-4">How would you like to play?</h1>
     <p class="lead">There are two ways to play.</p>
     <hr class="my-4">
@@ -18,7 +18,8 @@
             <h4 class=" card-header card-title">Join a Game</h4>
             <div class="card-body">
                 <p class="card-text">Join a game with the code your host has shared with you.</p>
-                <h4 class="card-title"> <button type="button" class="btn btn-outline-primary" disabled >Join a Game</button></h4>
+                
+                <h4 class="card-title"> <button type="button" class="btn btn-outline-primary" (click)="startRoom()" >Join a Game</button></h4>
               
             </div>
           </div>
