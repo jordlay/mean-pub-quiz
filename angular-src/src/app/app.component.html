@@ -1,3 +1,7 @@
+<!-- <script src='https://meet.jit.si/external_api.js'></script> -->
+<body>
+  <!-- <script> window.exports = {}; </script>
+  <script src='https://meet.jit.si/external_api.js'></script> -->
 
 <!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
 <!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
@@ -17,7 +21,12 @@
 <!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <div class="container">
-  <router-outlet></router-outlet>
-</div>
+  <router-outlet>  <div #meet></div>
+    <input [(ngModel)]="nickName" type="text">
+    <button click="executeAnyCommand()">test</button></router-outlet>
 
+</div>
+<button (click)="startRoom()">START ROOM</button>
+<script src="https://meet.jit.si/external_api.js"></script>
+</body>
 
