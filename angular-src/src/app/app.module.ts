@@ -13,10 +13,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common'; 
-// NOTE: check if need ot import services?
 import { AuthService } from './services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './guards/auth.guard';
+import { GamePlayComponent } from './components/game-play/game-play.component';
 
 const routes: Routes = [
 {path: '', component: HomeComponent},
@@ -24,6 +24,7 @@ const routes: Routes = [
 {path: 'login', component: LoginComponent},
 {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
 {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+{path: 'playgame', component: GamePlayComponent},
 ]; // sets up routes constant where you define your routes
 
 @NgModule({
@@ -34,7 +35,8 @@ const routes: Routes = [
     RegisterComponent,
     HomeComponent,
     DashboardComponent,
-    ProfileComponent
+    ProfileComponent,
+    GamePlayComponent
     // AuthService
   ],
   imports: [
