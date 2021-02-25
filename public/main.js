@@ -66,16 +66,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vendor_jitsi_external_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_vendor_jitsi_external_api_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "fXoL");
 /* harmony import */ var _services_game_creation_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../services/game-creation.service */ "D1//");
-/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "3Pt+");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ "tyNb");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/forms */ "3Pt+");
 // import '../vendor/jitsi/external_api.js';
+
 
 
 
 
 const _c0 = ["meet"];
 class HomeComponent {
-    constructor(gameCreationService) {
+    constructor(gameCreationService, router) {
         this.gameCreationService = gameCreationService;
+        this.router = router;
         this.displayName = '';
         this.gameStarted = false;
         this.joinedRoom = false;
@@ -94,7 +97,17 @@ class HomeComponent {
         // this.createdRoom = true;
         // this.gameStarted = true;
         console.log(this.displayName);
-        this.gameCreationService.getNewGameInfo(game).subscribe(() => { });
+        // this.gameCreationService.getNewGameInfo(game).subscribe( () => {});
+        this.gameCreationService.createGame(game).subscribe(data => {
+            if (data.success) {
+                // this.success = true;
+                this.router.navigate(['/playgame']);
+            }
+            else {
+                this.router.navigate(['/register']);
+                // this.success = false;
+            }
+        });
         // this.options = { 
         //   roomName: 'JordansRoom',  
         //   width: '80%', 
@@ -119,7 +132,7 @@ class HomeComponent {
         this.api = new JitsiMeetExternalAPI(this.domain, this.options);
     }
 }
-HomeComponent.ɵfac = function HomeComponent_Factory(t) { return new (t || HomeComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_services_game_creation_service__WEBPACK_IMPORTED_MODULE_2__["GameCreationService"])); };
+HomeComponent.ɵfac = function HomeComponent_Factory(t) { return new (t || HomeComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_services_game_creation_service__WEBPACK_IMPORTED_MODULE_2__["GameCreationService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"])); };
 HomeComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({ type: HomeComponent, selectors: [["app-home"]], viewQuery: function HomeComponent_Query(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵviewQuery"](_c0, 1);
     } if (rf & 2) {
@@ -180,7 +193,7 @@ HomeComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComp
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngModel", ctx.displayName);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](10);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngModel", ctx.roomPin);
-    } }, directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgModel"]], styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJob21lLmNvbXBvbmVudC5jc3MifQ== */"] });
+    } }, directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_4__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NgModel"]], styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJob21lLmNvbXBvbmVudC5jc3MifQ== */"] });
 
 
 /***/ }),
@@ -202,13 +215,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+// import * as CryptoJS from 'crypto-js';
+// import { crypto } from '../../../node_modules/crypto-browserify'
 // import { JwtHelperService } from '@auth0/angular-jwt';
+// const crypto = require('crypto');
+// const cryptoRandomString = require('crypto-random-string');
 class GameCreationService {
     constructor(http) {
         this.http = http;
     }
-    getNewGameInfo(game) {
+    createGame(game) {
+        this.generateCode();
         this.hostName = game.hostName;
+        game.roomPin = this.roomPin;
+        this.game = game;
+        // this.roomPin = game.roomPin;
         console.log(this.hostName, game);
         // this.createGame(game);
         let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]();
@@ -220,17 +241,23 @@ class GameCreationService {
         // create DB entry 
         // redirect to /playgame/{{code}}+JordansQuiz
     }
-    createaGame() {
-        // generate code
-        // create db entry
-        // pass info from db entry back to comp so jitsi room creation 
+    getMeetingParams() {
+        // if just created game
+        // if (this.hostName) {
+        // return this.game;
+        // } else {
+        console.log(this.game);
+        return this.game;
+        // let headers = new HttpHeaders().append('Content-Type', 'application/json');
+        // return this.http.get('games/meetingParams', {headers: headers})
+        // }
     }
-    createGame(game) {
-        console.log(game);
-        let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]();
-        headers.append('Content-Type', 'application/json');
-        return this.http.post('games/newGame', game, { headers: headers })
-            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])((res) => res));
+    generateCode() {
+        // console.log(Math.random().toString(20).substr(2, 5));
+        this.roomPin = Math.random().toString(20).substr(2, 5).toUpperCase();
+        // this.roomPin = crypto.randomBytes(6).toString('hex');
+        // this.roomPin = cryptoRandomString({length: 10, type: 'url-safe'});
+        console.log('service', this.roomPin);
     }
 }
 GameCreationService.ɵfac = function GameCreationService_Factory(t) { return new (t || GameCreationService)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"])); };
@@ -572,42 +599,46 @@ class GamePlayComponent {
         this.domain = 'meet.jit.si';
     }
     ngOnInit() {
-        const game = {
-            hostName: this.hostname,
-            roomPin: this.roomPin,
+        this.game = {
+            hostName: String,
+            roomPin: String,
         };
-        // dif to just join once created?
-        this.gameCreationService.createGame(game).subscribe(data => {
-            if (data.success) {
-                // this.success = true;
-                this.router.navigate(['/playgame']);
-            }
-            else {
-                this.router.navigate(['/register']);
-                // this.success = false;
-            }
-        });
+        // this.joinRoom(this.game);
     }
-    startRoom() {
-        this.createdRoom = true;
-        this.gameStarted = true;
+    ngAfterViewInit() {
+        setTimeout(() => { }, 3000);
+        this.game = this.gameCreationService.getMeetingParams();
+        console.log(this.game);
         this.options = {
-            roomName: 'JordansRoom',
-            width: '80%',
-            height: '80%',
-            parentNode: this.meet.nativeElement
+            roomName: this.game.roomPin,
+            configOverwrite: { startWithAudioMuted: true },
+            width: 500,
+            height: 500,
+            parentNode: this.meet.nativeElement,
         };
+        console.log(this.options);
         this.api = new JitsiMeetExternalAPI(this.domain, this.options);
-        console.log(this.api);
-        this.api.executeCommand('displayName', this.nickName);
     }
-    joinRoom() {
+    // startRoom(){
+    //   this.createdRoom = true;
+    //   this.gameStarted = true;
+    //   this.options = { 
+    //     roomName: 'JordansRoom',  
+    //     width: '80%', 
+    //     height: '80%', 
+    //     parentNode: this.meet.nativeElement};
+    //   this.api = new JitsiMeetExternalAPI(this.domain, this.options);
+    //   console.log(this.api);
+    //   this.api.executeCommand('displayName', this.nickName);
+    // }
+    joinRoom(game) {
         this.gameStarted = true;
         this.joinedRoom = true;
         console.log(this.roomPin, this.gameStarted, this.joinedRoom);
         // this.options.roomName = this.roomPin;
         this.options = {
-            roomName: this.roomPin,
+            roomName: game.roomPin,
+            configOverwrite: { startWithAudioMuted: true },
             width: 500,
             height: 500,
             parentNode: this.meet.nativeElement,
@@ -622,11 +653,17 @@ GamePlayComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefine
     } if (rf & 2) {
         let _t;
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵloadQuery"]()) && (ctx.meet = _t.first);
-    } }, decls: 4, vars: 0, consts: [["meet", ""]], template: function GamePlayComponent_Template(rf, ctx) { if (rf & 1) {
+    } }, decls: 6, vars: 1, consts: [["meet", ""]], template: function GamePlayComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "p");
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](1, "game-play works!");
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](2, "div", null, 0);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](2, "div");
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](4, "div", null, 0);
+    } if (rf & 2) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](ctx.game.roomPin);
     } }, styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJnYW1lLXBsYXkuY29tcG9uZW50LmNzcyJ9 */"] });
 
 

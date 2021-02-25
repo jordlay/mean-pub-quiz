@@ -1,4 +1,5 @@
-import { OnInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { OnInit, Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Router,  ActivatedRoute, ParamMap } from '@angular/router';
 import { GameCreationService } from '../../services/game-creation.service';
 // import '../vendor/jitsi/external_api.js';
 import '../../../vendor/jitsi/external_api.js';
@@ -10,12 +11,12 @@ declare var JitsiMeetExternalAPI: any;
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
-  constructor(private gameCreationService: GameCreationService) { }
+  @ViewChild('meet') meet: ElementRef | any;
+  constructor(private gameCreationService: GameCreationService, private router:Router) { }
   ngOnInit(): void {
     //
   }
-  @ViewChild('meet') meet: ElementRef | any;
+  
   displayName = '';
   api: any;
   gameStarted = false;
@@ -37,7 +38,16 @@ export class HomeComponent implements OnInit {
     // this.createdRoom = true;
     // this.gameStarted = true;
     console.log(this.displayName);
-    this.gameCreationService.getNewGameInfo(game).subscribe( () => {});
+    // this.gameCreationService.getNewGameInfo(game).subscribe( () => {});
+    this.gameCreationService.createGame(game).subscribe(data => {
+      if ((data as any).success) {
+        // this.success = true;
+        this.router.navigate(['/playgame']);
+      } else {
+        this.router.navigate(['/register']);
+        // this.success = false;
+      }
+    });
     // this.options = { 
     //   roomName: 'JordansRoom',  
     //   width: '80%', 
