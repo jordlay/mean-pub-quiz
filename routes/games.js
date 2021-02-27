@@ -6,6 +6,7 @@ const Game = require('../models/game');
 router.post('/newGame', (req,res,next) => {
     let newGame = new Game({
     hostName: req.body.hostName,
+    displayName: req.body.displayName,
     roomPin: req.body.roomPin
     });
     Game.addGame(newGame, (err,game) => {
@@ -35,7 +36,7 @@ router.post('/joinGame',(req,res,next) => {
     if (roomPin) {
         Game.getGameByPin(roomPin, (err,game) => {
             if (err) { throw err; }
-            return res.json({success: true, game: {roomPin: game.roomPin, hostName: game.hostName}});
+            return res.json({success: true, game: {roomPin: game.roomPin, hostName: game.hostName, displayName: game.displayName}});
         });
     } else {
         return res.json({success: false, msg: 'No Room Pin Given'});

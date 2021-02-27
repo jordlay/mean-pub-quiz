@@ -7,7 +7,9 @@ import { map } from 'rxjs/operators';
 })
 export class GameCreationService {
   hostName: any;
+  hostBool: any;
   roomPin: any;
+  displayName: any;
   game: any;
   newGameBoolean = true;
   constructor(private http: HttpClient) { }
@@ -38,7 +40,8 @@ export class GameCreationService {
   getMeetingParams(){
     let game = {
       roomPin: '',
-      hostName: ''
+      hostName: '',
+      displayName: ''
     };
 
     if (this.roomPin) {
@@ -47,6 +50,7 @@ export class GameCreationService {
       headers.append('Content-Type', 'application/json');
       return this.http.post('games/joinGame',game, {headers: headers}).pipe(map((res) => res)); 
     } else {
+      // game.displayName = this.displayName;
       let headers = new HttpHeaders()
       headers.append('Content-Type', 'application/json');
       return this.http.post('games/joinGame',game, {headers: headers}).pipe(map((res) => res)); 
@@ -57,6 +61,24 @@ export class GameCreationService {
   getRoomPin(roomPin: string) {
     this.roomPin = roomPin
     return this.roomPin;
+  }
+
+  setDisplayName(displayName: string){
+    this.displayName = displayName;
+    return this.displayName;
+  }
+
+  getDisplayName(){
+    return this.displayName;
+  }
+
+  setHostBoolean(hostBool: boolean){
+    this.hostBool = hostBool
+    return this.hostBool
+  }
+
+  getHostBoolean(){
+    return this.hostBool
   }
 
   generateCode() {

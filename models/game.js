@@ -6,6 +6,7 @@ const config = require('../config/database');
 
 const GameSchema = mongoose.Schema( {
     hostName: {type: String},
+    displayName: {type: String},
     roomPin: {
         type: String,
         required: true},

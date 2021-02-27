@@ -24,42 +24,58 @@ export class GamePlayComponent implements OnInit {
   domain = 'meet.jit.si';
   hostname: any;
   errorMessage: any;
+  isHost = false;
   @ViewChild('meet') meet: ElementRef | any;
 
   ngOnInit(): void {
     this.game = {
       hostName: String,
-      roomPin: String
+      roomPin: String,
+      displayName: String
     }
   }
 
   ngAfterViewInit() {
     // try without timeout
-    setTimeout(()=>{}, 3000);
+    // setTimeout(()=>{}, 3000);
     this.gameCreationService.getMeetingParams().subscribe(data => {
       this.data = data;
       if (this.data.success) {
-        
         this.game = this.data.game;
-        this.options = { 
+        
+        let displayName = this.gameCreationService.getDisplayName();
+        let HostBool = this.gameCreationService.getHostBoolean();
+
+        if (displayName === undefined) {
+          this.isHost = true;
+          this.options = { 
             roomName: this.game.roomPin + 'JordansQuiz',  
             configOverwrite: { startWithAudioMuted: true },
             width: 500, 
             height: 500, 
             parentNode: this.meet.nativeElement,
             userInfo: {
-              displayName: this.game.hostName
+              displayName: this.game.displayName
+            }
           }
-        }
+        } else {
+        this.options = { 
+            roomName: this.game.roomPin + 'JordansQuiz',  
+            configOverwrite: { startWithAudioMuted: true },
+            width: 500, 
+            height: 500, 
+            parentNode: this.meet.nativeElement,
+              userInfo: {
+              displayName: displayName
+            }
+          }
+        } 
         setTimeout(()=>{}, 3000);
         this.api = new JitsiMeetExternalAPI(this.domain, this.options);
   
       } else {
         this.errorMessage = "You must create or enter a pin";
       }
-     
-
-      
     });
   }
 

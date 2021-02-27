@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
   
   constructor(private gameCreationService: GameCreationService, private router:Router, private route: ActivatedRoute) { }
   displayName = '';
+  joinedDisplayNamed = '';
   api: any;
   gameStarted = false;
   joinedRoom = false;
@@ -29,12 +30,14 @@ export class HomeComponent implements OnInit {
   createRoom(){
     const game = {
       hostName: this.displayName,
+      displayName: this.displayName,
       roomPin: this.roomPin,
     }
     if (game.hostName.length > 0) {
       this.gameCreationService.createGame(game).subscribe(data => {
         if ((data as any).success) {
           this.gameCreationService.getRoomPin(game.roomPin);
+          this.gameCreationService.setHostBoolean(true);
           this.router.navigate(['/playgame']);
         } else {
           this.router.navigate(['/']);
@@ -48,13 +51,16 @@ export class HomeComponent implements OnInit {
 
   joinRoom(){
     const game = {
-      hostName: '',
+      // hostName: '',
       roomPin: this.roomPin,
+      displayName: this.joinedDisplayNamed
     }
     if (this.roomPin.length > 0) {
       this.gameCreationService.checkGameExists(game).subscribe((data) => {
         if ((data as any).success) {
           this.gameCreationService.getRoomPin(game.roomPin);
+          this.gameCreationService.setDisplayName(game.displayName);
+          this.gameCreationService.setHostBoolean(false);
           this.router.navigate(['/playgame']);
         } else {
           this.router.navigate(['/']);

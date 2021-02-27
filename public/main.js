@@ -77,8 +77,8 @@ __webpack_require__.r(__webpack_exports__);
 
 const _c0 = ["meet"];
 function HomeComponent_div_0_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 14);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "button", 15);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 15);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "button", 16);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](2, "\u00D7");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](3, "strong");
@@ -96,6 +96,7 @@ class HomeComponent {
         this.router = router;
         this.route = route;
         this.displayName = '';
+        this.joinedDisplayNamed = '';
         this.gameStarted = false;
         this.joinedRoom = false;
         this.createdRoom = false;
@@ -108,12 +109,14 @@ class HomeComponent {
     createRoom() {
         const game = {
             hostName: this.displayName,
+            displayName: this.displayName,
             roomPin: this.roomPin,
         };
         if (game.hostName.length > 0) {
             this.gameCreationService.createGame(game).subscribe(data => {
                 if (data.success) {
                     this.gameCreationService.getRoomPin(game.roomPin);
+                    this.gameCreationService.setHostBoolean(true);
                     this.router.navigate(['/playgame']);
                 }
                 else {
@@ -128,13 +131,16 @@ class HomeComponent {
     }
     joinRoom() {
         const game = {
-            hostName: '',
+            // hostName: '',
             roomPin: this.roomPin,
+            displayName: this.joinedDisplayNamed
         };
         if (this.roomPin.length > 0) {
             this.gameCreationService.checkGameExists(game).subscribe((data) => {
                 if (data.success) {
                     this.gameCreationService.getRoomPin(game.roomPin);
+                    this.gameCreationService.setDisplayName(game.displayName);
+                    this.gameCreationService.setHostBoolean(false);
                     this.router.navigate(['/playgame']);
                 }
                 else {
@@ -156,7 +162,7 @@ HomeComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComp
     } if (rf & 2) {
         let _t;
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵloadQuery"]()) && (ctx.meet = _t.first);
-    } }, decls: 27, vars: 3, consts: [["class", "alert alert-dismissible fade show alert-danger", 4, "ngIf"], [1, "display-4"], [1, "lead"], [1, "my-4"], [1, "card-deck", 2, "width", "100%", "overflow", "hidden"], [1, "card", "border-secondary", "mb-3", 2, "max-width", "20rem"], [1, "card-header", "card-title"], [1, "card-body"], [1, "card-text"], ["type", "text", "name", "displayName", "placeholder", "Enter Display Name", 1, "form-control", 3, "ngModel", "ngModelChange"], [1, "card-title"], ["type", "button", 1, "btn", "btn-outline-primary", 3, "click"], [1, "card", "text-white", "bg-secondary", "mb-3", 2, "max-width", "20rem", "flex-grow", "1"], ["type", "text", "name", "roomPin", "placeholder", "Enter Game Code", 1, "form-control", 3, "ngModel", "ngModelChange"], [1, "alert", "alert-dismissible", "fade", "show", "alert-danger"], ["type", "button", "data-dismiss", "alert", 1, "close"]], template: function HomeComponent_Template(rf, ctx) { if (rf & 1) {
+    } }, decls: 28, vars: 4, consts: [["class", "alert alert-dismissible fade show alert-danger", 4, "ngIf"], [1, "display-4"], [1, "lead"], [1, "my-4"], [1, "card-deck", 2, "width", "100%", "overflow", "hidden"], [1, "card", "border-secondary", "mb-3", 2, "max-width", "20rem"], [1, "card-header", "card-title"], [1, "card-body"], [1, "card-text"], ["type", "text", "name", "displayName", "placeholder", "Enter Display Name", 1, "form-control", 3, "ngModel", "ngModelChange"], [1, "card-title"], ["type", "button", 1, "btn", "btn-outline-primary", 3, "click"], [1, "card", "text-white", "bg-secondary", "mb-3", 2, "max-width", "20rem", "flex-grow", "1"], ["type", "text", "name", "roomPin", "placeholder", "Enter Game Code", 1, "form-control", 3, "ngModel", "ngModelChange"], ["type", "text", "name", "joinedDisplayNamed", "placeholder", "Enter Display Name", 1, "form-control", 3, "ngModel", "ngModelChange"], [1, "alert", "alert-dismissible", "fade", "show", "alert-danger"], ["type", "button", "data-dismiss", "alert", 1, "close"]], template: function HomeComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](0, HomeComponent_div_0_Template, 5, 1, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "h1", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](2, "How would you like to play?");
@@ -196,10 +202,13 @@ HomeComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComp
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](23, "input", 13);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("ngModelChange", function HomeComponent_Template_input_ngModelChange_23_listener($event) { return ctx.roomPin = $event; });
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](24, "h4", 10);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](25, "button", 11);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function HomeComponent_Template_button_click_25_listener() { return ctx.joinRoom(); });
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](26, "Join a Game");
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](24, "input", 14);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("ngModelChange", function HomeComponent_Template_input_ngModelChange_24_listener($event) { return ctx.joinedDisplayNamed = $event; });
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](25, "h4", 10);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](26, "button", 11);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function HomeComponent_Template_button_click_26_listener() { return ctx.joinRoom(); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](27, "Join a Game");
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
@@ -211,6 +220,8 @@ HomeComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComp
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngModel", ctx.displayName);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](10);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngModel", ctx.roomPin);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngModel", ctx.joinedDisplayNamed);
     } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_4__["NgIf"], _angular_forms__WEBPACK_IMPORTED_MODULE_5__["DefaultValueAccessor"], _angular_forms__WEBPACK_IMPORTED_MODULE_5__["NgControlStatus"], _angular_forms__WEBPACK_IMPORTED_MODULE_5__["NgModel"]], styles: [".card-title[_ngcontent-%COMP%]{\r\n    padding-top: 6px !important;\r\n    margin: 0px !important;\r\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImhvbWUuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLDJCQUEyQjtJQUMzQixzQkFBc0I7QUFDMUIiLCJmaWxlIjoiaG9tZS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmNhcmQtdGl0bGV7XHJcbiAgICBwYWRkaW5nLXRvcDogNnB4ICFpbXBvcnRhbnQ7XHJcbiAgICBtYXJnaW46IDBweCAhaW1wb3J0YW50O1xyXG59Il19 */"] });
 
 
@@ -241,7 +252,6 @@ class GameCreationService {
     createGame(game) {
         game.roomPin = this.generateCode();
         let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]();
-        console.log(game);
         headers.append('Content-Type', 'application/json');
         return this.http.post('games/newGame', game, { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])((res) => res));
@@ -254,16 +264,15 @@ class GameCreationService {
     }
     endGame(game) {
         let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]();
-        console.log(game);
         headers.append('Content-Type', 'application/json');
-        console.log(this.http.post('games/endGame', game, { headers: headers }));
         return this.http.post('games/endGame', game, { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])((res) => res));
     }
     getMeetingParams() {
         let game = {
             roomPin: '',
-            hostName: ''
+            hostName: '',
+            displayName: ''
         };
         if (this.roomPin) {
             game.roomPin = this.roomPin;
@@ -272,6 +281,7 @@ class GameCreationService {
             return this.http.post('games/joinGame', game, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])((res) => res));
         }
         else {
+            // game.displayName = this.displayName;
             let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]();
             headers.append('Content-Type', 'application/json');
             return this.http.post('games/joinGame', game, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])((res) => res));
@@ -280,6 +290,20 @@ class GameCreationService {
     getRoomPin(roomPin) {
         this.roomPin = roomPin;
         return this.roomPin;
+    }
+    setDisplayName(displayName) {
+        this.displayName = displayName;
+        return this.displayName;
+    }
+    getDisplayName() {
+        return this.displayName;
+    }
+    setHostBoolean(hostBool) {
+        this.hostBool = hostBool;
+        return this.hostBool;
+    }
+    getHostBoolean() {
+        return this.hostBool;
     }
     generateCode() {
         return Math.random().toString(20).substr(2, 5).toUpperCase();
@@ -621,30 +645,49 @@ class GamePlayComponent {
         this.joinedRoom = false;
         this.createdRoom = false;
         this.domain = 'meet.jit.si';
+        this.isHost = false;
     }
     ngOnInit() {
         this.game = {
             hostName: String,
-            roomPin: String
+            roomPin: String,
+            displayName: String
         };
     }
     ngAfterViewInit() {
         // try without timeout
-        setTimeout(() => { }, 3000);
+        // setTimeout(()=>{}, 3000);
         this.gameCreationService.getMeetingParams().subscribe(data => {
             this.data = data;
             if (this.data.success) {
                 this.game = this.data.game;
-                this.options = {
-                    roomName: this.game.roomPin + 'JordansQuiz',
-                    configOverwrite: { startWithAudioMuted: true },
-                    width: 500,
-                    height: 500,
-                    parentNode: this.meet.nativeElement,
-                    userInfo: {
-                        displayName: this.game.hostName
-                    }
-                };
+                let displayName = this.gameCreationService.getDisplayName();
+                let HostBool = this.gameCreationService.getHostBoolean();
+                if (displayName === undefined) {
+                    this.isHost = true;
+                    this.options = {
+                        roomName: this.game.roomPin + 'JordansQuiz',
+                        configOverwrite: { startWithAudioMuted: true },
+                        width: 500,
+                        height: 500,
+                        parentNode: this.meet.nativeElement,
+                        userInfo: {
+                            displayName: this.game.displayName
+                        }
+                    };
+                }
+                else {
+                    this.options = {
+                        roomName: this.game.roomPin + 'JordansQuiz',
+                        configOverwrite: { startWithAudioMuted: true },
+                        width: 500,
+                        height: 500,
+                        parentNode: this.meet.nativeElement,
+                        userInfo: {
+                            displayName: displayName
+                        }
+                    };
+                }
                 setTimeout(() => { }, 3000);
                 this.api = new JitsiMeetExternalAPI(this.domain, this.options);
             }
@@ -656,10 +699,7 @@ class GamePlayComponent {
     endGame() {
         this.api.dispose();
         this.router.navigate(['/']);
-        console.log(this.game);
-        this.gameCreationService.endGame(this.game);
-        // .subscribe( () => {
-        // });
+        this.gameCreationService.endGame(this.game).subscribe(() => { });
     }
 }
 GamePlayComponent.ɵfac = function GamePlayComponent_Factory(t) { return new (t || GamePlayComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_services_game_creation_service__WEBPACK_IMPORTED_MODULE_2__["GameCreationService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"])); };

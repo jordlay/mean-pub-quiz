@@ -22,6 +22,7 @@
             <div class="card-body">
                 <p class="card-text">Join a game with the code your host has shared with you.</p>
                 <input type="text" [(ngModel)]="roomPin" name="roomPin" class="form-control" placeholder="Enter Game Code">
+                <input type="text" [(ngModel)]="joinedDisplayNamed" name="joinedDisplayNamed" class="form-control" placeholder="Enter Display Name">
                 <h4 class="card-title"> <button type="button" class="btn btn-outline-primary" (click)="joinRoom()" >Join a Game</button></h4>
               
             </div>
