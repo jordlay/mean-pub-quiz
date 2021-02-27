@@ -12,7 +12,6 @@ export class RegisterComponent implements OnInit {
   email!: String;
   password!: String;
   success = true;
-  // isValid = false;
   errorMessage = "";
 
   constructor(private authService: AuthService, private router: Router) { }

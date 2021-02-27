@@ -1,47 +1,89 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-// import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameCreationService {
   hostName: any;
+  hostBool: any;
+  roomPin: any;
+  displayName: any;
+  game: any;
+  newGameBoolean = true;
   constructor(private http: HttpClient) { }
 
-  getNewGameInfo(game: any) {
-    this.hostName = game.hostName;
-    console.log(this.hostName, game);
-    // this.createGame(game);
+  createGame(game: any) {
+    game.roomPin = this.generateCode();
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     return this.http.post('games/newGame', game, {headers: headers})
       .pipe(map((res) => res));  
-    // get host name
-    // generate random code
-    // create DB entry 
-    // redirect to /playgame/{{code}}+JordansQuiz
+
   }
 
-  createaGame(){
-  // generate code
-  // create db entry
-  // pass info from db entry back to comp so jitsi room creation 
-  }
-
-  createGame(game: any){
-    console.log(game);
+  checkGameExists(game: any){
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('games/newGame', game, {headers: headers})
+    return this.http.post('games/checkGame', game, {headers: headers})
       .pipe(map((res) => res));  
   }
-  
-  // Create DB Entry of Code with room name as code+Jordan'sRoom
 
-  // Collect DisplayName
-  // Set 
+  endGame(game:any){
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('games/endGame', game, {headers: headers})
+      .pipe(map((res) => res));  
+  }
+
+  getMeetingParams(){
+    let game = {
+      roomPin: '',
+      hostName: '',
+      displayName: ''
+    };
+
+    if (this.roomPin) {
+      game.roomPin = this.roomPin;
+      let headers = new HttpHeaders()
+      headers.append('Content-Type', 'application/json');
+      return this.http.post('games/joinGame',game, {headers: headers}).pipe(map((res) => res)); 
+    } else {
+      // game.displayName = this.displayName;
+      let headers = new HttpHeaders()
+      headers.append('Content-Type', 'application/json');
+      return this.http.post('games/joinGame',game, {headers: headers}).pipe(map((res) => res)); 
+    }
+     
+  } 
+
+  getRoomPin(roomPin: string) {
+    this.roomPin = roomPin
+    return this.roomPin;
+  }
+
+  setDisplayName(displayName: string){
+    this.displayName = displayName;
+    return this.displayName;
+  }
+
+  getDisplayName(){
+    return this.displayName;
+  }
+
+  setHostBoolean(hostBool: boolean){
+    this.hostBool = hostBool
+    return this.hostBool
+  }
+
+  getHostBoolean(){
+    return this.hostBool
+  }
+
+  generateCode() {
+    return Math.random().toString(20).substr(2, 5).toUpperCase();
+  }
 
   // Future: Send Invite
 

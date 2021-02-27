@@ -1,4 +1,4 @@
-import { OnInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { OnInit, Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import '../../../vendor/jitsi/external_api.js';
 import { GameCreationService } from '../../services/game-creation.service'
 import { Router,  ActivatedRoute, ParamMap } from '@angular/router';
@@ -13,27 +13,8 @@ declare var JitsiMeetExternalAPI: any;
 export class GamePlayComponent implements OnInit {
 
   constructor(private gameCreationService: GameCreationService, private router: Router) { }
-
-  ngOnInit(): void {
-  const game = {
-    hostName: this.hostname,
-    roomPin: this.roomPin,
-  }
-  // dif to just join once created?
-  this.gameCreationService.createGame(game).subscribe(data => {
-    if ((data as any).success) {
-      // this.success = true;
-      this.router.navigate(['/playgame']);
-    } else {
-      this.router.navigate(['/register']);
-      // this.success = false;
-    }
-  });
-  }
-  
-
-  @ViewChild('meet') meet: ElementRef | any;
-  public nickName = 'J';
+  game: any;
+  data: any;
   api: any;
   gameStarted = false;
   joinedRoom = false;
@@ -42,36 +23,65 @@ export class GamePlayComponent implements OnInit {
   options: any;
   domain = 'meet.jit.si';
   hostname: any;
+  errorMessage: any;
+  isHost = false;
+  @ViewChild('meet') meet: ElementRef | any;
 
-  startRoom(){
-    this.createdRoom = true;
-    this.gameStarted = true;
-    
-    this.options = { 
-      roomName: 'JordansRoom',  
-      width: '80%', 
-      height: '80%', 
-      parentNode: this.meet.nativeElement};
-    
-    this.api = new JitsiMeetExternalAPI(this.domain, this.options);
-    console.log(this.api);
-    this.api.executeCommand('displayName', this.nickName);
-
-  }
-  joinRoom(){
-    this.gameStarted = true;
-    this.joinedRoom = true;
-    console.log(this.roomPin, this.gameStarted, this.joinedRoom);
-    // this.options.roomName = this.roomPin;
-    
-    this.options = { 
-      roomName: this.roomPin,  
-      width: 500, 
-      height: 500, 
-      parentNode: this.meet.nativeElement,
-      };
-      console.log(this.options);
-    this.api = new JitsiMeetExternalAPI(this.domain, this.options);
+  ngOnInit(): void {
+    this.game = {
+      hostName: String,
+      roomPin: String,
+      displayName: String
+    }
   }
 
+  ngAfterViewInit() {
+    // try without timeout
+    // setTimeout(()=>{}, 3000);
+    this.gameCreationService.getMeetingParams().subscribe(data => {
+      this.data = data;
+      if (this.data.success) {
+        this.game = this.data.game;
+        
+        let displayName = this.gameCreationService.getDisplayName();
+        let HostBool = this.gameCreationService.getHostBoolean();
+
+        if (displayName === undefined) {
+          this.isHost = true;
+          this.options = { 
+            roomName: this.game.roomPin + 'JordansQuiz',  
+            configOverwrite: { startWithAudioMuted: true },
+            width: 500, 
+            height: 500, 
+            parentNode: this.meet.nativeElement,
+            userInfo: {
+              displayName: this.game.displayName
+            }
+          }
+        } else {
+        this.options = { 
+            roomName: this.game.roomPin + 'JordansQuiz',  
+            configOverwrite: { startWithAudioMuted: true },
+            width: 500, 
+            height: 500, 
+            parentNode: this.meet.nativeElement,
+              userInfo: {
+              displayName: displayName
+            }
+          }
+        } 
+        setTimeout(()=>{}, 3000);
+        this.api = new JitsiMeetExternalAPI(this.domain, this.options);
+  
+      } else {
+        this.errorMessage = "You must create or enter a pin";
+      }
+    });
+  }
+
+  endGame(){
+    this.api.dispose();
+    this.router.navigate(['/']);
+    this.gameCreationService.endGame(this.game).subscribe( () => {});
+  }
 }
