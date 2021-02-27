@@ -32,8 +32,6 @@ router.post('/checkGame',(req,res,next) => {
 
 router.post('/joinGame',(req,res,next) => {
     const roomPin = req.body.roomPin;
-    console.log(req);
-    console.log(roomPin)
     if (roomPin) {
         Game.getGameByPin(roomPin, (err,game) => {
             if (err) { throw err; }

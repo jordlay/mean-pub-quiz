@@ -53,9 +53,7 @@ export class HomeComponent implements OnInit {
     }
     if (this.roomPin.length > 0) {
       this.gameCreationService.checkGameExists(game).subscribe((data) => {
-        console.log(this.roomPin, 'roompun');
         if ((data as any).success) {
-          console.log(data);
           this.gameCreationService.getRoomPin(game.roomPin);
           this.router.navigate(['/playgame']);
         } else {

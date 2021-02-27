@@ -23,7 +23,6 @@ export class GameCreationService {
   }
 
   checkGameExists(game: any){
-    console.log(game, this.game, 'roompun');
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     return this.http.post('games/checkGame', game, {headers: headers})
@@ -40,12 +39,10 @@ export class GameCreationService {
       game.roomPin = this.roomPin;
       let headers = new HttpHeaders()
       headers.append('Content-Type', 'application/json');
-      console.log(this.http.post('games/joinGame', game,{headers: headers}));
       return this.http.post('games/joinGame',game, {headers: headers}).pipe(map((res) => res)); 
     } else {
       let headers = new HttpHeaders()
       headers.append('Content-Type', 'application/json');
-      console.log(this.http.post('games/joinGame', game,{headers: headers}));
       return this.http.post('games/joinGame',game, {headers: headers}).pipe(map((res) => res)); 
     }
      

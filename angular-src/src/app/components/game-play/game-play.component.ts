@@ -37,12 +37,10 @@ export class GamePlayComponent implements OnInit {
 
     setTimeout(()=>{}, 3000);
     this.gameCreationService.getMeetingParams().subscribe(data => {
-      console.log(data);
       this.data = data;
       if (this.data.success) {
         
         this.game = this.data.game;
-        console.log(this.game, this.game.game);
         this.options = { 
             roomName: this.game.roomPin + 'JordansQuiz',  
             configOverwrite: { startWithAudioMuted: true },
@@ -54,11 +52,9 @@ export class GamePlayComponent implements OnInit {
           }
         }
         setTimeout(()=>{}, 3000);
-        console.log(this.options);
         this.api = new JitsiMeetExternalAPI(this.domain, this.options);
   
       } else {
-        console.log(data, 'no data');
         this.errorMessage = "You must create or enter a pin";
       }
      
