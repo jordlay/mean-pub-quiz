@@ -1,8 +1,11 @@
-<div class="jumbotron">
+
+  <div *ngIf="this.errorMessage.length > 0" class="alert alert-dismissible fade show alert-danger">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <strong>{{this.errorMessage}}</strong> 
+  </div>
     <h1 class="display-4">How would you like to play?</h1>
     <p class="lead">There are two ways to play.</p>
     <hr class="my-4">
-    <!-- <p>It uses utility classes for typography and spacing to space content out within the larger container.</p> -->
     <div class="card-deck" style="width: 100%; overflow: hidden;">
         <div class="card border-secondary mb-3" style="max-width: 20rem;">
             <h4 class=" card-header card-title"> Create a Game</h4>
@@ -25,4 +28,3 @@
           </div>
     </div>
   
-  </div>

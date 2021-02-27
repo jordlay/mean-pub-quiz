@@ -1,7 +1,6 @@
 import { OnInit, Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import { Router,  ActivatedRoute, ParamMap } from '@angular/router';
 import { GameCreationService } from '../../services/game-creation.service';
-// import '../vendor/jitsi/external_api.js';
 import '../../../vendor/jitsi/external_api.js';
 declare var JitsiMeetExternalAPI: any;
 
@@ -12,67 +11,64 @@ declare var JitsiMeetExternalAPI: any;
 })
 export class HomeComponent implements OnInit {
   @ViewChild('meet') meet: ElementRef | any;
-  constructor(private gameCreationService: GameCreationService, private router:Router) { }
-  ngOnInit(): void {
-    //
-  }
   
+  constructor(private gameCreationService: GameCreationService, private router:Router, private route: ActivatedRoute) { }
   displayName = '';
   api: any;
   gameStarted = false;
   joinedRoom = false;
   createdRoom = false;
   roomPin = '';
-  // options = { 
-  //   roomName: StringConstructor,  
-  //   width: String, 
-  //   height: String, 
-  //   parentNode: any};
   options: any;
   domain = 'meet.jit.si';
+  errorMessage = '';
+
+  ngOnInit(): void {
+  }
+  
   createRoom(){
     const game = {
       hostName: this.displayName,
       roomPin: this.roomPin,
     }
-    // this.createdRoom = true;
-    // this.gameStarted = true;
-    console.log(this.displayName);
-    // this.gameCreationService.getNewGameInfo(game).subscribe( () => {});
-    this.gameCreationService.createGame(game).subscribe(data => {
-      if ((data as any).success) {
-        // this.success = true;
-        this.router.navigate(['/playgame']);
-      } else {
-        this.router.navigate(['/register']);
-        // this.success = false;
-      }
-    });
-    // this.options = { 
-    //   roomName: 'JordansRoom',  
-    //   width: '80%', 
-    //   height: '80%', 
-    //   parentNode: this.meet.nativeElement};
-    
-    // this.api = new JitsiMeetExternalAPI(this.domain, this.options);
-    // console.log(this.api);
-    // this.api.executeCommand('displayName', this.nickName);
-
+    if (game.hostName.length > 0) {
+      this.gameCreationService.createGame(game).subscribe(data => {
+        if ((data as any).success) {
+          this.gameCreationService.getRoomPin(game.roomPin);
+          this.router.navigate(['/playgame']);
+        } else {
+          this.router.navigate(['/']);
+        }
+      });
+    } else {
+      this.errorMessage = "Please enter a display name";
+      setTimeout(()=>{this.errorMessage = "";}, 3000);
+    }
   }
+
   joinRoom(){
-    // this.gameStarted = true;
-    // this.joinedRoom = true;
-    console.log(this.roomPin, this.gameStarted, this.joinedRoom);
-    // this.options.roomName = this.roomPin;
+    const game = {
+      hostName: '',
+      roomPin: this.roomPin,
+    }
+    if (this.roomPin.length > 0) {
+      this.gameCreationService.checkGameExists(game).subscribe((data) => {
+        console.log(this.roomPin, 'roompun');
+        if ((data as any).success) {
+          console.log(data);
+          this.gameCreationService.getRoomPin(game.roomPin);
+          this.router.navigate(['/playgame']);
+        } else {
+          this.router.navigate(['/']);
+          this.errorMessage = "There is no game with that pin! Check you have entered correctly or create a new game";
+          setTimeout(()=>{this.errorMessage = "";}, 3000);
+        }
+      });
+    } else {
+      this.errorMessage = "Please enter a pin to join a game";
+      setTimeout(()=>{this.errorMessage = "";}, 3000);
+    }
     
-    this.options = { 
-      roomName: this.roomPin,  
-      width: 500, 
-      height: 500, 
-      parentNode: this.meet.nativeElement,
-      };
-      console.log(this.options);
-    this.api = new JitsiMeetExternalAPI(this.domain, this.options);
   }
 
 }

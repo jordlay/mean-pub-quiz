@@ -8,13 +8,13 @@ const config = require('./config/database')
 
 const app = express();
 const users = require('./routes/users');
-//is this needed?
+
 const games = require('./routes/games');
 let port = process.env.PORT || 8080;
 
 const uri = "mongodb+srv://jll541:mean-quiz@clusterquiz.inacn.mongodb.net/quizdb?retryWrites=true&w=majority";
 
-// // Connect to Database
+// Connect to Database
 mongoose.connect(uri, {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -46,7 +46,6 @@ app.use(passport.session());
 require('./config/passport')(passport);
 
 app.use('/users', users);
-//is this needed?
 app.use('/games', games);
 
 // Index Route (will go to index file)

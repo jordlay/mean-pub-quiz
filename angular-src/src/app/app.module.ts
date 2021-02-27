@@ -25,7 +25,8 @@ const routes: Routes = [
 {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
 {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
 {path: 'playgame', component: GamePlayComponent},
-]; // sets up routes constant where you define your routes
+{path: '**', redirectTo: '/'},
+]; 
 
 @NgModule({
   declarations: [
@@ -37,7 +38,6 @@ const routes: Routes = [
     DashboardComponent,
     ProfileComponent,
     GamePlayComponent
-    // AuthService
   ],
   imports: [
     BrowserModule,

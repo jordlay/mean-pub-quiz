@@ -14,7 +14,7 @@ export class GamePlayComponent implements OnInit {
 
   constructor(private gameCreationService: GameCreationService, private router: Router) { }
   game: any;
-  public nickName = 'J';
+  data: any;
   api: any;
   gameStarted = false;
   joinedRoom = false;
@@ -23,67 +23,49 @@ export class GamePlayComponent implements OnInit {
   options: any;
   domain = 'meet.jit.si';
   hostname: any;
-
+  errorMessage: any;
   @ViewChild('meet') meet: ElementRef | any;
-  ngOnInit(): void {
 
+  ngOnInit(): void {
     this.game = {
       hostName: String,
-      roomPin: String,
+      roomPin: String
     }
-   
-    // this.joinRoom(this.game);
-
   }
+
   ngAfterViewInit() {
+
     setTimeout(()=>{}, 3000);
-    this.game = this.gameCreationService.getMeetingParams();
-    console.log(this.game);
+    this.gameCreationService.getMeetingParams().subscribe(data => {
+      console.log(data);
+      this.data = data;
+      if (this.data.success) {
+        
+        this.game = this.data.game;
+        console.log(this.game, this.game.game);
+        this.options = { 
+            roomName: this.game.roomPin + 'JordansQuiz',  
+            configOverwrite: { startWithAudioMuted: true },
+            width: 500, 
+            height: 500, 
+            parentNode: this.meet.nativeElement,
+            userInfo: {
+              displayName: this.game.hostName
+          }
+        }
+        setTimeout(()=>{}, 3000);
+        console.log(this.options);
+        this.api = new JitsiMeetExternalAPI(this.domain, this.options);
+  
+      } else {
+        console.log(data, 'no data');
+        this.errorMessage = "You must create or enter a pin";
+      }
+     
 
-    this.options = { 
-      roomName: this.game.roomPin,  
-      configOverwrite: { startWithAudioMuted: true },
-      width: 500, 
-      height: 500, 
-      parentNode: this.meet.nativeElement,
-      };
-      console.log(this.options);
-    this.api = new JitsiMeetExternalAPI(this.domain, this.options);
-
+      
+    });
+    // setTimeout(()=>{}, 10000);
+    // this.api.dispose();
   }
-
-
-
-  // startRoom(){
-  //   this.createdRoom = true;
-  //   this.gameStarted = true;
-    
-  //   this.options = { 
-  //     roomName: 'JordansRoom',  
-  //     width: '80%', 
-  //     height: '80%', 
-  //     parentNode: this.meet.nativeElement};
-    
-  //   this.api = new JitsiMeetExternalAPI(this.domain, this.options);
-  //   console.log(this.api);
-  //   this.api.executeCommand('displayName', this.nickName);
-
-  // }
-  joinRoom(game: { roomPin: any; }){
-    this.gameStarted = true;
-    this.joinedRoom = true;
-    console.log(this.roomPin, this.gameStarted, this.joinedRoom);
-    // this.options.roomName = this.roomPin;
-    
-    this.options = { 
-      roomName: game.roomPin,  
-      configOverwrite: { startWithAudioMuted: true },
-      width: 500, 
-      height: 500, 
-      parentNode: this.meet.nativeElement,
-      };
-      console.log(this.options);
-    this.api = new JitsiMeetExternalAPI(this.domain, this.options);
-  }
-
 }

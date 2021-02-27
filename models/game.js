@@ -20,5 +20,5 @@ const GameSchema = mongoose.Schema( {
 
     module.exports.getGameByPin = function(roomPin, callback){
         const query = {roomPin: roomPin}
-        User.findOne(query, callback);
+        Game.findOne(query, callback);
     }
