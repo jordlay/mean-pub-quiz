@@ -40,7 +40,14 @@ router.post('/joinGame',(req,res,next) => {
     } else {
         return res.json({success: false, msg: 'No Room Pin Given'});
     }
+});
 
+router.post('/endGame',(req,res,next) => {
+    const roomPin = req.body.roomPin;
+        Game.deleteGame(roomPin, (err,game) => {
+            if (err) { throw err; }
+            return res.json({success: true, msg: 'Game deleted'});
+        });
 });
 
 module.exports = router;

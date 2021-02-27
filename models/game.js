@@ -22,3 +22,8 @@ const GameSchema = mongoose.Schema( {
         const query = {roomPin: roomPin}
         Game.findOne(query, callback);
     }
+
+    module.exports.deleteGame = function(roomPin,callback){
+        const query = {roomPin : roomPin};
+        Game.deleteOne(query, callback);
+    }

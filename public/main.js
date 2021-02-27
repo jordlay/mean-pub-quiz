@@ -133,9 +133,7 @@ class HomeComponent {
         };
         if (this.roomPin.length > 0) {
             this.gameCreationService.checkGameExists(game).subscribe((data) => {
-                console.log(this.roomPin, 'roompun');
                 if (data.success) {
-                    console.log(data);
                     this.gameCreationService.getRoomPin(game.roomPin);
                     this.router.navigate(['/playgame']);
                 }
@@ -235,30 +233,31 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// import * as CryptoJS from 'crypto-js';
-// import { crypto } from '../../../node_modules/crypto-browserify'
-// import { JwtHelperService } from '@auth0/angular-jwt';
-// const crypto = require('crypto');
-// const cryptoRandomString = require('crypto-random-string');
 class GameCreationService {
     constructor(http) {
         this.http = http;
         this.newGameBoolean = true;
     }
     createGame(game) {
-        // this.hostName = game.hostName;
         game.roomPin = this.generateCode();
-        // this.game = game;
         let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]();
+        console.log(game);
         headers.append('Content-Type', 'application/json');
         return this.http.post('games/newGame', game, { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])((res) => res));
     }
     checkGameExists(game) {
-        console.log(game, this.game, 'roompun');
         let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]();
         headers.append('Content-Type', 'application/json');
         return this.http.post('games/checkGame', game, { headers: headers })
+            .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])((res) => res));
+    }
+    endGame(game) {
+        let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]();
+        console.log(game);
+        headers.append('Content-Type', 'application/json');
+        console.log(this.http.post('games/endGame', game, { headers: headers }));
+        return this.http.post('games/endGame', game, { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])((res) => res));
     }
     getMeetingParams() {
@@ -268,17 +267,13 @@ class GameCreationService {
         };
         if (this.roomPin) {
             game.roomPin = this.roomPin;
-            console.log(this.roomPin, this.game, 'roompunmeetingh');
-            // roomPin = this.getRoomPin
             let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]();
             headers.append('Content-Type', 'application/json');
-            console.log(this.http.post('games/joinGame', game, { headers: headers }));
             return this.http.post('games/joinGame', game, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])((res) => res));
         }
         else {
             let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]();
             headers.append('Content-Type', 'application/json');
-            console.log(this.http.post('games/joinGame', game, { headers: headers }));
             return this.http.post('games/joinGame', game, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])((res) => res));
         }
     }
@@ -630,32 +625,16 @@ class GamePlayComponent {
     ngOnInit() {
         this.game = {
             hostName: String,
-            roomPin: String,
+            roomPin: String
         };
-        // this.joinRoom(this.game);
     }
     ngAfterViewInit() {
-        //   setTimeout(()=>{}, 3000);
-        //   this.options = { 
-        //     roomName: 'JordansQuiz',  
-        //     configOverwrite: { startWithAudioMuted: true },
-        //     width: 500, 
-        //     height: 500, 
-        //     parentNode: this.meet.nativeElement,
-        //     userInfo: {
-        //       // email: this.game.email,
-        //       displayName: 'this.game.hostName'
-        //   }
-        // }
-        // console.log(this.options):
-        // this.api = new JitsiMeetExternalAPI(this.domain, this.options);
+        // try without timeout
         setTimeout(() => { }, 3000);
         this.gameCreationService.getMeetingParams().subscribe(data => {
-            console.log(data);
             this.data = data;
             if (this.data.success) {
                 this.game = this.data.game;
-                console.log(this.game, this.game.game);
                 this.options = {
                     roomName: this.game.roomPin + 'JordansQuiz',
                     configOverwrite: { startWithAudioMuted: true },
@@ -663,51 +642,24 @@ class GamePlayComponent {
                     height: 500,
                     parentNode: this.meet.nativeElement,
                     userInfo: {
-                        // email: this.game.email,
                         displayName: this.game.hostName
                     }
                 };
                 setTimeout(() => { }, 3000);
-                console.log(this.options);
                 this.api = new JitsiMeetExternalAPI(this.domain, this.options);
             }
             else {
-                console.log(data, 'no data');
                 this.errorMessage = "You must create or enter a pin";
             }
         });
-        //
-        //   };
-        // setTimeout(()=>{}, 10000);
-        // // this.api.dispose();
     }
-    // 
-    // startRoom(){
-    //   this.createdRoom = true;
-    //   this.gameStarted = true;
-    //   this.options = { 
-    //     roomName: 'JordansRoom',  
-    //     width: '80%', 
-    //     height: '80%', 
-    //     parentNode: this.meet.nativeElement};
-    //   this.api = new JitsiMeetExternalAPI(this.domain, this.options);
-    //   console.log(this.api);
-    //   this.api.executeCommand('displayName', this.nickName);
-    // }
-    joinRoom(game) {
-        this.gameStarted = true;
-        this.joinedRoom = true;
-        console.log(this.roomPin, this.gameStarted, this.joinedRoom);
-        // this.options.roomName = this.roomPin;
-        // this.options = { 
-        //   roomName: game.roomPin,  
-        //   configOverwrite: { startWithAudioMuted: true },
-        //   width: 500, 
-        //   height: 500, 
-        //   parentNode: this.meet.nativeElement,
-        //   };
-        //   console.log(this.options);
-        // this.api = new JitsiMeetExternalAPI(this.domain, this.options);
+    endGame() {
+        this.api.dispose();
+        this.router.navigate(['/']);
+        console.log(this.game);
+        this.gameCreationService.endGame(this.game);
+        // .subscribe( () => {
+        // });
     }
 }
 GamePlayComponent.ɵfac = function GamePlayComponent_Factory(t) { return new (t || GamePlayComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_services_game_creation_service__WEBPACK_IMPORTED_MODULE_2__["GameCreationService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"])); };
@@ -716,9 +668,13 @@ GamePlayComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefine
     } if (rf & 2) {
         let _t;
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵloadQuery"]()) && (ctx.meet = _t.first);
-    } }, decls: 3, vars: 1, consts: [[1, "jitsiMeet"], ["meet", ""]], template: function GamePlayComponent_Template(rf, ctx) { if (rf & 1) {
+    } }, decls: 5, vars: 1, consts: [[1, "jitsiMeet"], ["meet", ""], [3, "click"]], template: function GamePlayComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 0, 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](3, "button", 2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function GamePlayComponent_Template_button_click_3_listener() { return ctx.endGame(); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](4, "End Game");
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
@@ -996,7 +952,6 @@ class RegisterComponent {
         this.authService = authService;
         this.router = router;
         this.success = true;
-        // isValid = false;
         this.errorMessage = "";
     }
     ngOnInit() {
@@ -1209,9 +1164,7 @@ AppModule.ɵinj = _angular_core__WEBPACK_IMPORTED_MODULE_18__["ɵɵdefineInjecto
         _components_home_home_component__WEBPACK_IMPORTED_MODULE_7__["HomeComponent"],
         _components_dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_8__["DashboardComponent"],
         _components_profile_profile_component__WEBPACK_IMPORTED_MODULE_9__["ProfileComponent"],
-        _components_game_play_game_play_component__WEBPACK_IMPORTED_MODULE_17__["GamePlayComponent"]
-        // AuthService
-    ], imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
+        _components_game_play_game_play_component__WEBPACK_IMPORTED_MODULE_17__["GamePlayComponent"]], imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
         _app_routing_module__WEBPACK_IMPORTED_MODULE_2__["AppRoutingModule"], _angular_router__WEBPACK_IMPORTED_MODULE_1__["RouterModule"], _ng_bootstrap_ng_bootstrap__WEBPACK_IMPORTED_MODULE_10__["NgbModule"],
         _angular_platform_browser_animations__WEBPACK_IMPORTED_MODULE_11__["BrowserAnimationsModule"],
         _angular_forms__WEBPACK_IMPORTED_MODULE_12__["FormsModule"],

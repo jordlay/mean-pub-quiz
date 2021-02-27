@@ -34,7 +34,7 @@ export class GamePlayComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-
+    // try without timeout
     setTimeout(()=>{}, 3000);
     this.gameCreationService.getMeetingParams().subscribe(data => {
       this.data = data;
@@ -61,7 +61,11 @@ export class GamePlayComponent implements OnInit {
 
       
     });
-    // setTimeout(()=>{}, 10000);
-    // this.api.dispose();
+  }
+
+  endGame(){
+    this.api.dispose();
+    this.router.navigate(['/']);
+    this.gameCreationService.endGame(this.game).subscribe( () => {});
   }
 }

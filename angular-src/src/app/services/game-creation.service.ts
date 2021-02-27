@@ -13,7 +13,6 @@ export class GameCreationService {
   constructor(private http: HttpClient) { }
 
   createGame(game: any) {
-    
     game.roomPin = this.generateCode();
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
@@ -26,6 +25,13 @@ export class GameCreationService {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
     return this.http.post('games/checkGame', game, {headers: headers})
+      .pipe(map((res) => res));  
+  }
+
+  endGame(game:any){
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('games/endGame', game, {headers: headers})
       .pipe(map((res) => res));  
   }
 
