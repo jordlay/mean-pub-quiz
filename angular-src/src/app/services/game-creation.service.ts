@@ -37,31 +37,17 @@ export class GameCreationService {
       .pipe(map((res) => res));  
   }
 
-  getMeetingParams(){
+  getMeetingParams(roomPin: any){
     let game = {
-      roomPin: '',
+      roomPin: roomPin,
       hostName: '',
       displayName: ''
     };
+    let headers = new HttpHeaders()
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('games/joinGame',game, {headers: headers}).pipe(map((res) => res)); 
 
-    if (this.roomPin) {
-      game.roomPin = this.roomPin;
-      let headers = new HttpHeaders()
-      headers.append('Content-Type', 'application/json');
-      return this.http.post('games/joinGame',game, {headers: headers}).pipe(map((res) => res)); 
-    } else {
-      // game.displayName = this.displayName;
-      let headers = new HttpHeaders()
-      headers.append('Content-Type', 'application/json');
-      return this.http.post('games/joinGame',game, {headers: headers}).pipe(map((res) => res)); 
-    }
-     
   } 
-
-  getRoomPin(roomPin: string) {
-    this.roomPin = roomPin
-    return this.roomPin;
-  }
 
   setDisplayName(displayName: string){
     this.displayName = displayName;

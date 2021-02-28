@@ -115,9 +115,9 @@ class HomeComponent {
         if (game.hostName.length > 0) {
             this.gameCreationService.createGame(game).subscribe(data => {
                 if (data.success) {
-                    this.gameCreationService.getRoomPin(game.roomPin);
+                    // this.gameCreationService.getRoomPin(game.roomPin);
                     this.gameCreationService.setHostBoolean(true);
-                    this.router.navigate(['/playgame']);
+                    this.router.navigate(['/playgame/', game.roomPin]);
                 }
                 else {
                     this.router.navigate(['/']);
@@ -130,28 +130,33 @@ class HomeComponent {
         }
     }
     joinRoom() {
-        const game = {
-            // hostName: '',
-            roomPin: this.roomPin,
-            displayName: this.joinedDisplayNamed
-        };
-        if (this.roomPin.length > 0) {
-            this.gameCreationService.checkGameExists(game).subscribe((data) => {
-                if (data.success) {
-                    this.gameCreationService.getRoomPin(game.roomPin);
-                    this.gameCreationService.setDisplayName(game.displayName);
-                    this.gameCreationService.setHostBoolean(false);
-                    this.router.navigate(['/playgame']);
-                }
-                else {
-                    this.router.navigate(['/']);
-                    this.errorMessage = "There is no game with that pin! Check you have entered correctly or create a new game";
-                    setTimeout(() => { this.errorMessage = ""; }, 3000);
-                }
-            });
+        if (this.joinedDisplayNamed.length > 0) {
+            const game = {
+                // hostName: '',
+                roomPin: this.roomPin,
+                displayName: this.joinedDisplayNamed
+            };
+            if (this.roomPin.length > 0) {
+                this.gameCreationService.checkGameExists(game).subscribe((data) => {
+                    if (data.success) {
+                        this.gameCreationService.setDisplayName(game.displayName);
+                        this.gameCreationService.setHostBoolean(false);
+                        this.router.navigate(['/playgame/', game.roomPin]);
+                    }
+                    else {
+                        this.router.navigate(['/']);
+                        this.errorMessage = "There is no game with that pin! Check you have entered correctly or create a new game";
+                        setTimeout(() => { this.errorMessage = ""; }, 3000);
+                    }
+                });
+            }
+            else {
+                this.errorMessage = "Please enter a pin to join a game";
+                setTimeout(() => { this.errorMessage = ""; }, 3000);
+            }
         }
         else {
-            this.errorMessage = "Please enter a pin to join a game";
+            this.errorMessage = "Please enter a display name";
             setTimeout(() => { this.errorMessage = ""; }, 3000);
         }
     }
@@ -268,28 +273,15 @@ class GameCreationService {
         return this.http.post('games/endGame', game, { headers: headers })
             .pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])((res) => res));
     }
-    getMeetingParams() {
+    getMeetingParams(roomPin) {
         let game = {
-            roomPin: '',
+            roomPin: roomPin,
             hostName: '',
             displayName: ''
         };
-        if (this.roomPin) {
-            game.roomPin = this.roomPin;
-            let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]();
-            headers.append('Content-Type', 'application/json');
-            return this.http.post('games/joinGame', game, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])((res) => res));
-        }
-        else {
-            // game.displayName = this.displayName;
-            let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]();
-            headers.append('Content-Type', 'application/json');
-            return this.http.post('games/joinGame', game, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])((res) => res));
-        }
-    }
-    getRoomPin(roomPin) {
-        this.roomPin = roomPin;
-        return this.roomPin;
+        let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]();
+        headers.append('Content-Type', 'application/json');
+        return this.http.post('games/joinGame', game, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])((res) => res));
     }
     setDisplayName(displayName) {
         this.displayName = displayName;
@@ -638,9 +630,10 @@ __webpack_require__.r(__webpack_exports__);
 
 const _c0 = ["meet"];
 class GamePlayComponent {
-    constructor(gameCreationService, router) {
+    constructor(gameCreationService, router, actRoute) {
         this.gameCreationService = gameCreationService;
         this.router = router;
+        this.actRoute = actRoute;
         this.gameStarted = false;
         this.joinedRoom = false;
         this.createdRoom = false;
@@ -648,6 +641,7 @@ class GamePlayComponent {
         this.isHost = false;
     }
     ngOnInit() {
+        this.roomPin = this.actRoute.snapshot.params.pin;
         this.game = {
             hostName: String,
             roomPin: String,
@@ -655,9 +649,7 @@ class GamePlayComponent {
         };
     }
     ngAfterViewInit() {
-        // try without timeout
-        // setTimeout(()=>{}, 3000);
-        this.gameCreationService.getMeetingParams().subscribe(data => {
+        this.gameCreationService.getMeetingParams(this.roomPin).subscribe(data => {
             this.data = data;
             if (this.data.success) {
                 this.game = this.data.game;
@@ -702,7 +694,7 @@ class GamePlayComponent {
         this.gameCreationService.endGame(this.game).subscribe(() => { });
     }
 }
-GamePlayComponent.ɵfac = function GamePlayComponent_Factory(t) { return new (t || GamePlayComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_services_game_creation_service__WEBPACK_IMPORTED_MODULE_2__["GameCreationService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"])); };
+GamePlayComponent.ɵfac = function GamePlayComponent_Factory(t) { return new (t || GamePlayComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_services_game_creation_service__WEBPACK_IMPORTED_MODULE_2__["GameCreationService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"])); };
 GamePlayComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({ type: GamePlayComponent, selectors: [["app-game-play"]], viewQuery: function GamePlayComponent_Query(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵviewQuery"](_c0, 1);
     } if (rf & 2) {
@@ -1181,7 +1173,7 @@ const routes = [
     { path: 'login', component: _components_login_login_component__WEBPACK_IMPORTED_MODULE_5__["LoginComponent"] },
     { path: 'dashboard', component: _components_dashboard_dashboard_component__WEBPACK_IMPORTED_MODULE_8__["DashboardComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_16__["AuthGuard"]] },
     { path: 'profile', component: _components_profile_profile_component__WEBPACK_IMPORTED_MODULE_9__["ProfileComponent"], canActivate: [_guards_auth_guard__WEBPACK_IMPORTED_MODULE_16__["AuthGuard"]] },
-    { path: 'playgame', component: _components_game_play_game_play_component__WEBPACK_IMPORTED_MODULE_17__["GamePlayComponent"] },
+    { path: 'playgame/:pin', component: _components_game_play_game_play_component__WEBPACK_IMPORTED_MODULE_17__["GamePlayComponent"] },
     { path: '**', redirectTo: '/' },
 ];
 class AppModule {

@@ -12,7 +12,7 @@ declare var JitsiMeetExternalAPI: any;
 })
 export class GamePlayComponent implements OnInit {
 
-  constructor(private gameCreationService: GameCreationService, private router: Router) { }
+  constructor(private gameCreationService: GameCreationService, private router: Router, private actRoute: ActivatedRoute) { }
   game: any;
   data: any;
   api: any;
@@ -28,6 +28,7 @@ export class GamePlayComponent implements OnInit {
   @ViewChild('meet') meet: ElementRef | any;
 
   ngOnInit(): void {
+    this.roomPin = this.actRoute.snapshot.params.pin;
     this.game = {
       hostName: String,
       roomPin: String,
@@ -36,9 +37,8 @@ export class GamePlayComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    // try without timeout
-    // setTimeout(()=>{}, 3000);
-    this.gameCreationService.getMeetingParams().subscribe(data => {
+
+    this.gameCreationService.getMeetingParams(this.roomPin).subscribe(data => {
       this.data = data;
       if (this.data.success) {
         this.game = this.data.game;
