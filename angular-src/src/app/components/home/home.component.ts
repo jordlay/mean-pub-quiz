@@ -36,9 +36,9 @@ export class HomeComponent implements OnInit {
     if (game.hostName.length > 0) {
       this.gameCreationService.createGame(game).subscribe(data => {
         if ((data as any).success) {
-          this.gameCreationService.getRoomPin(game.roomPin);
+          // this.gameCreationService.getRoomPin(game.roomPin);
           this.gameCreationService.setHostBoolean(true);
-          this.router.navigate(['/playgame']);
+          this.router.navigate(['/playgame/', game.roomPin]);
         } else {
           this.router.navigate(['/']);
         }
@@ -50,29 +50,33 @@ export class HomeComponent implements OnInit {
   }
 
   joinRoom(){
-    const game = {
-      // hostName: '',
-      roomPin: this.roomPin,
-      displayName: this.joinedDisplayNamed
-    }
-    if (this.roomPin.length > 0) {
-      this.gameCreationService.checkGameExists(game).subscribe((data) => {
-        if ((data as any).success) {
-          this.gameCreationService.getRoomPin(game.roomPin);
-          this.gameCreationService.setDisplayName(game.displayName);
-          this.gameCreationService.setHostBoolean(false);
-          this.router.navigate(['/playgame']);
-        } else {
-          this.router.navigate(['/']);
-          this.errorMessage = "There is no game with that pin! Check you have entered correctly or create a new game";
-          setTimeout(()=>{this.errorMessage = "";}, 3000);
-        }
-      });
+    if (this.joinedDisplayNamed.length > 0) {
+      const game = {
+        // hostName: '',
+        roomPin: this.roomPin,
+        displayName: this.joinedDisplayNamed
+      }
+      if (this.roomPin.length > 0) {
+        this.gameCreationService.checkGameExists(game).subscribe((data) => {
+          if ((data as any).success) {
+            this.gameCreationService.setDisplayName(game.displayName);
+            this.gameCreationService.setHostBoolean(false);
+            this.router.navigate(['/playgame/', game.roomPin]);
+          } else {
+            this.router.navigate(['/']);
+            this.errorMessage = "There is no game with that pin! Check you have entered correctly or create a new game";
+            setTimeout(()=>{this.errorMessage = "";}, 3000);
+          }
+        });
+      } else {
+        this.errorMessage = "Please enter a pin to join a game";
+        setTimeout(()=>{this.errorMessage = "";}, 3000);
+      }
+      
     } else {
-      this.errorMessage = "Please enter a pin to join a game";
+      this.errorMessage = "Please enter a display name";
       setTimeout(()=>{this.errorMessage = "";}, 3000);
     }
-    
   }
 
 }
