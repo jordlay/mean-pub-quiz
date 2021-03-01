@@ -68,7 +68,7 @@ export class GamePlayComponent implements OnInit {
         this.options = { 
             roomName: this.game.roomPin + 'JordansQuiz',  
             configOverwrite: { startWithAudioMuted: true },
-            width: '70%', 
+            width: '100%', 
             height: 500, 
             parentNode: this.meet.nativeElement,
               userInfo: {
@@ -99,7 +99,7 @@ export class GamePlayComponent implements OnInit {
   }
 
   beginGame(){
-    
+
   }
 
 }

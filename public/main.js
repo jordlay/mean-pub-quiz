@@ -644,10 +644,12 @@ function GamePlayComponent_div_12_div_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](ctx_r2.participantArray[key_r3].displayName);
 } }
 function GamePlayComponent_div_12_Template(rf, ctx) { if (rf & 1) {
+    const _r5 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](1, " Current Players: ");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](2, GamePlayComponent_div_12_div_2_Template, 2, 1, "div", 8);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](3, "button", 9);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function GamePlayComponent_div_12_Template_button_click_3_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r5); const ctx_r4 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](); return ctx_r4.beginGame(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](4, "Begin Game");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
@@ -692,7 +694,7 @@ class GamePlayComponent {
                             this.options = {
                                 roomName: this.game.roomPin + 'JordansQuiz',
                                 configOverwrite: { startWithAudioMuted: true },
-                                width: '70%',
+                                width: '100%',
                                 height: 500,
                                 parentNode: this.meet.nativeElement,
                                 userInfo: {
@@ -704,7 +706,7 @@ class GamePlayComponent {
                             this.options = {
                                 roomName: this.game.roomPin + 'JordansQuiz',
                                 configOverwrite: { startWithAudioMuted: true },
-                                width: '70%',
+                                width: '100%',
                                 height: 500,
                                 parentNode: this.meet.nativeElement,
                                 userInfo: {
@@ -732,6 +734,8 @@ class GamePlayComponent {
         this.router.navigate(['/']);
         this.gameCreationService.endGame(this.game).subscribe(() => { });
     }
+    beginGame() {
+    }
 }
 GamePlayComponent.ɵfac = function GamePlayComponent_Factory(t) { return new (t || GamePlayComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_services_game_creation_service__WEBPACK_IMPORTED_MODULE_2__["GameCreationService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"])); };
 GamePlayComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefineComponent"]({ type: GamePlayComponent, selectors: [["app-game-play"]], viewQuery: function GamePlayComponent_Query(rf, ctx) { if (rf & 1) {
@@ -739,7 +743,7 @@ GamePlayComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefine
     } if (rf & 2) {
         let _t;
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵloadQuery"]()) && (ctx.meet = _t.first);
-    } }, decls: 16, vars: 3, consts: [[1, "row"], [1, "col"], [1, "jitsiMeet"], ["meet", ""], [1, "gameDetails"], ["type", "button", 1, "btn", "btn-primary", 3, "cdkCopyToClipboard"], [4, "ngIf"], ["type", "button", 1, "btn", "btn-outline-danger", 3, "click"], [4, "ngFor", "ngForOf"], ["type", "button", 1, "btn", "btn-outline-success"]], template: function GamePlayComponent_Template(rf, ctx) { if (rf & 1) {
+    } }, decls: 16, vars: 3, consts: [[1, "row"], [1, "col"], [1, "jitsiMeet"], ["meet", ""], [1, "gameDetails"], ["type", "button", 1, "btn", "btn-primary", 3, "cdkCopyToClipboard"], [4, "ngIf"], ["type", "button", 1, "btn", "btn-outline-danger", 3, "click"], [4, "ngFor", "ngForOf"], ["type", "button", 1, "btn", "btn-outline-success", 3, "click"]], template: function GamePlayComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "div", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](2, "div", 2, 3);
