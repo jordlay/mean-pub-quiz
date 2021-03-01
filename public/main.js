@@ -633,7 +633,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const _c0 = ["meet"];
-function GamePlayComponent_div_6_div_2_Template(rf, ctx) { if (rf & 1) {
+function GamePlayComponent_div_5_div_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
@@ -643,10 +643,10 @@ function GamePlayComponent_div_6_div_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](ctx_r2.participantArray[key_r3].displayName);
 } }
-function GamePlayComponent_div_6_Template(rf, ctx) { if (rf & 1) {
+function GamePlayComponent_div_5_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](1, " Current Users: ");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](2, GamePlayComponent_div_6_div_2_Template, 2, 1, "div", 5);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](2, GamePlayComponent_div_5_div_2_Template, 2, 1, "div", 5);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
@@ -671,52 +671,58 @@ class GamePlayComponent {
         this.roomPin = this.actRoute.snapshot.params.pin;
         this.game = {
             hostName: String,
-            roomPin: String,
+            roomPin: this.roomPin,
             displayName: String
         };
     }
     ngAfterViewInit() {
-        this.gameCreationService.getMeetingParams(this.roomPin).subscribe(data => {
-            this.data = data;
-            if (this.data.success) {
-                this.game = this.data.game;
-                let displayName = this.gameCreationService.getDisplayName();
-                let HostBool = this.gameCreationService.getHostBoolean();
-                if (displayName === undefined) {
-                    this.isHost = true;
-                    this.options = {
-                        roomName: this.game.roomPin + 'JordansQuiz',
-                        configOverwrite: { startWithAudioMuted: true },
-                        width: 500,
-                        height: 500,
-                        parentNode: this.meet.nativeElement,
-                        userInfo: {
-                            displayName: this.game.displayName
+        this.gameCreationService.checkGameExists(this.game).subscribe((data) => {
+            if (data.success) {
+                this.gameCreationService.getMeetingParams(this.roomPin).subscribe(data => {
+                    this.data = data;
+                    if (this.data.success) {
+                        this.game = this.data.game;
+                        let displayName = this.gameCreationService.getDisplayName();
+                        let HostBool = this.gameCreationService.getHostBoolean();
+                        if (displayName === undefined) {
+                            this.isHost = true;
+                            this.options = {
+                                roomName: this.game.roomPin + 'JordansQuiz',
+                                configOverwrite: { startWithAudioMuted: true },
+                                width: '70%',
+                                height: 500,
+                                parentNode: this.meet.nativeElement,
+                                userInfo: {
+                                    displayName: this.game.displayName
+                                }
+                            };
                         }
-                    };
-                }
-                else {
-                    this.options = {
-                        roomName: this.game.roomPin + 'JordansQuiz',
-                        configOverwrite: { startWithAudioMuted: true },
-                        width: 500,
-                        height: 500,
-                        parentNode: this.meet.nativeElement,
-                        userInfo: {
-                            displayName: displayName
+                        else {
+                            this.options = {
+                                roomName: this.game.roomPin + 'JordansQuiz',
+                                configOverwrite: { startWithAudioMuted: true },
+                                width: '70%',
+                                height: 500,
+                                parentNode: this.meet.nativeElement,
+                                userInfo: {
+                                    displayName: displayName
+                                }
+                            };
                         }
-                    };
-                }
-                setTimeout(() => { }, 3000);
-                this.api = new JitsiMeetExternalAPI(this.domain, this.options);
-                setTimeout(() => { }, 15000);
-                ;
-                this.api.addListener('participantJoined', () => {
-                    this.participantArray = this.api._participants;
+                        this.api = new JitsiMeetExternalAPI(this.domain, this.options);
+                        this.api.addListener('participantJoined', () => {
+                            this.participantArray = this.api._participants;
+                        });
+                    }
+                    else {
+                        this.errorMessage = "You must create or enter a pin";
+                    }
                 });
             }
             else {
-                this.errorMessage = "You must create or enter a pin";
+                this.errorMessage = "There is no game with that pin! Check you have entered correctly or create a new game";
+                setTimeout(() => { this.errorMessage = ""; }, 3000);
+                this.router.navigate(['/']);
             }
         });
     }
@@ -732,27 +738,23 @@ GamePlayComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefine
     } if (rf & 2) {
         let _t;
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵloadQuery"]()) && (ctx.meet = _t.first);
-    } }, decls: 9, vars: 3, consts: [[1, "jitsiMeet"], ["meet", ""], [3, "cdkCopyToClipboard"], [4, "ngIf"], [3, "click"], [4, "ngFor", "ngForOf"]], template: function GamePlayComponent_Template(rf, ctx) { if (rf & 1) {
+    } }, decls: 8, vars: 2, consts: [[1, "jitsiMeet"], ["meet", ""], [3, "cdkCopyToClipboard"], [4, "ngIf"], [3, "click"], [4, "ngFor", "ngForOf"]], template: function GamePlayComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div");
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "div", 0, 1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "div", 0, 1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](3, "button", 2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](4, "Copy Game Link!");
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](4, "button", 2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](5, "Copy Game Link!");
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](6, GamePlayComponent_div_6_Template, 3, 1, "div", 3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](7, "button", 4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function GamePlayComponent_Template_button_click_7_listener() { return ctx.endGame(); });
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](8, "End Game");
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](5, GamePlayComponent_div_5_Template, 3, 1, "div", 3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](6, "button", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function GamePlayComponent_Template_button_click_6_listener() { return ctx.endGame(); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](7, "End Game");
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate"](ctx.errorMessage);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("cdkCopyToClipboard", ctx.url);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx.api);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx.participantArray);
     } }, directives: [_angular_cdk_clipboard__WEBPACK_IMPORTED_MODULE_4__["CdkCopyToClipboard"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgIf"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgForOf"]], styles: [".jitsiMeet[_ngcontent-%COMP%]{\r\n    height:auto;\r\n    width: auto;\r\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImdhbWUtcGxheS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksV0FBVztJQUNYLFdBQVc7QUFDZiIsImZpbGUiOiJnYW1lLXBsYXkuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5qaXRzaU1lZXR7XHJcbiAgICBoZWlnaHQ6YXV0bztcclxuICAgIHdpZHRoOiBhdXRvO1xyXG59Il19 */"] });
 
 
