@@ -1,16 +1,49 @@
 const express = require('express');
+const httpApp = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const passport = require('passport');
 const mongoose = require('mongoose');
-const config = require('./config/database')
-
 const app = express();
 const users = require('./routes/users');
-
 const games = require('./routes/games');
+
+const httpServer = require('http').createServer(httpApp);
+// const httpServer = require("http").createServer(app);
+// const io = require("socket.io")(httpServer, {
+
+// });
+const io = require('socket.io')(httpServer, {
+    cors: true,
+    origins: ["*"]
+});
+
+// const io = require("socket.io-client");
+
+io.on("connection", (socket) => {
+    console.log("a user connected");
+    // socket.emit('message', 'JUSTCOONECTED');
+    // socket.broadcast.emit('message', 'all but atuhior');
+    
+    // socket.join('here is unique idea for room');
+    // socket.to["uniqueid"].emit('message','to everyone exvept sender');
+
+    socket.on('joinGame', ({gameId}) => {
+        socket.join(gameId);
+        console.log('player joined the rrom' + gameId);
+        socket.to(gameId).emit('joinGame', 'player joined the game');
+    });
+
+});
+
+
 let port = process.env.PORT || 8080;
+let porthttp = process.env.PORT || 3000;
+
+httpServer.listen(porthttp, '0.0.0.0', () => {
+    console.log('Server started on Port ' + porthttp);
+});
 
 const uri = "mongodb+srv://jll541:mean-quiz@clusterquiz.inacn.mongodb.net/quizdb?retryWrites=true&w=majority";
 

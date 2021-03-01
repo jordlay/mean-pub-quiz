@@ -19,6 +19,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { GamePlayComponent } from './components/game-play/game-play.component';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import {MatIconModule} from '@angular/material/icon';
+import { SocketioService } from './services/socketio.service';
 
 const routes: Routes = [
 {path: '', component: HomeComponent},
@@ -54,7 +55,7 @@ const routes: Routes = [
     MatIconModule
   ],
   exports: [RouterModule, CommonModule, BrowserModule],
-  providers: [AuthService, AuthGuard ],
+  providers: [AuthService, AuthGuard, SocketioService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

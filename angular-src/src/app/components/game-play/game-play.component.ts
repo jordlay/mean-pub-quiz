@@ -2,6 +2,7 @@ import { OnInit, Component, ElementRef, ViewChild, AfterViewInit } from '@angula
 import '../../../vendor/jitsi/external_api.js';
 import { GameCreationService } from '../../services/game-creation.service'
 import { Router,  ActivatedRoute, ParamMap } from '@angular/router';
+import { SocketioService } from '../../services/socketio.service';
 
 declare var JitsiMeetExternalAPI: any;
 
@@ -12,7 +13,8 @@ declare var JitsiMeetExternalAPI: any;
 })
 export class GamePlayComponent implements OnInit {
 
-  constructor(private gameCreationService: GameCreationService, private router: Router, private actRoute: ActivatedRoute) { }
+  constructor(private gameCreationService: GameCreationService, 
+    private router: Router, private actRoute: ActivatedRoute, private socketioService: SocketioService) { }
   game: any;
   data: any;
   api: any;
@@ -31,8 +33,10 @@ export class GamePlayComponent implements OnInit {
   @ViewChild('meet') meet: ElementRef | any;
 
   ngOnInit(): void {
+   
     this.url = window.location.href;
     this.roomPin = this.actRoute.snapshot.params.pin;
+    this.socketioService.connect(this.roomPin);
     this.game = {
       hostName: String,
       roomPin: this.roomPin,
