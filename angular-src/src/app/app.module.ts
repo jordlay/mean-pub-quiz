@@ -17,6 +17,7 @@ import { AuthService } from './services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './guards/auth.guard';
 import { GamePlayComponent } from './components/game-play/game-play.component';
+import {ClipboardModule} from '@angular/cdk/clipboard';
 
 const routes: Routes = [
 {path: '', component: HomeComponent},
@@ -47,7 +48,8 @@ const routes: Routes = [
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    CommonModule
+    CommonModule,
+    ClipboardModule
   ],
   exports: [RouterModule, CommonModule, BrowserModule],
   providers: [AuthService, AuthGuard ],

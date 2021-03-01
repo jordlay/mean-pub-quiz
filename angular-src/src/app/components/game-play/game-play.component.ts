@@ -25,19 +25,25 @@ export class GamePlayComponent implements OnInit {
   hostname: any;
   errorMessage: any;
   isHost = false;
+  url = '';
+  objectKeys = Object.keys;
+  participantArray: any;
   @ViewChild('meet') meet: ElementRef | any;
 
   ngOnInit(): void {
+    this.url = window.location.href;
     this.roomPin = this.actRoute.snapshot.params.pin;
     this.game = {
       hostName: String,
-      roomPin: String,
+      roomPin: this.roomPin,
       displayName: String
     }
   }
 
   ngAfterViewInit() {
-
+    this.gameCreationService.checkGameExists(this.game).subscribe((data) => {
+      if ((data as any).success) {
+        
     this.gameCreationService.getMeetingParams(this.roomPin).subscribe(data => {
       this.data = data;
       if (this.data.success) {
@@ -51,7 +57,7 @@ export class GamePlayComponent implements OnInit {
           this.options = { 
             roomName: this.game.roomPin + 'JordansQuiz',  
             configOverwrite: { startWithAudioMuted: true },
-            width: 500, 
+            width: '70%', 
             height: 500, 
             parentNode: this.meet.nativeElement,
             userInfo: {
@@ -62,7 +68,7 @@ export class GamePlayComponent implements OnInit {
         this.options = { 
             roomName: this.game.roomPin + 'JordansQuiz',  
             configOverwrite: { startWithAudioMuted: true },
-            width: 500, 
+            width: '70%', 
             height: 500, 
             parentNode: this.meet.nativeElement,
               userInfo: {
@@ -70,11 +76,18 @@ export class GamePlayComponent implements OnInit {
             }
           }
         } 
-        setTimeout(()=>{}, 3000);
         this.api = new JitsiMeetExternalAPI(this.domain, this.options);
-  
+       this.api.addListener('participantJoined', () => {
+         this.participantArray = this.api._participants;
+        });
+       
       } else {
         this.errorMessage = "You must create or enter a pin";
+      }
+    });
+
+      } else {
+        this.router.navigate(['/']);
       }
     });
   }
@@ -84,4 +97,5 @@ export class GamePlayComponent implements OnInit {
     this.router.navigate(['/']);
     this.gameCreationService.endGame(this.game).subscribe( () => {});
   }
+
 }

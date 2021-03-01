@@ -1,3 +1,8 @@
-<div class="jitsiMeet" #meet>{{this.errorMessage}}</div>
+<div>
+    <div class="jitsiMeet" #meet></div>
+    <button [cdkCopyToClipboard]="this.url">Copy Game Link!</button>
+    <div *ngIf="this.participantArray"> Current Users:
+        <div *ngFor="let key of objectKeys(this.participantArray)">{{this.participantArray[key].displayName}}</div>
+    </div>
 <button (click)="endGame()">End Game</button>
 
