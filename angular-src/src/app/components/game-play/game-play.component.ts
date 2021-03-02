@@ -1,6 +1,6 @@
 import { OnInit, Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
 import '../../../vendor/jitsi/external_api.js';
-import { GameCreationService } from '../../services/game-creation.service'
+import { GameCreationService } from '../../services/game-creation.service';
 import { Router,  ActivatedRoute, ParamMap } from '@angular/router';
 import { SocketioService } from '../../services/socketio.service';
 
@@ -30,13 +30,13 @@ export class GamePlayComponent implements OnInit {
   url = '';
   objectKeys = Object.keys;
   participantArray: any;
+  toastMessage: any;
   @ViewChild('meet') meet: ElementRef | any;
 
   ngOnInit(): void {
    
     this.url = window.location.href;
     this.roomPin = this.actRoute.snapshot.params.pin;
-    this.socketioService.connect(this.roomPin);
     this.game = {
       hostName: String,
       roomPin: this.roomPin,
@@ -100,10 +100,6 @@ export class GamePlayComponent implements OnInit {
     this.api.dispose();
     this.router.navigate(['/']);
     this.gameCreationService.endGame(this.game).subscribe( () => {});
-  }
-
-  beginGame(){
-
   }
 
 }

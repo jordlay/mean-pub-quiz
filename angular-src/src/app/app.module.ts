@@ -20,6 +20,7 @@ import { GamePlayComponent } from './components/game-play/game-play.component';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import {MatIconModule} from '@angular/material/icon';
 import { SocketioService } from './services/socketio.service';
+import { GameDetailsComponent } from './components/game-details/game-details.component';
 
 const routes: Routes = [
 {path: '', component: HomeComponent},
@@ -40,7 +41,8 @@ const routes: Routes = [
     HomeComponent,
     DashboardComponent,
     ProfileComponent,
-    GamePlayComponent
+    GamePlayComponent,
+    GameDetailsComponent
   ],
   imports: [
     BrowserModule,

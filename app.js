@@ -29,6 +29,17 @@ io.on("connection", (socket) => {
     // socket.join('here is unique idea for room');
     // socket.to["uniqueid"].emit('message','to everyone exvept sender');
 
+    // socket.on('startGame', ({ gameId }) => {
+    //     createGame().then(words => {
+    //         io.to(gameId).emit('startGame', words);
+    //         console.log("Someone is starting a game");
+    //     })
+    // })
+
+    // socket.on('gameUpdate', ({ gameId, words }) => {
+    //     io.to(gameId).emit(gameId, words);
+    // })
+    
     socket.on('joinGame', ({gameId}) => {
         socket.join(gameId);
         console.log('player joined the rrom' + gameId);
