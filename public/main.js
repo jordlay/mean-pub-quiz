@@ -636,10 +636,13 @@ class SocketioService {
         this.socket = Object(socket_io_client__WEBPACK_IMPORTED_MODULE_1__["io"])(src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].SOCKET_ENDPOINT);
         this.socket.emit('joinGame', { gameId: roomPin });
     }
+    endGame(roomPin) {
+        this.socket.emit('endGame', { gameId: roomPin });
+    }
     // startGame(gameId) {
     //   this.socket.emit('startGame', { gameId: gameId });
     // }
-    recieveJoinedPlayers() {
+    receiveJoinedPlayers() {
         return new rxjs__WEBPACK_IMPORTED_MODULE_0__["Observable"]((observer) => {
             this.socket.on('joinGame', (message) => {
                 observer.next(message);
@@ -694,10 +697,6 @@ class GamePlayComponent {
     ngOnInit() {
         this.url = window.location.href;
         this.roomPin = this.actRoute.snapshot.params.pin;
-        this.socketioService.connect(this.roomPin);
-        this.recieveJoinedPlayers();
-        // this.recieveStartGame();
-        // this.recieveGameUpdate();
         this.game = {
             hostName: String,
             roomPin: this.roomPin,
@@ -755,29 +754,9 @@ class GamePlayComponent {
     }
     endGame() {
         this.api.dispose();
+        this.socketioService.endGame(this.roomPin);
         this.router.navigate(['/']);
         this.gameCreationService.endGame(this.game).subscribe(() => { });
-    }
-    beginGame() {
-    }
-    // nextGame() {
-    //   this.socketIoService.startGame(this.gameId);
-    // }
-    // startGame() {
-    //   this.socketIoService.startGame(this.gameId);
-    // }
-    // clickWord(word) {
-    //   word.selected = true;
-    //   this.socketIoService.sendGameUpdate(this.gameId, this.words);
-    // }
-    recieveJoinedPlayers() {
-        this.socketioService.recieveJoinedPlayers().subscribe((message) => {
-            // this.snackbar.open(message, '', {
-            //   duration: 3000,
-            // });
-            this.toastMessage = message;
-            console.log(message);
-        });
     }
 }
 GamePlayComponent.ɵfac = function GamePlayComponent_Factory(t) { return new (t || GamePlayComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_services_game_creation_service__WEBPACK_IMPORTED_MODULE_2__["GameCreationService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_services_socketio_service__WEBPACK_IMPORTED_MODULE_4__["SocketioService"])); };
@@ -1571,10 +1550,11 @@ class GameDetailsComponent {
     ngOnInit() {
         this.url = window.location.href;
         this.roomPin = this.actRoute.snapshot.params.pin;
+        setTimeout(() => { }, 3000);
         this.socketioService.connect(this.roomPin);
-        this.recieveJoinedPlayers();
-        // this.recieveStartGame();
-        // this.recieveGameUpdate();
+        this.receiveJoinedPlayers();
+        // this.receiveStartGame();
+        // this.receiveGameUpdate();
         this.game = {
             hostName: String,
             roomPin: this.roomPin,
@@ -1591,8 +1571,8 @@ class GameDetailsComponent {
     //   word.selected = true;
     //   this.socketIoService.sendGameUpdate(this.gameId, this.words);
     // }
-    recieveJoinedPlayers() {
-        this.socketioService.recieveJoinedPlayers().subscribe((message) => {
+    receiveJoinedPlayers() {
+        this.socketioService.receiveJoinedPlayers().subscribe((message) => {
             // this.snackbar.open(message, '', {
             //   duration: 3000,
             // });

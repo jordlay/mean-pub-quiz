@@ -98,6 +98,7 @@ export class GamePlayComponent implements OnInit {
 
   endGame(){
     this.api.dispose();
+    this.socketioService.endGame(this.roomPin);
     this.router.navigate(['/']);
     this.gameCreationService.endGame(this.game).subscribe( () => {});
   }

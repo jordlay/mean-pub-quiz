@@ -18,10 +18,14 @@ export class SocketioService {
     this.socket.emit('joinGame', {gameId : roomPin});
   }
 
+  endGame(roomPin: any){
+    this.socket.emit('endGame', {gameId : roomPin});
+  }
+
   // startGame(gameId) {
   //   this.socket.emit('startGame', { gameId: gameId });
   // }
-  recieveJoinedPlayers() {
+  receiveJoinedPlayers() {
     return new Observable((observer) => {
       this.socket.on('joinGame', (message: any) => {
         observer.next(message);
@@ -33,7 +37,7 @@ export class SocketioService {
   //   this.socket.emit('gameUpdate', { gameId: gameId, words: words });
   // }
 
-  // recieveJoinedPlayers() {
+  // receiveJoinedPlayers() {
   //   return new Observable((observer) => {
   //     this.socket.on('joinGame', (message) => {
   //       observer.next(message);
@@ -41,7 +45,7 @@ export class SocketioService {
   //   });
   // }
 
-  // recieveStartGame() {
+  // receiveStartGame() {
   //   return new Observable((observer) => {
   //     this.socket.on('startGame', (words) => {
   //       observer.next(words);
@@ -49,7 +53,7 @@ export class SocketioService {
   //   });
   // }
 
-  // recieveGameUpdate(gameId) {
+  // receiveGameUpdate(gameId) {
   //   return new Observable((observer) => {
   //     this.socket.on(gameId, (words) => {
   //       observer.next(words);

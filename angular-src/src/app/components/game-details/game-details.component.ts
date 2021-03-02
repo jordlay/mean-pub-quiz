@@ -20,10 +20,11 @@ export class GameDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.url = window.location.href;
     this.roomPin = this.actRoute.snapshot.params.pin;
+    setTimeout(()=>{}, 3000);
     this.socketioService.connect(this.roomPin);
-    this.recieveJoinedPlayers();
-    // this.recieveStartGame();
-    // this.recieveGameUpdate();
+    this.receiveJoinedPlayers();
+    // this.receiveStartGame();
+    // this.receiveGameUpdate();
     this.game = {
       hostName: String,
       roomPin: this.roomPin,
@@ -44,8 +45,8 @@ export class GameDetailsComponent implements OnInit {
   //   this.socketIoService.sendGameUpdate(this.gameId, this.words);
   // }
 
-  recieveJoinedPlayers() {
-    this.socketioService.recieveJoinedPlayers().subscribe((message) => {
+  receiveJoinedPlayers() {
+    this.socketioService.receiveJoinedPlayers().subscribe((message) => {
       // this.snackbar.open(message, '', {
       //   duration: 3000,
       // });
@@ -54,15 +55,15 @@ export class GameDetailsComponent implements OnInit {
     });
   }
 
-  // recieveStartGame() {
-  //   this.socketIoService.recieveStartGame().subscribe((words) => {
+  // receiveStartGame() {
+  //   this.socketIoService.receiveStartGame().subscribe((words) => {
   //     this.role = 'operative';
   //     this.words = words;
   //   });
   // }
 
-  // recieveGameUpdate() {
-  //   this.socketIoService.recieveGameUpdate(this.gameId).subscribe((words) => {
+  // receiveGameUpdate() {
+  //   this.socketIoService.receiveGameUpdate(this.gameId).subscribe((words) => {
   //     this.words = words;
   //   });
   // }

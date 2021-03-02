@@ -39,13 +39,18 @@ io.on("connection", (socket) => {
     // socket.on('gameUpdate', ({ gameId, words }) => {
     //     io.to(gameId).emit(gameId, words);
     // })
-    
+
     socket.on('joinGame', ({gameId}) => {
         socket.join(gameId);
         console.log('player joined the rrom' + gameId);
         socket.to(gameId).emit('joinGame', 'player joined the game');
     });
 
+    socket.on('endGame', ({gameId}) => {
+        socket.leave(gameId);
+        console.log('game ended' + gameId);
+        socket.to(gameId).emit('endGame', 'player ${socket.id} ended the game');
+    });
 });
 
 
