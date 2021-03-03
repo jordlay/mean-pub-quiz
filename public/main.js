@@ -649,6 +649,13 @@ class SocketioService {
             });
         });
     }
+    receiveEndGame(roomPin) {
+        return new rxjs__WEBPACK_IMPORTED_MODULE_0__["Observable"]((observer) => {
+            this.socket.on('endGame', (message) => {
+                observer.next(message);
+            });
+        });
+    }
 }
 SocketioService.ɵfac = function SocketioService_Factory(t) { return new (t || SocketioService)(); };
 SocketioService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjectable"]({ token: SocketioService, factory: SocketioService.ɵfac, providedIn: 'root' });
@@ -706,6 +713,8 @@ class GamePlayComponent {
     ngAfterViewInit() {
         this.gameCreationService.checkGameExists(this.game).subscribe((data) => {
             if (data.success) {
+                this.socketioService.connect(this.roomPin);
+                this.receiveEndGame();
                 this.gameCreationService.getMeetingParams(this.roomPin).subscribe(data => {
                     this.data = data;
                     if (this.data.success) {
@@ -757,6 +766,14 @@ class GamePlayComponent {
         this.socketioService.endGame(this.roomPin);
         this.router.navigate(['/']);
         this.gameCreationService.endGame(this.game).subscribe(() => { });
+    }
+    receiveEndGame() {
+        this.socketioService.receiveEndGame(this.roomPin).subscribe((message) => {
+            console.log(message);
+            if (message.includes('ended the game')) {
+                this.endGame();
+            }
+        });
     }
 }
 GamePlayComponent.ɵfac = function GamePlayComponent_Factory(t) { return new (t || GamePlayComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_services_game_creation_service__WEBPACK_IMPORTED_MODULE_2__["GameCreationService"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_3__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_3__["ActivatedRoute"]), _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdirectiveInject"](_services_socketio_service__WEBPACK_IMPORTED_MODULE_4__["SocketioService"])); };
@@ -1550,7 +1567,7 @@ class GameDetailsComponent {
     ngOnInit() {
         this.url = window.location.href;
         this.roomPin = this.actRoute.snapshot.params.pin;
-        setTimeout(() => { }, 3000);
+        // setTimeout(()=>{}, 3000);
         this.socketioService.connect(this.roomPin);
         this.receiveJoinedPlayers();
         // this.receiveStartGame();
@@ -1561,16 +1578,9 @@ class GameDetailsComponent {
             displayName: String
         };
     }
-    // nextGame() {
-    //   this.socketIoService.startGame(this.gameId);
-    // }
-    // startGame() {
-    //   this.socketIoService.startGame(this.gameId);
-    // }
-    // clickWord(word) {
-    //   word.selected = true;
-    //   this.socketIoService.sendGameUpdate(this.gameId, this.words);
-    // }
+    ngAfterViewInit() {
+        // this.receiveJoinedPlayers();
+    }
     receiveJoinedPlayers() {
         this.socketioService.receiveJoinedPlayers().subscribe((message) => {
             // this.snackbar.open(message, '', {

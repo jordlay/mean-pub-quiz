@@ -33,6 +33,13 @@ export class SocketioService {
     });
   }
 
+  receiveEndGame() {
+    return new Observable((observer) => {
+      this.socket.on('endGame', (message: any) => {
+        observer.next(message);
+      });
+    });
+  }
   // sendGameUpdate(gameId, words) {
   //   this.socket.emit('gameUpdate', { gameId: gameId, words: words });
   // }

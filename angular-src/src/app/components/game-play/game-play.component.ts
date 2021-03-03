@@ -42,12 +42,14 @@ export class GamePlayComponent implements OnInit {
       roomPin: this.roomPin,
       displayName: String
     }
+    
   }
 
   ngAfterViewInit() {
     this.gameCreationService.checkGameExists(this.game).subscribe((data) => {
       if ((data as any).success) {
-        
+    this.socketioService.connect(this.roomPin);
+    this.receiveEndGame();
     this.gameCreationService.getMeetingParams(this.roomPin).subscribe(data => {
       this.data = data;
       if (this.data.success) {
@@ -103,4 +105,14 @@ export class GamePlayComponent implements OnInit {
     this.gameCreationService.endGame(this.game).subscribe( () => {});
   }
 
+  receiveEndGame() {
+    this.socketioService.receiveEndGame().subscribe((message: any) => {
+      console.log(message)
+      if (message.includes('ended the game')) {
+
+        // NOTE: is this wrong to call endGame again?
+        this.endGame();
+      }
+    });
+  }
 }

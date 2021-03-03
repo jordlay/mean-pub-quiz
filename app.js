@@ -47,9 +47,11 @@ io.on("connection", (socket) => {
     });
 
     socket.on('endGame', ({gameId}) => {
+        
+        socket.to(gameId).emit('endGame', 'player ${socket.id} ended the game');
         socket.leave(gameId);
         console.log('game ended' + gameId);
-        socket.to(gameId).emit('endGame', 'player ${socket.id} ended the game');
+        socket.disconnect(true);
     });
 });
 

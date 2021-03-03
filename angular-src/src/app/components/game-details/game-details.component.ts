@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { SocketioService } from '../../services/socketio.service';
 import { Router,  ActivatedRoute, ParamMap } from '@angular/router';
 
@@ -20,7 +20,7 @@ export class GameDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.url = window.location.href;
     this.roomPin = this.actRoute.snapshot.params.pin;
-    setTimeout(()=>{}, 3000);
+    // setTimeout(()=>{}, 3000);
     this.socketioService.connect(this.roomPin);
     this.receiveJoinedPlayers();
     // this.receiveStartGame();
@@ -32,18 +32,9 @@ export class GameDetailsComponent implements OnInit {
     }
   }
 
-    // nextGame() {
-  //   this.socketIoService.startGame(this.gameId);
-  // }
-
-  // startGame() {
-  //   this.socketIoService.startGame(this.gameId);
-  // }
-
-  // clickWord(word) {
-  //   word.selected = true;
-  //   this.socketIoService.sendGameUpdate(this.gameId, this.words);
-  // }
+  ngAfterViewInit(){
+    // this.receiveJoinedPlayers();
+  }
 
   receiveJoinedPlayers() {
     this.socketioService.receiveJoinedPlayers().subscribe((message) => {
