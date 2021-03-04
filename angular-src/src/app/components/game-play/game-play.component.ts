@@ -50,6 +50,7 @@ export class GamePlayComponent implements OnInit {
       if ((data as any).success) {
     this.socketioService.connect(this.roomPin);
     this.receiveEndGame();
+    this.receiveJoinedPlayers();
     this.gameCreationService.getMeetingParams(this.roomPin).subscribe(data => {
       this.data = data;
       if (this.data.success) {
@@ -85,6 +86,9 @@ export class GamePlayComponent implements OnInit {
         this.api = new JitsiMeetExternalAPI(this.domain, this.options);
        this.api.addListener('participantJoined', () => {
          this.participantArray = this.api._participants;
+        //  console.log('api part', this.api._participants);
+        console.log(this.participantArray);
+        //  this.gameCreationService.setParticipants(this.participantArray);
         });
        
       } else {
@@ -103,6 +107,20 @@ export class GamePlayComponent implements OnInit {
     this.socketioService.endGame(this.roomPin);
     this.router.navigate(['/']);
     this.gameCreationService.endGame(this.game).subscribe( () => {});
+  }
+
+  beginGame(){
+    this.gameStarted = true;
+  }
+
+  receiveJoinedPlayers() {
+    this.socketioService.receiveJoinedPlayers().subscribe((message) => {
+      // this.snackbar.open(message, '', {
+      //   duration: 3000,
+      // });
+      this.toastMessage = message
+      console.log(message);
+    });
   }
 
   receiveEndGame() {

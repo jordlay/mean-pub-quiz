@@ -22,7 +22,7 @@ const io = require('socket.io')(httpServer, {
 // const io = require("socket.io-client");
 
 io.on("connection", (socket) => {
-    console.log("a user connected");
+    console.log(socket.id, "a user connected");
     // socket.emit('message', 'JUSTCOONECTED');
     // socket.broadcast.emit('message', 'all but atuhior');
     
@@ -47,8 +47,8 @@ io.on("connection", (socket) => {
     });
 
     socket.on('endGame', ({gameId}) => {
-        
-        socket.to(gameId).emit('endGame', 'player ${socket.id} ended the game');
+        // NOTE: tidy this up, work out which acc ends connection
+        socket.to(gameId).emit('endGame', socket.id + 'player ${socket.id} ended the game');
         socket.leave(gameId);
         console.log('game ended' + gameId);
         socket.disconnect(true);
