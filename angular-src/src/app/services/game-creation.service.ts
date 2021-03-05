@@ -73,16 +73,16 @@ export class GameCreationService {
     return Math.random().toString(20).substr(2, 5).toUpperCase();
   }
 
-  setParticipants(participantArray: any){
-    this.participantArray = participantArray;
-  }
+  // setParticipants(participantArray: any){
+  //   this.participantArray = participantArray;
+  // }
 
-  getParticipants(){
-    // return this.participantArray;
-    return new Observable((observer) => {
-        observer.next(this.participantArray);
-    });
-  }
+  // getParticipants(){
+  //   // return this.participantArray;
+  //   return new Observable((observer) => {
+  //       observer.next(this.participantArray);
+  //   });
+  // }
 
   // Future: Send Invite
 

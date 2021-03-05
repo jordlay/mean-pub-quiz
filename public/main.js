@@ -245,9 +245,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GameCreationService", function() { return GameCreationService; });
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ "tk/3");
 /* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! rxjs/operators */ "kU1M");
-/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "qCKp");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "fXoL");
-
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "fXoL");
 
 
 
@@ -303,18 +301,9 @@ class GameCreationService {
     generateCode() {
         return Math.random().toString(20).substr(2, 5).toUpperCase();
     }
-    setParticipants(participantArray) {
-        this.participantArray = participantArray;
-    }
-    getParticipants() {
-        // return this.participantArray;
-        return new rxjs__WEBPACK_IMPORTED_MODULE_2__["Observable"]((observer) => {
-            observer.next(this.participantArray);
-        });
-    }
 }
-GameCreationService.ɵfac = function GameCreationService_Factory(t) { return new (t || GameCreationService)(_angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"])); };
-GameCreationService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_3__["ɵɵdefineInjectable"]({ token: GameCreationService, factory: GameCreationService.ɵfac, providedIn: 'root' });
+GameCreationService.ɵfac = function GameCreationService_Factory(t) { return new (t || GameCreationService)(_angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵinject"](_angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpClient"])); };
+GameCreationService.ɵprov = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefineInjectable"]({ token: GameCreationService, factory: GameCreationService.ɵfac, providedIn: 'root' });
 
 
 /***/ }),
@@ -650,9 +639,9 @@ class SocketioService {
     endGame(roomPin) {
         this.socket.emit('endGame', { gameId: roomPin });
     }
-    // startGame(gameId) {
-    //   this.socket.emit('startGame', { gameId: gameId });
-    // }
+    beginGame(roomPin) {
+        this.socket.emit('startGame', { gameId: roomPin });
+    }
     receiveJoinedPlayers() {
         return new rxjs__WEBPACK_IMPORTED_MODULE_0__["Observable"]((observer) => {
             this.socket.on('joinGame', (message) => {
@@ -663,6 +652,23 @@ class SocketioService {
     receiveEndGame() {
         return new rxjs__WEBPACK_IMPORTED_MODULE_0__["Observable"]((observer) => {
             this.socket.on('endGame', (message) => {
+                observer.next(message);
+            });
+        });
+    }
+    // sendGameUpdate(gameId, words) {
+    //   this.socket.emit('gameUpdate', { gameId: gameId, words: words });
+    // }
+    // receiveJoinedPlayers() {
+    //   return new Observable((observer) => {
+    //     this.socket.on('joinGame', (message) => {
+    //       observer.next(message);
+    //     });
+    //   });
+    // }
+    receiveBeginGame() {
+        return new rxjs__WEBPACK_IMPORTED_MODULE_0__["Observable"]((observer) => {
+            this.socket.on('startGame', (message) => {
                 observer.next(message);
             });
         });
@@ -774,6 +780,16 @@ class GamePlayComponent {
         this.isHost = false;
         this.url = '';
         this.objectKeys = Object.keys;
+        this.playersDetails = {
+            socketID: String,
+            displayName: String
+        };
+        this.playerID = [];
+        // playerDispNames = { displayName: String};
+        // playerDispNames = [];
+        // playerDispNames = { displayName: String};
+        // playerDispNames = [];
+        this.playerDispNames = [];
     }
     ngOnInit() {
         this.url = window.location.href;
@@ -783,13 +799,17 @@ class GamePlayComponent {
             roomPin: this.roomPin,
             displayName: String
         };
+        // this.playersDetails = {
+        // };
     }
     ngAfterViewInit() {
         this.gameCreationService.checkGameExists(this.game).subscribe((data) => {
             if (data.success) {
                 this.socketioService.connect(this.roomPin);
                 this.receiveEndGame();
+                this.receiveBeginGame();
                 this.receiveJoinedPlayers();
+                this.gameStarted = false;
                 this.gameCreationService.getMeetingParams(this.roomPin).subscribe(data => {
                     this.data = data;
                     if (this.data.success) {
@@ -825,7 +845,14 @@ class GamePlayComponent {
                         this.api.addListener('participantJoined', () => {
                             this.participantArray = this.api._participants;
                             //  console.log('api part', this.api._participants);
-                            console.log(this.participantArray);
+                            // console.log(this.api._participants.displayName);
+                            // this.playerDispNames.push({'displayName': this.api._participants.displayName }) ;
+                            // console.log(this.playerDispNames);
+                            // this.api._participants.forEach((key:any) => {
+                            //   this.playerDispNames.push(this.api._participants[key].displayName);
+                            //   console.log(this.playerDispNames);
+                            // });
+                            // console.log(this.playerDispNames);
                             //  this.gameCreationService.setParticipants(this.participantArray);
                         });
                     }
@@ -846,7 +873,15 @@ class GamePlayComponent {
         this.gameCreationService.endGame(this.game).subscribe(() => { });
     }
     beginGame() {
+        for (let key of this.objectKeys(this.participantArray)) {
+            console.log(key, this.participantArray[key].displayName);
+            this.playerDispNames.push(this.participantArray[key].displayName);
+            console.log(this.playerDispNames);
+        }
+        console.log(this.playerID);
+        console.log(this.playerDispNames);
         this.gameStarted = true;
+        this.socketioService.beginGame(this.roomPin);
     }
     receiveJoinedPlayers() {
         this.socketioService.receiveJoinedPlayers().subscribe((message) => {
@@ -855,6 +890,8 @@ class GamePlayComponent {
             // });
             this.toastMessage = message;
             console.log(message);
+            this.playerID.push(message);
+            // this.playerID.push(message);
         });
     }
     receiveEndGame() {
@@ -863,6 +900,15 @@ class GamePlayComponent {
             if (message.includes('ended the game')) {
                 // NOTE: is this wrong to call endGame again?
                 this.endGame();
+            }
+        });
+    }
+    receiveBeginGame() {
+        this.socketioService.receiveBeginGame().subscribe((message) => {
+            console.log(message);
+            if (message.includes('began')) {
+                // NOTE: is this wrong to call endGame again?
+                this.beginGame();
             }
         });
     }

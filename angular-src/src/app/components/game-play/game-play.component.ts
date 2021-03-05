@@ -31,6 +31,16 @@ export class GamePlayComponent implements OnInit {
   objectKeys = Object.keys;
   participantArray: any;
   toastMessage: any;
+  playersDetails = {
+    socketID: String,
+    displayName: String
+  };
+  playerID: String[] = [];
+  // playerDispNames = { displayName: String};
+  // playerDispNames = [];
+  // playerDispNames = { displayName: String};
+  // playerDispNames = [];
+  playerDispNames: String[] = [];
   @ViewChild('meet') meet: ElementRef | any;
 
   ngOnInit(): void {
@@ -42,6 +52,9 @@ export class GamePlayComponent implements OnInit {
       roomPin: this.roomPin,
       displayName: String
     }
+    // this.playersDetails = {
+
+    // };
     
   }
 
@@ -50,7 +63,9 @@ export class GamePlayComponent implements OnInit {
       if ((data as any).success) {
     this.socketioService.connect(this.roomPin);
     this.receiveEndGame();
+    this.receiveBeginGame();
     this.receiveJoinedPlayers();
+    this.gameStarted = false;
     this.gameCreationService.getMeetingParams(this.roomPin).subscribe(data => {
       this.data = data;
       if (this.data.success) {
@@ -86,8 +101,17 @@ export class GamePlayComponent implements OnInit {
         this.api = new JitsiMeetExternalAPI(this.domain, this.options);
        this.api.addListener('participantJoined', () => {
          this.participantArray = this.api._participants;
+
+  
         //  console.log('api part', this.api._participants);
-        console.log(this.participantArray);
+        // console.log(this.api._participants.displayName);
+        // this.playerDispNames.push({'displayName': this.api._participants.displayName }) ;
+        // console.log(this.playerDispNames);
+        // this.api._participants.forEach((key:any) => {
+        //   this.playerDispNames.push(this.api._participants[key].displayName);
+        //   console.log(this.playerDispNames);
+        // });
+        // console.log(this.playerDispNames);
         //  this.gameCreationService.setParticipants(this.participantArray);
         });
        
@@ -110,16 +134,26 @@ export class GamePlayComponent implements OnInit {
   }
 
   beginGame(){
+      for (let key of this.objectKeys(this.participantArray)) {
+        console.log(key, this.participantArray[key].displayName);
+        this.playerDispNames.push(this.participantArray[key].displayName);
+        console.log(this.playerDispNames);
+      }
+   console.log(this.playerID);
+   console.log(this.playerDispNames);
     this.gameStarted = true;
+    this.socketioService.beginGame(this.roomPin);
   }
 
   receiveJoinedPlayers() {
-    this.socketioService.receiveJoinedPlayers().subscribe((message) => {
+    this.socketioService.receiveJoinedPlayers().subscribe((message:any) => {
       // this.snackbar.open(message, '', {
       //   duration: 3000,
       // });
       this.toastMessage = message
       console.log(message);
+      this.playerID.push(message);
+      // this.playerID.push(message);
     });
   }
 
@@ -130,6 +164,17 @@ export class GamePlayComponent implements OnInit {
 
         // NOTE: is this wrong to call endGame again?
         this.endGame();
+      }
+    });
+  }
+
+  receiveBeginGame() {
+    this.socketioService.receiveBeginGame().subscribe((message: any) => {
+      console.log(message)
+      if (message.includes('began')) {
+
+        // NOTE: is this wrong to call endGame again?
+        this.beginGame();
       }
     });
   }

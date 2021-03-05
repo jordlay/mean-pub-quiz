@@ -23,18 +23,20 @@ const io = require('socket.io')(httpServer, {
 
 io.on("connection", (socket) => {
     console.log(socket.id, "a user connected");
+    // socket.to(gameId).emit('joinGame', socket.id);
     // socket.emit('message', 'JUSTCOONECTED');
     // socket.broadcast.emit('message', 'all but atuhior');
     
     // socket.join('here is unique idea for room');
     // socket.to["uniqueid"].emit('message','to everyone exvept sender');
 
-    // socket.on('startGame', ({ gameId }) => {
-    //     createGame().then(words => {
-    //         io.to(gameId).emit('startGame', words);
-    //         console.log("Someone is starting a game");
-    //     })
-    // })
+    socket.on('startGame', ({gameId}) => {
+            // io.to(gameId).emit('startGame', socket.id);
+            
+        socket.to(gameId).emit('startGame', socket.id + 'player ${socket.id} began the game');
+            console.log(socket.id, "began the game");
+     
+    })
 
     // socket.on('gameUpdate', ({ gameId, words }) => {
     //     io.to(gameId).emit(gameId, words);
@@ -42,8 +44,9 @@ io.on("connection", (socket) => {
 
     socket.on('joinGame', ({gameId}) => {
         socket.join(gameId);
-        console.log('player joined the rrom' + gameId);
-        socket.to(gameId).emit('joinGame', 'player joined the game');
+        console.log( socket.id + 'joined the rrom' + gameId);
+        // socket.to(gameId).emit('joinGame', socket.id);
+        io.in(gameId).emit('joinGame', socket.id);
     });
 
     socket.on('endGame', ({gameId}) => {

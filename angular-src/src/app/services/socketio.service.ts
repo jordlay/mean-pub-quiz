@@ -22,9 +22,10 @@ export class SocketioService {
     this.socket.emit('endGame', {gameId : roomPin});
   }
 
-  // startGame(gameId) {
-  //   this.socket.emit('startGame', { gameId: gameId });
-  // }
+  beginGame(roomPin: any) {
+    this.socket.emit('startGame', {gameId: roomPin});
+  }
+  
   receiveJoinedPlayers() {
     return new Observable((observer) => {
       this.socket.on('joinGame', (message: any) => {
@@ -52,13 +53,13 @@ export class SocketioService {
   //   });
   // }
 
-  // receiveStartGame() {
-  //   return new Observable((observer) => {
-  //     this.socket.on('startGame', (words) => {
-  //       observer.next(words);
-  //     });
-  //   });
-  // }
+  receiveBeginGame() {
+    return new Observable((observer) => {
+      this.socket.on('startGame', (message: any) => {
+        observer.next(message);
+      });
+    });
+  }
 
   // receiveGameUpdate(gameId) {
   //   return new Observable((observer) => {
