@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class SocketioService {
 
   socket!: Socket;
-
+  socketID: any;
   constructor() { }
 
   connect(roomPin: any){
@@ -18,17 +18,45 @@ export class SocketioService {
     this.socket.emit('joinGame', {gameId : roomPin});
   }
 
+  playerReady(roomPin:any){
+    this.socket.emit('playerReady', {gameId: roomPin});
+  }
+
+  // NOT WORKING
+  beginGame(roomPin: any) {
+    this.socket.emit('startGame', {gameId: roomPin});
+  }
+
   endGame(roomPin: any){
     this.socket.emit('endGame', {gameId : roomPin});
   }
 
-  beginGame(roomPin: any) {
-    this.socket.emit('startGame', {gameId: roomPin});
+  getID(){
+    this.socket.on('getID', (ID: any) => {
+      this.socketID = ID;
+    });
+    return this.socketID
   }
-  
+
   receiveJoinedPlayers() {
     return new Observable((observer) => {
       this.socket.on('joinGame', (message: any) => {
+        observer.next(message);
+      });
+    });
+  }
+
+  receiveReadyPlayers() {
+    return new Observable((observer) => {
+      this.socket.on('playerReady', (message: any) => {
+        observer.next(message);
+      });
+    });
+  }
+
+  receiveBeginGame() {
+    return new Observable((observer) => {
+      this.socket.on('startGame', (message: any) => {
         observer.next(message);
       });
     });
@@ -45,27 +73,6 @@ export class SocketioService {
   //   this.socket.emit('gameUpdate', { gameId: gameId, words: words });
   // }
 
-  // receiveJoinedPlayers() {
-  //   return new Observable((observer) => {
-  //     this.socket.on('joinGame', (message) => {
-  //       observer.next(message);
-  //     });
-  //   });
-  // }
 
-  receiveBeginGame() {
-    return new Observable((observer) => {
-      this.socket.on('startGame', (message: any) => {
-        observer.next(message);
-      });
-    });
-  }
 
-  // receiveGameUpdate(gameId) {
-  //   return new Observable((observer) => {
-  //     this.socket.on(gameId, (words) => {
-  //       observer.next(words);
-  //     });
-  //   });
-  // }
 }

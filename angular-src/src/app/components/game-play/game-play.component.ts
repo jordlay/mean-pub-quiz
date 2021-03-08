@@ -28,6 +28,8 @@ export class GamePlayComponent implements OnInit {
   errorMessage: any;
   isHost = false;
   url = '';
+  allPlayersReady = false;
+  isPlayerReady = false;
   objectKeys = Object.keys;
   participantArray: any;
   toastMessage: any;
@@ -36,10 +38,6 @@ export class GamePlayComponent implements OnInit {
     displayName: String
   };
   playerID: String[] = [];
-  // playerDispNames = { displayName: String};
-  // playerDispNames = [];
-  // playerDispNames = { displayName: String};
-  // playerDispNames = [];
   playerDispNames: String[] = [];
   @ViewChild('meet') meet: ElementRef | any;
 
@@ -62,9 +60,12 @@ export class GamePlayComponent implements OnInit {
     this.gameCreationService.checkGameExists(this.game).subscribe((data) => {
       if ((data as any).success) {
     this.socketioService.connect(this.roomPin);
-    this.receiveEndGame();
-    this.receiveBeginGame();
     this.receiveJoinedPlayers();
+    this.receiveReadyPlayers();
+    this.receiveBeginGame();
+    this.receiveEndGame();
+    
+    console.log(this.socketioService.getID());
     this.gameStarted = false;
     this.gameCreationService.getMeetingParams(this.roomPin).subscribe(data => {
       this.data = data;
@@ -98,23 +99,18 @@ export class GamePlayComponent implements OnInit {
             }
           }
         } 
-        this.api = new JitsiMeetExternalAPI(this.domain, this.options);
-       this.api.addListener('participantJoined', () => {
-         this.participantArray = this.api._participants;
 
-  
-        //  console.log('api part', this.api._participants);
-        // console.log(this.api._participants.displayName);
-        // this.playerDispNames.push({'displayName': this.api._participants.displayName }) ;
-        // console.log(this.playerDispNames);
-        // this.api._participants.forEach((key:any) => {
-        //   this.playerDispNames.push(this.api._participants[key].displayName);
-        //   console.log(this.playerDispNames);
-        // });
-        // console.log(this.playerDispNames);
-        //  this.gameCreationService.setParticipants(this.participantArray);
+        this.api = new JitsiMeetExternalAPI(this.domain, this.options);
+        let ID = this.socketioService.getID();
+        console.log(ID);
+        this.api.addListener('videoConferenceJoined', (message:any)=>{
+          console.log( message );
+          console.log(this.api._participants);
+          console.log(this.api.getParticipantsInfo());
+          console.log(this.api.getNumberOfParticipants());
+            this.participantArray = this.api._participants;
         });
-       
+
       } else {
         this.errorMessage = "You must create or enter a pin";
       }
@@ -134,13 +130,25 @@ export class GamePlayComponent implements OnInit {
   }
 
   beginGame(){
-      for (let key of this.objectKeys(this.participantArray)) {
-        console.log(key, this.participantArray[key].displayName);
-        this.playerDispNames.push(this.participantArray[key].displayName);
-        console.log(this.playerDispNames);
-      }
-   console.log(this.playerID);
-   console.log(this.playerDispNames);
+  //     for (let key of this.objectKeys(this.participantArray)) {
+  //       console.log(key, this.participantArray[key].displayName);
+  //       this.playerDispNames.push(this.participantArray[key].displayName);
+  //       console.log(this.playerDispNames);
+  //     }
+  //  console.log(this.playerID);
+  //  console.log(this.playerDispNames);
+   this.gameBegan();
+  }
+
+  playerReady(){
+    this.isPlayerReady = true;
+    this.socketioService.playerReady(this.roomPin);
+    // let ID = this.socketioService.getID();
+    // console.log(ID);
+  }
+
+  // rename, for others not clicked
+  gameBegan(){
     this.gameStarted = true;
     this.socketioService.beginGame(this.roomPin);
   }
@@ -157,6 +165,11 @@ export class GamePlayComponent implements OnInit {
     });
   }
 
+  receiveReadyPlayers(){
+    this.socketioService.receiveReadyPlayers().subscribe( (message:any) => {
+      console.log(message);
+    });
+  }
   receiveEndGame() {
     this.socketioService.receiveEndGame().subscribe((message: any) => {
       console.log(message)
@@ -172,9 +185,7 @@ export class GamePlayComponent implements OnInit {
     this.socketioService.receiveBeginGame().subscribe((message: any) => {
       console.log(message)
       if (message.includes('began')) {
-
-        // NOTE: is this wrong to call endGame again?
-        this.beginGame();
+        this.gameBegan();
       }
     });
   }

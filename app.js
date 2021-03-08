@@ -9,23 +9,39 @@ const app = express();
 const users = require('./routes/users');
 const games = require('./routes/games');
 
-const httpServer = require('http').createServer(httpApp);
+let port = process.env.PORT || 8080;
+// let porthttp = process.env.PORT || 3000;
+
+const server = app.listen(port, '0.0.0.0', () => {
+    console.log('Server started on Port ' + port);
+});
+
+const io = require('socket.io')(server, {
+        cors: true,
+        origins: ["*"]
+    });
+
+// const httpServer = require('http').createServer(httpApp);
 // const httpServer = require("http").createServer(app);
 // const io = require("socket.io")(httpServer, {
 
 // });
-const io = require('socket.io')(httpServer, {
-    cors: true,
-    origins: ["*"]
-});
+// const io = require('socket.io')(httpServer, {
+//     cors: true,
+//     origins: ["*"]
+// });
 
 // const io = require("socket.io-client");
 
 io.on("connection", (socket) => {
     console.log(socket.id, "a user connected");
-    // socket.to(gameId).emit('joinGame', socket.id);
-    // socket.emit('message', 'JUSTCOONECTED');
-    // socket.broadcast.emit('message', 'all but atuhior');
+    socket.emit('getID', socket.id);
+    socket.on('joinGame', ({gameId}) => {
+        socket.join(gameId);
+        console.log( socket.id + 'joined room' + gameId);
+        // socket.to(gameId).emit('joinGame', socket.id);
+        io.to(gameId).emit('joinGame', socket.id);
+    });
     
     // socket.join('here is unique idea for room');
     // socket.to["uniqueid"].emit('message','to everyone exvept sender');
@@ -33,21 +49,19 @@ io.on("connection", (socket) => {
     socket.on('startGame', ({gameId}) => {
             // io.to(gameId).emit('startGame', socket.id);
             
-        socket.to(gameId).emit('startGame', socket.id + 'player ${socket.id} began the game');
-            console.log(socket.id, "began the game");
-     
+        io.to(gameId).emit('startGame', socket.id + 'player ${socket.id} began the game');
+            // console.log(socket.id, "began the game");
+            console.log('game began' + gameId);
     })
 
-    // socket.on('gameUpdate', ({ gameId, words }) => {
-    //     io.to(gameId).emit(gameId, words);
-    // })
-
-    socket.on('joinGame', ({gameId}) => {
-        socket.join(gameId);
-        console.log( socket.id + 'joined the rrom' + gameId);
+    socket.on('playerReady', ({ gameId }) => {
+        // io.to(gameId).emit(gameId);
+        console.log( socket.id + ' is ready to play ' + gameId);
         // socket.to(gameId).emit('joinGame', socket.id);
-        io.in(gameId).emit('joinGame', socket.id);
-    });
+        io.to(gameId).emit('playerReady', socket.id);
+    })
+
+ 
 
     socket.on('endGame', ({gameId}) => {
         // NOTE: tidy this up, work out which acc ends connection
@@ -59,12 +73,12 @@ io.on("connection", (socket) => {
 });
 
 
-let port = process.env.PORT || 8080;
-let porthttp = process.env.PORT || 3000;
 
-httpServer.listen(porthttp, '0.0.0.0', () => {
-    console.log('Server started on Port ' + porthttp);
-});
+
+
+// httpServer.listen(porthttp, '0.0.0.0', () => {
+//     console.log('Server started on Port ' + porthttp);
+// });
 
 const uri = "mongodb+srv://jll541:mean-quiz@clusterquiz.inacn.mongodb.net/quizdb?retryWrites=true&w=majority";
 
@@ -111,6 +125,6 @@ app.get('*', (req,res) => {
     res.sendFile(path.join(__dirname, 'public/index.html'))
 });
 // Start Server
-app.listen(port, '0.0.0.0', () => {
-    console.log('Server started on Port ' + port);
-});
+// app.listen(port, '0.0.0.0', () => {
+//     console.log('Server started on Port ' + port);
+// });
