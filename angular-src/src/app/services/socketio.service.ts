@@ -11,6 +11,7 @@ export class SocketioService {
 
   socket!: Socket;
   socketID: any;
+  history: any;
   constructor() { }
 
   connect(roomPin: any){
@@ -18,8 +19,8 @@ export class SocketioService {
     this.socket.emit('joinGame', {gameId : roomPin});
   }
 
-  playerReady(roomPin:any){
-    this.socket.emit('playerReady', {gameId: roomPin});
+  playerReady(roomPin:any, playerData: any){
+    this.socket.emit('playerReady', {gameId: roomPin, playerData: playerData });
   }
 
   // NOT WORKING
@@ -31,10 +32,24 @@ export class SocketioService {
     this.socket.emit('endGame', {gameId : roomPin});
   }
 
+  getHistory(){
+    this.socket.on('getHistory', (ID: any) => {
+      this.history = ID;
+      console.log(ID);
+      console.log(this.history);
+      return this.history
+    });
+    console.log(this.history);
+    return this.history
+  }
   getID(){
     this.socket.on('getID', (ID: any) => {
       this.socketID = ID;
+      console.log(ID);
+      console.log(this.socketID);
+      return this.socketID
     });
+    console.log(this.socketID);
     return this.socketID
   }
 
@@ -49,6 +64,7 @@ export class SocketioService {
   receiveReadyPlayers() {
     return new Observable((observer) => {
       this.socket.on('playerReady', (message: any) => {
+        console.log(message);
         observer.next(message);
       });
     });

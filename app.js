@@ -32,9 +32,19 @@ const io = require('socket.io')(server, {
 // });
 
 // const io = require("socket.io-client");
-
+history = [];
+client = [];
 io.on("connection", (socket) => {
     console.log(socket.id, "a user connected");
+    client.push({id: socket.id})
+    var getClientID = client.find(e => (e.id === socket.client.id))
+    console.log("the Client", getClientID)
+    if(getClientID){
+     //io.sockets.emit("msg",history);
+    
+     socket.emit('getHistory', history);
+    }
+    socket.emit('getHistory', history);
     socket.emit('getID', socket.id);
     socket.on('joinGame', ({gameId}) => {
         socket.join(gameId);
@@ -54,11 +64,16 @@ io.on("connection", (socket) => {
             console.log('game began' + gameId);
     })
 
-    socket.on('playerReady', ({ gameId }) => {
+    socket.on('playerReady', ({ gameId, playerData }) => {
+        history.push(playerData)
+        console.log(history);
         // io.to(gameId).emit(gameId);
         console.log( socket.id + ' is ready to play ' + gameId);
+        console.log(gameId, playerData);
+        this.playerData = playerData
         // socket.to(gameId).emit('joinGame', socket.id);
-        io.to(gameId).emit('playerReady', socket.id);
+        // io.to(gameId).emit('playerReady', socket.id);
+        io.to(gameId).emit('playerReady',  playerData);
     })
 
  

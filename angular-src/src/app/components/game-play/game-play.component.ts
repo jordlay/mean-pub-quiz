@@ -3,6 +3,7 @@ import '../../../vendor/jitsi/external_api.js';
 import { GameCreationService } from '../../services/game-creation.service';
 import { Router,  ActivatedRoute, ParamMap } from '@angular/router';
 import { SocketioService } from '../../services/socketio.service';
+import { isTypeParameterDeclaration } from 'typescript';
 
 declare var JitsiMeetExternalAPI: any;
 
@@ -30,6 +31,14 @@ export class GamePlayComponent implements OnInit {
   url = '';
   allPlayersReady = false;
   isPlayerReady = false;
+  // readyPlayers = {
+  //   socketID: String,
+  //   displayName: String,
+  //   formattedDisplayName: String,
+  //   participantID: String
+  // };
+  readyPlayers: String[] = [];
+  // readyPlayers: any;
   objectKeys = Object.keys;
   participantArray: any;
   toastMessage: any;
@@ -37,8 +46,11 @@ export class GamePlayComponent implements OnInit {
     socketID: String,
     displayName: String
   };
+  currentSocketID: any;
+  currentPlayer: any;
   playerID: String[] = [];
   playerDispNames: String[] = [];
+  history: any;
   @ViewChild('meet') meet: ElementRef | any;
 
   ngOnInit(): void {
@@ -60,11 +72,11 @@ export class GamePlayComponent implements OnInit {
     this.gameCreationService.checkGameExists(this.game).subscribe((data) => {
       if ((data as any).success) {
     this.socketioService.connect(this.roomPin);
-    this.receiveJoinedPlayers();
     this.receiveReadyPlayers();
     this.receiveBeginGame();
     this.receiveEndGame();
-    
+    this.history = this.socketioService.getHistory();
+    console.log(this.socketioService.getHistory());
     console.log(this.socketioService.getID());
     this.gameStarted = false;
     this.gameCreationService.getMeetingParams(this.roomPin).subscribe(data => {
@@ -101,14 +113,14 @@ export class GamePlayComponent implements OnInit {
         } 
 
         this.api = new JitsiMeetExternalAPI(this.domain, this.options);
-        let ID = this.socketioService.getID();
-        console.log(ID);
+      
         this.api.addListener('videoConferenceJoined', (message:any)=>{
+          this.history = this.socketioService.getHistory();
+          console.log(this.history);
           console.log( message );
-          console.log(this.api._participants);
-          console.log(this.api.getParticipantsInfo());
-          console.log(this.api.getNumberOfParticipants());
+          this.currentPlayer = message;
             this.participantArray = this.api._participants;
+            // this.receiveReadyPlayers()
         });
 
       } else {
@@ -142,9 +154,14 @@ export class GamePlayComponent implements OnInit {
 
   playerReady(){
     this.isPlayerReady = true;
-    this.socketioService.playerReady(this.roomPin);
-    // let ID = this.socketioService.getID();
-    // console.log(ID);
+    
+    this.currentSocketID = this.socketioService.getID();
+    console.log(this.currentSocketID, this.currentPlayer);
+    this.participantArray[this.currentPlayer.id].socketID = this.currentSocketID;
+    this.participantArray[this.currentPlayer.id].participantID = this.currentPlayer.id;
+    let currentPlayerDetails = this.participantArray[this.currentPlayer.id];
+    console.log(currentPlayerDetails);
+    this.socketioService.playerReady(this.roomPin, currentPlayerDetails);
   }
 
   // rename, for others not clicked
@@ -153,22 +170,38 @@ export class GamePlayComponent implements OnInit {
     this.socketioService.beginGame(this.roomPin);
   }
 
-  receiveJoinedPlayers() {
-    this.socketioService.receiveJoinedPlayers().subscribe((message:any) => {
-      // this.snackbar.open(message, '', {
-      //   duration: 3000,
-      // });
-      this.toastMessage = message
-      console.log(message);
-      this.playerID.push(message);
-      // this.playerID.push(message);
-    });
-  }
+  // //remove?
+  // receiveJoinedPlayers() {
+  //   this.socketioService.receiveJoinedPlayers().subscribe((message:any) => {
+  //     // this.snackbar.open(message, '', {
+  //     //   duration: 3000,
+  //     // });
+  //     this.toastMessage = message
+  //     console.log(message);
+  //     this.playerID.push(message);
+  //     // this.playerID.push(message);
+  //   });
+  // }
 
   receiveReadyPlayers(){
     this.socketioService.receiveReadyPlayers().subscribe( (message:any) => {
       console.log(message);
+      let partArray = message;
+      console.log(partArray.participantID);
+      console.log(this.history);
+      let partHistoryArray = this.history;
+      console.log(partHistoryArray.participantID);
+      for (let key of this.objectKeys(partHistoryArray)) {
+        console.log('inloop', key, partHistoryArray[key].participantID);
+        
+        this.readyPlayers[partHistoryArray[key].participantID] = partHistoryArray[key];
+      }
+
+      this.readyPlayers[partArray.participantID] = message;
+      console.log(this.readyPlayers)
+      // console.log(this.readyPlayers)
     });
+    console.log(this.readyPlayers)
   }
   receiveEndGame() {
     this.socketioService.receiveEndGame().subscribe((message: any) => {

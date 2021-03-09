@@ -16,11 +16,13 @@
             <div *ngIf="allPlayersReady">
                 <button type="button" class="btn btn-outline-success" (click)="beginGame()">Begin Game</button>
             </div>
+            <!-- <div *ngIf="this.readyPlayers" > 
             <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true">
-                <div class="toast-body">
-                for testing: {{this.toastMessage}}
+                <div *ngFor="let key of objectKeys(this.readyPlayers)" class="toast-body">
+                for testing: {{this.readyPlayers[key].displayName + this.readyPlayers[key].participantID}}
                 </div>
-            </div>
+            </div> -->
+            <!-- </div> -->
         </div>
           <div *ngIf="this.gameStarted === true">
             <app-game-details></app-game-details>
