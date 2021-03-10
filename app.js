@@ -35,20 +35,17 @@ const io = require('socket.io')(server, {
 previousReadyPlayers = {};
 io.on("connection", (socket) => {
     console.log(socket.id, "a user connected");
-    socket.emit('getPreviousReadyPlayers', previousReadyPlayers);
     socket.emit('getID', socket.id);
+    socket.emit('getPreviousReadyPlayers', previousReadyPlayers);
+    
     socket.on('joinGame', ({gameId}) => {
         socket.join(gameId);
         console.log( socket.id + 'joined room' + gameId);
         io.to(gameId).emit('joinGame', socket.id);
     });
 
-    socket.on('startGame', ({gameId}) => {
-        io.to(gameId).emit('startGame', socket.id + 'player ${socket.id} began the game');
-            console.log('game began' + gameId);
-    })
-
-    socket.on('playerReady', ({ gameId, playerData }) => {        
+    socket.on('playerReady', ({ gameId, playerData }) => { 
+    // previousReadyPlayers[playerData.participantID].socketID = socket.id       
     previousReadyPlayers[playerData.participantID] = playerData
         console.log(previousReadyPlayers);
         console.log( socket.id + ' is ready to play ' + gameId);
@@ -57,7 +54,13 @@ io.on("connection", (socket) => {
         io.to(gameId).emit('playerReady',  playerData);
     })
 
- 
+    socket.on('startGame', ({gameId, playerData}) => {
+        console.log('PD');
+        console.log(playerData);
+        io.to(gameId).emit('startGame', playerData);
+            console.log('game began' + gameId);
+            console.log(playerData);
+    })
 
     socket.on('endGame', ({gameId}) => {
         // NOTE: tidy this up, work out which acc ends connection

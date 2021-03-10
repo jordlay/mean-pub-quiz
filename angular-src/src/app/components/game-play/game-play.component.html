@@ -21,7 +21,7 @@
 
         </div>
           <div *ngIf="this.gameStarted === true">
-            <app-game-details></app-game-details>
+            <app-game-details [readyPlayers]="this.readyPlayers"></app-game-details>
           </div>
         
     </div>

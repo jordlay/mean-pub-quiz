@@ -3,7 +3,6 @@ import '../../../vendor/jitsi/external_api.js';
 import { GameCreationService } from '../../services/game-creation.service';
 import { Router,  ActivatedRoute, ParamMap } from '@angular/router';
 import { SocketioService } from '../../services/socketio.service';
-import { isTypeParameterDeclaration } from 'typescript';
 
 declare var JitsiMeetExternalAPI: any;
 
@@ -16,12 +15,13 @@ export class GamePlayComponent implements OnInit {
 
   constructor(private gameCreationService: GameCreationService, 
     private router: Router, private actRoute: ActivatedRoute, private socketioService: SocketioService) { }
+ 
+  @ViewChild('meet') meet: ElementRef | any;
+  objectKeys = Object.keys;
   game: any;
   data: any;
   api: any;
   gameStarted = false;
-  joinedRoom = false;
-  createdRoom = false;
   roomPin: any;
   options: any;
   domain = 'meet.jit.si';
@@ -32,20 +32,12 @@ export class GamePlayComponent implements OnInit {
   allPlayersReady = false;
   isPlayerReady = false;
   readyPlayers: any;
-  objectKeys = Object.keys;
   participantArray: any;
-  toastMessage: any;
-  playersDetails = {
-    socketID: String,
-    displayName: String
-  };
   currentSocketID: any;
   currentPlayer: any;
   previousReadyPlayers: any;
-  @ViewChild('meet') meet: ElementRef | any;
 
   ngOnInit(): void {
-   
     this.url = window.location.href;
     this.roomPin = this.actRoute.snapshot.params.pin;
     this.game = {
@@ -53,10 +45,6 @@ export class GamePlayComponent implements OnInit {
       roomPin: this.roomPin,
       displayName: String
     }
-    // this.playersDetails = {
-
-    // };
-    
   }
 
   ngAfterViewInit() {
@@ -105,6 +93,7 @@ export class GamePlayComponent implements OnInit {
         this.api = new JitsiMeetExternalAPI(this.domain, this.options);
       
         this.api.addListener('videoConferenceJoined', (message:any)=>{
+          this.allPlayersReady = false;
           this.currentPlayer = message;
           this.participantArray = this.api._participants;
           
@@ -119,7 +108,7 @@ export class GamePlayComponent implements OnInit {
           if (!(participantHistoryArray === undefined)) {
             for (let key of this.objectKeys(participantHistoryArray)) {
               this.readyPlayers[participantHistoryArray[key].participantID] = participantHistoryArray[key];
-              if (!(this.readyPlayers[key] === undefined)) {
+              if (!(this.readyPlayers[key] === undefined) && !(this.participantArray[key] === undefined)) {
                 if (key === this.readyPlayers[key].participantID) {
                   this.participantArray[key].ready = true; 
                 } 
@@ -148,20 +137,14 @@ export class GamePlayComponent implements OnInit {
   }
 
   beginGame(){
-  //     for (let key of this.objectKeys(this.participantArray)) {
-  //       console.log(key, this.participantArray[key].displayName);
-  //       this.playerDispNames.push(this.participantArray[key].displayName);
-  //       console.log(this.playerDispNames);
-  //     }
-  //  console.log(this.playerID);
-  //  console.log(this.playerDispNames);
-   this.gameBegan();
+    this.socketioService.beginGame(this.roomPin, this.readyPlayers);
+    this.gameStarted = true;
   }
 
   playerReady(){
     this.isPlayerReady = true;
     this.currentSocketID = this.socketioService.getID();
-
+    console.log(this.currentSocketID);
     this.participantArray[this.currentPlayer.id].socketID = this.currentSocketID;
     this.participantArray[this.currentPlayer.id].participantID = this.currentPlayer.id;
     this.participantArray[this.currentPlayer.id].ready = true;
@@ -170,11 +153,6 @@ export class GamePlayComponent implements OnInit {
     this.socketioService.playerReady(this.roomPin, currentPlayerDetails);
   }
 
-  // rename, for others not clicked
-  gameBegan(){
-    this.gameStarted = true;
-    this.socketioService.beginGame(this.roomPin);
-  }
 
   // //remove?
   // receiveJoinedPlayers() {
@@ -213,7 +191,6 @@ export class GamePlayComponent implements OnInit {
       console.log(this.objectKeys(this.readyPlayers).length);
 
       if ((this.objectKeys(this.participantArray).length) === (this.objectKeys(this.readyPlayers).length)) {
-        console.log('ALL PLAYERS READY');
         this.allPlayersReady = true;
       } else {
         this.allPlayersReady = false;
@@ -226,8 +203,6 @@ export class GamePlayComponent implements OnInit {
     this.socketioService.receiveEndGame().subscribe((message: any) => {
       console.log(message)
       if (message.includes('ended the game')) {
-
-        // NOTE: is this wrong to call endGame again?
         this.endGame();
       }
     });
@@ -236,9 +211,7 @@ export class GamePlayComponent implements OnInit {
   receiveBeginGame() {
     this.socketioService.receiveBeginGame().subscribe((message: any) => {
       console.log(message)
-      if (message.includes('began')) {
-        this.gameBegan();
-      }
+        this.gameStarted = true;
     });
   }
 }

@@ -39,8 +39,8 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 const environment = {
     production: false,
-    // SOCKET_ENDPOINT: 'http://localhost:8080'
-    SOCKET_ENDPOINT: 'https://mean-pub-quiz.herokuapp.com/'
+    SOCKET_ENDPOINT: 'http://localhost:8080'
+    // SOCKET_ENDPOINT: 'https://mean-pub-quiz.herokuapp.com/'
 };
 /*
  * For easier debugging in development mode, you can import the following file
@@ -641,8 +641,9 @@ class SocketioService {
         this.socket.emit('playerReady', { gameId: roomPin, playerData: playerData });
     }
     // NOT WORKING
-    beginGame(roomPin) {
-        this.socket.emit('startGame', { gameId: roomPin });
+    beginGame(roomPin, playerData) {
+        console.log('SS BG', playerData);
+        this.socket.emit('startGame', { gameId: roomPin, playerData: playerData });
     }
     endGame(roomPin) {
         this.socket.emit('endGame', { gameId: roomPin });
@@ -657,6 +658,8 @@ class SocketioService {
     getID() {
         this.socket.on('getID', (ID) => {
             this.socketID = ID;
+            console.log(ID);
+            console.log(this.socketID);
             return this.socketID;
         });
         return this.socketID;
@@ -676,8 +679,12 @@ class SocketioService {
         });
     }
     receiveBeginGame() {
+        console.log('o insocketio');
         return new rxjs__WEBPACK_IMPORTED_MODULE_0__["Observable"]((observer) => {
+            console.log('m insocketio');
             this.socket.on('startGame', (message) => {
+                console.log('i insocketio');
+                console.log(message);
                 observer.next(message);
             });
         });
@@ -797,8 +804,12 @@ function GamePlayComponent_div_5_Template(rf, ctx) { if (rf & 1) {
 } }
 function GamePlayComponent_div_6_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "app-game-details");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "app-game-details", 10);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    const ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("readyPlayers", ctx_r2.readyPlayers);
 } }
 class GamePlayComponent {
     constructor(gameCreationService, router, actRoute, socketioService) {
@@ -806,19 +817,13 @@ class GamePlayComponent {
         this.router = router;
         this.actRoute = actRoute;
         this.socketioService = socketioService;
+        this.objectKeys = Object.keys;
         this.gameStarted = false;
-        this.joinedRoom = false;
-        this.createdRoom = false;
         this.domain = 'meet.jit.si';
         this.isHost = false;
         this.url = '';
         this.allPlayersReady = false;
         this.isPlayerReady = false;
-        this.objectKeys = Object.keys;
-        this.playersDetails = {
-            socketID: String,
-            displayName: String
-        };
     }
     ngOnInit() {
         this.url = window.location.href;
@@ -828,8 +833,6 @@ class GamePlayComponent {
             roomPin: this.roomPin,
             displayName: String
         };
-        // this.playersDetails = {
-        // };
     }
     ngAfterViewInit() {
         this.gameCreationService.checkGameExists(this.game).subscribe((data) => {
@@ -873,6 +876,7 @@ class GamePlayComponent {
                         }
                         this.api = new JitsiMeetExternalAPI(this.domain, this.options);
                         this.api.addListener('videoConferenceJoined', (message) => {
+                            this.allPlayersReady = false;
                             this.currentPlayer = message;
                             this.participantArray = this.api._participants;
                             this.previousReadyPlayers = this.socketioService.getPreviousReadyPlayers();
@@ -884,7 +888,7 @@ class GamePlayComponent {
                             if (!(participantHistoryArray === undefined)) {
                                 for (let key of this.objectKeys(participantHistoryArray)) {
                                     this.readyPlayers[participantHistoryArray[key].participantID] = participantHistoryArray[key];
-                                    if (!(this.readyPlayers[key] === undefined)) {
+                                    if (!(this.readyPlayers[key] === undefined) && !(this.participantArray[key] === undefined)) {
                                         if (key === this.readyPlayers[key].participantID) {
                                             this.participantArray[key].ready = true;
                                         }
@@ -910,28 +914,18 @@ class GamePlayComponent {
         this.gameCreationService.endGame(this.game).subscribe(() => { });
     }
     beginGame() {
-        //     for (let key of this.objectKeys(this.participantArray)) {
-        //       console.log(key, this.participantArray[key].displayName);
-        //       this.playerDispNames.push(this.participantArray[key].displayName);
-        //       console.log(this.playerDispNames);
-        //     }
-        //  console.log(this.playerID);
-        //  console.log(this.playerDispNames);
-        this.gameBegan();
+        this.socketioService.beginGame(this.roomPin, this.readyPlayers);
+        this.gameStarted = true;
     }
     playerReady() {
         this.isPlayerReady = true;
         this.currentSocketID = this.socketioService.getID();
+        console.log(this.currentSocketID);
         this.participantArray[this.currentPlayer.id].socketID = this.currentSocketID;
         this.participantArray[this.currentPlayer.id].participantID = this.currentPlayer.id;
         this.participantArray[this.currentPlayer.id].ready = true;
         let currentPlayerDetails = this.participantArray[this.currentPlayer.id];
         this.socketioService.playerReady(this.roomPin, currentPlayerDetails);
-    }
-    // rename, for others not clicked
-    gameBegan() {
-        this.gameStarted = true;
-        this.socketioService.beginGame(this.roomPin);
     }
     // //remove?
     // receiveJoinedPlayers() {
@@ -966,7 +960,6 @@ class GamePlayComponent {
             console.log(this.objectKeys(this.participantArray).length);
             console.log(this.objectKeys(this.readyPlayers).length);
             if ((this.objectKeys(this.participantArray).length) === (this.objectKeys(this.readyPlayers).length)) {
-                console.log('ALL PLAYERS READY');
                 this.allPlayersReady = true;
             }
             else {
@@ -978,7 +971,6 @@ class GamePlayComponent {
         this.socketioService.receiveEndGame().subscribe((message) => {
             console.log(message);
             if (message.includes('ended the game')) {
-                // NOTE: is this wrong to call endGame again?
                 this.endGame();
             }
         });
@@ -986,9 +978,7 @@ class GamePlayComponent {
     receiveBeginGame() {
         this.socketioService.receiveBeginGame().subscribe((message) => {
             console.log(message);
-            if (message.includes('began')) {
-                this.gameBegan();
-            }
+            this.gameStarted = true;
         });
     }
 }
@@ -998,14 +988,14 @@ GamePlayComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefine
     } if (rf & 2) {
         let _t;
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵloadQuery"]()) && (ctx.meet = _t.first);
-    } }, decls: 10, vars: 2, consts: [[1, "row"], [1, "col"], [1, "jitsiMeet"], ["meet", ""], [4, "ngIf"], ["type", "button", 1, "btn", "btn-outline-danger", 3, "click"], ["type", "button", 1, "btn", "btn-primary", 3, "cdkCopyToClipboard"], [4, "ngFor", "ngForOf"], [3, "ngClass"], ["type", "button", 1, "btn", "btn-outline-success", 3, "click"]], template: function GamePlayComponent_Template(rf, ctx) { if (rf & 1) {
+    } }, decls: 10, vars: 2, consts: [[1, "row"], [1, "col"], [1, "jitsiMeet"], ["meet", ""], [4, "ngIf"], ["type", "button", 1, "btn", "btn-outline-danger", 3, "click"], ["type", "button", 1, "btn", "btn-primary", 3, "cdkCopyToClipboard"], [4, "ngFor", "ngForOf"], [3, "ngClass"], ["type", "button", 1, "btn", "btn-outline-success", 3, "click"], [3, "readyPlayers"]], template: function GamePlayComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "div", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](2, "div", 2, 3);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](4, "div", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](5, GamePlayComponent_div_5_Template, 9, 4, "div", 4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](6, GamePlayComponent_div_6_Template, 2, 0, "div", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](6, GamePlayComponent_div_6_Template, 2, 1, "div", 4);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](7, "div");
@@ -1776,10 +1766,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_socketio_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/socketio.service */ "O0qW");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "tyNb");
 /* harmony import */ var _services_game_creation_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../services/game-creation.service */ "D1//");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ "ofXK");
 
 
 
 
+
+function GameDetailsComponent_div_2_Template(rf, ctx) { if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    const key_r1 = ctx.$implicit;
+    const ctx_r0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate2"]("", ctx_r0.readyPlayers[key_r1].displayName, " + '' + ", ctx_r0.readyPlayers[key_r1].participantID, "");
+} }
 class GameDetailsComponent {
     constructor(socketioService, router, actRoute, gameCreationService) {
         this.socketioService = socketioService;
@@ -1789,28 +1791,22 @@ class GameDetailsComponent {
         this.objectKeys = Object.keys;
     }
     ngOnInit() {
-        // this.url = window.location.href;
-        // this.roomPin = this.actRoute.snapshot.params.pin;
-        // // setTimeout(()=>{}, 3000);
-        // this.socketioService.connect(this.roomPin);
-        // this.receiveJoinedPlayers();
-        // this.receiveParticipants() 
-        this.game;
-        // this.receiveStartGame();
-        // this.receiveGameUpdate();
-        this.game = {
-            hostName: String,
-            roomPin: this.roomPin,
-            displayName: String
-        };
-        // console.log(this.api);
+        console.log('in GD');
     }
     ngAfterViewInit() {
         // this.receiveJoinedPlayers();
     }
 }
 GameDetailsComponent.ɵfac = function GameDetailsComponent_Factory(t) { return new (t || GameDetailsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_socketio_service__WEBPACK_IMPORTED_MODULE_1__["SocketioService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_game_creation_service__WEBPACK_IMPORTED_MODULE_3__["GameCreationService"])); };
-GameDetailsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: GameDetailsComponent, selectors: [["app-game-details"]], decls: 0, vars: 0, template: function GameDetailsComponent_Template(rf, ctx) { }, styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJnYW1lLWRldGFpbHMuY29tcG9uZW50LmNzcyJ9 */"] });
+GameDetailsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: GameDetailsComponent, selectors: [["app-game-details"]], inputs: { readyPlayers: "readyPlayers" }, decls: 3, vars: 1, consts: [[4, "ngFor", "ngForOf"]], template: function GameDetailsComponent_Template(rf, ctx) { if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "p");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "game-details works!");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, GameDetailsComponent_div_2_Template, 2, 2, "div", 0);
+    } if (rf & 2) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx.objectKeys(ctx.readyPlayers));
+    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_4__["NgForOf"]], styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJnYW1lLWRldGFpbHMuY29tcG9uZW50LmNzcyJ9 */"] });
 
 
 /***/ }),
