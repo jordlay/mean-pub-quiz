@@ -32,7 +32,7 @@ const io = require('socket.io')(server, {
 // });
 
 // const io = require("socket.io-client");
-history = [];
+history = {};
 client = [];
 io.on("connection", (socket) => {
     console.log(socket.id, "a user connected");
@@ -64,8 +64,12 @@ io.on("connection", (socket) => {
             console.log('game began' + gameId);
     })
 
-    socket.on('playerReady', ({ gameId, playerData }) => {
-        history.push(playerData)
+    socket.on('playerReady', ({ gameId, playerData }) => {    
+    // let objectKeys = Object.keys;
+    // objectKeys(history);
+    
+    history[playerData.participantID] = playerData
+        // history.push(playerData)
         console.log(history);
         // io.to(gameId).emit(gameId);
         console.log( socket.id + ' is ready to play ' + gameId);

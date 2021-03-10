@@ -8,7 +8,9 @@
             <h2>Meeting Pin: {{this.roomPin}}</h2>
             <button type="button" class="btn btn-primary" [cdkCopyToClipboard]="this.url">Copy Game Link!</button>
             <div *ngIf="this.participantArray" > Current Players:
-                <div *ngFor="let key of objectKeys(this.participantArray)">{{this.participantArray[key].displayName}}</div>
+                <div *ngFor="let key of objectKeys(this.participantArray)">
+                    <div [ngClass]="{'selectedColour': this.participantArray[key].ready === true}" >{{this.participantArray[key].displayName}}</div>
+                </div>
                 <div *ngIf="isPlayerReady === false">
                     <button type="button" class="btn btn-outline-success" (click)="playerReady()">Ready to Play?</button>
                 </div>

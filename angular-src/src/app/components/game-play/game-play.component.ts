@@ -37,8 +37,10 @@ export class GamePlayComponent implements OnInit {
   //   formattedDisplayName: String,
   //   participantID: String
   // };
-  readyPlayers: String[] = [];
-  // readyPlayers: any;
+  // readyPlayers: String[] = [];
+  readyPlayers: any;
+  readyBoolean = false;
+  // readyPlayers = {};
   objectKeys = Object.keys;
   participantArray: any;
   toastMessage: any;
@@ -159,6 +161,7 @@ export class GamePlayComponent implements OnInit {
     console.log(this.currentSocketID, this.currentPlayer);
     this.participantArray[this.currentPlayer.id].socketID = this.currentSocketID;
     this.participantArray[this.currentPlayer.id].participantID = this.currentPlayer.id;
+    this.participantArray[this.currentPlayer.id].ready = true;
     let currentPlayerDetails = this.participantArray[this.currentPlayer.id];
     console.log(currentPlayerDetails);
     this.socketioService.playerReady(this.roomPin, currentPlayerDetails);
@@ -190,15 +193,34 @@ export class GamePlayComponent implements OnInit {
       console.log(partArray.participantID);
       console.log(this.history);
       let partHistoryArray = this.history;
-      console.log(partHistoryArray.participantID);
-      for (let key of this.objectKeys(partHistoryArray)) {
-        console.log('inloop', key, partHistoryArray[key].participantID);
-        
-        this.readyPlayers[partHistoryArray[key].participantID] = partHistoryArray[key];
-      }
 
+        if (this.readyPlayers === undefined) {
+          this.readyPlayers = {};
+        }
+        for (let key of this.objectKeys(partHistoryArray)) {
+          console.log('inloop', key, partHistoryArray[key].participantID);
+          this.readyPlayers[partHistoryArray[key].participantID] = partHistoryArray[key];
+        }
+     
       this.readyPlayers[partArray.participantID] = message;
-      console.log(this.readyPlayers)
+      console.log('RP', this.readyPlayers)
+      console.log('PA', this.participantArray);
+      for (let key of this.objectKeys(this.participantArray)) {
+        console.log('inloop', key, this.participantArray[key].participantID, this.readyPlayers[key]);
+        
+        if (!(this.readyPlayers[key] === undefined)) {
+          if (key === this.readyPlayers[key].participantID) {
+            console.log('the same!',key);
+            this.readyBoolean = true;
+            this.participantArray[key].ready = true; 
+          } else {
+            console.log('not same');
+            this.readyBoolean = false;
+          }
+        }
+      //   // let key1 = this.participantArray[akey].participantID;
+    
+      }
       // console.log(this.readyPlayers)
     });
     console.log(this.readyPlayers)
