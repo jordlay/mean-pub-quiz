@@ -192,7 +192,11 @@ export class GamePlayComponent implements OnInit {
   receiveReadyPlayers(){
     this.socketioService.receiveReadyPlayers().subscribe((message:any)=> {
       let partArray = message;
-
+      console.log(this.readyPlayers);
+      if (this.readyPlayers === undefined) {
+        this.readyPlayers = {};
+      }
+      console.log(this.readyPlayers);
       this.readyPlayers[partArray.participantID] = message;
       for (let key of this.objectKeys(this.participantArray)) {
         if (!(this.readyPlayers[key] === undefined)) {
@@ -200,6 +204,19 @@ export class GamePlayComponent implements OnInit {
             this.participantArray[key].ready = true; 
           } 
         }
+      }
+      
+      console.log(this.participantArray);
+      console.log(this.readyPlayers);
+
+      console.log(this.objectKeys(this.participantArray).length);
+      console.log(this.objectKeys(this.readyPlayers).length);
+
+      if ((this.objectKeys(this.participantArray).length) === (this.objectKeys(this.readyPlayers).length)) {
+        console.log('ALL PLAYERS READY');
+        this.allPlayersReady = true;
+      } else {
+        this.allPlayersReady = false;
       }
     });
 
