@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class GameCreationService {
   displayName: any;
   game: any;
   newGameBoolean = true;
+  participantArray: any;
   constructor(private http: HttpClient) { }
 
   createGame(game: any) {
@@ -70,6 +72,17 @@ export class GameCreationService {
   generateCode() {
     return Math.random().toString(20).substr(2, 5).toUpperCase();
   }
+
+  // setParticipants(participantArray: any){
+  //   this.participantArray = participantArray;
+  // }
+
+  // getParticipants(){
+  //   // return this.participantArray;
+  //   return new Observable((observer) => {
+  //       observer.next(this.participantArray);
+  //   });
+  // }
 
   // Future: Send Invite
 

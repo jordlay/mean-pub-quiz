@@ -2,16 +2,28 @@
     <div class="col">
         <div class="jitsiMeet" #meet></div>
     </div>
-    <div class="col">
-        <div class="gameDetails">
+    <div  class="col">
+        <div *ngIf="this.gameStarted === false">
             <h1>Game Waiting Room</h1>
             <h2>Meeting Pin: {{this.roomPin}}</h2>
             <button type="button" class="btn btn-primary" [cdkCopyToClipboard]="this.url">Copy Game Link!</button>
-            <div *ngIf="this.participantArray"> Current Players:
-                <div *ngFor="let key of objectKeys(this.participantArray)">{{this.participantArray[key].displayName}}</div>
+            <div *ngIf="this.participantArray" > Current Players:
+                <div *ngFor="let key of objectKeys(this.participantArray)">
+                    <div [ngClass]="{'selectedColour': this.participantArray[key].ready === true}" >{{this.participantArray[key].displayName}}</div>
+                </div>
+                <div *ngIf="isPlayerReady === false">
+                    <button type="button" class="btn btn-outline-success" (click)="playerReady()">Ready to Play?</button>
+                </div>
+            </div>
+            <div *ngIf="allPlayersReady">
                 <button type="button" class="btn btn-outline-success" (click)="beginGame()">Begin Game</button>
             </div>
-    </div>
+
+        </div>
+          <div *ngIf="this.gameStarted === true">
+            <app-game-details></app-game-details>
+          </div>
+        
     </div>
 </div>
 

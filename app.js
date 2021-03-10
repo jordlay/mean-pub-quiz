@@ -1,16 +1,80 @@
 const express = require('express');
+const httpApp = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const passport = require('passport');
 const mongoose = require('mongoose');
-const config = require('./config/database')
-
 const app = express();
 const users = require('./routes/users');
-
 const games = require('./routes/games');
+
 let port = process.env.PORT || 8080;
+// let porthttp = process.env.PORT || 3000;
+
+const server = app.listen(port, '0.0.0.0', () => {
+    console.log('Server started on Port ' + port);
+});
+
+const io = require('socket.io')(server, {
+        cors: true,
+        origins: ["*"]
+    });
+
+// const httpServer = require('http').createServer(httpApp);
+// const httpServer = require("http").createServer(app);
+// const io = require("socket.io")(httpServer, {
+
+// });
+// const io = require('socket.io')(httpServer, {
+//     cors: true,
+//     origins: ["*"]
+// });
+
+// const io = require("socket.io-client");
+previousReadyPlayers = {};
+io.on("connection", (socket) => {
+    console.log(socket.id, "a user connected");
+    socket.emit('getPreviousReadyPlayers', previousReadyPlayers);
+    socket.emit('getID', socket.id);
+    socket.on('joinGame', ({gameId}) => {
+        socket.join(gameId);
+        console.log( socket.id + 'joined room' + gameId);
+        io.to(gameId).emit('joinGame', socket.id);
+    });
+
+    socket.on('startGame', ({gameId}) => {
+        io.to(gameId).emit('startGame', socket.id + 'player ${socket.id} began the game');
+            console.log('game began' + gameId);
+    })
+
+    socket.on('playerReady', ({ gameId, playerData }) => {        
+    previousReadyPlayers[playerData.participantID] = playerData
+        console.log(previousReadyPlayers);
+        console.log( socket.id + ' is ready to play ' + gameId);
+        console.log(gameId, playerData);
+        this.playerData = playerData
+        io.to(gameId).emit('playerReady',  playerData);
+    })
+
+ 
+
+    socket.on('endGame', ({gameId}) => {
+        // NOTE: tidy this up, work out which acc ends connection
+        socket.to(gameId).emit('endGame', socket.id + 'player ${socket.id} ended the game');
+        socket.leave(gameId);
+        console.log('game ended' + gameId);
+        socket.disconnect(true);
+    });
+});
+
+
+
+
+
+// httpServer.listen(porthttp, '0.0.0.0', () => {
+//     console.log('Server started on Port ' + porthttp);
+// });
 
 const uri = "mongodb+srv://jll541:mean-quiz@clusterquiz.inacn.mongodb.net/quizdb?retryWrites=true&w=majority";
 
@@ -57,6 +121,6 @@ app.get('*', (req,res) => {
     res.sendFile(path.join(__dirname, 'public/index.html'))
 });
 // Start Server
-app.listen(port, '0.0.0.0', () => {
-    console.log('Server started on Port ' + port);
-});
+// app.listen(port, '0.0.0.0', () => {
+//     console.log('Server started on Port ' + port);
+// });
