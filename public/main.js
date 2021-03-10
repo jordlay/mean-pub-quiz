@@ -39,7 +39,8 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 const environment = {
     production: false,
-    SOCKET_ENDPOINT: 'http://localhost:8080'
+    // SOCKET_ENDPOINT: 'http://localhost:8080'
+    SOCKET_ENDPOINT: 'https://mean-pub-quiz.herokuapp.com/'
 };
 /*
  * For easier debugging in development mode, you can import the following file
@@ -656,11 +657,8 @@ class SocketioService {
     getID() {
         this.socket.on('getID', (ID) => {
             this.socketID = ID;
-            console.log(ID);
-            console.log(this.socketID);
             return this.socketID;
         });
-        console.log(this.socketID);
         return this.socketID;
     }
     receiveJoinedPlayers() {
@@ -673,7 +671,6 @@ class SocketioService {
     receiveReadyPlayers() {
         return new rxjs__WEBPACK_IMPORTED_MODULE_0__["Observable"]((observer) => {
             this.socket.on('playerReady', (message) => {
-                console.log(message);
                 observer.next(message);
             });
         });
@@ -884,11 +881,13 @@ class GamePlayComponent {
                                 this.readyPlayers = {};
                             }
                             // Colour previous ready participants green when new user joins
-                            for (let key of this.objectKeys(participantHistoryArray)) {
-                                this.readyPlayers[participantHistoryArray[key].participantID] = participantHistoryArray[key];
-                                if (!(this.readyPlayers[key] === undefined)) {
-                                    if (key === this.readyPlayers[key].participantID) {
-                                        this.participantArray[key].ready = true;
+                            if (!(participantHistoryArray === undefined)) {
+                                for (let key of this.objectKeys(participantHistoryArray)) {
+                                    this.readyPlayers[participantHistoryArray[key].participantID] = participantHistoryArray[key];
+                                    if (!(this.readyPlayers[key] === undefined)) {
+                                        if (key === this.readyPlayers[key].participantID) {
+                                            this.participantArray[key].ready = true;
+                                        }
                                     }
                                 }
                             }

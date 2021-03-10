@@ -116,14 +116,17 @@ export class GamePlayComponent implements OnInit {
           }
           
           // Colour previous ready participants green when new user joins
-          for (let key of this.objectKeys(participantHistoryArray)) {
-            this.readyPlayers[participantHistoryArray[key].participantID] = participantHistoryArray[key];
-            if (!(this.readyPlayers[key] === undefined)) {
-              if (key === this.readyPlayers[key].participantID) {
-                this.participantArray[key].ready = true; 
-              } 
+          if (!(participantHistoryArray === undefined)) {
+            for (let key of this.objectKeys(participantHistoryArray)) {
+              this.readyPlayers[participantHistoryArray[key].participantID] = participantHistoryArray[key];
+              if (!(this.readyPlayers[key] === undefined)) {
+                if (key === this.readyPlayers[key].participantID) {
+                  this.participantArray[key].ready = true; 
+                } 
+              }
             }
           }
+        
         });
 
       } else {
