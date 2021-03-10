@@ -42,11 +42,8 @@ export class SocketioService {
   getID(){
     this.socket.on('getID', (ID: any) => {
       this.socketID = ID;
-      console.log(ID);
-      console.log(this.socketID);
       return this.socketID
     });
-    console.log(this.socketID);
     return this.socketID
   }
 
@@ -61,7 +58,6 @@ export class SocketioService {
   receiveReadyPlayers() {
     return new Observable((observer) => {
       this.socket.on('playerReady', (message: any) => {
-        console.log(message);
         observer.next(message);
       });
     });
