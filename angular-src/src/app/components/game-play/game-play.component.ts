@@ -31,16 +31,7 @@ export class GamePlayComponent implements OnInit {
   url = '';
   allPlayersReady = false;
   isPlayerReady = false;
-  // readyPlayers = {
-  //   socketID: String,
-  //   displayName: String,
-  //   formattedDisplayName: String,
-  //   participantID: String
-  // };
-  // readyPlayers: String[] = [];
   readyPlayers: any;
-  readyBoolean = false;
-  // readyPlayers = {};
   objectKeys = Object.keys;
   participantArray: any;
   toastMessage: any;
@@ -50,9 +41,7 @@ export class GamePlayComponent implements OnInit {
   };
   currentSocketID: any;
   currentPlayer: any;
-  playerID: String[] = [];
-  playerDispNames: String[] = [];
-  history: any;
+  previousReadyPlayers: any;
   @ViewChild('meet') meet: ElementRef | any;
 
   ngOnInit(): void {
@@ -77,9 +66,8 @@ export class GamePlayComponent implements OnInit {
     this.receiveReadyPlayers();
     this.receiveBeginGame();
     this.receiveEndGame();
-    this.history = this.socketioService.getHistory();
-    console.log(this.socketioService.getHistory());
-    console.log(this.socketioService.getID());
+    this.previousReadyPlayers = this.socketioService.getPreviousReadyPlayers();
+
     this.gameStarted = false;
     this.gameCreationService.getMeetingParams(this.roomPin).subscribe(data => {
       this.data = data;
@@ -117,12 +105,25 @@ export class GamePlayComponent implements OnInit {
         this.api = new JitsiMeetExternalAPI(this.domain, this.options);
       
         this.api.addListener('videoConferenceJoined', (message:any)=>{
-          this.history = this.socketioService.getHistory();
-          console.log(this.history);
-          console.log( message );
           this.currentPlayer = message;
-            this.participantArray = this.api._participants;
-            // this.receiveReadyPlayers()
+          this.participantArray = this.api._participants;
+          
+          this.previousReadyPlayers = this.socketioService.getPreviousReadyPlayers();
+          let participantHistoryArray = this.previousReadyPlayers;  
+
+          if (this.readyPlayers === undefined) {
+            this.readyPlayers = {};
+          }
+          
+          // Colour previous ready participants green when new user joins
+          for (let key of this.objectKeys(participantHistoryArray)) {
+            this.readyPlayers[participantHistoryArray[key].participantID] = participantHistoryArray[key];
+            if (!(this.readyPlayers[key] === undefined)) {
+              if (key === this.readyPlayers[key].participantID) {
+                this.participantArray[key].ready = true; 
+              } 
+            }
+          }
         });
 
       } else {
@@ -156,14 +157,13 @@ export class GamePlayComponent implements OnInit {
 
   playerReady(){
     this.isPlayerReady = true;
-    
     this.currentSocketID = this.socketioService.getID();
-    console.log(this.currentSocketID, this.currentPlayer);
+
     this.participantArray[this.currentPlayer.id].socketID = this.currentSocketID;
     this.participantArray[this.currentPlayer.id].participantID = this.currentPlayer.id;
     this.participantArray[this.currentPlayer.id].ready = true;
+
     let currentPlayerDetails = this.participantArray[this.currentPlayer.id];
-    console.log(currentPlayerDetails);
     this.socketioService.playerReady(this.roomPin, currentPlayerDetails);
   }
 
@@ -187,44 +187,21 @@ export class GamePlayComponent implements OnInit {
   // }
 
   receiveReadyPlayers(){
-    this.socketioService.receiveReadyPlayers().subscribe( (message:any) => {
-      console.log(message);
+    this.socketioService.receiveReadyPlayers().subscribe((message:any)=> {
       let partArray = message;
-      console.log(partArray.participantID);
-      console.log(this.history);
-      let partHistoryArray = this.history;
 
-        if (this.readyPlayers === undefined) {
-          this.readyPlayers = {};
-        }
-        for (let key of this.objectKeys(partHistoryArray)) {
-          console.log('inloop', key, partHistoryArray[key].participantID);
-          this.readyPlayers[partHistoryArray[key].participantID] = partHistoryArray[key];
-        }
-     
       this.readyPlayers[partArray.participantID] = message;
-      console.log('RP', this.readyPlayers)
-      console.log('PA', this.participantArray);
       for (let key of this.objectKeys(this.participantArray)) {
-        console.log('inloop', key, this.participantArray[key].participantID, this.readyPlayers[key]);
-        
         if (!(this.readyPlayers[key] === undefined)) {
           if (key === this.readyPlayers[key].participantID) {
-            console.log('the same!',key);
-            this.readyBoolean = true;
             this.participantArray[key].ready = true; 
-          } else {
-            console.log('not same');
-            this.readyBoolean = false;
-          }
+          } 
         }
-      //   // let key1 = this.participantArray[akey].participantID;
-    
       }
-      // console.log(this.readyPlayers)
     });
-    console.log(this.readyPlayers)
+
   }
+
   receiveEndGame() {
     this.socketioService.receiveEndGame().subscribe((message: any) => {
       console.log(message)

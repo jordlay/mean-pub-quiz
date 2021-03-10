@@ -11,7 +11,7 @@ export class SocketioService {
 
   socket!: Socket;
   socketID: any;
-  history: any;
+  previousReadyPlayers: any;
   constructor() { }
 
   connect(roomPin: any){
@@ -32,15 +32,12 @@ export class SocketioService {
     this.socket.emit('endGame', {gameId : roomPin});
   }
 
-  getHistory(){
-    this.socket.on('getHistory', (ID: any) => {
-      this.history = ID;
-      console.log(ID);
-      console.log(this.history);
-      return this.history
+  getPreviousReadyPlayers(){
+    this.socket.on('getPreviousReadyPlayers', (readyPlayers: any) => {
+      this.previousReadyPlayers = readyPlayers;
+      return this.previousReadyPlayers
     });
-    console.log(this.history);
-    return this.history
+    return this.previousReadyPlayers
   }
   getID(){
     this.socket.on('getID', (ID: any) => {

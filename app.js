@@ -32,51 +32,28 @@ const io = require('socket.io')(server, {
 // });
 
 // const io = require("socket.io-client");
-history = {};
-client = [];
+previousReadyPlayers = {};
 io.on("connection", (socket) => {
     console.log(socket.id, "a user connected");
-    client.push({id: socket.id})
-    var getClientID = client.find(e => (e.id === socket.client.id))
-    console.log("the Client", getClientID)
-    if(getClientID){
-     //io.sockets.emit("msg",history);
-    
-     socket.emit('getHistory', history);
-    }
-    socket.emit('getHistory', history);
+    socket.emit('getPreviousReadyPlayers', previousReadyPlayers);
     socket.emit('getID', socket.id);
     socket.on('joinGame', ({gameId}) => {
         socket.join(gameId);
         console.log( socket.id + 'joined room' + gameId);
-        // socket.to(gameId).emit('joinGame', socket.id);
         io.to(gameId).emit('joinGame', socket.id);
     });
-    
-    // socket.join('here is unique idea for room');
-    // socket.to["uniqueid"].emit('message','to everyone exvept sender');
 
     socket.on('startGame', ({gameId}) => {
-            // io.to(gameId).emit('startGame', socket.id);
-            
         io.to(gameId).emit('startGame', socket.id + 'player ${socket.id} began the game');
-            // console.log(socket.id, "began the game");
             console.log('game began' + gameId);
     })
 
-    socket.on('playerReady', ({ gameId, playerData }) => {    
-    // let objectKeys = Object.keys;
-    // objectKeys(history);
-    
-    history[playerData.participantID] = playerData
-        // history.push(playerData)
-        console.log(history);
-        // io.to(gameId).emit(gameId);
+    socket.on('playerReady', ({ gameId, playerData }) => {        
+    previousReadyPlayers[playerData.participantID] = playerData
+        console.log(previousReadyPlayers);
         console.log( socket.id + ' is ready to play ' + gameId);
         console.log(gameId, playerData);
         this.playerData = playerData
-        // socket.to(gameId).emit('joinGame', socket.id);
-        // io.to(gameId).emit('playerReady', socket.id);
         io.to(gameId).emit('playerReady',  playerData);
     })
 

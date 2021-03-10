@@ -646,15 +646,12 @@ class SocketioService {
     endGame(roomPin) {
         this.socket.emit('endGame', { gameId: roomPin });
     }
-    getHistory() {
-        this.socket.on('getHistory', (ID) => {
-            this.history = ID;
-            console.log(ID);
-            console.log(this.history);
-            return this.history;
+    getPreviousReadyPlayers() {
+        this.socket.on('getPreviousReadyPlayers', (readyPlayers) => {
+            this.previousReadyPlayers = readyPlayers;
+            return this.previousReadyPlayers;
         });
-        console.log(this.history);
-        return this.history;
+        return this.previousReadyPlayers;
     }
     getID() {
         this.socket.on('getID', (ID) => {
@@ -820,15 +817,11 @@ class GamePlayComponent {
         this.url = '';
         this.allPlayersReady = false;
         this.isPlayerReady = false;
-        this.readyBoolean = false;
-        // readyPlayers = {};
         this.objectKeys = Object.keys;
         this.playersDetails = {
             socketID: String,
             displayName: String
         };
-        this.playerID = [];
-        this.playerDispNames = [];
     }
     ngOnInit() {
         this.url = window.location.href;
@@ -848,9 +841,7 @@ class GamePlayComponent {
                 this.receiveReadyPlayers();
                 this.receiveBeginGame();
                 this.receiveEndGame();
-                this.history = this.socketioService.getHistory();
-                console.log(this.socketioService.getHistory());
-                console.log(this.socketioService.getID());
+                this.previousReadyPlayers = this.socketioService.getPreviousReadyPlayers();
                 this.gameStarted = false;
                 this.gameCreationService.getMeetingParams(this.roomPin).subscribe(data => {
                     this.data = data;
@@ -885,12 +876,22 @@ class GamePlayComponent {
                         }
                         this.api = new JitsiMeetExternalAPI(this.domain, this.options);
                         this.api.addListener('videoConferenceJoined', (message) => {
-                            this.history = this.socketioService.getHistory();
-                            console.log(this.history);
-                            console.log(message);
                             this.currentPlayer = message;
                             this.participantArray = this.api._participants;
-                            // this.receiveReadyPlayers()
+                            this.previousReadyPlayers = this.socketioService.getPreviousReadyPlayers();
+                            let participantHistoryArray = this.previousReadyPlayers;
+                            if (this.readyPlayers === undefined) {
+                                this.readyPlayers = {};
+                            }
+                            // Colour previous ready participants green when new user joins
+                            for (let key of this.objectKeys(participantHistoryArray)) {
+                                this.readyPlayers[participantHistoryArray[key].participantID] = participantHistoryArray[key];
+                                if (!(this.readyPlayers[key] === undefined)) {
+                                    if (key === this.readyPlayers[key].participantID) {
+                                        this.participantArray[key].ready = true;
+                                    }
+                                }
+                            }
                         });
                     }
                     else {
@@ -922,12 +923,10 @@ class GamePlayComponent {
     playerReady() {
         this.isPlayerReady = true;
         this.currentSocketID = this.socketioService.getID();
-        console.log(this.currentSocketID, this.currentPlayer);
         this.participantArray[this.currentPlayer.id].socketID = this.currentSocketID;
         this.participantArray[this.currentPlayer.id].participantID = this.currentPlayer.id;
         this.participantArray[this.currentPlayer.id].ready = true;
         let currentPlayerDetails = this.participantArray[this.currentPlayer.id];
-        console.log(currentPlayerDetails);
         this.socketioService.playerReady(this.roomPin, currentPlayerDetails);
     }
     // rename, for others not clicked
@@ -949,39 +948,16 @@ class GamePlayComponent {
     // }
     receiveReadyPlayers() {
         this.socketioService.receiveReadyPlayers().subscribe((message) => {
-            console.log(message);
             let partArray = message;
-            console.log(partArray.participantID);
-            console.log(this.history);
-            let partHistoryArray = this.history;
-            if (this.readyPlayers === undefined) {
-                this.readyPlayers = {};
-            }
-            for (let key of this.objectKeys(partHistoryArray)) {
-                console.log('inloop', key, partHistoryArray[key].participantID);
-                this.readyPlayers[partHistoryArray[key].participantID] = partHistoryArray[key];
-            }
             this.readyPlayers[partArray.participantID] = message;
-            console.log('RP', this.readyPlayers);
-            console.log('PA', this.participantArray);
             for (let key of this.objectKeys(this.participantArray)) {
-                console.log('inloop', key, this.participantArray[key].participantID, this.readyPlayers[key]);
                 if (!(this.readyPlayers[key] === undefined)) {
                     if (key === this.readyPlayers[key].participantID) {
-                        console.log('the same!', key);
-                        this.readyBoolean = true;
                         this.participantArray[key].ready = true;
                     }
-                    else {
-                        console.log('not same');
-                        this.readyBoolean = false;
-                    }
                 }
-                //   // let key1 = this.participantArray[akey].participantID;
             }
-            // console.log(this.readyPlayers)
         });
-        console.log(this.readyPlayers);
     }
     receiveEndGame() {
         this.socketioService.receiveEndGame().subscribe((message) => {
