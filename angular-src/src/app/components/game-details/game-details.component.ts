@@ -10,6 +10,7 @@ import { Router,  ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class GameDetailsComponent implements OnInit {
   // @Input('childToMaster')
+  @Input() readyPlayers: any;
   // get participantArray(): any { return this._participantArray; }
   // set participantArray(participantArray: any) {
   //   this._participantArray = (participantArray  || '<no participantArray set>');
@@ -30,21 +31,8 @@ export class GameDetailsComponent implements OnInit {
   
   
   ngOnInit(): void {
-    // this.url = window.location.href;
-    // this.roomPin = this.actRoute.snapshot.params.pin;
-    // // setTimeout(()=>{}, 3000);
-    // this.socketioService.connect(this.roomPin);
-    // this.receiveJoinedPlayers();
-    // this.receiveParticipants() 
-    this.game
-    // this.receiveStartGame();
-    // this.receiveGameUpdate();
-    this.game = {
-      hostName: String,
-      roomPin: this.roomPin,
-      displayName: String
-    }
-    // console.log(this.api);
+    console.log('in GD');
+    
   }
 
   ngAfterViewInit(){
@@ -70,6 +58,7 @@ export class GameDetailsComponent implements OnInit {
     
   //   console.log(this.participantArray);
   // }
+
 
   // beginGame(){
   //   // this.api.addListener('participantJoined', () => {
