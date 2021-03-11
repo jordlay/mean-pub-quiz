@@ -24,26 +24,19 @@ const io = require('socket.io')(server, {
 previousReadyPlayers = {};
 previousJoinedPlayers = {};
 io.on("connection", (socket) => {
-    
     console.log(socket.id, "a user connected");
+    
     socket.on('joinGame', ({gameId, playerData}) => {
         socket.join(gameId);
         console.log( socket.id + 'joined room' + gameId);
-        console.log(playerData);
         playerData.socketID = socket.id
         previousJoinedPlayers[playerData.id] = playerData
         previousJoinedPlayers[playerData.id].socketID = socket.id
-        console.log(previousJoinedPlayers);
-        // socket.emit('getPreviousReadyPlayers', previousReadyPlayers);
         socket.emit('getPreviousJoinedPlayers', previousJoinedPlayers);
-        // socket.emit('getID', socket.id);
         io.to(gameId).emit('joinGame', playerData);
     });
 
     socket.on('playerReady', ({ gameId, playerData }) => { 
-    // previousReadyPlayers[playerData.participantID].socketID = socket.id       
-    // previousReadyPlayers[playerData.participantID] = playerData
-    console.log(playerData);
     previousJoinedPlayers[playerData.id].ready = true
         console.log( socket.id + ' is ready to play ' + gameId);
         io.to(gameId).emit('playerReady',  playerData);
@@ -59,7 +52,6 @@ io.on("connection", (socket) => {
         socket.to(gameId).emit('endGame', socket.id + 'player ${socket.id} ended the game');
         socket.leave(gameId);
         console.log('game ended' + gameId);
-        previousReadyPlayers = {};
         socket.disconnect(true);
     });
 });

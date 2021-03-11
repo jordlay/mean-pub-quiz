@@ -58,7 +58,7 @@ export class GamePlayComponent implements OnInit {
     this.receiveEndGame();
     this.previousReadyPlayers = this.socketioService.getPreviousReadyPlayers();
     this.previousPlayers = this.socketioService.getPreviousJoinedPlayers();
-    console.log(this.previousPlayers);
+ 
     this.gameStarted = false;
     this.gameCreationService.getMeetingParams(this.roomPin).subscribe(data => {
       this.data = data;
@@ -99,33 +99,23 @@ export class GamePlayComponent implements OnInit {
           this.allPlayersReady = false;
           this.currentPlayer = message;
           this.participantArray = this.api._participants;
-          console.log('CP ID?', this.currentPlayer);
-          // console.log('PA', this.participantArray);
           this.currentPlayer.ready = false;
-
-          // console.log(this.currentPlayer);
 
           this.socketioService.joinGame(this.roomPin, this.currentPlayer);
           this.participantArray[this.currentPlayer.id].id = this.currentPlayer.id;
           this.participantArray[this.currentPlayer.id].ready = false;
-          // console.log(this.participantArray)
           setTimeout(()=>{
-            // this.previousReadyPlayers = this.socketioService.getPreviousReadyPlayers();
             this.previousPlayers = this.socketioService.getPreviousJoinedPlayers();
             console.log(this.previousPlayers);
-            // let participantHistoryArray = this.previousReadyPlayers;  
             let previousPlayersArray = this.previousPlayers;
-            if (this.readyPlayers === undefined) {
-              this.readyPlayers = {};
-            }
-            console.log(previousPlayersArray);
-            if (!(previousPlayersArray === undefined)) {
-              for (let key of this.objectKeys(previousPlayersArray)) {
-                if (previousPlayersArray[key].ready === true && !(this.participantArray[key]===undefined)) {
+         
+            if (!(this.previousPlayers === undefined)) {
+              for (let key of this.objectKeys(this.previousPlayers)) {
+                if (this.previousPlayers[key].ready === true && !(this.participantArray[key]===undefined)) {
                   // this.readyPlayers[previousPlayersArray[key].id] = previousPlayersArray[key];
                   //maybe remove?
                   this.participantArray[key].ready = true;
-                  this.participantArray[key].socketID = previousPlayersArray[key].socketID
+                  this.participantArray[key].socketID = this.previousPlayers[key].socketID
                   console.log('PA', this.participantArray);
                   // console.log('RP', this.readyPlayers);
                 }
