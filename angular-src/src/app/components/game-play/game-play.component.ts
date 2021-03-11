@@ -36,6 +36,7 @@ export class GamePlayComponent implements OnInit {
   currentSocketID: any;
   currentPlayer: any;
   previousReadyPlayers: any;
+  previousPlayers: any;
 
   ngOnInit(): void {
     this.url = window.location.href;
@@ -51,11 +52,13 @@ export class GamePlayComponent implements OnInit {
     this.gameCreationService.checkGameExists(this.game).subscribe((data) => {
       if ((data as any).success) {
     this.socketioService.connect(this.roomPin);
+    this.receiveJoinedPlayers();
     this.receiveReadyPlayers();
     this.receiveBeginGame();
     this.receiveEndGame();
     this.previousReadyPlayers = this.socketioService.getPreviousReadyPlayers();
-
+    this.previousPlayers = this.socketioService.getPreviousJoinedPlayers();
+    console.log(this.previousPlayers);
     this.gameStarted = false;
     this.gameCreationService.getMeetingParams(this.roomPin).subscribe(data => {
       this.data = data;
@@ -96,26 +99,40 @@ export class GamePlayComponent implements OnInit {
           this.allPlayersReady = false;
           this.currentPlayer = message;
           this.participantArray = this.api._participants;
-          
-          this.previousReadyPlayers = this.socketioService.getPreviousReadyPlayers();
-          let participantHistoryArray = this.previousReadyPlayers;  
+          console.log('CP ID?', this.currentPlayer);
+          // console.log('PA', this.participantArray);
+          this.currentPlayer.ready = false;
 
-          if (this.readyPlayers === undefined) {
-            this.readyPlayers = {};
-          }
-          
-          // Colour previous ready participants green when new user joins
-          if (!(participantHistoryArray === undefined)) {
-            for (let key of this.objectKeys(participantHistoryArray)) {
-              this.readyPlayers[participantHistoryArray[key].participantID] = participantHistoryArray[key];
-              if (!(this.readyPlayers[key] === undefined) && !(this.participantArray[key] === undefined)) {
-                if (key === this.readyPlayers[key].participantID) {
-                  this.participantArray[key].ready = true; 
-                } 
+          // console.log(this.currentPlayer);
+
+          this.socketioService.joinGame(this.roomPin, this.currentPlayer);
+          this.participantArray[this.currentPlayer.id].id = this.currentPlayer.id;
+          this.participantArray[this.currentPlayer.id].ready = false;
+          // console.log(this.participantArray)
+          setTimeout(()=>{
+            // this.previousReadyPlayers = this.socketioService.getPreviousReadyPlayers();
+            this.previousPlayers = this.socketioService.getPreviousJoinedPlayers();
+            console.log(this.previousPlayers);
+            // let participantHistoryArray = this.previousReadyPlayers;  
+            let previousPlayersArray = this.previousPlayers;
+            if (this.readyPlayers === undefined) {
+              this.readyPlayers = {};
+            }
+            console.log(previousPlayersArray);
+            if (!(previousPlayersArray === undefined)) {
+              for (let key of this.objectKeys(previousPlayersArray)) {
+                if (previousPlayersArray[key].ready === true && !(this.participantArray[key]===undefined)) {
+                  // this.readyPlayers[previousPlayersArray[key].id] = previousPlayersArray[key];
+                  //maybe remove?
+                  this.participantArray[key].ready = true;
+                  this.participantArray[key].socketID = previousPlayersArray[key].socketID
+                  console.log('PA', this.participantArray);
+                  // console.log('RP', this.readyPlayers);
+                }
+                
               }
             }
-          }
-        
+          }, 3000);
         });
 
       } else {
@@ -137,64 +154,101 @@ export class GamePlayComponent implements OnInit {
   }
 
   beginGame(){
-    this.socketioService.beginGame(this.roomPin, this.readyPlayers);
+    this.socketioService.beginGame(this.roomPin, this.participantArray);
     this.gameStarted = true;
   }
 
   playerReady(){
     this.isPlayerReady = true;
-    this.currentSocketID = this.socketioService.getID();
-    console.log(this.currentSocketID);
-    this.participantArray[this.currentPlayer.id].socketID = this.currentSocketID;
-    this.participantArray[this.currentPlayer.id].participantID = this.currentPlayer.id;
+    // this.currentSocketID = this.socketioService.getID();
+    // console.log(this.currentSocketID);
+    // this.participantArray[this.currentPlayer.id].socketID = this.currentSocketID;
+    // this.participantArray[this.currentPlayer.id].id = this.currentPlayer.id;
     this.participantArray[this.currentPlayer.id].ready = true;
-
+    console.log('PRPA', this.participantArray);
     let currentPlayerDetails = this.participantArray[this.currentPlayer.id];
-    this.socketioService.playerReady(this.roomPin, currentPlayerDetails);
+    console.log('PRCP', currentPlayerDetails);
+    this.socketioService.playerReady(this.roomPin, currentPlayerDetails); 
+
+    let playerReady = false;
+    for (let key of this.objectKeys(this.participantArray)) {
+      if (this.participantArray[key].ready === false) {
+        return playerReady = false;
+        
+      } else {
+       playerReady = true;
+      }
+    }
+    return this.allPlayersReady = playerReady;
+
   }
 
 
   // //remove?
-  // receiveJoinedPlayers() {
-  //   this.socketioService.receiveJoinedPlayers().subscribe((message:any) => {
-  //     // this.snackbar.open(message, '', {
-  //     //   duration: 3000,
-  //     // });
-  //     this.toastMessage = message
-  //     console.log(message);
-  //     this.playerID.push(message);
-  //     // this.playerID.push(message);
-  //   });
-  // }
+  receiveJoinedPlayers() {
+    this.socketioService.receiveJoinedPlayers().subscribe((message:any) => {  
+      this.allPlayersReady = false;
+      console.log('joinedP', message);
+      let joinedPlayer = message;
+      if (!(this.participantArray === undefined)) {
+        console.log(this.participantArray);
+        this.participantArray[joinedPlayer.id].id = joinedPlayer.id
+        this.participantArray[joinedPlayer.id].socketID = joinedPlayer.socketID
+        this.participantArray[joinedPlayer.id].ready = joinedPlayer.ready        
+        this.participantArray[joinedPlayer.id].roomName = joinedPlayer.roomName
+        console.log(this.participantArray);
+        console.log(this.objectKeys(this.participantArray).length);
+        // console.log(this.readyPlayers);
+      }
+    });
+  }
+
+  playersReady(){
+    for (let key of this.objectKeys(this.participantArray)) {
+      // as may be undefined
+      if (!this.participantArray[key].ready === true) {
+        return false
+      }
+    }
+    return true
+  }
 
   receiveReadyPlayers(){
     this.socketioService.receiveReadyPlayers().subscribe((message:any)=> {
       let partArray = message;
-      console.log(this.readyPlayers);
-      if (this.readyPlayers === undefined) {
-        this.readyPlayers = {};
-      }
-      console.log(this.readyPlayers);
-      this.readyPlayers[partArray.participantID] = message;
-      for (let key of this.objectKeys(this.participantArray)) {
-        if (!(this.readyPlayers[key] === undefined)) {
-          if (key === this.readyPlayers[key].participantID) {
-            this.participantArray[key].ready = true; 
-          } 
-        }
-      }
+      console.log('PI or I', message);
+      this.participantArray[partArray.id].ready = true;
+      console.log('PA', this.participantArray);
+      this.allPlayersReady = this.playersReady();  
       
-      console.log(this.participantArray);
-      console.log(this.readyPlayers);
 
-      console.log(this.objectKeys(this.participantArray).length);
-      console.log(this.objectKeys(this.readyPlayers).length);
+      // gets latest player ready, could add to participant array then check if all ready?
+      // console.log(this.readyPlayers);
+      // if (this.readyPlayers === undefined) {
+      //   this.readyPlayers = {};
+      // // }
+      // // console.log(this.readyPlayers);
+      // // this.readyPlayers[partArray.id] = message;
+      // for (let key of this.objectKeys(this.participantArray)) {
+      //   if (!(this.readyPlayers[key] === undefined)) {
+      //     if (key === this.readyPlayers[key].id) {
+      //       this.participantArray[key].ready = true; 
+      //       this.participantArray[key].id = key;
+      //     } 
+      //   }
+      // }
+      
+      // console.log(this.participantArray);
+      // // console.log(this.readyPlayers);
 
-      if ((this.objectKeys(this.participantArray).length) === (this.objectKeys(this.readyPlayers).length)) {
-        this.allPlayersReady = true;
-      } else {
-        this.allPlayersReady = false;
-      }
+      // console.log(this.objectKeys(this.participantArray).length);
+      // // console.log(this.objectKeys(this.readyPlayers).length);
+
+      // if ((this.objectKeys(this.participantArray).length) === (this.objectKeys(this.readyPlayers).length)) {
+      //   this.allPlayersReady = true;
+      // } else {
+      //   this.allPlayersReady = false;
+      // }
     });
 
   }

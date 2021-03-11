@@ -15,13 +15,16 @@
                     <button type="button" class="btn btn-outline-success" (click)="playerReady()">Ready to Play?</button>
                 </div>
             </div>
+            <div *ngIf="isPlayerReady && !(allPlayersReady)">
+               <p class="text-success"> <em>Waiting on other players...</em> </p>
+            </div>
             <div *ngIf="allPlayersReady">
                 <button type="button" class="btn btn-outline-success" (click)="beginGame()">Begin Game</button>
             </div>
 
         </div>
           <div *ngIf="this.gameStarted === true">
-            <app-game-details [readyPlayers]="this.readyPlayers"></app-game-details>
+            <app-game-details [readyPlayers]="this.participantArray"></app-game-details>
           </div>
         
     </div>

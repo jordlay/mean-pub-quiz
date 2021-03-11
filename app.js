@@ -21,45 +21,37 @@ const io = require('socket.io')(server, {
         origins: ["*"]
     });
 
-// const httpServer = require('http').createServer(httpApp);
-// const httpServer = require("http").createServer(app);
-// const io = require("socket.io")(httpServer, {
-
-// });
-// const io = require('socket.io')(httpServer, {
-//     cors: true,
-//     origins: ["*"]
-// });
-
-// const io = require("socket.io-client");
 previousReadyPlayers = {};
+previousJoinedPlayers = {};
 io.on("connection", (socket) => {
-    console.log(socket.id, "a user connected");
-    socket.emit('getID', socket.id);
-    socket.emit('getPreviousReadyPlayers', previousReadyPlayers);
     
-    socket.on('joinGame', ({gameId}) => {
+    console.log(socket.id, "a user connected");
+    socket.on('joinGame', ({gameId, playerData}) => {
         socket.join(gameId);
         console.log( socket.id + 'joined room' + gameId);
-        io.to(gameId).emit('joinGame', socket.id);
+        console.log(playerData);
+        playerData.socketID = socket.id
+        previousJoinedPlayers[playerData.id] = playerData
+        previousJoinedPlayers[playerData.id].socketID = socket.id
+        console.log(previousJoinedPlayers);
+        // socket.emit('getPreviousReadyPlayers', previousReadyPlayers);
+        socket.emit('getPreviousJoinedPlayers', previousJoinedPlayers);
+        // socket.emit('getID', socket.id);
+        io.to(gameId).emit('joinGame', playerData);
     });
 
     socket.on('playerReady', ({ gameId, playerData }) => { 
     // previousReadyPlayers[playerData.participantID].socketID = socket.id       
-    previousReadyPlayers[playerData.participantID] = playerData
-        console.log(previousReadyPlayers);
+    // previousReadyPlayers[playerData.participantID] = playerData
+    console.log(playerData);
+    previousJoinedPlayers[playerData.id].ready = true
         console.log( socket.id + ' is ready to play ' + gameId);
-        console.log(gameId, playerData);
-        this.playerData = playerData
         io.to(gameId).emit('playerReady',  playerData);
     })
 
     socket.on('startGame', ({gameId, playerData}) => {
-        console.log('PD');
-        console.log(playerData);
         io.to(gameId).emit('startGame', playerData);
             console.log('game began' + gameId);
-            console.log(playerData);
     })
 
     socket.on('endGame', ({gameId}) => {
@@ -67,6 +59,7 @@ io.on("connection", (socket) => {
         socket.to(gameId).emit('endGame', socket.id + 'player ${socket.id} ended the game');
         socket.leave(gameId);
         console.log('game ended' + gameId);
+        previousReadyPlayers = {};
         socket.disconnect(true);
     });
 });

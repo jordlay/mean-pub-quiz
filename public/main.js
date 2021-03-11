@@ -635,7 +635,10 @@ class SocketioService {
     constructor() { }
     connect(roomPin) {
         this.socket = Object(socket_io_client__WEBPACK_IMPORTED_MODULE_1__["io"])(src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].SOCKET_ENDPOINT);
-        this.socket.emit('joinGame', { gameId: roomPin });
+        // this.socket.emit('joinGame', {gameId : roomPin});
+    }
+    joinGame(roomPin, playerData) {
+        this.socket.emit('joinGame', { gameId: roomPin, playerData: playerData });
     }
     playerReady(roomPin, playerData) {
         this.socket.emit('playerReady', { gameId: roomPin, playerData: playerData });
@@ -655,6 +658,15 @@ class SocketioService {
         });
         return this.previousReadyPlayers;
     }
+    getPreviousJoinedPlayers() {
+        this.socket.on('getPreviousJoinedPlayers', (players) => {
+            console.log(players);
+            this.previousPlayers = players;
+            console.log(this.previousPlayers);
+            return this.previousPlayers;
+        });
+        return this.previousPlayers;
+    }
     getID() {
         this.socket.on('getID', (ID) => {
             this.socketID = ID;
@@ -667,6 +679,7 @@ class SocketioService {
     receiveJoinedPlayers() {
         return new rxjs__WEBPACK_IMPORTED_MODULE_0__["Observable"]((observer) => {
             this.socket.on('joinGame', (message) => {
+                console.log(message);
                 observer.next(message);
             });
         });
@@ -679,11 +692,8 @@ class SocketioService {
         });
     }
     receiveBeginGame() {
-        console.log('o insocketio');
         return new rxjs__WEBPACK_IMPORTED_MODULE_0__["Observable"]((observer) => {
-            console.log('m insocketio');
             this.socket.on('startGame', (message) => {
-                console.log('i insocketio');
                 console.log(message);
                 observer.next(message);
             });
@@ -809,7 +819,7 @@ function GamePlayComponent_div_6_Template(rf, ctx) { if (rf & 1) {
 } if (rf & 2) {
     const ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("readyPlayers", ctx_r2.readyPlayers);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("readyPlayers", ctx_r2.participantArray);
 } }
 class GamePlayComponent {
     constructor(gameCreationService, router, actRoute, socketioService) {
@@ -838,10 +848,13 @@ class GamePlayComponent {
         this.gameCreationService.checkGameExists(this.game).subscribe((data) => {
             if (data.success) {
                 this.socketioService.connect(this.roomPin);
+                this.receiveJoinedPlayers();
                 this.receiveReadyPlayers();
                 this.receiveBeginGame();
                 this.receiveEndGame();
                 this.previousReadyPlayers = this.socketioService.getPreviousReadyPlayers();
+                this.previousPlayers = this.socketioService.getPreviousJoinedPlayers();
+                console.log(this.previousPlayers);
                 this.gameStarted = false;
                 this.gameCreationService.getMeetingParams(this.roomPin).subscribe(data => {
                     this.data = data;
@@ -879,22 +892,37 @@ class GamePlayComponent {
                             this.allPlayersReady = false;
                             this.currentPlayer = message;
                             this.participantArray = this.api._participants;
-                            this.previousReadyPlayers = this.socketioService.getPreviousReadyPlayers();
-                            let participantHistoryArray = this.previousReadyPlayers;
-                            if (this.readyPlayers === undefined) {
-                                this.readyPlayers = {};
-                            }
-                            // Colour previous ready participants green when new user joins
-                            if (!(participantHistoryArray === undefined)) {
-                                for (let key of this.objectKeys(participantHistoryArray)) {
-                                    this.readyPlayers[participantHistoryArray[key].participantID] = participantHistoryArray[key];
-                                    if (!(this.readyPlayers[key] === undefined) && !(this.participantArray[key] === undefined)) {
-                                        if (key === this.readyPlayers[key].participantID) {
+                            console.log('CP ID?', this.currentPlayer);
+                            // console.log('PA', this.participantArray);
+                            this.currentPlayer.ready = false;
+                            // console.log(this.currentPlayer);
+                            this.socketioService.joinGame(this.roomPin, this.currentPlayer);
+                            this.participantArray[this.currentPlayer.id].id = this.currentPlayer.id;
+                            this.participantArray[this.currentPlayer.id].ready = false;
+                            // console.log(this.participantArray)
+                            setTimeout(() => {
+                                // this.previousReadyPlayers = this.socketioService.getPreviousReadyPlayers();
+                                this.previousPlayers = this.socketioService.getPreviousJoinedPlayers();
+                                console.log(this.previousPlayers);
+                                // let participantHistoryArray = this.previousReadyPlayers;  
+                                let previousPlayersArray = this.previousPlayers;
+                                if (this.readyPlayers === undefined) {
+                                    this.readyPlayers = {};
+                                }
+                                console.log(previousPlayersArray);
+                                if (!(previousPlayersArray === undefined)) {
+                                    for (let key of this.objectKeys(previousPlayersArray)) {
+                                        if (previousPlayersArray[key].ready === true && !(this.participantArray[key] === undefined)) {
+                                            // this.readyPlayers[previousPlayersArray[key].id] = previousPlayersArray[key];
+                                            //maybe remove?
                                             this.participantArray[key].ready = true;
+                                            this.participantArray[key].socketID = previousPlayersArray[key].socketID;
+                                            console.log('PA', this.participantArray);
+                                            // console.log('RP', this.readyPlayers);
                                         }
                                     }
                                 }
-                            }
+                            }, 3000);
                         });
                     }
                     else {
@@ -914,57 +942,89 @@ class GamePlayComponent {
         this.gameCreationService.endGame(this.game).subscribe(() => { });
     }
     beginGame() {
-        this.socketioService.beginGame(this.roomPin, this.readyPlayers);
+        this.socketioService.beginGame(this.roomPin, this.participantArray);
         this.gameStarted = true;
     }
     playerReady() {
         this.isPlayerReady = true;
-        this.currentSocketID = this.socketioService.getID();
-        console.log(this.currentSocketID);
-        this.participantArray[this.currentPlayer.id].socketID = this.currentSocketID;
-        this.participantArray[this.currentPlayer.id].participantID = this.currentPlayer.id;
+        // this.currentSocketID = this.socketioService.getID();
+        // console.log(this.currentSocketID);
+        // this.participantArray[this.currentPlayer.id].socketID = this.currentSocketID;
+        // this.participantArray[this.currentPlayer.id].id = this.currentPlayer.id;
         this.participantArray[this.currentPlayer.id].ready = true;
+        console.log('PRPA', this.participantArray);
         let currentPlayerDetails = this.participantArray[this.currentPlayer.id];
+        console.log('PRCP', currentPlayerDetails);
         this.socketioService.playerReady(this.roomPin, currentPlayerDetails);
+        let playerReady = false;
+        for (let key of this.objectKeys(this.participantArray)) {
+            if (this.participantArray[key].ready === false) {
+                return playerReady = false;
+            }
+            else {
+                playerReady = true;
+            }
+        }
+        return this.allPlayersReady = playerReady;
     }
     // //remove?
-    // receiveJoinedPlayers() {
-    //   this.socketioService.receiveJoinedPlayers().subscribe((message:any) => {
-    //     // this.snackbar.open(message, '', {
-    //     //   duration: 3000,
-    //     // });
-    //     this.toastMessage = message
-    //     console.log(message);
-    //     this.playerID.push(message);
-    //     // this.playerID.push(message);
-    //   });
-    // }
+    receiveJoinedPlayers() {
+        this.socketioService.receiveJoinedPlayers().subscribe((message) => {
+            this.allPlayersReady = false;
+            console.log('joinedP', message);
+            let joinedPlayer = message;
+            if (!(this.participantArray === undefined)) {
+                console.log(this.participantArray);
+                this.participantArray[joinedPlayer.id].id = joinedPlayer.id;
+                this.participantArray[joinedPlayer.id].socketID = joinedPlayer.socketID;
+                this.participantArray[joinedPlayer.id].ready = joinedPlayer.ready;
+                this.participantArray[joinedPlayer.id].roomName = joinedPlayer.roomName;
+                console.log(this.participantArray);
+                console.log(this.objectKeys(this.participantArray).length);
+                // console.log(this.readyPlayers);
+            }
+        });
+    }
+    playersReady() {
+        for (let key of this.objectKeys(this.participantArray)) {
+            // as may be undefined
+            if (!this.participantArray[key].ready === true) {
+                return false;
+            }
+        }
+        return true;
+    }
     receiveReadyPlayers() {
         this.socketioService.receiveReadyPlayers().subscribe((message) => {
             let partArray = message;
-            console.log(this.readyPlayers);
-            if (this.readyPlayers === undefined) {
-                this.readyPlayers = {};
-            }
-            console.log(this.readyPlayers);
-            this.readyPlayers[partArray.participantID] = message;
-            for (let key of this.objectKeys(this.participantArray)) {
-                if (!(this.readyPlayers[key] === undefined)) {
-                    if (key === this.readyPlayers[key].participantID) {
-                        this.participantArray[key].ready = true;
-                    }
-                }
-            }
-            console.log(this.participantArray);
-            console.log(this.readyPlayers);
-            console.log(this.objectKeys(this.participantArray).length);
-            console.log(this.objectKeys(this.readyPlayers).length);
-            if ((this.objectKeys(this.participantArray).length) === (this.objectKeys(this.readyPlayers).length)) {
-                this.allPlayersReady = true;
-            }
-            else {
-                this.allPlayersReady = false;
-            }
+            console.log('PI or I', message);
+            this.participantArray[partArray.id].ready = true;
+            console.log('PA', this.participantArray);
+            this.allPlayersReady = this.playersReady();
+            // gets latest player ready, could add to participant array then check if all ready?
+            // console.log(this.readyPlayers);
+            // if (this.readyPlayers === undefined) {
+            //   this.readyPlayers = {};
+            // // }
+            // // console.log(this.readyPlayers);
+            // // this.readyPlayers[partArray.id] = message;
+            // for (let key of this.objectKeys(this.participantArray)) {
+            //   if (!(this.readyPlayers[key] === undefined)) {
+            //     if (key === this.readyPlayers[key].id) {
+            //       this.participantArray[key].ready = true; 
+            //       this.participantArray[key].id = key;
+            //     } 
+            //   }
+            // }
+            // console.log(this.participantArray);
+            // // console.log(this.readyPlayers);
+            // console.log(this.objectKeys(this.participantArray).length);
+            // // console.log(this.objectKeys(this.readyPlayers).length);
+            // if ((this.objectKeys(this.participantArray).length) === (this.objectKeys(this.readyPlayers).length)) {
+            //   this.allPlayersReady = true;
+            // } else {
+            //   this.allPlayersReady = false;
+            // }
         });
     }
     receiveEndGame() {
@@ -1780,7 +1840,7 @@ function GameDetailsComponent_div_2_Template(rf, ctx) { if (rf & 1) {
     const key_r1 = ctx.$implicit;
     const ctx_r0 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate2"]("", ctx_r0.readyPlayers[key_r1].displayName, " + '' + ", ctx_r0.readyPlayers[key_r1].participantID, "");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate2"]("", ctx_r0.readyPlayers[key_r1].displayName, " ", ctx_r0.readyPlayers[key_r1].participantID, "");
 } }
 class GameDetailsComponent {
     constructor(socketioService, router, actRoute, gameCreationService) {

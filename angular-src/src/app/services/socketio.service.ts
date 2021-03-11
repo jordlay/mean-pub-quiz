@@ -12,11 +12,16 @@ export class SocketioService {
   socket!: Socket;
   socketID: any;
   previousReadyPlayers: any;
+  previousPlayers: any;
   constructor() { }
 
   connect(roomPin: any){
     this.socket = io(environment.SOCKET_ENDPOINT);
-    this.socket.emit('joinGame', {gameId : roomPin});
+    // this.socket.emit('joinGame', {gameId : roomPin});
+  }
+
+  joinGame(roomPin:any, playerData: any){
+    this.socket.emit('joinGame', {gameId: roomPin, playerData: playerData });
   }
 
   playerReady(roomPin:any, playerData: any){
@@ -41,6 +46,15 @@ export class SocketioService {
     return this.previousReadyPlayers
   }
 
+  getPreviousJoinedPlayers(){
+    this.socket.on('getPreviousJoinedPlayers', (players: any) => {
+      console.log(players);
+      this.previousPlayers = players;
+      console.log(this.previousPlayers);
+      return this.previousPlayers
+    });
+    return this.previousPlayers
+  }
   getID(){
     this.socket.on('getID', (ID: any) => {
       this.socketID = ID;
@@ -54,6 +68,7 @@ export class SocketioService {
   receiveJoinedPlayers() {
     return new Observable((observer) => {
       this.socket.on('joinGame', (message: any) => {
+        console.log(message)
         observer.next(message);
       });
     });
@@ -68,11 +83,8 @@ export class SocketioService {
   }
 
   receiveBeginGame() {
-    console.log('o insocketio');
     return new Observable((observer) => {
-      console.log('m insocketio');
       this.socket.on('startGame', (message: any) => {
-        console.log('i insocketio');
         console.log(message);
         observer.next(message);
       });
