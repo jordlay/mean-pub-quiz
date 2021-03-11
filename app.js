@@ -23,9 +23,10 @@ const io = require('socket.io')(server, {
 
 previousReadyPlayers = {};
 previousJoinedPlayers = {};
+gameBegan = {};
 io.on("connection", (socket) => {
     console.log(socket.id, "a user connected");
-    
+
     socket.on('joinGame', ({gameId, playerData}) => {
         socket.join(gameId);
         console.log( socket.id + 'joined room' + gameId);
@@ -33,6 +34,7 @@ io.on("connection", (socket) => {
         previousJoinedPlayers[playerData.id] = playerData
         previousJoinedPlayers[playerData.id].socketID = socket.id
         socket.emit('getPreviousJoinedPlayers', previousJoinedPlayers);
+        socket.emit('checkGameBegan', gameBegan[gameId]);
         io.to(gameId).emit('joinGame', playerData);
     });
 
@@ -43,6 +45,9 @@ io.on("connection", (socket) => {
     })
 
     socket.on('startGame', ({gameId, playerData}) => {
+        gameBegan[gameId] = true;
+        console.log(gameBegan);
+        console.log(gameBegan[gameId]);
         io.to(gameId).emit('startGame', playerData);
             console.log('game began' + gameId);
     })
@@ -55,6 +60,10 @@ io.on("connection", (socket) => {
         socket.disconnect(true);
     });
 });
+
+// io.on("disconnection", (socket) => {
+//     gameBegan[] = false;
+// });
 
 
 

@@ -13,6 +13,7 @@ export class SocketioService {
   socketID: any;
   previousReadyPlayers: any;
   previousPlayers: any;
+  gameBegan: any;
   constructor() { }
 
   connect(roomPin: any){
@@ -55,6 +56,16 @@ export class SocketioService {
     });
     return this.previousPlayers
   }
+
+  checkGameBegan(){
+    this.socket.on('checkGameBegan', (game:any) => {
+      console.log(game);
+      this.gameBegan = game;
+      return this.gameBegan;
+    });
+
+  return this.gameBegan
+  }
   getID(){
     this.socket.on('getID', (ID: any) => {
       this.socketID = ID;
@@ -90,6 +101,16 @@ export class SocketioService {
       });
     });
   }
+
+  receiveGameBegun() {
+    return new Observable((observer) => {
+      this.socket.on('checkGameBegan', (message: any) => {
+        console.log(message);
+        observer.next(message);
+      });
+    });
+  }
+
 
   receiveEndGame() {
     return new Observable((observer) => {

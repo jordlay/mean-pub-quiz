@@ -32,6 +32,7 @@ export class GameDetailsComponent implements OnInit {
   
   ngOnInit(): void {
     console.log('in GD');
+    
   }
 
   ngAfterViewInit(){

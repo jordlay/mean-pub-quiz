@@ -3,6 +3,7 @@ import '../../../vendor/jitsi/external_api.js';
 import { GameCreationService } from '../../services/game-creation.service';
 import { Router,  ActivatedRoute, ParamMap } from '@angular/router';
 import { SocketioService } from '../../services/socketio.service';
+import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
 
 declare var JitsiMeetExternalAPI: any;
 
@@ -37,7 +38,12 @@ export class GamePlayComponent implements OnInit {
   currentPlayer: any;
   previousReadyPlayers: any;
   previousPlayers: any;
-
+  host: any;
+  teamNumber: any
+  isChecked: any;
+  hostSubmitted = false;
+  hostDetails: any;
+  gameAlreadyBegun: any;
   ngOnInit(): void {
     this.url = window.location.href;
     this.roomPin = this.actRoute.snapshot.params.pin;
@@ -51,23 +57,28 @@ export class GamePlayComponent implements OnInit {
   ngAfterViewInit() {
     this.gameCreationService.checkGameExists(this.game).subscribe((data) => {
       if ((data as any).success) {
+    // create room 
     this.socketioService.connect(this.roomPin);
+    // set observable listeners
     this.receiveJoinedPlayers();
     this.receiveReadyPlayers();
+    this.socketioService.receiveGameBegun().subscribe( (message:any)=> {
+      console.log(message);
+      this.gameAlreadyBegun = message;
+      console.log(this.gameAlreadyBegun);
+    });
     this.receiveBeginGame();
     this.receiveEndGame();
-    this.previousReadyPlayers = this.socketioService.getPreviousReadyPlayers();
+    // get players who joined before user connected
     this.previousPlayers = this.socketioService.getPreviousJoinedPlayers();
- 
+
     this.gameStarted = false;
     this.gameCreationService.getMeetingParams(this.roomPin).subscribe(data => {
       this.data = data;
       if (this.data.success) {
         this.game = this.data.game;
-        
         let displayName = this.gameCreationService.getDisplayName();
-        let HostBool = this.gameCreationService.getHostBoolean();
-
+        // set displayName based on whether created game or joined
         if (displayName === undefined) {
           this.isHost = true;
           this.options = { 
@@ -92,10 +103,11 @@ export class GamePlayComponent implements OnInit {
             }
           }
         } 
-
+        // create Jitsi meeting 
         this.api = new JitsiMeetExternalAPI(this.domain, this.options);
-      
+        // add listener when user joins call
         this.api.addListener('videoConferenceJoined', (message:any)=>{
+          
           this.allPlayersReady = false;
           this.currentPlayer = message;
           this.participantArray = this.api._participants;
@@ -106,22 +118,19 @@ export class GamePlayComponent implements OnInit {
           this.participantArray[this.currentPlayer.id].ready = false;
           setTimeout(()=>{
             this.previousPlayers = this.socketioService.getPreviousJoinedPlayers();
-            console.log(this.previousPlayers);
-            let previousPlayersArray = this.previousPlayers;
-         
             if (!(this.previousPlayers === undefined)) {
               for (let key of this.objectKeys(this.previousPlayers)) {
                 if (this.previousPlayers[key].ready === true && !(this.participantArray[key]===undefined)) {
-                  // this.readyPlayers[previousPlayersArray[key].id] = previousPlayersArray[key];
-                  //maybe remove?
                   this.participantArray[key].ready = true;
                   this.participantArray[key].socketID = this.previousPlayers[key].socketID
-                  console.log('PA', this.participantArray);
-                  // console.log('RP', this.readyPlayers);
                 }
-                
               }
             }
+            if (this.gameAlreadyBegun) {
+              this.gameStarted === true;
+              this.beginGame();
+            }
+            console.log(this.gameAlreadyBegun);
           }, 3000);
         });
 
@@ -160,17 +169,7 @@ export class GamePlayComponent implements OnInit {
     console.log('PRCP', currentPlayerDetails);
     this.socketioService.playerReady(this.roomPin, currentPlayerDetails); 
 
-    let playerReady = false;
-    for (let key of this.objectKeys(this.participantArray)) {
-      if (this.participantArray[key].ready === false) {
-        return playerReady = false;
-        
-      } else {
-       playerReady = true;
-      }
-    }
-    return this.allPlayersReady = playerReady;
-
+    this.allPlayersReady = this.isAllReady()
   }
 
 
@@ -193,12 +192,15 @@ export class GamePlayComponent implements OnInit {
     });
   }
 
-  playersReady(){
+  isAllReady(){
     for (let key of this.objectKeys(this.participantArray)) {
       // as may be undefined
-      if (!this.participantArray[key].ready === true) {
-        return false
+      if (!this.participantArray[key].host === true) {
+        if (!this.participantArray[key].ready === true) {
+          return false
+        }
       }
+    
     }
     return true
   }
@@ -206,43 +208,41 @@ export class GamePlayComponent implements OnInit {
   receiveReadyPlayers(){
     this.socketioService.receiveReadyPlayers().subscribe((message:any)=> {
       let partArray = message;
-      console.log('PI or I', message);
       this.participantArray[partArray.id].ready = true;
-      console.log('PA', this.participantArray);
-      this.allPlayersReady = this.playersReady();  
+      this.allPlayersReady = this.isAllReady();  
       
-
-      // gets latest player ready, could add to participant array then check if all ready?
-      // console.log(this.readyPlayers);
-      // if (this.readyPlayers === undefined) {
-      //   this.readyPlayers = {};
-      // // }
-      // // console.log(this.readyPlayers);
-      // // this.readyPlayers[partArray.id] = message;
-      // for (let key of this.objectKeys(this.participantArray)) {
-      //   if (!(this.readyPlayers[key] === undefined)) {
-      //     if (key === this.readyPlayers[key].id) {
-      //       this.participantArray[key].ready = true; 
-      //       this.participantArray[key].id = key;
-      //     } 
-      //   }
-      // }
-      
-      // console.log(this.participantArray);
-      // // console.log(this.readyPlayers);
-
-      // console.log(this.objectKeys(this.participantArray).length);
-      // // console.log(this.objectKeys(this.readyPlayers).length);
-
-      // if ((this.objectKeys(this.participantArray).length) === (this.objectKeys(this.readyPlayers).length)) {
-      //   this.allPlayersReady = true;
-      // } else {
-      //   this.allPlayersReady = false;
-      // }
     });
-
   }
 
+  setHost() {
+    this.host = true;
+    console.log(this.currentPlayer);
+    this.participantArray[this.currentPlayer.id].host = true;
+    console.log(this.participantArray);
+  }
+
+  setSettings(){
+    console.log(this.teamNumber);
+    this.hostSubmitted = true;
+    this.isChecked = document.getElementById('hostCheckbox');
+    console.log(this.isChecked);
+    
+    this.hostDetails = this.participantArray[this.currentPlayer.id];
+    if (this.isChecked.checked === true) {
+      console.log('checked!');
+    this.hostDetails.include = true;
+    } else {
+      console.log('unchecked');
+      console.log(this.participantArray);
+      this.hostDetails.include = false;
+      // delete this.participantArray[this.currentPlayer.id];
+      console.log(this.participantArray);
+    }
+    this.allPlayersReady = this.isAllReady();
+    this.hostDetails.teamNumber = this.teamNumber;
+    console.log(this.hostDetails);
+  //then save host settings to db?
+  }
   receiveEndGame() {
     this.socketioService.receiveEndGame().subscribe((message: any) => {
       console.log(message)
