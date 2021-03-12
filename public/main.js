@@ -798,13 +798,18 @@ function GamePlayComponent_div_5_div_7_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](4);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx_r3.objectKeys(ctx_r3.participantArray));
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r3.isPlayerReady === false && ctx_r3.allPlayersReady === false);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r3.isPlayerReady === false && ctx_r3.allPlayersReady === false && ctx_r3.includeHost);
 } }
 function GamePlayComponent_div_5_div_8_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "p", 11);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](2, "em");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](3, "Waiting for other players...");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](3, "You are ready to play!");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](4, "p", 11);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](5, "em");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](6, "Waiting for other players...");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
@@ -813,7 +818,12 @@ function GamePlayComponent_div_5_div_9_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "p", 11);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](2, "em");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](3, "Waiting for host to start the game...");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](3, "All players are ready!");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](4, "p", 11);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](5, "em");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](6, "Waiting for host to start the game...");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
@@ -907,8 +917,8 @@ function GamePlayComponent_div_5_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](6, "Copy Game Link!");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](7, GamePlayComponent_div_5_div_7_Template, 6, 2, "div", 4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](8, GamePlayComponent_div_5_div_8_Template, 4, 0, "div", 4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](9, GamePlayComponent_div_5_div_9_Template, 4, 0, "div", 4);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](8, GamePlayComponent_div_5_div_8_Template, 7, 0, "div", 4);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](9, GamePlayComponent_div_5_div_9_Template, 7, 0, "div", 4);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](10, GamePlayComponent_div_5_div_10_Template, 4, 0, "div", 4);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](11, GamePlayComponent_div_5_div_11_Template, 9, 1, "div", 4);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](12, GamePlayComponent_div_5_div_12_Template, 3, 0, "div", 4);
@@ -955,6 +965,7 @@ class GamePlayComponent {
         this.allPlayersReady = false;
         this.isPlayerReady = false;
         this.hostSubmitted = false;
+        this.includeHost = true;
     }
     ngOnInit() {
         this.url = window.location.href;
@@ -1065,10 +1076,6 @@ class GamePlayComponent {
     }
     playerReady() {
         this.isPlayerReady = true;
-        // this.currentSocketID = this.socketioService.getID();
-        // console.log(this.currentSocketID);
-        // this.participantArray[this.currentPlayer.id].socketID = this.currentSocketID;
-        // this.participantArray[this.currentPlayer.id].id = this.currentPlayer.id;
         this.participantArray[this.currentPlayer.id].ready = true;
         console.log('PRPA', this.participantArray);
         let currentPlayerDetails = this.participantArray[this.currentPlayer.id];
@@ -1076,21 +1083,15 @@ class GamePlayComponent {
         this.socketioService.playerReady(this.roomPin, currentPlayerDetails);
         this.allPlayersReady = this.isAllReady();
     }
-    // //remove?
     receiveJoinedPlayers() {
         this.socketioService.receiveJoinedPlayers().subscribe((message) => {
             this.allPlayersReady = false;
-            console.log('joinedP', message);
             let joinedPlayer = message;
             if (!(this.participantArray === undefined)) {
-                console.log(this.participantArray);
                 this.participantArray[joinedPlayer.id].id = joinedPlayer.id;
                 this.participantArray[joinedPlayer.id].socketID = joinedPlayer.socketID;
                 this.participantArray[joinedPlayer.id].ready = joinedPlayer.ready;
                 this.participantArray[joinedPlayer.id].roomName = joinedPlayer.roomName;
-                console.log(this.participantArray);
-                console.log(this.objectKeys(this.participantArray).length);
-                // console.log(this.readyPlayers);
             }
         });
     }
@@ -1114,28 +1115,25 @@ class GamePlayComponent {
     }
     setHost() {
         this.host = true;
-        console.log(this.currentPlayer);
         this.participantArray[this.currentPlayer.id].host = true;
-        console.log(this.participantArray);
     }
     setSettings() {
-        console.log(this.teamNumber);
         this.hostSubmitted = true;
         this.isChecked = document.getElementById('hostCheckbox');
-        console.log(this.isChecked);
-        this.hostDetails = this.participantArray[this.currentPlayer.id];
         if (this.isChecked.checked === true) {
             console.log('checked!');
-            this.hostDetails.include = true;
+            this.participantArray[this.currentPlayer.id].include = true;
+            this.includeHost = true;
         }
         else {
             console.log('unchecked');
             console.log(this.participantArray);
-            this.hostDetails.include = false;
-            // delete this.participantArray[this.currentPlayer.id];
+            this.participantArray[this.currentPlayer.id].include = false;
+            this.includeHost = false;
             console.log(this.participantArray);
         }
-        this.allPlayersReady = this.isAllReady();
+        this.playerReady();
+        this.hostDetails = this.participantArray[this.currentPlayer.id];
         this.hostDetails.teamNumber = this.teamNumber;
         console.log(this.hostDetails);
         //then save host settings to db?
