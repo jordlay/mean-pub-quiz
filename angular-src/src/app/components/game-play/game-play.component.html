@@ -15,14 +15,16 @@
                         <div [ngClass]="{'selectedColour': this.participantArray[key].ready === true}" >{{this.participantArray[key].displayName}}</div>
                     </div>
                 </div>
-                <div *ngIf="isPlayerReady === false && allPlayersReady === false">
+                <div *ngIf="isPlayerReady === false && allPlayersReady === false && this.includeHost">
                     <button type="button" class="btn btn-outline-success" (click)="playerReady()">Ready to Play?</button>
                 </div>
             </div>
             <div *ngIf="isPlayerReady && !(allPlayersReady)">
-               <p class="text-success"> <em>Waiting for other players...</em> </p>
+                <p class="text-success"> <em>You are ready to play!</em> </p>
+                <p class="text-success"> <em>Waiting for other players...</em> </p>
             </div>
             <div *ngIf="allPlayersReady && !this.host">
+                <p class="text-success"> <em>All players are ready!</em> </p>
                 <p class="text-success"> <em>Waiting for host to start the game...</em> </p>
             </div>
             <div *ngIf="allPlayersReady && this.host">

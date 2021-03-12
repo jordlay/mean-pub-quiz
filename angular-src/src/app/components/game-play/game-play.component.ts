@@ -44,6 +44,7 @@ export class GamePlayComponent implements OnInit {
   hostSubmitted = false;
   hostDetails: any;
   gameAlreadyBegun: any;
+  includeHost = true;
   ngOnInit(): void {
     this.url = window.location.href;
     this.roomPin = this.actRoute.snapshot.params.pin;
@@ -159,35 +160,23 @@ export class GamePlayComponent implements OnInit {
 
   playerReady(){
     this.isPlayerReady = true;
-    // this.currentSocketID = this.socketioService.getID();
-    // console.log(this.currentSocketID);
-    // this.participantArray[this.currentPlayer.id].socketID = this.currentSocketID;
-    // this.participantArray[this.currentPlayer.id].id = this.currentPlayer.id;
     this.participantArray[this.currentPlayer.id].ready = true;
     console.log('PRPA', this.participantArray);
     let currentPlayerDetails = this.participantArray[this.currentPlayer.id];
     console.log('PRCP', currentPlayerDetails);
     this.socketioService.playerReady(this.roomPin, currentPlayerDetails); 
-
     this.allPlayersReady = this.isAllReady()
   }
 
-
-  // //remove?
   receiveJoinedPlayers() {
     this.socketioService.receiveJoinedPlayers().subscribe((message:any) => {  
       this.allPlayersReady = false;
-      console.log('joinedP', message);
       let joinedPlayer = message;
       if (!(this.participantArray === undefined)) {
-        console.log(this.participantArray);
         this.participantArray[joinedPlayer.id].id = joinedPlayer.id
         this.participantArray[joinedPlayer.id].socketID = joinedPlayer.socketID
         this.participantArray[joinedPlayer.id].ready = joinedPlayer.ready        
         this.participantArray[joinedPlayer.id].roomName = joinedPlayer.roomName
-        console.log(this.participantArray);
-        console.log(this.objectKeys(this.participantArray).length);
-        // console.log(this.readyPlayers);
       }
     });
   }
@@ -209,40 +198,36 @@ export class GamePlayComponent implements OnInit {
     this.socketioService.receiveReadyPlayers().subscribe((message:any)=> {
       let partArray = message;
       this.participantArray[partArray.id].ready = true;
-      this.allPlayersReady = this.isAllReady();  
-      
+      this.allPlayersReady = this.isAllReady();    
     });
   }
 
   setHost() {
     this.host = true;
-    console.log(this.currentPlayer);
     this.participantArray[this.currentPlayer.id].host = true;
-    console.log(this.participantArray);
   }
 
   setSettings(){
-    console.log(this.teamNumber);
     this.hostSubmitted = true;
     this.isChecked = document.getElementById('hostCheckbox');
-    console.log(this.isChecked);
-    
-    this.hostDetails = this.participantArray[this.currentPlayer.id];
     if (this.isChecked.checked === true) {
       console.log('checked!');
-    this.hostDetails.include = true;
+      this.participantArray[this.currentPlayer.id].include = true;
+      this.includeHost = true;
     } else {
       console.log('unchecked');
       console.log(this.participantArray);
-      this.hostDetails.include = false;
-      // delete this.participantArray[this.currentPlayer.id];
+      this.participantArray[this.currentPlayer.id].include = false;
+      this.includeHost = false;
       console.log(this.participantArray);
     }
-    this.allPlayersReady = this.isAllReady();
+    this.playerReady();
+    this.hostDetails = this.participantArray[this.currentPlayer.id];
     this.hostDetails.teamNumber = this.teamNumber;
     console.log(this.hostDetails);
-  //then save host settings to db?
+    //then save host settings to db?
   }
+
   receiveEndGame() {
     this.socketioService.receiveEndGame().subscribe((message: any) => {
       console.log(message)
