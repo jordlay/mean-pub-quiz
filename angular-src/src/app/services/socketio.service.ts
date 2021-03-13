@@ -14,6 +14,7 @@ export class SocketioService {
   previousReadyPlayers: any;
   previousPlayers: any;
   gameBegan: any;
+  hostDetails: any;
   constructor() { }
 
   connect(roomPin: any){
@@ -29,10 +30,9 @@ export class SocketioService {
     this.socket.emit('playerReady', {gameId: roomPin, playerData: playerData });
   }
 
-  // NOT WORKING
-  beginGame(roomPin: any, playerData:any) {
+  beginGame(roomPin: any, playerData:any, hostDetails:any) {
     console.log('SS BG', playerData);
-    this.socket.emit('startGame', {gameId: roomPin, playerData: playerData });
+    this.socket.emit('startGame', {gameId: roomPin, playerData: playerData, hostDetails: hostDetails });
   }
 
   endGame(roomPin: any){
@@ -65,6 +65,24 @@ export class SocketioService {
     });
 
   return this.gameBegan
+  }
+
+  receiveHostDetails(){
+    return new Observable((observer) => {
+      this.socket.on('getHostDetails', (message: any) => {
+        console.log(message);
+        observer.next(message);
+      });
+    });
+  }
+  
+  // delete?
+  getHostDetails(){
+      this.socket.on('getHostDetails', (message: any) => {
+        console.log(message);
+        this.hostDetails = message
+        return this.hostDetails
+      });
   }
   getID(){
     this.socket.on('getID', (ID: any) => {

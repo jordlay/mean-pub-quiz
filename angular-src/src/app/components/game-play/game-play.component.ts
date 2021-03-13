@@ -60,20 +60,20 @@ export class GamePlayComponent implements OnInit {
       if ((data as any).success) {
     // create room 
     this.socketioService.connect(this.roomPin);
+    this.gameStarted = false;
+    // check if game begun
+    this.socketioService.receiveGameBegun().subscribe( (message:any)=> {
+      this.gameAlreadyBegun = message;
+    });
     // set observable listeners
+    this.receiveHostDetails();
     this.receiveJoinedPlayers();
     this.receiveReadyPlayers();
-    this.socketioService.receiveGameBegun().subscribe( (message:any)=> {
-      console.log(message);
-      this.gameAlreadyBegun = message;
-      console.log(this.gameAlreadyBegun);
-    });
     this.receiveBeginGame();
     this.receiveEndGame();
     // get players who joined before user connected
     this.previousPlayers = this.socketioService.getPreviousJoinedPlayers();
-
-    this.gameStarted = false;
+    // get meeting parameters
     this.gameCreationService.getMeetingParams(this.roomPin).subscribe(data => {
       this.data = data;
       if (this.data.success) {
@@ -111,28 +111,50 @@ export class GamePlayComponent implements OnInit {
           
           this.allPlayersReady = false;
           this.currentPlayer = message;
+          console.log('CP', this.currentPlayer);
           this.participantArray = this.api._participants;
-          this.currentPlayer.ready = false;
-
+          if (this.gameAlreadyBegun) {
+            this.currentPlayer.ready = true;
+            this.participantArray[this.currentPlayer.id].ready = true;
+          } else {
+            this.currentPlayer.ready = false;
+            this.participantArray[this.currentPlayer.id].ready = false;
+          }
           this.socketioService.joinGame(this.roomPin, this.currentPlayer);
           this.participantArray[this.currentPlayer.id].id = this.currentPlayer.id;
-          this.participantArray[this.currentPlayer.id].ready = false;
+          console.log('PA', this.participantArray[this.currentPlayer.id]);
+          console.log(this.socketioService.getPreviousJoinedPlayers());
+
           setTimeout(()=>{
             this.previousPlayers = this.socketioService.getPreviousJoinedPlayers();
+            console.log(this.previousPlayers);
             if (!(this.previousPlayers === undefined)) {
               for (let key of this.objectKeys(this.previousPlayers)) {
+                // if (!this.previousPlayers[key] === undefined) {
+                //   this.participantArray[key].ready = this.previousPlayers[key].ready;
+                //   this.participantArray[key].socketID = this.previousPlayers[key].socketID
+                // }
                 if (this.previousPlayers[key].ready === true && !(this.participantArray[key]===undefined)) {
                   this.participantArray[key].ready = true;
                   this.participantArray[key].socketID = this.previousPlayers[key].socketID
                 }
               }
             }
-            if (this.gameAlreadyBegun) {
-              this.gameStarted === true;
-              this.beginGame();
-            }
+            // if (this.gameAlreadyBegun) {
+            //   this.gameStarted = true;
+            //   // this.beginGame();
+            // }
             console.log(this.gameAlreadyBegun);
-          }, 3000);
+          }, 1000);
+        });
+
+        this.api.addListener('participantLeft', (message:any)=>{
+          console.log(message);
+          this.currentPlayer = message;
+          console.log('BPA', this.participantArray);
+          delete this.participantArray[this.currentPlayer.id];
+          console.log('APA', this.participantArray);
+
         });
 
       } else {
@@ -154,7 +176,7 @@ export class GamePlayComponent implements OnInit {
   }
 
   beginGame(){
-    this.socketioService.beginGame(this.roomPin, this.participantArray);
+    this.socketioService.beginGame(this.roomPin, this.participantArray, this.hostDetails);
     this.gameStarted = true;
   }
 
@@ -228,6 +250,17 @@ export class GamePlayComponent implements OnInit {
     //then save host settings to db?
   }
 
+  joinGameLate(){
+    this.gameStarted = true;
+    console.log('JGL', this.participantArray);
+  }
+
+  receiveHostDetails(){
+    this.socketioService.receiveHostDetails().subscribe( (host:any)=> {
+      this.hostDetails = host;
+      console.log('RHD', host);
+    });
+  }
   receiveEndGame() {
     this.socketioService.receiveEndGame().subscribe((message: any) => {
       console.log(message)
@@ -239,8 +272,11 @@ export class GamePlayComponent implements OnInit {
 
   receiveBeginGame() {
     this.socketioService.receiveBeginGame().subscribe((message: any) => {
-      console.log(message)
+      this.participantArray = message;
+      console.log('RBG', message);
+      if (!this.gameAlreadyBegun){
         this.gameStarted = true;
+      }  
     });
   }
 }

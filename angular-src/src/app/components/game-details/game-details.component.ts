@@ -11,6 +11,7 @@ import { Router,  ActivatedRoute, ParamMap } from '@angular/router';
 export class GameDetailsComponent implements OnInit {
   // @Input('childToMaster')
   @Input() readyPlayers: any;
+  @Input() hostDetails: any;
   // get participantArray(): any { return this._participantArray; }
   // set participantArray(participantArray: any) {
   //   this._participantArray = (participantArray  || '<no participantArray set>');
@@ -24,6 +25,7 @@ export class GameDetailsComponent implements OnInit {
   url: any;
   game: any;
   participantArray: any;
+  host: any;
   objectKeys = Object.keys;
   constructor(private socketioService: SocketioService, private router: Router, 
     private actRoute: ActivatedRoute, private gameCreationService: GameCreationService) { }
@@ -32,11 +34,32 @@ export class GameDetailsComponent implements OnInit {
   
   ngOnInit(): void {
     console.log('in GD');
-    
+    // this.receiveJoinedPlayers();
+    console.log('PD', this.readyPlayers);
+    console.log('HD', this.hostDetails);
+    this.receiveBeginGame();
   }
 
   ngAfterViewInit(){
+
+    
+    console.log(this.hostDetails);
+     
+    
+    // this.socketioService.receiveHostDetails().subscribe((details:any)=> {
+    //   console.log(details);
+    //   // this.host = details;
+    // });
+    // console.log(this.host);
+    // console.log(this.participantArray);
     // this.receiveJoinedPlayers();
+  }
+
+  receiveBeginGame(){
+    this.socketioService.receiveBeginGame().subscribe((message: any) => {
+      console.log(message)
+        // this.readyPlayers = message;
+    });
   }
 
   // receiveJoinedPlayers() {
@@ -60,28 +83,5 @@ export class GameDetailsComponent implements OnInit {
   // }
 
 
-  // beginGame(){
-  //   // this.api.addListener('participantJoined', () => {
-  //   //   this.participantArray = this.api._participants;
-  //     // console.log(this.participantArray);
-  //   //  });
-  //   this.participantArray = this.gameCreationService.getParticipants();
-  //   console.log(   this.participantArray);
-  //   // this.gameCreat
-
-  // }
-
-  // receiveStartGame() {
-  //   this.socketIoService.receiveStartGame().subscribe((words) => {
-  //     this.role = 'operative';
-  //     this.words = words;
-  //   });
-  // }
-
-  // receiveGameUpdate() {
-  //   this.socketIoService.receiveGameUpdate(this.gameId).subscribe((words) => {
-  //     this.words = words;
-  //   });
-  // }
 
 }
