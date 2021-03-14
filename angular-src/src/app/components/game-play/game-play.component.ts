@@ -27,7 +27,7 @@ export class GamePlayComponent implements OnInit {
   options: any;
   domain = 'meet.jit.si';
   hostname: any;
-  errorMessage: any;
+  errorMessage = "";
   isHost = false;
   url = '';
   allPlayersReady = false;
@@ -39,12 +39,14 @@ export class GamePlayComponent implements OnInit {
   previousReadyPlayers: any;
   previousPlayers: any;
   host: any;
-  teamNumber: any
+  teamNumber = 0;
   isChecked: any;
   hostSubmitted = false;
   hostDetails: any;
   gameAlreadyBegun: any;
   includeHost = true;
+  joined = false;
+
   ngOnInit(): void {
     this.url = window.location.href;
     this.roomPin = this.actRoute.snapshot.params.pin;
@@ -119,6 +121,7 @@ export class GamePlayComponent implements OnInit {
           } else {
             this.currentPlayer.ready = false;
             this.participantArray[this.currentPlayer.id].ready = false;
+            this.joined = true;
           }
           this.socketioService.joinGame(this.roomPin, this.currentPlayer);
           this.participantArray[this.currentPlayer.id].id = this.currentPlayer.id;
@@ -211,18 +214,27 @@ export class GamePlayComponent implements OnInit {
   }
 
   setSettings(){
-    this.hostSubmitted = true;
-    this.isChecked = document.getElementById('hostCheckbox');
-    if (this.isChecked.checked === true) {
-      this.participantArray[this.currentPlayer.id].include = true;
-      this.includeHost = true;
+    if (this.teamNumber > 0 && this.teamNumber < 11) {
+      this.hostSubmitted = true;
+      this.isChecked = document.getElementById('hostCheckbox');
+      if (this.isChecked.checked === true) {
+        this.participantArray[this.currentPlayer.id].include = true;
+        this.includeHost = true;
+      } else {
+        this.participantArray[this.currentPlayer.id].include = false;
+        this.includeHost = false;
+      }
+      this.playerReady();
+      this.hostDetails = this.participantArray[this.currentPlayer.id];
+      this.hostDetails.teamNumber = this.teamNumber;
     } else {
-      this.participantArray[this.currentPlayer.id].include = false;
-      this.includeHost = false;
+      this.hostSubmitted = false;
+      this.errorMessage = "Invalid number of teams!";
+      setTimeout(()=>{                        
+        this.errorMessage = "";
+      }, 3000);
     }
-    this.playerReady();
-    this.hostDetails = this.participantArray[this.currentPlayer.id];
-    this.hostDetails.teamNumber = this.teamNumber;
+  
   }
 
   joinGameLate(){
@@ -234,7 +246,7 @@ export class GamePlayComponent implements OnInit {
       this.hostDetails = host;
     });
   }
-  
+
   receiveEndGame() {
     this.socketioService.receiveEndGame().subscribe((message: any)=>{
       if (message.includes('ended')) {
