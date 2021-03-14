@@ -10,7 +10,6 @@ const users = require('./routes/users');
 const games = require('./routes/games');
 
 let port = process.env.PORT || 8080;
-// let porthttp = process.env.PORT || 3000;
 
 const server = app.listen(port, '0.0.0.0', () => {
     console.log('Server started on Port ' + port);
@@ -21,57 +20,60 @@ const io = require('socket.io')(server, {
         origins: ["*"]
     });
 
-previousReadyPlayers = {};
-previousJoinedPlayers = {};
+// global vars for users who connect "late"
+previousJoinedPlayers =  {};
 gameBegan = {};
+previousHostDetails = {};
+
 io.on("connection", (socket) => {
     console.log(socket.id, "a user connected");
-
     socket.on('joinGame', ({gameId, playerData}) => {
+
         socket.join(gameId);
-        console.log( socket.id + 'joined room' + gameId);
+        if (previousJoinedPlayers === {} || previousJoinedPlayers[gameId] === undefined) {
+            previousJoinedPlayers[gameId] = {};
+        }
         playerData.socketID = socket.id
-        previousJoinedPlayers[playerData.id] = playerData
-        previousJoinedPlayers[playerData.id].socketID = socket.id
-        socket.emit('getPreviousJoinedPlayers', previousJoinedPlayers);
+        previousJoinedPlayers[gameId][playerData.id] = playerData;
+        socket.emit('getPreviousJoinedPlayers', previousJoinedPlayers[gameId]);
         socket.emit('checkGameBegan', gameBegan[gameId]);
+        if (gameBegan[gameId]) {
+            socket.emit('getHostDetails', previousHostDetails[gameId]);
+            io.to(gameId).emit('startGame', previousJoinedPlayers[gameId]);
+        }
         io.to(gameId).emit('joinGame', playerData);
     });
 
     socket.on('playerReady', ({ gameId, playerData }) => { 
-    previousJoinedPlayers[playerData.id].ready = true
-        console.log( socket.id + ' is ready to play ' + gameId);
+    // overwrites with new fields e.g. id
+    previousJoinedPlayers[gameId][playerData.id] = playerData
+    previousJoinedPlayers[gameId][playerData.id].ready = true
         io.to(gameId).emit('playerReady',  playerData);
     })
 
-    socket.on('startGame', ({gameId, playerData}) => {
+    socket.on('startGame', ({gameId, playerData, hostDetails}) => {
         gameBegan[gameId] = true;
-        console.log(gameBegan);
-        console.log(gameBegan[gameId]);
+        previousHostDetails[gameId] = hostDetails;
+        previousJoinedPlayers[gameId] = playerData
         io.to(gameId).emit('startGame', playerData);
-            console.log('game began' + gameId);
+        io.to(gameId).emit('getHostDetails', previousHostDetails[gameId])
+        console.log('Game began' + gameId);
     })
 
     socket.on('endGame', ({gameId}) => {
-        // NOTE: tidy this up, work out which acc ends connection
-        socket.to(gameId).emit('endGame', socket.id + 'player ${socket.id} ended the game');
+        socket.to(gameId).emit('endGame', socket.id + 'ended the game');
+        delete gameBegan[gameId];
+        delete previousJoinedPlayers[gameId];
         socket.leave(gameId);
-        console.log('game ended' + gameId);
         socket.disconnect(true);
+        console.log('Game ended' + gameId);
     });
+
+    socket.on('playerLeft', ({gameId, playerData}) => {
+        delete previousJoinedPlayers[gameId][playerData.id];
+    });
+
 });
-
-// io.on("disconnection", (socket) => {
-//     gameBegan[] = false;
-// });
-
-
-
-
-
-// httpServer.listen(porthttp, '0.0.0.0', () => {
-//     console.log('Server started on Port ' + porthttp);
-// });
 
 const uri = "mongodb+srv://jll541:mean-quiz@clusterquiz.inacn.mongodb.net/quizdb?retryWrites=true&w=majority";
 

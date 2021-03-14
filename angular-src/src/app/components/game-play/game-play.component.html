@@ -3,70 +3,85 @@
         <div class="jitsiMeet" #meet></div>
     </div>
     <div  class="col">
-        <div *ngIf="this.gameStarted === false">
-            <h1>Game Waiting Room</h1>
-            <h2>Meeting Pin: {{this.roomPin}}</h2>
-            <button type="button" class="btn btn-primary" [cdkCopyToClipboard]="this.url">Copy Game Link!</button>
+        <h1>Game Waiting Room</h1>
+        <h2>Meeting Pin: {{this.roomPin}}</h2>
+        <div *ngIf="!this.gameAlreadyBegun">
+            <div *ngIf="!this.gameStarted">
            
-            <div *ngIf="this.participantArray" > 
-                <div class="card border-primary mb-3" style="max-width: 20rem; margin-top: 16px; padding:10px; ">
-                    <h4>Current Players:</h4>
-                    <div *ngFor="let key of objectKeys(this.participantArray)">
-                        <div [ngClass]="{'selectedColour': this.participantArray[key].ready === true}" >{{this.participantArray[key].displayName}}</div>
+                <button type="button" class="btn btn-primary" [cdkCopyToClipboard]="this.url">Copy Game Link!</button>
+            
+                <div *ngIf="this.participantArray" > 
+                    <div class="card border-primary mb-3" style="max-width: 20rem; margin-top: 16px; padding:10px; ">
+                        <h4>Current Players:</h4>
+                        <div *ngFor="let key of objectKeys(this.participantArray)">
+                            <div [ngClass]="{'selectedColour': this.participantArray[key].ready === true}" >{{this.participantArray[key].displayName}}</div>
+                        </div>
+                    </div>
+                    <div *ngIf="isPlayerReady === false && allPlayersReady === false && this.includeHost">
+                        <button type="button" class="btn btn-outline-success" (click)="playerReady()">Ready to Play?</button>
                     </div>
                 </div>
-                <div *ngIf="isPlayerReady === false && allPlayersReady === false && this.includeHost">
-                    <button type="button" class="btn btn-outline-success" (click)="playerReady()">Ready to Play?</button>
+                <div *ngIf="isPlayerReady && !(allPlayersReady)">
+                    <p class="text-success"> <em>You are ready to play!</em> </p>
+                    <p class="text-success"> <em>Waiting for other players...</em> </p>
                 </div>
-            </div>
-            <div *ngIf="isPlayerReady && !(allPlayersReady)">
-                <p class="text-success"> <em>You are ready to play!</em> </p>
-                <p class="text-success"> <em>Waiting for other players...</em> </p>
-            </div>
-            <div *ngIf="allPlayersReady && !this.host">
-                <p class="text-success"> <em>All players are ready!</em> </p>
-                <p class="text-success"> <em>Waiting for host to start the game...</em> </p>
-            </div>
-            <div *ngIf="allPlayersReady && this.host">
-                <p class="text-success"> <em>Click below to start the game!</em> </p>
-            </div>
-            <div *ngIf="this.hostSubmitted === false">
-                <div class="card border-primary mb-3" style="max-width: 20rem; margin-top: 16px; padding:10px; ">
-                    <h4>Host Only!</h4>
-                    <p>If you are the host, click below to gain your power!</p>
-                    <button type="button" class="btn btn-outline-secondary" (click)="setHost()">Confirm Host</button>
-                    <div *ngIf="this.host">
-                        <div  class="card border-primary mb-3" style="max-width: 20rem;">
-                            <div class="card-header">Game Settings</div>
-                            <div class="card-body">
-                                <p class="card-text">Choose your game settings then begin the game</p>
-                                <div class="form-check">
-                                <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" id="hostCheckbox" value="isChecked" checked="">
+                <div *ngIf="allPlayersReady && !this.host">
+                    <p class="text-success"> <em>All players are ready!</em> </p>
+                    <p class="text-success"> <em>Waiting for host to start the game...</em> </p>
+                </div>
+                <div *ngIf="!this.hostSubmitted && !this.host && this.joined">
+                    <div class="card border-primary mb-3" style="max-width: 20rem; margin-top: 16px; padding:10px;">
+                        <h4>Host Only!</h4>
+                        <p>If you are the host, click below to gain your power!</p>
+                        <button type="button" class="btn btn-outline-secondary" (click)="setHost()">Confirm Host</button>
+                    </div>
+                </div>
+                <div *ngIf="!this.hostSubmitted && this.host ">
+                    <div  class="card border-primary mb-3" style="max-width: 20rem; margin-top: 10px;">
+                        <div class="card-header">Game Settings</div>
+                        <div class="card-body">
+                            <div *ngIf="errorMessage.length > 0" class="alert alert-dismissible fade show alert-danger">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                <strong>{{errorMessage}}</strong>
+                              </div>
+                            <p class="card-text">Choose your game settings then begin the game</p>
+                            <form>
+                                <div class="form-check" style="padding-left: 0rem;">
+                                    <input class="form-check-input" type="checkbox" value ="" id="hostCheckbox">
+                                    <label class="form-check-label" style="padding-left: 30px;" for="hostCheckbox">
                                     Include Host in Teams
-                                </label>
+                                    </label>
+                                    <label for="teamNumber" style="margin-top:10px">How many teams would you like? (max 10)</label>
+                                    <input type="text" [(ngModel)]="teamNumber" name="teamNumber" class="form-control" class="form-control" id="teamNumber" aria-describedby="emailHelp" placeholder="Enter number of teams">
                                 </div>
-                                <div class="form-group">
-                                <label for="exampleInputEmail1">How many teams would you like?</label>
-                                <input type="text" [(ngModel)]="teamNumber" name="teamNumber" class="form-control" class="form-control" id="teamNumber" aria-describedby="emailHelp" placeholder="Enter number of teams">
-                                
-                            </div>
-                            </div>
-                            <button type="button" class="btn btn-outline-success" (click)="setSettings()">Confirm Settings</button>
-                            </div>
-                    </div> 
+                            </form>
+                            <button type="button" style="margin-top: 10px;" class="btn btn-outline-success" (click)="setSettings()">Confirm Settings</button>
+                        </div>
+                    </div>
+                </div> 
+
+                <div *ngIf="allPlayersReady && this.hostSubmitted && this.host">
+                    <p class="text-success"> <em>Click below to start the game!</em> </p>
+                    <button type="button" class="btn btn-outline-success" (click)="beginGame()">Begin Game</button>
                 </div>
             </div>
-            <div *ngIf="allPlayersReady && this.hostSubmitted && this.host">
-                <button type="button" class="btn btn-outline-success" (click)="beginGame()">Begin Game</button>
+            <div *ngIf="this.gameStarted === true">
+            <app-game-details [readyPlayers]="this.participantArray" [hostDetails]="this.hostDetails"></app-game-details>
             </div>
+        <!-- </div> -->
         </div>
-        <div *ngIf="this.gameStarted === true">
-        <app-game-details [readyPlayers]="this.participantArray"></app-game-details>
+        <div *ngIf="this.gameAlreadyBegun">
+            <div *ngIf="!this.gameStarted">
+                <p class="text-success"> <em>It looks like you're a little late! The game has already started!</em> </p>
+                <p>Click below to join the game!</p>
+                <button type="button" class="btn btn-outline-success" (click)="joinGameLate()">Join</button>
+            </div>
+            <div *ngIf="this.gameStarted">
+                <app-game-details [readyPlayers]="this.participantArray" [hostDetails]="this.hostDetails"></app-game-details>
+            </div>
         </div>
     </div>
 </div>
-
 
     <div>
         <button type="button" class="btn btn-outline-danger" (click)="endGame()">End Game</button>

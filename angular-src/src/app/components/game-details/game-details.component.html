@@ -1,17 +1,8 @@
 <p>game-details works!</p>
-<div *ngFor="let key of objectKeys(this.readyPlayers)">{{this.readyPlayers[key].displayName}} {{this.readyPlayers[key].participantID }}</div>
-
-<!-- <div class="gameDetails">
-    <h1>Game Waiting Room</h1>
-    <h2>Meeting Pin: {{this.roomPin}}</h2>
-    <button type="button" class="btn btn-primary" [cdkCopyToClipboard]="this.url">Copy Game Link!</button>
-    <div *ngIf="!this.participantArray === undefined" > Current Players:
-        <div *ngFor="let key of objectKeys(this.participantArray)">{{this.participantArray[key].displayName}}</div>
-        <button type="button" class="btn btn-outline-success" (click)="beginGame()">Begin Game</button>
-    </div>
-    <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="true">
-        <div class="toast-body">
-          {{this.toastMessage}}
-        </div>
-      </div>
-</div> -->
+<div *ngFor="let key of objectKeys(this.readyPlayers)">
+    <div>{{this.readyPlayers[key].displayName}}</div>
+    <div>{{this.readyPlayers[key].id}}</div> 
+</div>
+<div>{{this.hostDetails.displayName}}</div>
+<div>{{this.hostDetails.socketID}}</div>
+<div>{{this.hostDetails.teamNumber}}</div>
