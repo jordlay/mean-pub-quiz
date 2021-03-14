@@ -630,12 +630,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-// import { io } from 'socket.io-client';
 class SocketioService {
     constructor() { }
     connect(roomPin) {
         this.socket = Object(socket_io_client__WEBPACK_IMPORTED_MODULE_1__["io"])(src_environments_environment__WEBPACK_IMPORTED_MODULE_2__["environment"].SOCKET_ENDPOINT);
-        // this.socket.emit('joinGame', {gameId : roomPin});
     }
     joinGame(roomPin, playerData) {
         this.socket.emit('joinGame', { gameId: roomPin, playerData: playerData });
@@ -644,31 +642,23 @@ class SocketioService {
         this.socket.emit('playerReady', { gameId: roomPin, playerData: playerData });
     }
     beginGame(roomPin, playerData, hostDetails) {
-        console.log('SS BG', playerData);
         this.socket.emit('startGame', { gameId: roomPin, playerData: playerData, hostDetails: hostDetails });
+    }
+    playerLeft(roomPin, playerData) {
+        this.socket.emit('playerLeft', { gameId: roomPin, playerData: playerData });
     }
     endGame(roomPin) {
         this.socket.emit('endGame', { gameId: roomPin });
     }
-    getPreviousReadyPlayers() {
-        this.socket.on('getPreviousReadyPlayers', (readyPlayers) => {
-            this.previousReadyPlayers = readyPlayers;
-            return this.previousReadyPlayers;
-        });
-        return this.previousReadyPlayers;
-    }
     getPreviousJoinedPlayers() {
         this.socket.on('getPreviousJoinedPlayers', (players) => {
-            console.log(players);
             this.previousPlayers = players;
-            console.log(this.previousPlayers);
             return this.previousPlayers;
         });
         return this.previousPlayers;
     }
     checkGameBegan() {
         this.socket.on('checkGameBegan', (game) => {
-            console.log(game);
             this.gameBegan = game;
             return this.gameBegan;
         });
@@ -677,32 +667,13 @@ class SocketioService {
     receiveHostDetails() {
         return new rxjs__WEBPACK_IMPORTED_MODULE_0__["Observable"]((observer) => {
             this.socket.on('getHostDetails', (message) => {
-                console.log(message);
                 observer.next(message);
             });
         });
     }
-    // delete?
-    getHostDetails() {
-        this.socket.on('getHostDetails', (message) => {
-            console.log(message);
-            this.hostDetails = message;
-            return this.hostDetails;
-        });
-    }
-    getID() {
-        this.socket.on('getID', (ID) => {
-            this.socketID = ID;
-            console.log(ID);
-            console.log(this.socketID);
-            return this.socketID;
-        });
-        return this.socketID;
-    }
     receiveJoinedPlayers() {
         return new rxjs__WEBPACK_IMPORTED_MODULE_0__["Observable"]((observer) => {
             this.socket.on('joinGame', (message) => {
-                console.log(message);
                 observer.next(message);
             });
         });
@@ -717,7 +688,6 @@ class SocketioService {
     receiveBeginGame() {
         return new rxjs__WEBPACK_IMPORTED_MODULE_0__["Observable"]((observer) => {
             this.socket.on('startGame', (message) => {
-                console.log(message);
                 observer.next(message);
             });
         });
@@ -725,7 +695,6 @@ class SocketioService {
     receiveGameBegun() {
         return new rxjs__WEBPACK_IMPORTED_MODULE_0__["Observable"]((observer) => {
             this.socket.on('checkGameBegan', (message) => {
-                console.log(message);
                 observer.next(message);
             });
         });
@@ -1082,8 +1051,8 @@ class GamePlayComponent {
                         this.api.addListener('videoConferenceJoined', (message) => {
                             this.allPlayersReady = false;
                             this.currentPlayer = message;
-                            console.log('CP', this.currentPlayer);
                             this.participantArray = this.api._participants;
+                            // if joined late set as ready automatically
                             if (this.gameAlreadyBegun) {
                                 this.currentPlayer.ready = true;
                                 this.participantArray[this.currentPlayer.id].ready = true;
@@ -1094,36 +1063,21 @@ class GamePlayComponent {
                             }
                             this.socketioService.joinGame(this.roomPin, this.currentPlayer);
                             this.participantArray[this.currentPlayer.id].id = this.currentPlayer.id;
-                            console.log('PA', this.participantArray[this.currentPlayer.id]);
-                            console.log(this.socketioService.getPreviousJoinedPlayers());
                             setTimeout(() => {
                                 this.previousPlayers = this.socketioService.getPreviousJoinedPlayers();
-                                console.log(this.previousPlayers);
                                 if (!(this.previousPlayers === undefined)) {
                                     for (let key of this.objectKeys(this.previousPlayers)) {
-                                        // if (!this.previousPlayers[key] === undefined) {
-                                        //   this.participantArray[key].ready = this.previousPlayers[key].ready;
-                                        //   this.participantArray[key].socketID = this.previousPlayers[key].socketID
-                                        // }
-                                        if (this.previousPlayers[key].ready === true && !(this.participantArray[key] === undefined)) {
-                                            this.participantArray[key].ready = true;
-                                            this.participantArray[key].socketID = this.previousPlayers[key].socketID;
+                                        if (!(this.participantArray[key] === undefined)) {
+                                            this.participantArray[key] = this.previousPlayers[key];
                                         }
                                     }
                                 }
-                                // if (this.gameAlreadyBegun) {
-                                //   this.gameStarted = true;
-                                //   // this.beginGame();
-                                // }
-                                console.log(this.gameAlreadyBegun);
-                            }, 1000);
+                            }, 100);
                         });
                         this.api.addListener('participantLeft', (message) => {
-                            console.log(message);
                             this.currentPlayer = message;
-                            console.log('BPA', this.participantArray);
                             delete this.participantArray[this.currentPlayer.id];
-                            console.log('APA', this.participantArray);
+                            this.socketioService.playerLeft(this.roomPin, this.currentPlayer);
                         });
                     }
                     else {
@@ -1149,9 +1103,7 @@ class GamePlayComponent {
     playerReady() {
         this.isPlayerReady = true;
         this.participantArray[this.currentPlayer.id].ready = true;
-        console.log('PRPA', this.participantArray);
         let currentPlayerDetails = this.participantArray[this.currentPlayer.id];
-        console.log('PRCP', currentPlayerDetails);
         this.socketioService.playerReady(this.roomPin, currentPlayerDetails);
         this.allPlayersReady = this.isAllReady();
     }
@@ -1193,37 +1145,28 @@ class GamePlayComponent {
         this.hostSubmitted = true;
         this.isChecked = document.getElementById('hostCheckbox');
         if (this.isChecked.checked === true) {
-            console.log('checked!');
             this.participantArray[this.currentPlayer.id].include = true;
             this.includeHost = true;
         }
         else {
-            console.log('unchecked');
-            console.log(this.participantArray);
             this.participantArray[this.currentPlayer.id].include = false;
             this.includeHost = false;
-            console.log(this.participantArray);
         }
         this.playerReady();
         this.hostDetails = this.participantArray[this.currentPlayer.id];
         this.hostDetails.teamNumber = this.teamNumber;
-        console.log(this.hostDetails);
-        //then save host settings to db?
     }
     joinGameLate() {
         this.gameStarted = true;
-        console.log('JGL', this.participantArray);
     }
     receiveHostDetails() {
         this.socketioService.receiveHostDetails().subscribe((host) => {
             this.hostDetails = host;
-            console.log('RHD', host);
         });
     }
     receiveEndGame() {
         this.socketioService.receiveEndGame().subscribe((message) => {
-            console.log(message);
-            if (message.includes('ended the game')) {
+            if (message.includes('ended')) {
                 this.endGame();
             }
         });
@@ -1231,7 +1174,6 @@ class GamePlayComponent {
     receiveBeginGame() {
         this.socketioService.receiveBeginGame().subscribe((message) => {
             this.participantArray = message;
-            console.log('RBG', message);
             if (!this.gameAlreadyBegun) {
                 this.gameStarted = true;
             }

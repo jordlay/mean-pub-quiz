@@ -10,7 +10,6 @@ const users = require('./routes/users');
 const games = require('./routes/games');
 
 let port = process.env.PORT || 8080;
-// let porthttp = process.env.PORT || 3000;
 
 const server = app.listen(port, '0.0.0.0', () => {
     console.log('Server started on Port ' + port);
@@ -21,38 +20,23 @@ const io = require('socket.io')(server, {
         origins: ["*"]
     });
 
-previousReadyPlayers = {};
-// previousJoinedPlayers = {};
+// global vars for users who connect "late"
 previousJoinedPlayers =  {};
 gameBegan = {};
 previousHostDetails = {};
-gameIDArray = [];
+
 io.on("connection", (socket) => {
     console.log(socket.id, "a user connected");
     socket.on('joinGame', ({gameId, playerData}) => {
+
+        socket.join(gameId);
         if (previousJoinedPlayers === {} || previousJoinedPlayers[gameId] === undefined) {
             previousJoinedPlayers[gameId] = {};
         }
-        gameIDArray.push(gameId);
-        socket.join(gameId);
-        console.log( socket.id + ' joined room ' + gameId);
         playerData.socketID = socket.id
-        // if (previousJoinedPlayers[gameId][playerData.id] === undefined) {
-            
-        // }
-            console.log('PJG', previousJoinedPlayers);
-            console.log('PD', playerData)
-            // previousJoinedPlayers[gameId][playerData.id] = {};
-            previousJoinedPlayers[gameId][playerData.id] = playerData;
-            console.log('PJGPD', previousJoinedPlayers);
-       
-        //NOTE: shouldnt need this if line 34?
-        // previousJoinedPlayers[playerData.id].socketID = socket.id
-        // this would not have ids?
+        previousJoinedPlayers[gameId][playerData.id] = playerData;
         socket.emit('getPreviousJoinedPlayers', previousJoinedPlayers[gameId]);
         socket.emit('checkGameBegan', gameBegan[gameId]);
-        console.log(gameBegan[gameId])
-        console.log( previousHostDetails[gameId]);
         if (gameBegan[gameId]) {
             socket.emit('getHostDetails', previousHostDetails[gameId]);
             io.to(gameId).emit('startGame', previousJoinedPlayers[gameId]);
@@ -61,48 +45,34 @@ io.on("connection", (socket) => {
     });
 
     socket.on('playerReady', ({ gameId, playerData }) => { 
-    // so that it overwrites with new fields eg id
+    // overwrites with new fields e.g. id
     previousJoinedPlayers[gameId][playerData.id] = playerData
     previousJoinedPlayers[gameId][playerData.id].ready = true
-        console.log( socket.id + ' is ready to play ' + gameId);
         io.to(gameId).emit('playerReady',  playerData);
     })
 
     socket.on('startGame', ({gameId, playerData, hostDetails}) => {
         gameBegan[gameId] = true;
         previousHostDetails[gameId] = hostDetails;
-        console.log('PD', playerData);
         previousJoinedPlayers[gameId] = playerData
-        console.log('PJP', previousJoinedPlayers[gameId]);
-        console.log('PHD', previousHostDetails[gameId])
         io.to(gameId).emit('startGame', playerData);
         io.to(gameId).emit('getHostDetails', previousHostDetails[gameId])
-        console.log('Game began ' + gameId);
+        console.log('Game began' + gameId);
     })
 
     socket.on('endGame', ({gameId}) => {
-        socket.to(gameId).emit('endGame', socket.id + 'player ${socket.id} ended the game');
-        // delete gameBegan[gameId];
+        socket.to(gameId).emit('endGame', socket.id + 'ended the game');
+        delete gameBegan[gameId];
+        delete previousJoinedPlayers[gameId];
         socket.leave(gameId);
-        console.log('Game ended ' + gameId);
         socket.disconnect(true);
-        // TO DO: delete all Data Structures
+        console.log('Game ended' + gameId);
     });
 
-    socket.on('disconnect', () => {
-        console.log('BPJP', previousJoinedPlayers);
-        // for (let key of Object.keys(previousJoinedPlayers[gameId])) {
-        //     if (previousJoinedPlayers[gameId][key].socketID === socket.id) {
-        //         gameID = previousJoinedPlayers[gameId][key].roomName.substring(0,4);
-        //         console.log(previousJoinedPlayers[gameId][key].socketID);
-        //         console.log(previousJoinedPlayers[gameId][key]);
-        //         delete previousJoinedPlayers[gameId][key];
-        //     }
-        // }
-        // // console.log(previousJoinedPlayers[key]);
-        // console.log('PJP', previousJoinedPlayers[gameId]);
-        // io.to(gameID).emit('startGame', previousJoinedPlayers[gameId]);
+    socket.on('playerLeft', ({gameId, playerData}) => {
+        delete previousJoinedPlayers[gameId][playerData.id];
     });
+
 });
 
 const uri = "mongodb+srv://jll541:mean-quiz@clusterquiz.inacn.mongodb.net/quizdb?retryWrites=true&w=majority";
