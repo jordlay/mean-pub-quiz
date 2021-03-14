@@ -39,8 +39,8 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 const environment = {
     production: false,
-    // SOCKET_ENDPOINT: 'http://localhost:8080'
-    SOCKET_ENDPOINT: 'https://mean-pub-quiz.herokuapp.com/'
+    SOCKET_ENDPOINT: 'http://localhost:8080'
+    // SOCKET_ENDPOINT: 'https://mean-pub-quiz.herokuapp.com/'
 };
 /*
  * For easier debugging in development mode, you can import the following file
@@ -2029,6 +2029,7 @@ class GameDetailsComponent {
         this.router = router;
         this.actRoute = actRoute;
         this.gameCreationService = gameCreationService;
+        this.teams = { "Blue": [], "Red": [], "Green": [] };
         this.objectKeys = Object.keys;
     }
     ngOnInit() {
@@ -2036,23 +2037,12 @@ class GameDetailsComponent {
         // this.receiveJoinedPlayers();
         console.log('PD', this.readyPlayers);
         console.log('HD', this.hostDetails);
-        this.receiveBeginGame();
+        // this.receiveBeginGame();
     }
     ngAfterViewInit() {
         console.log(this.hostDetails);
-        // this.socketioService.receiveHostDetails().subscribe((details:any)=> {
-        //   console.log(details);
-        //   // this.host = details;
-        // });
-        // console.log(this.host);
-        // console.log(this.participantArray);
-        // this.receiveJoinedPlayers();
-    }
-    receiveBeginGame() {
-        this.socketioService.receiveBeginGame().subscribe((message) => {
-            console.log(message);
-            // this.readyPlayers = message;
-        });
+        this.teamNumber = this.hostDetails.teamNumber;
+        console.log(this.teams);
     }
 }
 GameDetailsComponent.ɵfac = function GameDetailsComponent_Factory(t) { return new (t || GameDetailsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_socketio_service__WEBPACK_IMPORTED_MODULE_1__["SocketioService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_game_creation_service__WEBPACK_IMPORTED_MODULE_3__["GameCreationService"])); };

@@ -26,6 +26,8 @@ export class GameDetailsComponent implements OnInit {
   game: any;
   participantArray: any;
   host: any;
+  teamNumber: any;
+  teams = {"Blue": [], "Red": [], "Green": []};
   objectKeys = Object.keys;
   constructor(private socketioService: SocketioService, private router: Router, 
     private actRoute: ActivatedRoute, private gameCreationService: GameCreationService) { }
@@ -37,30 +39,24 @@ export class GameDetailsComponent implements OnInit {
     // this.receiveJoinedPlayers();
     console.log('PD', this.readyPlayers);
     console.log('HD', this.hostDetails);
-    this.receiveBeginGame();
+    // this.receiveBeginGame();
   }
 
   ngAfterViewInit(){
-
-    
     console.log(this.hostDetails);
-     
+    this.teamNumber = this.hostDetails.teamNumber;
+    console.log(this.teams);
     
-    // this.socketioService.receiveHostDetails().subscribe((details:any)=> {
-    //   console.log(details);
-    //   // this.host = details;
-    // });
-    // console.log(this.host);
-    // console.log(this.participantArray);
-    // this.receiveJoinedPlayers();
+
   }
 
-  receiveBeginGame(){
-    this.socketioService.receiveBeginGame().subscribe((message: any) => {
-      console.log(message)
-        // this.readyPlayers = message;
-    });
-  }
+  //not needed?
+  // receiveBeginGame(){
+  //   this.socketioService.receiveBeginGame().subscribe((message: any) => {
+  //     console.log(message)
+  //       // this.readyPlayers = message;
+  //   });
+  // }
 
   // receiveJoinedPlayers() {
   //   this.socketioService.receiveJoinedPlayers().subscribe((message) => {

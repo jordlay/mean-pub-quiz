@@ -21,10 +21,11 @@ const io = require('socket.io')(server, {
     });
 
 // global vars for users who connect "late"
+colours = ["Red", "Green", "Blue", "Orange", "Purple", "Pink", "Yellow", "Black", "Grey", "Brown"];
 previousJoinedPlayers =  {};
 gameBegan = {};
 previousHostDetails = {};
-
+teams = {};
 io.on("connection", (socket) => {
     console.log(socket.id, "a user connected");
     socket.on('joinGame', ({gameId, playerData}) => {
@@ -57,7 +58,42 @@ io.on("connection", (socket) => {
         previousJoinedPlayers[gameId] = playerData
         io.to(gameId).emit('startGame', playerData);
         io.to(gameId).emit('getHostDetails', previousHostDetails[gameId])
-        console.log('Game began' + gameId);
+        teams[gameId] = {}; 
+        console.log(teams[gameId]);
+        numberOfTeams = hostDetails.teamNumber;
+        numberOfPlayers = Object.keys(previousJoinedPlayers[gameId]).length;
+        console.log(numberOfTeams)
+        // NOTE: why not nOT-1?
+        let playerNames = [];
+        for (let colour of colours.slice(0, numberOfTeams) ) {
+            teams[gameId][colour] = [];
+        }
+        for (let key of Object.keys(previousJoinedPlayers[gameId])) {
+            playerNames.push(previousJoinedPlayers[gameId][key].displayName);
+            
+        }
+        console.log(playerNames);
+        if (!hostDetails.include) {
+            let index = playerNames.indexOf(hostDetails.displayName);
+            playerNames.splice(index,1);
+            numberOfPlayers -= 1;
+        }
+        console.log(playerNames);
+        let i = 0;
+        while (i !== numberOfPlayers) {
+            let keys = Object.keys(teams[gameId]);
+            for (let j = 0; j < keys.length; j++) {
+                teams[gameId][keys[j]].push(playerNames[i]);
+                i++
+                if (i === numberOfPlayers) {
+                    break;
+                }
+            }
+            console.log(teams[gameId]);
+        }
+      
+        console.log(teams[gameId]);
+        console.log('Game began ' + gameId);
     })
 
     socket.on('endGame', ({gameId}) => {
