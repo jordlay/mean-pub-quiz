@@ -36,7 +36,7 @@
                         <button type="button" class="btn btn-outline-secondary" (click)="setHost()">Confirm Host</button>
                     </div>
                 </div>
-                <div *ngIf="!this.hostSubmitted && this.host ">
+                <div *ngIf="!this.hostSubmitted && this.host && this.allPlayersReady">
                     <div  class="card border-primary mb-3" style="max-width: 20rem; margin-top: 10px;">
                         <div class="card-header">Game Settings</div>
                         <div class="card-body">
@@ -44,7 +44,7 @@
                                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                                 <strong>{{errorMessage}}</strong>
                               </div>
-                            <p class="card-text">Choose your game settings then begin the game</p>
+                            <p class="card-text">Make sure all your players are in the waiting room as you cannot change the number of teams once the game has begun</p>
                             <form>
                                 <div class="form-check" style="padding-left: 0rem;">
                                     <input class="form-check-input" type="checkbox" value ="" id="hostCheckbox">
@@ -66,7 +66,7 @@
                 </div>
             </div>
             <div *ngIf="this.gameStarted === true">
-            <app-game-details [readyPlayers]="this.participantArray" [hostDetails]="this.hostDetails"></app-game-details>
+            <app-game-details [roomPin]="this.roomPin" [playerObject]="this.participantArray" [hostDetails]="this.hostDetails" [currentPlayer]="this.currentPlayer" [teams]="this.teams"></app-game-details>
             </div>
         <!-- </div> -->
         </div>
@@ -77,7 +77,7 @@
                 <button type="button" class="btn btn-outline-success" (click)="joinGameLate()">Join</button>
             </div>
             <div *ngIf="this.gameStarted">
-                <app-game-details [readyPlayers]="this.participantArray" [hostDetails]="this.hostDetails"></app-game-details>
+                <app-game-details [roomPin]="this.roomPin" [playerObject]="this.participantArray" [hostDetails]="this.hostDetails" [currentPlayer]="this.currentPlayer" [teams]="this.teams"></app-game-details>
             </div>
         </div>
     </div>

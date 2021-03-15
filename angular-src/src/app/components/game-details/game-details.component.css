@@ -1,0 +1,12 @@
+.buzzer{
+    border-radius: 16px;
+    box-shadow: 0 5px #ffd74066;   
+    margin-bottom: 10px;
+}
+
+.buzzerClicked{
+    border-radius: 16px;
+    box-shadow: 0 0px #ffefb3;
+    transform: translateY(4px);
+    margin-bottom: 10px;
+}

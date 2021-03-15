@@ -46,7 +46,7 @@ export class GamePlayComponent implements OnInit {
   gameAlreadyBegun: any;
   includeHost = true;
   joined = false;
-
+  teams:any
   ngOnInit(): void {
     this.url = window.location.href;
     this.roomPin = this.actRoute.snapshot.params.pin;
@@ -69,6 +69,7 @@ export class GamePlayComponent implements OnInit {
     });
     // set observable listeners
     this.receiveHostDetails();
+    this.receiveTeams();
     this.receiveJoinedPlayers();
     this.receiveReadyPlayers();
     this.receiveBeginGame();
@@ -211,25 +212,27 @@ export class GamePlayComponent implements OnInit {
   setHost() {
     this.host = true;
     this.participantArray[this.currentPlayer.id].host = true;
+    this.playerReady();
   }
 
   setSettings(){
-    if (this.teamNumber > 0 && this.teamNumber < 11) {
+    let noOfPlayers = this.objectKeys(this.participantArray).length;
+    this.isChecked = document.getElementById('hostCheckbox');
+    if (this.isChecked.checked === true) {
+      this.participantArray[this.currentPlayer.id].include = true;
+      this.includeHost = true;
+    } else {
+      this.participantArray[this.currentPlayer.id].include = false;
+      this.includeHost = false;
+      noOfPlayers -= 1;
+    }
+    if (this.teamNumber > 0 && this.teamNumber <= noOfPlayers && this.teamNumber < 11) {
       this.hostSubmitted = true;
-      this.isChecked = document.getElementById('hostCheckbox');
-      if (this.isChecked.checked === true) {
-        this.participantArray[this.currentPlayer.id].include = true;
-        this.includeHost = true;
-      } else {
-        this.participantArray[this.currentPlayer.id].include = false;
-        this.includeHost = false;
-      }
-      this.playerReady();
       this.hostDetails = this.participantArray[this.currentPlayer.id];
       this.hostDetails.teamNumber = this.teamNumber;
     } else {
       this.hostSubmitted = false;
-      this.errorMessage = "Invalid number of teams!";
+      this.errorMessage = "Invalid number of teams! You must have more players than teams";
       setTimeout(()=>{                        
         this.errorMessage = "";
       }, 3000);
@@ -261,6 +264,14 @@ export class GamePlayComponent implements OnInit {
       if (!this.gameAlreadyBegun){
         this.gameStarted = true;
       }  
+    });
+  }
+
+  receiveTeams(){
+    this.socketioService.receiveTeams().subscribe((teams:any)=>{
+      console.log(teams);
+      this.teams = teams;
+      console.log(this.teams);
     });
   }
 }

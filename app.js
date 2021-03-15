@@ -40,6 +40,8 @@ io.on("connection", (socket) => {
         socket.emit('checkGameBegan', gameBegan[gameId]);
         if (gameBegan[gameId]) {
             socket.emit('getHostDetails', previousHostDetails[gameId]);
+            console.log(teams[gameId]);
+            socket.emit('getTeams', teams[gameId])
             io.to(gameId).emit('startGame', previousJoinedPlayers[gameId]);
         }
         io.to(gameId).emit('joinGame', playerData);
@@ -59,40 +61,37 @@ io.on("connection", (socket) => {
         io.to(gameId).emit('startGame', playerData);
         io.to(gameId).emit('getHostDetails', previousHostDetails[gameId])
         teams[gameId] = {}; 
-        console.log(teams[gameId]);
         numberOfTeams = hostDetails.teamNumber;
         numberOfPlayers = Object.keys(previousJoinedPlayers[gameId]).length;
-        console.log(numberOfTeams)
-        // NOTE: why not nOT-1?
         let playerNames = [];
+        let playerid = [];
         for (let colour of colours.slice(0, numberOfTeams) ) {
-            teams[gameId][colour] = [];
+            teams[gameId][colour] = {};
         }
         for (let key of Object.keys(previousJoinedPlayers[gameId])) {
             playerNames.push(previousJoinedPlayers[gameId][key].displayName);
-            
-        }
-        console.log(playerNames);
+            playerid.push(previousJoinedPlayers[gameId][key].id);
+        }                                                                                                     
         if (!hostDetails.include) {
             let index = playerNames.indexOf(hostDetails.displayName);
             playerNames.splice(index,1);
+            playerid.splice(index,1);
             numberOfPlayers -= 1;
         }
-        console.log(playerNames);
         let i = 0;
         while (i !== numberOfPlayers) {
             let keys = Object.keys(teams[gameId]);
             for (let j = 0; j < keys.length; j++) {
-                teams[gameId][keys[j]].push(playerNames[i]);
+                teams[gameId][keys[j]][playerid[i]] = {}
+                teams[gameId][keys[j]][playerid[i]].displayName = playerNames[i];
+                teams[gameId][keys[j]][playerid[i]].id = playerid[i];
                 i++
                 if (i === numberOfPlayers) {
                     break;
                 }
             }
-            console.log(teams[gameId]);
         }
-      
-        console.log(teams[gameId]);
+        io.to(gameId).emit('getTeams', teams[gameId])
         console.log('Game began ' + gameId);
     })
 
@@ -107,6 +106,22 @@ io.on("connection", (socket) => {
 
     socket.on('playerLeft', ({gameId, playerData}) => {
         delete previousJoinedPlayers[gameId][playerData.id];
+    });
+
+    socket.on('buzzerPressed', ({gameId, playerName, playerColour }) => {
+        console.log('PN', playerName);
+        console.log(gameId);
+        let buzzerDetail = {};
+        buzzerDetail[gameId] = {};
+        buzzerDetail[gameId].displayName = playerName;
+        buzzerDetail[gameId].colour = playerColour;
+        console.log(buzzerDetail[gameId]);
+        io.to(gameId).emit('buzzerPressed', buzzerDetail[gameId]);
+        socket.to(gameId).emit('buzzerPressed', buzzerDetail[gameId]);
+
+        //this works?
+        socket.emit('buzzerPressed', buzzerDetail[gameId]);
+        
     });
 
 });

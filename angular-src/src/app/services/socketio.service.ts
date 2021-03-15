@@ -40,6 +40,10 @@ export class SocketioService {
     this.socket.emit('endGame', {gameId : roomPin});
   }
 
+  buzzerPressed(roomPin:any, playerName:any, playerColour:any){
+    this.socket.emit('buzzerPressed', {gameId: roomPin, playerName: playerName, playerColour:playerColour });
+  }
+
   getPreviousJoinedPlayers(){
     this.socket.on('getPreviousJoinedPlayers', (players: any) => {
       this.previousPlayers = players;
@@ -59,6 +63,15 @@ export class SocketioService {
   receiveHostDetails(){
     return new Observable((observer) => {
       this.socket.on('getHostDetails', (message: any) => {
+        observer.next(message);
+      });
+    });
+  }
+
+  receiveTeams(){
+    return new Observable((observer) => {
+      this.socket.on('getTeams', (message: any) => {
+        console.log(message);
         observer.next(message);
       });
     });
@@ -104,4 +117,12 @@ export class SocketioService {
     });
   }
 
+  receiveBuzzerPressed() {
+    return new Observable((observer) => {
+      this.socket.on('buzzerPressed', (message: any) => {
+        console.log(message);
+        observer.next(message);
+      });
+    });
+  }
 }

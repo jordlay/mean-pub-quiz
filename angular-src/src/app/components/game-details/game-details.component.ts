@@ -9,75 +9,90 @@ import { Router,  ActivatedRoute, ParamMap } from '@angular/router';
   styleUrls: ['./game-details.component.css']
 })
 export class GameDetailsComponent implements OnInit {
-  // @Input('childToMaster')
-  @Input() readyPlayers: any;
+  @Input() roomPin:any;
+  @Input() playerObject: any;
   @Input() hostDetails: any;
-  // get participantArray(): any { return this._participantArray; }
-  // set participantArray(participantArray: any) {
-  //   this._participantArray = (participantArray  || '<no participantArray set>');
-  // }
-  // private _participantArray = '';
+  @Input() currentPlayer: any;
+  @Input() teams: any;
 
   api: any;
   toastMessage: any;
-  // socket!: Socket;
-  roomPin: any;
+  // roomPin: any;
   url: any;
   game: any;
   participantArray: any;
   host: any;
   teamNumber: any;
-  teams = {"Blue": [], "Red": [], "Green": []};
+  playerColour: any;
+  // teams: any;
+  buzzerPress = false;
+  buzzerDetails: any;
   objectKeys = Object.keys;
+
   constructor(private socketioService: SocketioService, private router: Router, 
     private actRoute: ActivatedRoute, private gameCreationService: GameCreationService) { }
 
   
   
   ngOnInit(): void {
+    // this.receiveTeams();
+    // this.receiveBuzzerPressed();
     console.log('in GD');
-    // this.receiveJoinedPlayers();
-    console.log('PD', this.readyPlayers);
+    console.log('PD', this.playerObject);
     console.log('HD', this.hostDetails);
-    // this.receiveBeginGame();
+    console.log('CP', this.currentPlayer);
+    console.log('T', this.teams);
   }
 
   ngAfterViewInit(){
     console.log(this.hostDetails);
     this.teamNumber = this.hostDetails.teamNumber;
-    console.log(this.teams);
-    
+    setTimeout( () => {
+      
+    this.receiveBuzzerPressed();
+      console.log(this.teams);
+      for (let colour of this.objectKeys(this.teams)){
+        document.getElementById(colour)!.style.color = colour;
+        for (let player of this.objectKeys(this.teams[colour])){
+          
+          if (this.currentPlayer.id === this.teams[colour][player].id) {
+            this.playerColour = colour;
+          }
+        }
+      }
+      if (!this.hostDetails.include) {
+        this.playerColour = "darkgoldenrod";
+      }
+      console.log(this.playerColour);
+      this.receiveBuzzerPressed();
+      console.log(this.buzzerDetails);
+    }, 100)
+
+    setTimeout( () => {
+      console.log('STO');
+      this.receiveBuzzerPressed();
+    }, 1000);
 
   }
 
-  //not needed?
-  // receiveBeginGame(){
-  //   this.socketioService.receiveBeginGame().subscribe((message: any) => {
-  //     console.log(message)
-  //       // this.readyPlayers = message;
-  //   });
-  // }
-
-  // receiveJoinedPlayers() {
-  //   this.socketioService.receiveJoinedPlayers().subscribe((message) => {
-  //     // this.snackbar.open(message, '', {
-  //     //   duration: 3000,
-  //     // });
-  //     this.toastMessage = message
-  //     console.log(message);
-  //   });
-  // }
-
-  // receiveParticipants() {
-  // //  this.participantArray =  this.gameCreationService.getParticipants();
-  //  this.participantArray = this.gameCreationService.getParticipants().subscribe((array: any) => {
-  //     // this.participantArray = array;
-  //     console.log(array);
-  //   });
+  receiveBuzzerPressed(){
+    this.socketioService.receiveBuzzerPressed().subscribe((player:any)=>{
+      let element = <HTMLInputElement> document.getElementById('buzzer');
+      element.disabled = true;
+      console.log('RBP', player);
+      this.buzzerDetails = player;
+      this.buzzerPress = true;
+      document.getElementById('buzzerDetails')!.style.color = this.buzzerDetails.colour;
+    });
+  }
+ 
+  buzzerPressed(){
     
-  //   console.log(this.participantArray);
-  // }
-
-
+    let element = <HTMLInputElement> document.getElementById('buzzer');
+    element.disabled = true;
+    this.buzzerPress = true;
+    console.log('BP', this.buzzerPress);
+    this.socketioService.buzzerPressed(this.roomPin, this.currentPlayer.displayName, this.playerColour);
+  }
 
 }

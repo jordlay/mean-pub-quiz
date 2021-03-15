@@ -1,8 +1,20 @@
-<p>game-details works!</p>
-<div *ngFor="let key of objectKeys(this.readyPlayers)">
+<div class="row">
+    <div style="color: darkgoldenrod;">Host: {{this.hostDetails.displayName}}</div>
+    <div *ngIf="this.teams">
+        <div *ngFor="let colours of objectKeys(this.teams)">
+            <p id="{{colours}}" class="col" style="padding-left: 0px; margin-bottom: 0px">{{colours}} Team: 
+                <span *ngFor="let players of objectKeys(this.teams[colours])">{{this.teams[colours][players].displayName}} </span>
+            </p>
+            
+        </div>
+    </div>
+   
+</div>
+<!-- <div *ngFor="let key of objectKeys(this.readyPlayers)">
     <div>{{this.readyPlayers[key].displayName}}</div>
     <div>{{this.readyPlayers[key].id}}</div> 
-</div>
-<div>{{this.hostDetails.displayName}}</div>
-<div>{{this.hostDetails.socketID}}</div>
-<div>{{this.hostDetails.teamNumber}}</div>
+</div> -->
+
+<button type="button" id="buzzer" class="btn btn-warning buzzer" (click)="buzzerPressed()" [ngClass]="this.buzzerPress ? 'buzzerClicked':'buzzer' ">Team Buzzer</button>
+<div id="buzzerDetails" *ngIf="this.buzzerPress">pressed the buzzer for the  team!</div>
+
