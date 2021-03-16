@@ -44,3 +44,8 @@ input[type="checkbox"]:checked::after{
   top: 0em !important;
   left: 1.1em !important;
 }
+/* 
+.modal.fade .modal-dialog {
+  transition: transform 0.3s ease-out;
+  transform: translate(0, -50px);
+} */

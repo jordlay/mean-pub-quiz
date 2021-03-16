@@ -11,10 +11,9 @@
             
         </div>
     </div> 
-    <button type="button" id="buzzer" class="btn btn-warning buzzer" (click)="buzzerPressed()" [ngClass]="this.buzzerPress ? 'buzzerClicked':'buzzer' ">Team Buzzer</button>
-    <div id="buzzerDetails" *ngIf="this.buzzerPress">{{this.buzzerDetails.displayName}} pressed the buzzer for the {{this.buzzerDetails.colour}} team!</div>
-
 </div>
+<button type="button" id="buzzer" class="btn btn-warning buzzer" (click)="buzzerPressed()" [ngClass]="this.buzzerPress ? 'buzzerClicked':'buzzer' ">Team Buzzer</button>
+<div id="buzzerDetails" *ngIf="this.buzzerPress">{{this.buzzerDetails.displayName}} pressed the buzzer for the {{this.buzzerDetails.colour}} team!</div>
 
 <div class="modal fade modal-dialog modal-dialog-centered modal-dialog-scrollable" data-bs-backdrop="static" id="settingsModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
@@ -27,19 +26,29 @@
           <form>
             <div class="mb-3">
                 <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="hostToggle">
-                    <label class="custom-control-label" for="hostToggle">Claim Host(coming soon!)</label>
+                    <input type="checkbox" class="custom-control-input" id="hostToggle" checked>
+                    <label class="custom-control-label" for="hostToggle">Claim Host (coming soon!)</label>
                 </div>
             </div>
+            
             <div class="mb-3">
-              <label for="timerLength" class="col-form-label">Set New Timer Length (coming soon!)</label>
-              <input type="text" class="form-control" id="timerLength">
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="buzzerToggle" >
+                    <label class="custom-control-label" for="buzzerToggle">Include Buzzer (coming soon!)</label>
+                </div>
             </div>
             <div class="mb-3">
                 <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="buzzerToggle" checked="">
-                    <label class="custom-control-label" for="buzzerToggle">Include Buzzer (coming soon!)</label>
+                    <input type="checkbox" class="custom-control-input" id="timerToggle">
+                    <label class="custom-control-label" for="timerToggle">Include Timer (coming soon!)</label>
                 </div>
+            </div>
+            <div class="mb-3">
+                <!-- <label for="timerLength" class="col-form-label">Set New Timer Length (coming soon!)</label>
+                <input type="text" class="form-control" id="timerLength"> -->
+                <label for="timerLength" class="form-label">Timer Length (Mins) (coming soon!)</label>
+                <input type="range" data-value="0.5"  class="form-range" min="0" max="5" step="0.5" value="timerLength" id="timerLength">
+                <!-- <p>{{timerLength.value}}</p> -->
             </div>
           </form>
         </div>

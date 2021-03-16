@@ -209,7 +209,9 @@ export class GamePlayComponent implements OnInit {
       this.allPlayersReady = this.isAllReady();    
     });
   }
-
+  rounds:any;
+  includeQuestions:any;
+  roundsEntered:any;
   setHost() {
     this.host = true;
     this.participantArray[this.currentPlayer.id].host = true;
@@ -239,8 +241,39 @@ export class GamePlayComponent implements OnInit {
         button.disabled = true;
       }
     });
+    let questions = <HTMLInputElement> document.getElementById('questionCheckbox');
+    questions.addEventListener('change', (event:any) => {
+      if (questions.checked) {
+        this.includeQuestions = true;
+      } else {
+        this.includeQuestions = false;
+      }
+    });
+
+    let rounds = <HTMLInputElement> document.getElementById('rounds');
+    rounds.addEventListener('change', (event:any) => {
+      console.log(rounds.value);
+      this.roundsEntered = true;
+      this.rounds = new Array(parseInt(rounds.value));
+      console.log(this.rounds);
+    });
   }
 
+  counterArray:any;
+  firstCounterArray:any;
+  firstCounter(i: number) {
+    return new Array(i)
+      
+  }
+  
+  counter(i:number){
+    this.counterArray = new Array(i);
+    return this.counterArray
+  }
+
+  addMoreQuestions: any;
+  openQuestionModal: any;
+  roundsArray: Array<Array<Number>> = [];
   setSettings(){
     if (this.isChecked.checked === true) {
       this.participantArray[this.currentPlayer.id].include = true;
@@ -252,8 +285,26 @@ export class GamePlayComponent implements OnInit {
     this.hostSubmitted = true;
     this.hostDetails = this.participantArray[this.currentPlayer.id];
     this.hostDetails.teamNumber = this.teamNumber;
+
+    let questions = <HTMLInputElement> document.getElementById('questionCheckbox');
+    console.log(questions.checked)
+    if (questions.checked) {
+      this.openQuestionModal = true;
+      console.log(this.openQuestionModal);
+    }
+
+    for (let i = 0; i < this.rounds.length; i++) {
+      let name = <HTMLInputElement> document.getElementById('round' + (i+1) + 'questions')!;
+      console.log(name.value);
+      let val = new Array(parseInt(name.value));
+      this.roundsArray.push(val);
+      console.log(this.roundsArray);
+    }
   }
 
+  setQuestions(){
+
+  }
   joinGameLate(){
     this.gameStarted = true;
   }

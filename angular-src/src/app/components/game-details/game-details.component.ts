@@ -101,20 +101,25 @@ export class GameDetailsComponent implements OnInit {
   saveSettings(){
 
     let buzzerElement = <HTMLInputElement> document.getElementById('buzzerToggle');
+    let timerElement = <HTMLInputElement> document.getElementById('timerToggle');
     let hostElement = <HTMLInputElement> document.getElementById('hostToggle');
-    let timerElement = <HTMLInputElement> document.getElementById('timerLength');
+    let timerLengthElement = <HTMLInputElement> document.getElementById('timerLength');
 
-    console.log(buzzerElement.value);
-    console.log(hostElement.value);
-    console.log(timerElement.value);
-    if (hostElement.value === "on"){
+    // why are they all on?????
+    console.log(hostElement);
+    console.log(buzzerElement);
+    console.log(timerElement);
+    console.log(timerLengthElement);
+    console.log(hostElement.checked);
+    console.log(buzzerElement.checked);
+    console.log(timerElement.checked)
+    console.log(timerLengthElement.value);
+    if (hostElement.checked === true){
       this.currentPlayer.host = true;
       console.log(this.currentPlayer);
       this.socketioService.setNewHostDetails(this.roomPin, this.currentPlayer);
     }
-
-    // this.gameSettingsOpened = false;
-    // gameSettingsEmit(buzzerElement.value, timeElement.value)
+    this.socketioService.setGameSettings(this.roomPin, buzzerElement.checked, timerElement.checked,timerLengthElement.value);
   }
 
 }

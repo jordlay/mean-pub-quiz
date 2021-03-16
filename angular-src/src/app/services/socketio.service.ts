@@ -44,6 +44,10 @@ export class SocketioService {
     this.socket.emit('setNewHostDetails', {gameId : roomPin, hostDetails: hostDetails});
   }
 
+  setGameSettings(roomPin:any, buzzer:any, timer:any, timerLength:any){
+    // emits boolean,boolean, number
+    this.socket.emit('setGameSettings', {gameId : roomPin, buzzer: buzzer, timer:timer, timerLength:timerLength})
+  }
   buzzerPressed(roomPin:any, playerName:any, playerColour:any){
     this.socket.emit('buzzerPressed', {gameId: roomPin, playerName: playerName, playerColour:playerColour });
   }

@@ -59,6 +59,12 @@ io.on("connection", (socket) => {
         io.to(gameId).emit('getHostDetails', previousHostDetails[gameId])
     });
 
+    socket.on('setGameSettings', ({gameId : roomPin, buzzer: buzzer, timer:timer, timerLength:timerLength}) => {
+        //store before emitting to all in case join late?
+        console.log(buzzer,timer,timerLength);
+        io.to(gameId).emit('setGameSettings', {gameId : roomPin, buzzer: buzzer, timer:timer, timerLength:timerLength})
+    });
+
     socket.on('startGame', ({gameId, playerData, hostDetails}) => {
         gameBegan[gameId] = true;
         previousHostDetails[gameId] = hostDetails;
