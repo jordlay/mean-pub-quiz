@@ -40,6 +40,10 @@ export class SocketioService {
     this.socket.emit('endGame', {gameId : roomPin});
   }
 
+  setNewHostDetails(roomPin:any, hostDetails:any){
+    this.socket.emit('setNewHostDetails', {gameId : roomPin, hostDetails: hostDetails});
+  }
+
   buzzerPressed(roomPin:any, playerName:any, playerColour:any){
     this.socket.emit('buzzerPressed', {gameId: roomPin, playerName: playerName, playerColour:playerColour });
   }

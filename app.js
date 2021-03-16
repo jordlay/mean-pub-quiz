@@ -54,6 +54,11 @@ io.on("connection", (socket) => {
         io.to(gameId).emit('playerReady',  playerData);
     })
 
+    socket.on('setNewHostDetails', ({gameId, hostDetails}) => {
+        previousHostDetails[gameId] = hostDetails;
+        io.to(gameId).emit('getHostDetails', previousHostDetails[gameId])
+    });
+
     socket.on('startGame', ({gameId, playerData, hostDetails}) => {
         gameBegan[gameId] = true;
         previousHostDetails[gameId] = hostDetails;

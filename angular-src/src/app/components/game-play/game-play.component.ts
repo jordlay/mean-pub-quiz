@@ -4,6 +4,7 @@ import { GameCreationService } from '../../services/game-creation.service';
 import { Router,  ActivatedRoute, ParamMap } from '@angular/router';
 import { SocketioService } from '../../services/socketio.service';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import { Button } from 'selenium-webdriver';
 
 declare var JitsiMeetExternalAPI: any;
 
@@ -213,31 +214,44 @@ export class GamePlayComponent implements OnInit {
     this.host = true;
     this.participantArray[this.currentPlayer.id].host = true;
     this.playerReady();
+
+    let team = <HTMLInputElement> document.getElementById('teamNumber')!;
+    this.isChecked = <HTMLInputElement> document.getElementById('hostCheckbox');
+    let noOfPlayers: any;
+
+    this.isChecked.addEventListener('change', (event:any) => {
+      if (this.isChecked.checked) {
+        noOfPlayers = this.objectKeys(this.participantArray).length;
+      } else {
+        noOfPlayers = (this.objectKeys(this.participantArray).length)-1;
+      }
+    });
+    team.addEventListener('change', (event:any) => {
+      this.teamNumber = parseInt(team.value); 
+      console.log(team.value);
+      console.log(this.teamNumber);
+      let button = <HTMLInputElement> document.getElementById('setSettings');
+      if (this.teamNumber > 0 && this.teamNumber <= noOfPlayers && this.teamNumber < 11 && !(this.teamNumber === NaN)) {
+        console.log('valid');
+        button.disabled = false;
+      } else {
+        console.log('invalid');
+        button.disabled = true;
+      }
+    });
   }
 
   setSettings(){
-    let noOfPlayers = this.objectKeys(this.participantArray).length;
-    this.isChecked = document.getElementById('hostCheckbox');
     if (this.isChecked.checked === true) {
       this.participantArray[this.currentPlayer.id].include = true;
       this.includeHost = true;
     } else {
       this.participantArray[this.currentPlayer.id].include = false;
       this.includeHost = false;
-      noOfPlayers -= 1;
     }
-    if (this.teamNumber > 0 && this.teamNumber <= noOfPlayers && this.teamNumber < 11) {
-      this.hostSubmitted = true;
-      this.hostDetails = this.participantArray[this.currentPlayer.id];
-      this.hostDetails.teamNumber = this.teamNumber;
-    } else {
-      this.hostSubmitted = false;
-      this.errorMessage = "Invalid number of teams! You must have more players than teams";
-      setTimeout(()=>{                        
-        this.errorMessage = "";
-      }, 3000);
-    }
-  
+    this.hostSubmitted = true;
+    this.hostDetails = this.participantArray[this.currentPlayer.id];
+    this.hostDetails.teamNumber = this.teamNumber;
   }
 
   joinGameLate(){

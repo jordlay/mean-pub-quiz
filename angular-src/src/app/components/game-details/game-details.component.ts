@@ -27,6 +27,7 @@ export class GameDetailsComponent implements OnInit {
   // teams: any;
   buzzerPress = false;
   buzzerDetails: any;
+  gameSettingsOpened: any;
   objectKeys = Object.keys;
 
   constructor(private socketioService: SocketioService, private router: Router, 
@@ -90,12 +91,30 @@ export class GameDetailsComponent implements OnInit {
   }
  
   buzzerPressed(){
-    
     let element = <HTMLInputElement> document.getElementById('buzzer');
     element.disabled = true;
     this.buzzerPress = true;
     console.log('BP', this.buzzerPress);
     this.socketioService.buzzerPressed(this.roomPin, this.currentPlayer.displayName, this.playerColour);
+  }
+
+  saveSettings(){
+
+    let buzzerElement = <HTMLInputElement> document.getElementById('buzzerToggle');
+    let hostElement = <HTMLInputElement> document.getElementById('hostToggle');
+    let timerElement = <HTMLInputElement> document.getElementById('timerLength');
+
+    console.log(buzzerElement.value);
+    console.log(hostElement.value);
+    console.log(timerElement.value);
+    if (hostElement.value === "on"){
+      this.currentPlayer.host = true;
+      console.log(this.currentPlayer);
+      this.socketioService.setNewHostDetails(this.roomPin, this.currentPlayer);
+    }
+
+    // this.gameSettingsOpened = false;
+    // gameSettingsEmit(buzzerElement.value, timeElement.value)
   }
 
 }
