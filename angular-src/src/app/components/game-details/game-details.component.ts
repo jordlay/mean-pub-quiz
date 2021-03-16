@@ -77,12 +77,15 @@ export class GameDetailsComponent implements OnInit {
 
   receiveBuzzerPressed(){
     this.socketioService.receiveBuzzerPressed().subscribe((player:any)=>{
+    
       let element = <HTMLInputElement> document.getElementById('buzzer');
       element.disabled = true;
       console.log('RBP', player);
       this.buzzerDetails = player;
       this.buzzerPress = true;
-      document.getElementById('buzzerDetails')!.style.color = this.buzzerDetails.colour;
+      setTimeout( () => {
+        document.getElementById('buzzerDetails')!.style.color = this.buzzerDetails.colour;
+      }, 10);
     });
   }
  

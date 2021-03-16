@@ -16,5 +16,5 @@
 </div> -->
 
 <button type="button" id="buzzer" class="btn btn-warning buzzer" (click)="buzzerPressed()" [ngClass]="this.buzzerPress ? 'buzzerClicked':'buzzer' ">Team Buzzer</button>
-<div id="buzzerDetails" *ngIf="this.buzzerPress">pressed the buzzer for the  team!</div>
+<div id="buzzerDetails" *ngIf="this.buzzerPress">{{this.buzzerDetails.displayName}} pressed the buzzer for the {{this.buzzerDetails.colour}} team!</div>
 

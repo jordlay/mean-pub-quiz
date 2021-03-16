@@ -2074,8 +2074,12 @@ function GameDetailsComponent_div_3_Template(rf, ctx) { if (rf & 1) {
 } }
 function GameDetailsComponent_div_6_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 7);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1, "pressed the buzzer for the team!");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+} if (rf & 2) {
+    const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate2"]("", ctx_r1.buzzerDetails.displayName, " pressed the buzzer for the ", ctx_r1.buzzerDetails.colour, " team!");
 } }
 class GameDetailsComponent {
     constructor(socketioService, router, actRoute, gameCreationService) {
@@ -2129,7 +2133,9 @@ class GameDetailsComponent {
             console.log('RBP', player);
             this.buzzerDetails = player;
             this.buzzerPress = true;
-            document.getElementById('buzzerDetails').style.color = this.buzzerDetails.colour;
+            setTimeout(() => {
+                document.getElementById('buzzerDetails').style.color = this.buzzerDetails.colour;
+            }, 10);
         });
     }
     buzzerPressed() {
@@ -2152,7 +2158,7 @@ GameDetailsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdef
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_Template_button_click_4_listener() { return ctx.buzzerPressed(); });
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](5, "Team Buzzer");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](6, GameDetailsComponent_div_6_Template, 2, 0, "div", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](6, GameDetailsComponent_div_6_Template, 2, 2, "div", 4);
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("Host: ", ctx.hostDetails.displayName, "");
