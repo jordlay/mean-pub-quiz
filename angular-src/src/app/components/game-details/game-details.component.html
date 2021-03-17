@@ -11,6 +11,24 @@
             
         </div>
     </div> 
+    <div class="card border-primary mb-3" style="max-width: 20rem; margin-top: 16px; padding:10px; ">
+    <div *ngIf="!this.endOfGame">
+      <div *ngIf="this.currentQuestion === 0">
+        <h3>Round {{this.currentRound}}</h3>
+        <button type="button" id="buzzer" class="btn btn-warning buzzer" (click)="startRound()">Start Round</button>
+      </div>
+      <div *ngIf="this.currentQuestion > 0">
+        <h3>Question {{this.currentQuestion}}</h3>
+        {{this.questionObject[this.currentRound][this.currentQuestion].question}}
+        {{this.questionObject[this.currentRound][this.currentQuestion].points}} points
+        <div *ngIf="!this.lastQuestionBool"><button type="button" id="buzzer" class="btn btn-warning buzzer" (click)="nextQuestion()">Next Question</button></div>
+        <div *ngIf="this.lastQuestionBool && !this.lastRoundBool" ><button type="button" id="buzzer" class="btn btn-warning buzzer" (click)="nextRound()">Next Round</button></div>
+        <div *ngIf="this.lastQuestionBool && this.lastRoundBool"><button type="button" id="buzzer" class="btn btn-warning buzzer" (click)="this.endOfGame=true">End Game</button></div>
+      </div>
+    </div>
+    <div *ngIf="this.endOfGame"><h1>End Of Game!</h1></div>
+  </div>
+  <!-- <button type="button" id="buzzer" class="btn btn-warning buzzer" (click)="nextQuestion()">Next Question</button> -->
 </div>
 <button type="button" id="buzzer" class="btn btn-warning buzzer" (click)="buzzerPressed()" [ngClass]="this.buzzerPress ? 'buzzerClicked':'buzzer' ">Team Buzzer</button>
 <div id="buzzerDetails" *ngIf="this.buzzerPress">{{this.buzzerDetails.displayName}} pressed the buzzer for the {{this.buzzerDetails.colour}} team!</div>

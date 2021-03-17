@@ -67,11 +67,12 @@
                                 </label>
                                 </div>
                             </div>
-                            
+                    
                             <div class="mb-3">
                                 <label for="rounds" style="margin-top:10px">Enter the number of rounds</label>
                                 <input type="text" class="form-control " id="rounds" placeholder="Enter number of rounds">
                             </div>
+                              
                             <div *ngIf="this.roundsEntered">
                                 <div class="mb-3">
                                     <div *ngFor="let in of this.rounds; let i = index;">
@@ -79,7 +80,7 @@
                                     <input type="text" class="form-control " id="round{{i+1}}questions" placeholder="Enter number of questions">
                                 </div>
                             </div>
-                           
+                      
                             </div>
                         </form>
                         </div>
@@ -97,21 +98,25 @@
                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Upload Questions</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Submit Questions</h5>
                         <button type="button" data-bs-toggle="modal" data-bs-target="#questionsModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body" style="max-height: 400px;" >
+                        <p class="card-text">Paste or type your question, answer and the points they are worth</p>
+                        
                         <form >
-                            <div *ngFor="let in of this.roundsArray; let j = index;"> Round {{j+1}}
-                                <div *ngFor="let in of this.roundsArray[j]; let i = index;">
-                                    <div class="mb-3">
-                                        <label for="q{{i+1}}" style="margin-top:10px">Q{{i+1}}</label>
-                                        <input type="text" class="form-control " id="q{{i+1}}" placeholder="Enter number of teams">
+                            <div *ngFor="let in of this.roundsArray; let i = index;"> Round {{i+1}}
+                                <div *ngFor="let in of this.roundsArray[i]; let j = index;">
+                                    <label for="q{{i+1}}{{j+1}}" style="margin-top:10px">Question {{j+1}}</label>
+                                    <div class="input-group mb-3">
+                                        
+                                        <input type="text" class="form-control " id="q{{i+1}}{{j+1}}" placeholder="Paste or type your question">
                                     </div>
-                                    <div class="mb-3">
-                                        <span class="input-group-text">Answer and Points Worth</span>
-                                        <input type="text" id="a{{i+1}}" class="form-control">
-                                        <input type="text" id="p{{i+1}}" class="form-control">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">Answer</span>
+                                        <input type="text" id="a{{i+1}}{{j+1}}" class="form-control">
+                                        <span class="input-group-text">Points</span>
+                                        <input type="text" id="p{{i+1}}{{j+1}}" class="form-control">
                                     </div>  
                                 </div> 
                             </div>
@@ -135,7 +140,7 @@
                         </div>
                         <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" id="saveQuestions" (click)="setQuestions()" disabled>Save Questions</button>
+                        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" id="saveQuestions" (click)="setQuestions()">Save Questions</button>
                         </div>
                     </div>
                     </div>

@@ -53,6 +53,7 @@ module.exports.deleteUser = function(user,callback){
     const query = {username : user.username };
     User.deleteOne(query, callback);
 }
+
 module.exports.addUser = function(newUser, callback){
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err,hash) => {

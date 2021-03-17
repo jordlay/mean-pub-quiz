@@ -51,4 +51,23 @@ router.post('/endGame',(req,res,next) => {
         });
 });
 
+router.post('/createQuestions',(req,res,next) => {
+    const game = req.body;
+    console.log('GS', game)
+        Game.createQuestions(game, (err,game) => {
+            if (err) { throw err; }
+            return res.json({success: true, msg: 'Questions Created'});
+        });
+});
+
+router.post('/getQuestions',(req,res,next) => {
+    const game = req.body;
+    console.log('GS', game)
+        Game.getGameByPin(game.roomPin, (err,game) => {
+            console.log(game);
+            if (err) { throw err; }
+            return res.json({success: true, msg: 'Questions Created', questions: game.questions});
+        });
+});
+
 module.exports = router;

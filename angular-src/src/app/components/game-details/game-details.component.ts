@@ -28,8 +28,11 @@ export class GameDetailsComponent implements OnInit {
   buzzerPress = false;
   buzzerDetails: any;
   gameSettingsOpened: any;
-  objectKeys = Object.keys;
+  currentRound: any;
+  currentQuestion = 0;
 
+  objectKeys = Object.keys;
+  questionObject: any;
   constructor(private socketioService: SocketioService, private router: Router, 
     private actRoute: ActivatedRoute, private gameCreationService: GameCreationService) { }
 
@@ -38,11 +41,26 @@ export class GameDetailsComponent implements OnInit {
   ngOnInit(): void {
     // this.receiveTeams();
     // this.receiveBuzzerPressed();
+    this.receiveNextQuestion();
+    this.receiveStartRound();
+    this.receiveNextRound();
+    this.gameCreationService.getQuestions(this.roomPin).subscribe( (data:any) => {
+      console.log(data);
+      console.log(data.questions);
+      this.questionObject = data.questions;
+    });
     console.log('in GD');
     console.log('PD', this.playerObject);
     console.log('HD', this.hostDetails);
     console.log('CP', this.currentPlayer);
     console.log('T', this.teams);
+    console.log(this.questionObject);
+    setTimeout( () => {
+      if (Object.keys(this.questionObject).length > 1) {
+        this.currentRound = 1;
+      }
+    }, 1000);
+
   }
 
   ngAfterViewInit(){
@@ -121,5 +139,124 @@ export class GameDetailsComponent implements OnInit {
     }
     this.socketioService.setGameSettings(this.roomPin, buzzerElement.checked, timerElement.checked,timerLengthElement.value);
   }
+  lastRoundBool = false;
+  nextRoundBool = false;
+  startRound(){
+    console.log('CR SR', this.currentRound);
+    this.socketioService.startRound(this.roomPin, this.currentRound);
+    //remove <=
+    if (this.currentRound+1 <= Object.keys(this.questionObject).length) {
+      this.lastRoundBool = false;
+    } else {
+      this.lastRoundBool = true;
+      // this.endOfGame = true;
+    }
+    console.log(this.lastRoundBool);
+    // this.socketioService.startRound(this.roomPin, this.currentRound);
+    this.currentQuestion = 1;
+    if (this.currentQuestion+1 <= Object.keys(this.questionObject[this.currentRound]).length) {
+      this.lastQuestionBool = false;
+    } else {
+      this.lastQuestionBool = true;
+      // this.nextRoundBool = true; //(newbutton)
+    }
+  }
 
+  
+  endOfGame = false;
+  nextRound(){
+    console.log(Object.keys(this.questionObject).length);
+    this.lastQuestionBool = false;
+    this.currentQuestion = 0;
+    this.currentRound +=1;
+ 
+    console.log('CR NR', this.currentRound);
+
+    // need to add logic from start round? so that the rest start also?
+  }
+  lastQuestionBool = false;
+
+  nextQuestion(){
+    console.log(Object.keys(this.questionObject[this.currentRound]).length, Object.keys(this.questionObject[this.currentRound]));
+    this.currentQuestion +=1;
+    this.socketioService.nextQuestion(this.roomPin, this.currentQuestion);
+    if (this.currentQuestion+1 <= Object.keys(this.questionObject[this.currentRound]).length) {
+      this.lastQuestionBool = false;
+    } else {
+      this.lastQuestionBool = true;
+      // this.nextRoundBool = true; //(newbutton)
+    }
+    console.log('LQB', this.lastQuestionBool)
+
+  }
+
+  receiveNextQuestion(){
+    // this.socketioService.receiveNextQuestion().subscribe( (data:any) => {
+    //   console.log('QLEN RNQ', Object.keys(this.questionObject[this.currentRound]).length);
+    //   if (this.currentQuestion <= Object.keys(this.questionObject[this.currentRound]).length) {
+    //   console.log(data);
+    //   this.currentQuestion = data;
+    //   } else {
+    //     this.currentQuestion = 0;
+    //   }
+    //   if (this.currentQuestion+1 < Object.keys(this.questionObject[this.currentRound]).length) {
+    //     this.lastQuestionBool = false;
+    //   } else {
+    //     this.lastQuestionBool = true;
+    //     this.nextRoundBool = true; //(newbutton)
+    //   }
+    // });
+  }
+  receiveStartRound(){
+    // this.socketioService.receiveStartRound().subscribe( (data:any) => {
+    //   console.log(data);
+    //   console.log('RLEN RSR', Object.keys(this.questionObject).length);
+    //   this.currentRound = data;
+    //   this.currentQuestion = 1;
+    
+    //   if (this.currentQuestion+1 < Object.keys(this.questionObject[this.currentRound]).length) {
+    //     this.lastQuestionBool = false;
+    //   } else {
+    //     this.lastQuestionBool = true;
+    //     this.nextRoundBool = true; //(newbutton)
+    //   }
+
+    //   if (this.currentRound+1 < Object.keys(this.questionObject).length) {
+    //     this.lastRoundBool = false;
+    //     this.nextRoundBool = true
+    //   } else {
+    //     this.lastRoundBool = true;
+    //     this.nextRoundBool = false;
+    //     // this.endOfGame = true;
+    //   }
+
+
+    //   console.log('CR RSR', this.currentRound);
+    // });
+  }
+  receiveNextRound(){
+    // this.socketioService.receiveNextRound().subscribe( (data:any) => {
+    //   console.log(data);
+    //   console.log('RLEN RNR', Object.keys(this.questionObject).length);
+    //   this.currentRound = data;
+    //   this.currentQuestion = 1;
+
+    //   if (this.currentQuestion+1 < Object.keys(this.questionObject[this.currentRound]).length) {
+    //     this.lastQuestionBool = false;
+    //   } else {
+    //     this.lastQuestionBool = true;
+    //     this.nextRoundBool = true; //(newbutton)
+    //   }
+
+    //   if (this.currentRound+1 < Object.keys(this.questionObject).length) {
+    //     this.lastRoundBool = false;
+    //     this.nextRoundBool = true;
+    //   } else {
+    //     this.lastRoundBool = true;
+    //     this.nextRoundBool = false;
+    //     // this.endOfGame = true;
+    //   }
+    //   console.log('CR RNR', this.currentRound);
+    // });
+    }
 }

@@ -32,6 +32,14 @@ export class SocketioService {
     this.socket.emit('startGame', {gameId: roomPin, playerData: playerData, hostDetails: hostDetails });
   }
 
+  startRound(roomPin:any, round:any){
+    this.socket.emit('startRound', {gameId: roomPin, round:round});
+  }
+
+  nextQuestion(roomPin: any, questionNumber: any) {
+    this.socket.emit('nextQuestion', {gameId: roomPin, questionNumber: questionNumber});
+  }
+
   playerLeft(roomPin: any, playerData: any){
     this.socket.emit('playerLeft', {gameId: roomPin, playerData: playerData });
   }
@@ -109,6 +117,29 @@ export class SocketioService {
     });
   }
 
+  receiveNextQuestion() {
+    return new Observable((observer) => {
+      this.socket.on('nextQuestion', (message: any) => {
+        observer.next(message);
+      });
+    });
+  }
+
+  receiveStartRound() {
+    return new Observable((observer) => {
+      this.socket.on('startRound', (message: any) => {
+        observer.next(message);
+      });
+    });
+  }
+
+  receiveNextRound() {
+    return new Observable((observer) => {
+      this.socket.on('startRound', (message: any) => {
+        observer.next(message);
+      });
+    });
+  }
   receiveGameBegun() {
     return new Observable((observer) => {
       this.socket.on('checkGameBegan', (message: any) => {

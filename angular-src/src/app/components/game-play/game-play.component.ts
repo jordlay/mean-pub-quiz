@@ -48,6 +48,7 @@ export class GamePlayComponent implements OnInit {
   includeHost = true;
   joined = false;
   teams:any
+  // questionsModalWidth = (window.innerWidth * .8);
   ngOnInit(): void {
     this.url = window.location.href;
     this.roomPin = this.actRoute.snapshot.params.pin;
@@ -293,6 +294,8 @@ export class GamePlayComponent implements OnInit {
       console.log(this.openQuestionModal);
     }
 
+    this.roundsArray = [];
+      console.log(this.rounds.length, this.roundsArray);
     for (let i = 0; i < this.rounds.length; i++) {
       let name = <HTMLInputElement> document.getElementById('round' + (i+1) + 'questions')!;
       console.log(name.value);
@@ -302,7 +305,48 @@ export class GamePlayComponent implements OnInit {
     }
   }
 
+  questionsObject: any;
   setQuestions(){
+    this.questionsObject = {};
+    for (let i = 0; i < this.rounds.length; i++) {
+      this.questionsObject[i+1] = {};
+      for (let j = 0; j < this.roundsArray[i].length; j++){
+        this.questionsObject[i+1][j+1] = {};  
+        let questionElement = <HTMLInputElement> document.getElementById('q'+ (i+1) + (j+1)  )!;
+        let answerElement = <HTMLInputElement> document.getElementById('a' + (i+1)+ (j+1) )!;
+        let pointsElement = <HTMLInputElement> document.getElementById('p'  + (i+1) +(j+1))!;
+        console.log(questionElement.value, answerElement.value,pointsElement.value);
+        let questionValue;
+        let answerValue;
+        let pointsValue;
+        // to account for inputs left empty
+        if (questionElement === null) {
+          questionValue = "";
+        } else {
+          questionValue = questionElement.value
+        }
+        if (answerElement === null) {
+          answerValue = "";
+        } else {
+          answerValue = answerElement.value
+        }
+        if (pointsElement === null) {
+          pointsValue = "";
+        } else {
+          pointsValue = pointsElement.value
+        }
+        this.questionsObject[i+1][j+1].question = questionValue;
+        this.questionsObject[i+1][j+1].answer = answerValue;
+        this.questionsObject[i+1][j+1].points = pointsValue;
+        console.log(i+1, j+1, questionValue);
+      }
+    }
+    console.log(this.questionsObject);
+    //send to db?
+    this.gameCreationService.createQuestions(this.roomPin, this.questionsObject).subscribe( (data:any) => {
+      console.log(data);
+    });
+    // send to socket too
 
   }
   joinGameLate(){

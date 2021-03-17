@@ -26,6 +26,7 @@ previousJoinedPlayers =  {};
 gameBegan = {};
 previousHostDetails = {};
 teams = {};
+previousQuestionsObject = {}
 io.on("connection", (socket) => {
     console.log(socket.id, "a user connected");
     socket.on('joinGame', ({gameId, playerData}) => {
@@ -128,11 +129,22 @@ io.on("connection", (socket) => {
         buzzerDetail[gameId].colour = playerColour;
         console.log(buzzerDetail[gameId]);
         io.to(gameId).emit('buzzerPressed', buzzerDetail[gameId]);
-        socket.to(gameId).emit('buzzerPressed', buzzerDetail[gameId]);
+    });
 
-        //this works?
-        socket.emit('buzzerPressed', buzzerDetail[gameId]);
-        
+    socket.on('startRound', ({gameId, round}) => {
+        // previousQuestionsObject[gameId] = {};
+        // previousQuestionsObject[gameId] = questionsObject;
+        // console.log('PQO', previousQuestionsObject[gameId])
+        // previousQuestionsObject[gameId][round] = questionsObject[round] 
+        // console.log('PQO', previousQuestionsObject[gameId][round])
+        io.to(gameId).emit('startRound', round);
+    });
+
+    socket.on('nextQuestion', ({gameId, questionNumber}) => {
+        // reset buzzer + timer
+        // previousQuestionsObject[gameId]
+        // just emit the q number
+        io.to(gameId).emit('nextQuestion', questionNumber);
     });
 
 });
