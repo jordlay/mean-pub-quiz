@@ -132,21 +132,23 @@ io.on("connection", (socket) => {
     });
 
     socket.on('startRound', ({gameId, round}) => {
-        // previousQuestionsObject[gameId] = {};
-        // previousQuestionsObject[gameId] = questionsObject;
-        // console.log('PQO', previousQuestionsObject[gameId])
-        // previousQuestionsObject[gameId][round] = questionsObject[round] 
-        // console.log('PQO', previousQuestionsObject[gameId][round])
         io.to(gameId).emit('startRound', round);
     });
 
     socket.on('nextQuestion', ({gameId, questionNumber}) => {
-        // reset buzzer + timer
-        // previousQuestionsObject[gameId]
-        // just emit the q number
         io.to(gameId).emit('nextQuestion', questionNumber);
     });
 
+    socket.on('nextRound', ({gameId}) => {
+        let nextRound = 'nextRound';
+        io.to(gameId).emit('nextRound', gameId);
+    });
+    socket.on('endGamePlay', ({gameId}) => {
+        io.to(gameId).emit('endGamePlay', gameId);
+    });
+    socket.on('showAnswers', ({gameId}) => {
+        io.to(gameId).emit('showAnswers', gameId);
+    });
 });
 
 const uri = "mongodb+srv://jll541:mean-quiz@clusterquiz.inacn.mongodb.net/quizdb?retryWrites=true&w=majority";

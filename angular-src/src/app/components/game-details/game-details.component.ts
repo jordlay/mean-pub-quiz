@@ -44,6 +44,8 @@ export class GameDetailsComponent implements OnInit {
     this.receiveNextQuestion();
     this.receiveStartRound();
     this.receiveNextRound();
+    this.receiveEndGamePlay();
+    this.receiveShowAnswers();
     this.gameCreationService.getQuestions(this.roomPin).subscribe( (data:any) => {
       console.log(data);
       console.log(data.questions);
@@ -123,18 +125,8 @@ export class GameDetailsComponent implements OnInit {
     let hostElement = <HTMLInputElement> document.getElementById('hostToggle');
     let timerLengthElement = <HTMLInputElement> document.getElementById('timerLength');
 
-    // why are they all on?????
-    console.log(hostElement);
-    console.log(buzzerElement);
-    console.log(timerElement);
-    console.log(timerLengthElement);
-    console.log(hostElement.checked);
-    console.log(buzzerElement.checked);
-    console.log(timerElement.checked)
-    console.log(timerLengthElement.value);
     if (hostElement.checked === true){
       this.currentPlayer.host = true;
-      console.log(this.currentPlayer);
       this.socketioService.setNewHostDetails(this.roomPin, this.currentPlayer);
     }
     this.socketioService.setGameSettings(this.roomPin, buzzerElement.checked, timerElement.checked,timerLengthElement.value);
@@ -142,40 +134,37 @@ export class GameDetailsComponent implements OnInit {
   lastRoundBool = false;
   nextRoundBool = false;
   startRound(){
-    console.log('CR SR', this.currentRound);
     this.socketioService.startRound(this.roomPin, this.currentRound);
-    //remove <=
     if (this.currentRound+1 <= Object.keys(this.questionObject).length) {
       this.lastRoundBool = false;
     } else {
       this.lastRoundBool = true;
-      // this.endOfGame = true;
     }
-    console.log(this.lastRoundBool);
-    // this.socketioService.startRound(this.roomPin, this.currentRound);
     this.currentQuestion = 1;
     if (this.currentQuestion+1 <= Object.keys(this.questionObject[this.currentRound]).length) {
       this.lastQuestionBool = false;
     } else {
       this.lastQuestionBool = true;
-      // this.nextRoundBool = true; //(newbutton)
     }
   }
 
   
   endOfGame = false;
+  endGamePlay(){
+    this.socketioService.endGamePlay(this.roomPin)
+  }
   nextRound(){
     console.log(Object.keys(this.questionObject).length);
-    this.lastQuestionBool = false;
-    this.currentQuestion = 0;
-    this.currentRound +=1;
- 
-    console.log('CR NR', this.currentRound);
+    this.socketioService.nextRound(this.roomPin);
 
     // need to add logic from start round? so that the rest start also?
   }
   lastQuestionBool = false;
-
+  showAnswersBool = false;
+  showAnswers(){
+    this.showAnswersBool = true;
+    this.socketioService.showAnswers(this.roomPin);
+  }
   nextQuestion(){
     console.log(Object.keys(this.questionObject[this.currentRound]).length, Object.keys(this.questionObject[this.currentRound]));
     this.currentQuestion +=1;
@@ -184,79 +173,66 @@ export class GameDetailsComponent implements OnInit {
       this.lastQuestionBool = false;
     } else {
       this.lastQuestionBool = true;
-      // this.nextRoundBool = true; //(newbutton)
     }
-    console.log('LQB', this.lastQuestionBool)
-
   }
 
   receiveNextQuestion(){
-    // this.socketioService.receiveNextQuestion().subscribe( (data:any) => {
-    //   console.log('QLEN RNQ', Object.keys(this.questionObject[this.currentRound]).length);
-    //   if (this.currentQuestion <= Object.keys(this.questionObject[this.currentRound]).length) {
-    //   console.log(data);
-    //   this.currentQuestion = data;
-    //   } else {
-    //     this.currentQuestion = 0;
-    //   }
-    //   if (this.currentQuestion+1 < Object.keys(this.questionObject[this.currentRound]).length) {
-    //     this.lastQuestionBool = false;
-    //   } else {
-    //     this.lastQuestionBool = true;
-    //     this.nextRoundBool = true; //(newbutton)
-    //   }
-    // });
+    this.socketioService.receiveNextQuestion().subscribe( (data:any) => {
+      console.log('QLEN RNQ', Object.keys(this.questionObject[this.currentRound]).length);
+      console.log(Object.keys(this.questionObject[this.currentRound]).length, Object.keys(this.questionObject[this.currentRound]));
+      this.currentQuestion = data;
+      if (this.currentQuestion+1 <= Object.keys(this.questionObject[this.currentRound]).length) {
+        this.lastQuestionBool = false;
+      } else {
+        this.lastQuestionBool = true;
+      }
+    });
   }
+
   receiveStartRound(){
-    // this.socketioService.receiveStartRound().subscribe( (data:any) => {
-    //   console.log(data);
-    //   console.log('RLEN RSR', Object.keys(this.questionObject).length);
-    //   this.currentRound = data;
-    //   this.currentQuestion = 1;
-    
-    //   if (this.currentQuestion+1 < Object.keys(this.questionObject[this.currentRound]).length) {
-    //     this.lastQuestionBool = false;
-    //   } else {
-    //     this.lastQuestionBool = true;
-    //     this.nextRoundBool = true; //(newbutton)
-    //   }
+    this.socketioService.receiveStartRound().subscribe( (data:any) => {
+      console.log(data);
+      console.log('RLEN RSR', Object.keys(this.questionObject).length);
+      this.currentRound = data;
 
-    //   if (this.currentRound+1 < Object.keys(this.questionObject).length) {
-    //     this.lastRoundBool = false;
-    //     this.nextRoundBool = true
-    //   } else {
-    //     this.lastRoundBool = true;
-    //     this.nextRoundBool = false;
-    //     // this.endOfGame = true;
-    //   }
+      if (this.currentRound+1 <= Object.keys(this.questionObject).length) {
+        this.lastRoundBool = false;
+      } else {
+        this.lastRoundBool = true;
+      }
 
-
-    //   console.log('CR RSR', this.currentRound);
-    // });
+      this.currentQuestion = 1;
+      if (this.currentQuestion+1 <= Object.keys(this.questionObject[this.currentRound]).length) {
+        this.lastQuestionBool = false;
+      } else {
+        this.lastQuestionBool = true;
+      }
+    });
   }
+
   receiveNextRound(){
-    // this.socketioService.receiveNextRound().subscribe( (data:any) => {
-    //   console.log(data);
-    //   console.log('RLEN RNR', Object.keys(this.questionObject).length);
-    //   this.currentRound = data;
-    //   this.currentQuestion = 1;
+    this.socketioService.receiveNextRound().subscribe( (data:any) => {
+      console.log(data);
+      this.lastQuestionBool = false;
+      this.currentQuestion = 0;
+      this.currentRound +=1;
+      this.showAnswersBool = false;
+    });
+  }
 
-    //   if (this.currentQuestion+1 < Object.keys(this.questionObject[this.currentRound]).length) {
-    //     this.lastQuestionBool = false;
-    //   } else {
-    //     this.lastQuestionBool = true;
-    //     this.nextRoundBool = true; //(newbutton)
-    //   }
+  receiveEndGamePlay(){
+    this.socketioService.receiveEndGamePlay().subscribe( (data:any) => {
+      console.log(data);
+      this.endOfGame = true;
+    });
+  }
 
-    //   if (this.currentRound+1 < Object.keys(this.questionObject).length) {
-    //     this.lastRoundBool = false;
-    //     this.nextRoundBool = true;
-    //   } else {
-    //     this.lastRoundBool = true;
-    //     this.nextRoundBool = false;
-    //     // this.endOfGame = true;
-    //   }
-    //   console.log('CR RNR', this.currentRound);
-    // });
-    }
+  receiveShowAnswers(){
+    this.socketioService.receiveShowAnswers().subscribe( (data:any) => {
+      console.log(data);
+      this.showAnswersBool = true;
+      this.currentQuestion = 0;
+    });
+  }
+
 }

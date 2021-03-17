@@ -13,17 +13,31 @@
     </div> 
     <div class="card border-primary mb-3" style="max-width: 20rem; margin-top: 16px; padding:10px; ">
     <div *ngIf="!this.endOfGame">
-      <div *ngIf="this.currentQuestion === 0">
+      <div *ngIf="this.currentQuestion === 0 && !this.showAnswersBool">
         <h3>Round {{this.currentRound}}</h3>
         <button type="button" id="buzzer" class="btn btn-warning buzzer" (click)="startRound()">Start Round</button>
       </div>
-      <div *ngIf="this.currentQuestion > 0">
+      <div *ngIf="this.currentQuestion > 0 && !this.showAnswersBool">
         <h3>Question {{this.currentQuestion}}</h3>
         {{this.questionObject[this.currentRound][this.currentQuestion].question}}
         {{this.questionObject[this.currentRound][this.currentQuestion].points}} points
         <div *ngIf="!this.lastQuestionBool"><button type="button" id="buzzer" class="btn btn-warning buzzer" (click)="nextQuestion()">Next Question</button></div>
         <div *ngIf="this.lastQuestionBool && !this.lastRoundBool" ><button type="button" id="buzzer" class="btn btn-warning buzzer" (click)="nextRound()">Next Round</button></div>
-        <div *ngIf="this.lastQuestionBool && this.lastRoundBool"><button type="button" id="buzzer" class="btn btn-warning buzzer" (click)="this.endOfGame=true">End Game</button></div>
+        <div *ngIf="this.lastQuestionBool" ><button type="button" id="buzzer" class="btn btn-warning buzzer" (click)="showAnswers()">Answers</button></div>
+        <div *ngIf="this.lastQuestionBool && this.lastRoundBool"><button type="button" id="buzzer" class="btn btn-warning buzzer" (click)="endGamePlay()">End Game</button></div>
+      </div>
+      <div *ngIf="showAnswersBool && this.currentQuestion === 0">
+        <h3>Round {{this.currentRound}} Answers</h3>
+        <button type="button" id="buzzer" class="btn btn-warning buzzer" (click)="startRound()">Show Answers</button>
+      </div>
+      <div *ngIf="showAnswersBool && this.currentQuestion > 0">
+        <h3>Answer {{this.currentQuestion}}</h3>
+        {{this.questionObject[this.currentRound][this.currentQuestion].question}}
+        {{this.questionObject[this.currentRound][this.currentQuestion].answer}}
+        {{this.questionObject[this.currentRound][this.currentQuestion].points}} points
+        <div *ngIf="!this.lastQuestionBool"><button type="button" id="buzzer" class="btn btn-warning buzzer" (click)="nextQuestion()">Next Answer</button></div>
+        <div *ngIf="this.lastQuestionBool && !this.lastRoundBool" ><button type="button" id="buzzer" class="btn btn-warning buzzer" (click)="nextRound()">Next Round</button></div>
+        <div *ngIf="this.lastQuestionBool && this.lastRoundBool"><button type="button" id="buzzer" class="btn btn-warning buzzer" (click)="endGamePlay()">End Game</button></div>
       </div>
     </div>
     <div *ngIf="this.endOfGame"><h1>End Of Game!</h1></div>

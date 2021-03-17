@@ -35,11 +35,18 @@ export class SocketioService {
   startRound(roomPin:any, round:any){
     this.socket.emit('startRound', {gameId: roomPin, round:round});
   }
-
+  nextRound(roomPin:any){
+    this.socket.emit('nextRound', {gameId: roomPin});
+  }
   nextQuestion(roomPin: any, questionNumber: any) {
     this.socket.emit('nextQuestion', {gameId: roomPin, questionNumber: questionNumber});
   }
-
+  showAnswers(roomPin:any){
+    this.socket.emit('showAnswers', {gameId: roomPin});
+  }
+  endGamePlay(roomPin:any){
+    this.socket.emit('endGamePlay', {gameId: roomPin});
+  }
   playerLeft(roomPin: any, playerData: any){
     this.socket.emit('playerLeft', {gameId: roomPin, playerData: playerData });
   }
@@ -135,7 +142,8 @@ export class SocketioService {
 
   receiveNextRound() {
     return new Observable((observer) => {
-      this.socket.on('startRound', (message: any) => {
+      this.socket.on('nextRound', (message: any) => {
+        console.log(message);
         observer.next(message);
       });
     });
@@ -164,4 +172,23 @@ export class SocketioService {
       });
     });
   }
+
+  receiveShowAnswers(){
+    return new Observable((observer) => {
+      this.socket.on('showAnswers', (message: any) => {
+        console.log(message);
+        observer.next(message);
+      });
+    });
+  }
+
+  receiveEndGamePlay(){
+    return new Observable((observer) => {
+      this.socket.on('endGamePlay', (message: any) => {
+        console.log(message);
+        observer.next(message);
+      });
+    });
+  }
+  
 }
