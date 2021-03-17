@@ -41,8 +41,8 @@ export class SocketioService {
   nextQuestion(roomPin: any, questionNumber: any) {
     this.socket.emit('nextQuestion', {gameId: roomPin, questionNumber: questionNumber});
   }
-  showAnswers(roomPin:any){
-    this.socket.emit('showAnswers', {gameId: roomPin});
+  showAnswers(roomPin:any, which:any){
+    this.socket.emit('showAnswers', {gameId: roomPin, which: which});
   }
   endGamePlay(roomPin:any){
     this.socket.emit('endGamePlay', {gameId: roomPin});

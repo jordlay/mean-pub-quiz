@@ -162,8 +162,11 @@ export class GameDetailsComponent implements OnInit {
   lastQuestionBool = false;
   showAnswersBool = false;
   showAnswers(){
-    this.showAnswersBool = true;
-    this.socketioService.showAnswers(this.roomPin);
+    this.socketioService.showAnswers(this.roomPin, 'one');
+  }
+  showAllAnswersBool = false;
+  showAllAnswers(){
+    this.socketioService.showAnswers(this.roomPin, 'all');
   }
   nextQuestion(){
     console.log(Object.keys(this.questionObject[this.currentRound]).length, Object.keys(this.questionObject[this.currentRound]));
@@ -230,7 +233,12 @@ export class GameDetailsComponent implements OnInit {
   receiveShowAnswers(){
     this.socketioService.receiveShowAnswers().subscribe( (data:any) => {
       console.log(data);
-      this.showAnswersBool = true;
+      if (data === 'one') {
+        this.showAnswersBool = true;
+      } else if (data === 'all') {
+        this.showAllAnswersBool = true;
+        this.currentRound = 1;
+      }
       this.currentQuestion = 0;
     });
   }

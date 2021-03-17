@@ -23,14 +23,19 @@
         {{this.questionObject[this.currentRound][this.currentQuestion].points}} points
         <div *ngIf="!this.lastQuestionBool"><button type="button" id="buzzer" class="btn btn-warning buzzer" (click)="nextQuestion()">Next Question</button></div>
         <div *ngIf="this.lastQuestionBool && !this.lastRoundBool" ><button type="button" id="buzzer" class="btn btn-warning buzzer" (click)="nextRound()">Next Round</button></div>
-        <div *ngIf="this.lastQuestionBool" ><button type="button" id="buzzer" class="btn btn-warning buzzer" (click)="showAnswers()">Answers</button></div>
+        <div *ngIf="this.lastQuestionBool" ><button type="button" id="buzzer" class="btn btn-warning buzzer" (click)="showAnswers()">Round {{this.currentRound}} Answers</button></div>
         <div *ngIf="this.lastQuestionBool && this.lastRoundBool"><button type="button" id="buzzer" class="btn btn-warning buzzer" (click)="endGamePlay()">End Game</button></div>
+        <div *ngIf="this.lastQuestionBool && this.lastRoundBool"><button type="button" id="buzzer" class="btn btn-warning buzzer" (click)="showAllAnswers()">Show All Answers</button></div>
       </div>
-      <div *ngIf="showAnswersBool && this.currentQuestion === 0">
+      <div *ngIf="showAnswersBool && !showAllAnswersBool && this.currentQuestion === 0">
         <h3>Round {{this.currentRound}} Answers</h3>
         <button type="button" id="buzzer" class="btn btn-warning buzzer" (click)="startRound()">Show Answers</button>
       </div>
-      <div *ngIf="showAnswersBool && this.currentQuestion > 0">
+      <div *ngIf="showAllAnswersBool && this.currentQuestion === 0">
+        <h3>Round {{this.currentRound}} Answers</h3>
+        <button type="button" id="buzzer" class="btn btn-warning buzzer" (click)="startRound()">Show All Answers</button>
+      </div>
+      <div *ngIf="(showAnswersBool || showAllAnswersBool) && this.currentQuestion > 0">
         <h3>Answer {{this.currentQuestion}}</h3>
         {{this.questionObject[this.currentRound][this.currentQuestion].question}}
         {{this.questionObject[this.currentRound][this.currentQuestion].answer}}
