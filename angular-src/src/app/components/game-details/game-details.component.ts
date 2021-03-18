@@ -231,7 +231,12 @@ export class GameDetailsComponent implements OnInit {
       this.currentRound +=1;
       this.showAnswersBool = false;
       this.numberOfQuestions =  Object.keys(this.questionObject[this.currentRound]).length
-
+         
+      let element = <HTMLInputElement> document.getElementById('buzzer');
+      if (!(this.showAllAnswersBool || this.showAnswersBool)){
+        element.disabled = false;
+        this.buzzerPress = false;
+      }
     });
   }
 

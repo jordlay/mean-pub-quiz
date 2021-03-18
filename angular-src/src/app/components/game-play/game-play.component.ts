@@ -43,6 +43,7 @@ export class GamePlayComponent implements OnInit {
   teamNumber = 0;
   isChecked: any;
   hostSubmitted = false;
+  hostSubmittedQuestions = false;
   hostDetails: any;
   gameAlreadyBegun: any;
   includeHost = true;
@@ -238,6 +239,7 @@ export class GamePlayComponent implements OnInit {
         console.log('invalid');
         button.disabled = true;
       }
+
     });
   }
   setHost() {
@@ -341,8 +343,9 @@ export class GamePlayComponent implements OnInit {
     this.hostSubmitted = true;
     this.hostDetails = this.participantArray[this.currentPlayer.id];
     this.hostDetails.teamNumber = this.teamNumber;
+    console.log(this.hostSubmittedQuestions, this.showQuestions);
   }
-  hostSubmittedQuestions = false;;
+  
   questionsObject: any;
   setQuestions(){
     this.questionsObject = {};

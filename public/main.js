@@ -1317,10 +1317,10 @@ class GamePlayComponent {
         this.isPlayerReady = false;
         this.teamNumber = 0;
         this.hostSubmitted = false;
+        this.hostSubmittedQuestions = false;
         this.includeHost = true;
         this.joined = false;
         this.roundsArray = [];
-        this.hostSubmittedQuestions = false;
     }
     // questionsModalWidth = (window.innerWidth * .8);
     ngOnInit() {
@@ -1589,8 +1589,8 @@ class GamePlayComponent {
         this.hostSubmitted = true;
         this.hostDetails = this.participantArray[this.currentPlayer.id];
         this.hostDetails.teamNumber = this.teamNumber;
+        console.log(this.hostSubmittedQuestions, this.showQuestions);
     }
-    ;
     setQuestions() {
         this.questionsObject = {};
         for (let i = 0; i < this.rounds.length; i++) {
@@ -3030,6 +3030,11 @@ class GameDetailsComponent {
             this.currentRound += 1;
             this.showAnswersBool = false;
             this.numberOfQuestions = Object.keys(this.questionObject[this.currentRound]).length;
+            let element = document.getElementById('buzzer');
+            if (!(this.showAllAnswersBool || this.showAnswersBool)) {
+                element.disabled = false;
+                this.buzzerPress = false;
+            }
         });
     }
     receiveEndGamePlay() {
