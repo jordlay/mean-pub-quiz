@@ -30,52 +30,40 @@ export class GameDetailsComponent implements OnInit {
   gameSettingsOpened: any;
   currentRound: any;
   currentQuestion = 0;
-
+  firstQuestionBool: any;
+  firstRoundBool: any;
   objectKeys = Object.keys;
   questionObject: any;
   constructor(private socketioService: SocketioService, private router: Router, 
     private actRoute: ActivatedRoute, private gameCreationService: GameCreationService) { }
 
-  
-  
   ngOnInit(): void {
-    // this.receiveTeams();
-    // this.receiveBuzzerPressed();
+    this.receiveBuzzerPressed();
     this.receiveNextQuestion();
     this.receiveStartRound();
     this.receiveNextRound();
     this.receiveEndGamePlay();
     this.receiveShowAnswers();
     this.gameCreationService.getQuestions(this.roomPin).subscribe( (data:any) => {
-      console.log(data);
       console.log(data.questions);
       this.questionObject = data.questions;
     });
-    console.log('in GD');
-    console.log('PD', this.playerObject);
-    console.log('HD', this.hostDetails);
-    console.log('CP', this.currentPlayer);
-    console.log('T', this.teams);
-    console.log(this.questionObject);
     setTimeout( () => {
-      if (Object.keys(this.questionObject).length > 1) {
+      if (Object.keys(this.questionObject).length > 0) {
         this.currentRound = 1;
+        this.firstQuestionBool = true;
+        this.firstRoundBool = true;
       }
-    }, 1000);
+    }, 500);
 
   }
 
   ngAfterViewInit(){
-    console.log(this.hostDetails);
     this.teamNumber = this.hostDetails.teamNumber;
     setTimeout( () => {
-      
-    this.receiveBuzzerPressed();
-      console.log(this.teams);
       for (let colour of this.objectKeys(this.teams)){
         document.getElementById(colour)!.style.color = colour;
         for (let player of this.objectKeys(this.teams[colour])){
-          
           if (this.currentPlayer.id === this.teams[colour][player].id) {
             this.playerColour = colour;
           }
@@ -84,15 +72,7 @@ export class GameDetailsComponent implements OnInit {
       if (!this.hostDetails.include) {
         this.playerColour = "darkgoldenrod";
       }
-      console.log(this.playerColour);
-      this.receiveBuzzerPressed();
-      console.log(this.buzzerDetails);
     }, 100)
-
-    setTimeout( () => {
-      console.log('STO');
-      this.receiveBuzzerPressed();
-    }, 1000);
 
   }
 
@@ -168,6 +148,18 @@ export class GameDetailsComponent implements OnInit {
   showAllAnswers(){
     this.socketioService.showAnswers(this.roomPin, 'all');
   }
+
+  previousQuestion(){
+    console.log(Object.keys(this.questionObject[this.currentRound]).length, Object.keys(this.questionObject[this.currentRound]));
+    this.currentQuestion -=1;
+    this.socketioService.nextQuestion(this.roomPin, this.currentQuestion);
+    if (this.currentQuestion > 1) {
+      this.firstQuestionBool = false;
+    } else {
+      this.firstQuestionBool = true;
+    }
+  }
+
   nextQuestion(){
     console.log(Object.keys(this.questionObject[this.currentRound]).length, Object.keys(this.questionObject[this.currentRound]));
     this.currentQuestion +=1;
@@ -189,6 +181,13 @@ export class GameDetailsComponent implements OnInit {
       } else {
         this.lastQuestionBool = true;
       }
+
+      if (this.currentQuestion > 1) {
+        this.firstQuestionBool = false;
+      } else {
+        this.firstQuestionBool = true;
+      }
+
     });
   }
 
@@ -205,6 +204,7 @@ export class GameDetailsComponent implements OnInit {
       }
 
       this.currentQuestion = 1;
+      this.firstQuestionBool = true;
       if (this.currentQuestion+1 <= Object.keys(this.questionObject[this.currentRound]).length) {
         this.lastQuestionBool = false;
       } else {
