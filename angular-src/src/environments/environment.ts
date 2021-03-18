@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  SOCKET_ENDPOINT: 'http://localhost:8080'
-  // SOCKET_ENDPOINT: 'https://mean-pub-quiz.herokuapp.com/'
+  // SOCKET_ENDPOINT: 'http://localhost:8080'
+  SOCKET_ENDPOINT: 'https://mean-pub-quiz.herokuapp.com/'
 };
 
 /*
