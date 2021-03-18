@@ -30,7 +30,6 @@ previousQuestionsObject = {}
 io.on("connection", (socket) => {
     console.log(socket.id, "a user connected");
     socket.on('joinGame', ({gameId, playerData}) => {
-
         socket.join(gameId);
         if (previousJoinedPlayers === {} || previousJoinedPlayers[gameId] === undefined) {
             previousJoinedPlayers[gameId] = {};
@@ -41,7 +40,6 @@ io.on("connection", (socket) => {
         socket.emit('checkGameBegan', gameBegan[gameId]);
         if (gameBegan[gameId]) {
             socket.emit('getHostDetails', previousHostDetails[gameId]);
-            console.log(teams[gameId]);
             socket.emit('getTeams', teams[gameId])
             io.to(gameId).emit('startGame', previousJoinedPlayers[gameId]);
         }
@@ -113,7 +111,7 @@ io.on("connection", (socket) => {
         delete previousJoinedPlayers[gameId];
         socket.leave(gameId);
         socket.disconnect(true);
-        console.log('Game ended' + gameId);
+        console.log('Game ended ' + gameId);
     });
 
     socket.on('playerLeft', ({gameId, playerData}) => {
@@ -121,37 +119,33 @@ io.on("connection", (socket) => {
     });
 
     socket.on('buzzerPressed', ({gameId, playerName, playerColour }) => {
-        console.log('PN', playerName);
-        console.log(gameId);
         let buzzerDetail = {};
         buzzerDetail[gameId] = {};
         buzzerDetail[gameId].displayName = playerName;
         buzzerDetail[gameId].colour = playerColour;
-        console.log(buzzerDetail[gameId]);
         io.to(gameId).emit('buzzerPressed', buzzerDetail[gameId]);
     });
 
     socket.on('startRound', ({gameId, round}) => {
         io.to(gameId).emit('startRound', round);
     });
-
     socket.on('nextQuestion', ({gameId, questionNumber}) => {
         io.to(gameId).emit('nextQuestion', questionNumber);
     });
-
     socket.on('nextRound', ({gameId}) => {
-        let nextRound = 'nextRound';
         io.to(gameId).emit('nextRound', gameId);
     });
     socket.on('endGamePlay', ({gameId}) => {
         io.to(gameId).emit('endGamePlay', gameId);
     });
     socket.on('reset', ({gameId}) => {
-        console.log('RESET', gameId);
         io.to(gameId).emit('reset', gameId);
     });
     socket.on('showAnswers', ({gameId, which}) => {
         io.to(gameId).emit('showAnswers', which);
+    });
+    socket.on('claimHost', ({gameId}) => {
+        io.to(gameId).emit('claimHost', gameId);
     });
 });
 
@@ -199,7 +193,3 @@ app.get('/', (req,res) => {
 app.get('*', (req,res) => {
     res.sendFile(path.join(__dirname, 'public/index.html'))
 });
-// Start Server
-// app.listen(port, '0.0.0.0', () => {
-//     console.log('Server started on Port ' + port);
-// });

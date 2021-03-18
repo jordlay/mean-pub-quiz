@@ -702,6 +702,9 @@ class SocketioService {
     buzzerPressed(roomPin, playerName, playerColour) {
         this.socket.emit('buzzerPressed', { gameId: roomPin, playerName: playerName, playerColour: playerColour });
     }
+    claimHost(roomPin) {
+        this.socket.emit('claimHost', { gameId: roomPin });
+    }
     getPreviousJoinedPlayers() {
         this.socket.on('getPreviousJoinedPlayers', (players) => {
             this.previousPlayers = players;
@@ -726,7 +729,6 @@ class SocketioService {
     receiveTeams() {
         return new rxjs__WEBPACK_IMPORTED_MODULE_0__["Observable"]((observer) => {
             this.socket.on('getTeams', (message) => {
-                console.log(message);
                 observer.next(message);
             });
         });
@@ -769,7 +771,6 @@ class SocketioService {
     receiveNextRound() {
         return new rxjs__WEBPACK_IMPORTED_MODULE_0__["Observable"]((observer) => {
             this.socket.on('nextRound', (message) => {
-                console.log(message);
                 observer.next(message);
             });
         });
@@ -791,7 +792,13 @@ class SocketioService {
     receiveReset() {
         return new rxjs__WEBPACK_IMPORTED_MODULE_0__["Observable"]((observer) => {
             this.socket.on('reset', (message) => {
-                console.log(message);
+                observer.next(message);
+            });
+        });
+    }
+    receiveClaimHost() {
+        return new rxjs__WEBPACK_IMPORTED_MODULE_0__["Observable"]((observer) => {
+            this.socket.on('claimHost', (message) => {
                 observer.next(message);
             });
         });
@@ -799,7 +806,6 @@ class SocketioService {
     receiveBuzzerPressed() {
         return new rxjs__WEBPACK_IMPORTED_MODULE_0__["Observable"]((observer) => {
             this.socket.on('buzzerPressed', (message) => {
-                console.log(message);
                 observer.next(message);
             });
         });
@@ -807,7 +813,6 @@ class SocketioService {
     receiveShowAnswers() {
         return new rxjs__WEBPACK_IMPORTED_MODULE_0__["Observable"]((observer) => {
             this.socket.on('showAnswers', (message) => {
-                console.log(message);
                 observer.next(message);
             });
         });
@@ -815,7 +820,6 @@ class SocketioService {
     receiveEndGamePlay() {
         return new rxjs__WEBPACK_IMPORTED_MODULE_0__["Observable"]((observer) => {
             this.socket.on('endGamePlay', (message) => {
-                console.log(message);
                 observer.next(message);
             });
         });
@@ -1220,7 +1224,7 @@ function GamePlayComponent_div_5_div_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r3.allPlayersReady && !ctx_r3.host);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", !ctx_r3.hostSubmitted && !ctx_r3.host && ctx_r3.joined);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", !ctx_r3.hostSubmitted && !ctx_r3.host && !ctx_r3.hostClaimed && ctx_r3.joined);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r3.allPlayersReady && ctx_r3.hostSubmitted && ctx_r3.showQuestions === ctx_r3.hostSubmittedQuestions && ctx_r3.host);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
@@ -1317,12 +1321,11 @@ class GamePlayComponent {
         this.isPlayerReady = false;
         this.teamNumber = 0;
         this.hostSubmitted = false;
+        this.hostSubmittedQuestions = false;
         this.includeHost = true;
         this.joined = false;
         this.roundsArray = [];
-        this.hostSubmittedQuestions = false;
     }
-    // questionsModalWidth = (window.innerWidth * .8);
     ngOnInit() {
         this.url = window.location.href;
         this.roomPin = this.actRoute.snapshot.params.pin;
@@ -1349,6 +1352,7 @@ class GamePlayComponent {
                 this.receiveReadyPlayers();
                 this.receiveBeginGame();
                 this.receiveEndGame();
+                this.receiveClaimHost();
                 // get players who joined before user connected
                 this.previousPlayers = this.socketioService.getPreviousJoinedPlayers();
                 // get meeting parameters
@@ -1490,82 +1494,39 @@ class GamePlayComponent {
         });
         team.addEventListener('change', (event) => {
             this.teamNumber = parseInt(team.value);
-            console.log(team.value);
-            console.log(this.teamNumber);
             let button = document.getElementById('setSettings');
             if (this.teamNumber > 0 && this.teamNumber <= noOfPlayers && this.teamNumber < 11 && !(this.teamNumber === NaN)) {
-                console.log('valid');
                 button.disabled = false;
             }
             else {
-                console.log('invalid');
                 button.disabled = true;
             }
         });
     }
     setHost() {
+        this.socketioService.claimHost(this.roomPin);
         this.host = true;
         this.participantArray[this.currentPlayer.id].host = true;
         this.playerReady();
-        // let team = <HTMLInputElement> document.getElementById('teamNumber')!;
-        // this.isChecked = <HTMLInputElement> document.getElementById('hostCheckbox');
-        // let noOfPlayers: any;
-        // this.isChecked.addEventListener('change', (event:any) => {
-        //   if (this.isChecked.checked) {
-        //     noOfPlayers = this.objectKeys(this.participantArray).length;
-        //   } else {
-        //     noOfPlayers = (this.objectKeys(this.participantArray).length)-1;
-        //   }
-        // });
-        // team.addEventListener('change', (event:any) => {
-        //   this.teamNumber = parseInt(team.value); 
-        //   console.log(team.value);
-        //   console.log(this.teamNumber);
-        //   let button = <HTMLInputElement> document.getElementById('setSettings');
-        //   if (this.teamNumber > 0 && this.teamNumber <= noOfPlayers && this.teamNumber < 11 && !(this.teamNumber === NaN)) {
-        //     console.log('valid');
-        //     button.disabled = false;
-        //   } else {
-        //     console.log('invalid');
-        //     button.disabled = true;
-        //   }
-        // });
-        // let questions = <HTMLInputElement> document.getElementById('questionCheckbox');
-        // questions.addEventListener('change', (event:any) => {
-        //   if (questions.checked) {
-        //     this.includeQuestions = true;
-        //   } else {
-        //     this.includeQuestions = false;
-        //   }
-        // });
         let rounds = document.getElementById('rounds');
         rounds.addEventListener('change', (event) => {
-            console.log(rounds.value);
             this.roundsEntered = true;
             this.rounds = new Array(parseInt(rounds.value));
-            console.log(this.rounds);
         });
-    }
-    firstCounter(i) {
-        return new Array(i);
     }
     counter(i) {
         this.counterArray = new Array(i);
         return this.counterArray;
     }
     setQuestionSettings() {
-        console.log(this.rounds);
         if (!(this.rounds === undefined) || (this.rounds === Array(1))) {
             if (this.rounds.length > 0) {
                 this.showQuestions = true;
                 this.roundsArray = [];
-                console.log(this.rounds.length, this.roundsArray);
                 for (let i = 0; i < this.rounds.length; i++) {
                     let name = document.getElementById('round' + (i + 1) + 'questions');
-                    console.log(name.value);
                     let val = new Array(parseInt(name.value));
                     this.roundsArray.push(val);
-                    console.log(this.roundsArray);
                 }
             }
             else {
@@ -1590,7 +1551,6 @@ class GamePlayComponent {
         this.hostDetails = this.participantArray[this.currentPlayer.id];
         this.hostDetails.teamNumber = this.teamNumber;
     }
-    ;
     setQuestions() {
         this.questionsObject = {};
         for (let i = 0; i < this.rounds.length; i++) {
@@ -1600,7 +1560,6 @@ class GamePlayComponent {
                 let questionElement = document.getElementById('q' + (i + 1) + (j + 1));
                 let answerElement = document.getElementById('a' + (i + 1) + (j + 1));
                 let pointsElement = document.getElementById('p' + (i + 1) + (j + 1));
-                console.log(questionElement.value, answerElement.value, pointsElement.value);
                 let questionValue;
                 let answerValue;
                 let pointsValue;
@@ -1626,16 +1585,11 @@ class GamePlayComponent {
                 this.questionsObject[i + 1][j + 1].question = questionValue;
                 this.questionsObject[i + 1][j + 1].answer = answerValue;
                 this.questionsObject[i + 1][j + 1].points = pointsValue;
-                console.log(i + 1, j + 1, questionValue);
             }
         }
-        console.log(this.questionsObject);
-        //send to db?
         this.hostSubmittedQuestions = true;
-        this.gameCreationService.createQuestions(this.roomPin, this.questionsObject).subscribe((data) => {
-            console.log(data);
+        this.gameCreationService.createQuestions(this.roomPin, this.questionsObject).subscribe(() => {
         });
-        // send to socket too
     }
     joinGameLate() {
         this.gameStarted = true;
@@ -1662,9 +1616,12 @@ class GamePlayComponent {
     }
     receiveTeams() {
         this.socketioService.receiveTeams().subscribe((teams) => {
-            console.log(teams);
             this.teams = teams;
-            console.log(this.teams);
+        });
+    }
+    receiveClaimHost() {
+        this.socketioService.receiveClaimHost().subscribe((teams) => {
+            this.hostClaimed = true;
         });
     }
 }
@@ -1674,7 +1631,7 @@ GamePlayComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefine
     } if (rf & 2) {
         let _t;
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵloadQuery"]()) && (ctx.meet = _t.first);
-    } }, decls: 10, vars: 2, consts: [[1, "row"], [1, "col"], [1, "jitsiMeet"], ["meet", ""], [4, "ngIf"], ["type", "button", 1, "btn", "btn-outline-danger", 3, "click"], ["type", "button", 1, "btn", "btn-primary", 3, "cdkCopyToClipboard"], ["data-bs-backdrop", "static", "id", "questionSettingsModal", "tabindex", "-1", "aria-hidden", "true", 1, "modal", "fade", "modal-dialog"], [1, "modal-dialog", "modal-dialog-centered", "modal-dialog-scrollable"], [1, "modal-content", 2, "max-height", "400px"], [1, "modal-header"], ["id", "exampleModalLabel", 1, "modal-title"], ["type", "button", "data-bs-dismiss", "modal", "aria-label", "Close", 1, "btn-close"], [1, "modal-body"], [1, "card-text"], [1, "needs-validation"], [1, "mb-3"], ["for", "rounds", 2, "margin-top", "10px"], ["type", "text", "id", "rounds", "placeholder", "Enter number of rounds", 1, "form-control"], [1, "modal-footer"], ["type", "button", "data-bs-dismiss", "modal", 1, "btn", "btn-secondary"], ["type", "button", "data-bs-dismiss", "modal", "id", "setQuestionSettings", 1, "btn", "btn-primary", 3, "click"], ["data-bs-backdrop", "static", "id", "settingsModal", "tabindex", "-1", "aria-hidden", "true", 1, "modal", "fade", "modal-dialog"], [1, "modal-body", 2, "max-height", "400px"], [1, "form-check", 2, "padding-left", "0rem"], ["type", "checkbox", "value", "", "id", "hostCheckbox", 1, "form-check-input"], ["for", "hostCheckbox", 1, "form-check-label", 2, "padding-left", "30px"], ["for", "teamNumber", 2, "margin-top", "10px"], ["type", "text", "id", "teamNumber", "placeholder", "Enter number of teams", 1, "form-control"], ["type", "button", "data-bs-dismiss", "modal", "id", "setSettings", "disabled", "", 1, "btn", "btn-primary", 3, "click"], ["data-bs-backdrop", "static", "id", "questionsModal", "tabindex", "-1", "aria-hidden", "true", 1, "modal", "modal-dialog", "fade"], ["type", "button", "data-bs-toggle", "modal", "data-bs-target", "#questionsModal", "data-bs-dismiss", "modal", "aria-label", "Close", 1, "btn-close"], [4, "ngFor", "ngForOf"], ["type", "button", "data-bs-dismiss", "modal", "id", "saveQuestions", 1, "btn", "btn-primary", 3, "click"], ["type", "button", "data-bs-toggle", "modal", "data-bs-target", "#settingsModal", "aria-hidden", "false"], [1, "card", "border-primary", "mb-3", 2, "max-width", "20rem", "margin-top", "16px", "padding", "10px"], [3, "ngClass"], ["type", "button", 1, "btn", "btn-outline-success", 3, "click"], [1, "text-success"], ["type", "button", "data-bs-toggle", "modal", "data-bs-target", "#questionSettingsModal", 1, "btn", "btn-outline-secondary", 3, "click"], [1, "card-body"], ["type", "button", "class", "btn btn-outline-secondary", "data-bs-toggle", "modal", "data-bs-target", "#questionsModal", 4, "ngIf"], ["type", "button", "data-bs-toggle", "modal", "data-bs-target", "#settingsModal", 1, "btn", "btn-outline-secondary", 3, "click"], ["type", "button", "data-bs-toggle", "modal", "data-bs-target", "#questionsModal", 1, "btn", "btn-outline-secondary"], [2, "margin-top", "10px", 3, "for"], ["type", "text", "placeholder", "Enter number of questions", 1, "form-control", 3, "id"], ["type", "button", "data-bs-toggle", "modal", "data-bs-target", "#questionsModal", 1, "btn", "btn-secondary"], [1, "input-group", "mb-3"], ["type", "text", "placeholder", "Paste or type your question", 1, "form-control", 3, "id"], [1, "input-group-text"], ["type", "text", 1, "form-control", 3, "id"], [3, "roomPin", "playerObject", "hostDetails", "currentPlayer", "teams"]], template: function GamePlayComponent_Template(rf, ctx) { if (rf & 1) {
+    } }, decls: 10, vars: 2, consts: [[1, "row"], [1, "col"], [1, "jitsiMeet"], ["meet", ""], [4, "ngIf"], ["type", "button", 1, "btn", "btn-outline-danger", 3, "click"], ["type", "button", 1, "btn", "btn-primary", 3, "cdkCopyToClipboard"], ["data-bs-backdrop", "static", "id", "questionSettingsModal", "tabindex", "-1", "aria-hidden", "true", 1, "modal", "fade", "modal-dialog"], [1, "modal-dialog", "modal-dialog-centered", "modal-dialog-scrollable"], [1, "modal-content", 2, "max-height", "400px"], [1, "modal-header"], ["id", "exampleModalLabel", 1, "modal-title"], ["type", "button", "data-bs-dismiss", "modal", "aria-label", "Close", 1, "btn-close"], [1, "modal-body"], [1, "card-text"], [1, "needs-validation"], [1, "mb-3"], ["for", "rounds", 2, "margin-top", "10px"], ["type", "text", "id", "rounds", "placeholder", "Enter number of rounds", 1, "form-control"], [1, "modal-footer"], ["type", "button", "data-bs-dismiss", "modal", 1, "btn", "btn-secondary"], ["type", "button", "data-bs-dismiss", "modal", "id", "setQuestionSettings", 1, "btn", "btn-primary", 3, "click"], ["data-bs-backdrop", "static", "id", "settingsModal", "tabindex", "-1", "aria-hidden", "true", 1, "modal", "fade", "modal-dialog"], [1, "modal-body", 2, "max-height", "400px"], [1, "form-check", 2, "padding-left", "0rem"], ["type", "checkbox", "value", "", "id", "hostCheckbox", 1, "form-check-input"], ["for", "hostCheckbox", 1, "form-check-label", 2, "padding-left", "30px"], ["for", "teamNumber", 2, "margin-top", "10px"], ["type", "text", "id", "teamNumber", "placeholder", "Enter number of teams", 1, "form-control"], ["type", "button", "data-bs-dismiss", "modal", "id", "setSettings", "disabled", "", 1, "btn", "btn-primary", 3, "click"], ["data-bs-backdrop", "static", "id", "questionsModal", "tabindex", "-1", "aria-hidden", "true", 1, "modal", "modal-dialog", "fade"], ["type", "button", "data-bs-toggle", "modal", "data-bs-target", "#questionsModal", "data-bs-dismiss", "modal", "aria-label", "Close", 1, "btn-close"], [4, "ngFor", "ngForOf"], ["type", "button", "data-bs-dismiss", "modal", "id", "saveQuestions", 1, "btn", "btn-primary", 3, "click"], ["type", "button", "data-bs-toggle", "modal", "data-bs-target", "#questionSettingsModal", "aria-hidden", "false"], [1, "card", "border-primary", "mb-3", 2, "max-width", "20rem", "margin-top", "16px", "padding", "10px"], [3, "ngClass"], ["type", "button", 1, "btn", "btn-outline-success", 3, "click"], [1, "text-success"], ["type", "button", "data-bs-toggle", "modal", "data-bs-target", "#questionSettingsModal", 1, "btn", "btn-outline-secondary", 3, "click"], [1, "card-body"], ["type", "button", "class", "btn btn-outline-secondary", "data-bs-toggle", "modal", "data-bs-target", "#questionsModal", 4, "ngIf"], ["type", "button", "data-bs-toggle", "modal", "data-bs-target", "#settingsModal", 1, "btn", "btn-outline-secondary", 3, "click"], ["type", "button", "data-bs-toggle", "modal", "data-bs-target", "#questionsModal", 1, "btn", "btn-outline-secondary"], [2, "margin-top", "10px", 3, "for"], ["type", "text", "placeholder", "Enter number of questions", 1, "form-control", 3, "id"], ["type", "button", "data-bs-toggle", "modal", "data-bs-target", "#questionsModal", 1, "btn", "btn-secondary"], [1, "input-group", "mb-3"], ["type", "text", "placeholder", "Paste or type your question", 1, "form-control", 3, "id"], [1, "input-group-text"], ["type", "text", 1, "form-control", 3, "id"], [3, "roomPin", "playerObject", "hostDetails", "currentPlayer", "teams"]], template: function GamePlayComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "div", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](2, "div", 2, 3);
@@ -2873,15 +2830,16 @@ class GameDetailsComponent {
         this.receiveEndGamePlay();
         this.receiveShowAnswers();
         this.receiveReset();
-        this.showBuzzer = true;
         this.gameCreationService.getQuestions(this.roomPin).subscribe((data) => {
             console.log(data.questions);
             this.questionObject = data.questions;
             if (this.questionObject === undefined) {
                 this.showQuestions = false;
+                this.showBuzzer = true;
             }
             else {
                 this.showQuestions = true;
+                this.showBuzzer = false;
                 if (Object.keys(this.questionObject).length > 0) {
                     this.currentRound = 1;
                     this.firstQuestionBool = true;
@@ -3018,6 +2976,7 @@ class GameDetailsComponent {
             else {
                 this.showBuzzer = true;
             }
+            this.buzzerPress = false;
         });
     }
     receiveNextRound() {
@@ -3028,8 +2987,11 @@ class GameDetailsComponent {
             this.currentRound += 1;
             this.showAnswersBool = false;
             this.numberOfQuestions = Object.keys(this.questionObject[this.currentRound]).length;
-            this.showBuzzer = false;
-            this.buzzerPress = false;
+            let element = document.getElementById('buzzer');
+            if (!(this.showAllAnswersBool || this.showAnswersBool)) {
+                element.disabled = false;
+                this.buzzerPress = false;
+            }
         });
     }
     receiveEndGamePlay() {

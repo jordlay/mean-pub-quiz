@@ -43,12 +43,23 @@ export class GamePlayComponent implements OnInit {
   teamNumber = 0;
   isChecked: any;
   hostSubmitted = false;
+  hostSubmittedQuestions = false;
   hostDetails: any;
   gameAlreadyBegun: any;
   includeHost = true;
   joined = false;
   teams:any
-  // questionsModalWidth = (window.innerWidth * .8);
+  rounds:any;
+  includeQuestions:any;
+  roundsEntered:any;
+  counterArray:any;
+  showQuestions: any;
+  addMoreQuestions: any;
+  openQuestionModal: any;
+  roundsArray: Array<Array<Number>> = [];
+  questionsObject: any;
+  hostClaimed:any;
+
   ngOnInit(): void {
     this.url = window.location.href;
     this.roomPin = this.actRoute.snapshot.params.pin;
@@ -62,96 +73,96 @@ export class GamePlayComponent implements OnInit {
   ngAfterViewInit() {
     this.gameCreationService.checkGameExists(this.game).subscribe((data) => {
       if ((data as any).success) {
-    // create room 
-    this.socketioService.connect(this.roomPin);
-    this.gameStarted = false;
-    // check if game begun
-    this.socketioService.receiveGameBegun().subscribe( (message:any)=> {
-      this.gameAlreadyBegun = message;
-    });
-    // set observable listeners
-    this.receiveHostDetails();
-    this.receiveTeams();
-    this.receiveJoinedPlayers();
-    this.receiveReadyPlayers();
-    this.receiveBeginGame();
-    this.receiveEndGame();
-    // get players who joined before user connected
-    this.previousPlayers = this.socketioService.getPreviousJoinedPlayers();
-    // get meeting parameters
-    this.gameCreationService.getMeetingParams(this.roomPin).subscribe(data => {
-      this.data = data;
-      if (this.data.success) {
-        this.game = this.data.game;
-        let displayName = this.gameCreationService.getDisplayName();
-        // set displayName based on whether created game or joined
-        if (displayName === undefined) {
-          this.isHost = true;
-          this.options = { 
-            roomName: this.game.roomPin + 'JordansQuiz',  
-            configOverwrite: { startWithAudioMuted: true },
-            width: '100%', 
-            height: 500, 
-            parentNode: this.meet.nativeElement,
-            userInfo: {
-              displayName: this.game.displayName
-            }
-          }
-        } else {
-        this.options = { 
-            roomName: this.game.roomPin + 'JordansQuiz',  
-            configOverwrite: { startWithAudioMuted: true },
-            width: '100%', 
-            height: 500, 
-            parentNode: this.meet.nativeElement,
-              userInfo: {
-              displayName: displayName
-            }
-          }
-        } 
-        // create Jitsi meeting 
-        this.api = new JitsiMeetExternalAPI(this.domain, this.options);
-        // add listener when user joins call
-        this.api.addListener('videoConferenceJoined', (message:any)=>{
-          
-          this.allPlayersReady = false;
-          this.currentPlayer = message;
-          this.participantArray = this.api._participants;
-          // if joined late set as ready automatically
-          if (this.gameAlreadyBegun) {
-            this.currentPlayer.ready = true;
-            this.participantArray[this.currentPlayer.id].ready = true;
-          } else {
-            this.currentPlayer.ready = false;
-            this.participantArray[this.currentPlayer.id].ready = false;
-            this.joined = true;
-          }
-          this.socketioService.joinGame(this.roomPin, this.currentPlayer);
-          this.participantArray[this.currentPlayer.id].id = this.currentPlayer.id;
-
-          setTimeout(()=>{
-            this.previousPlayers = this.socketioService.getPreviousJoinedPlayers();
-            if (!(this.previousPlayers === undefined)) {
-              for (let key of this.objectKeys(this.previousPlayers)) {
-                if (!(this.participantArray[key]===undefined)) {
-                  this.participantArray[key] = this.previousPlayers[key];
+        // create room 
+        this.socketioService.connect(this.roomPin);
+        this.gameStarted = false;
+        // check if game begun
+        this.socketioService.receiveGameBegun().subscribe( (message:any)=> {
+          this.gameAlreadyBegun = message;
+        });
+        // set observable listeners
+        this.receiveHostDetails();
+        this.receiveTeams();
+        this.receiveJoinedPlayers();
+        this.receiveReadyPlayers();
+        this.receiveBeginGame();
+        this.receiveEndGame();
+        this.receiveClaimHost();
+        // get players who joined before user connected
+        this.previousPlayers = this.socketioService.getPreviousJoinedPlayers();
+        // get meeting parameters
+        this.gameCreationService.getMeetingParams(this.roomPin).subscribe(data => {       
+          this.data = data;
+          if (this.data.success) {  
+            this.game = this.data.game;
+            let displayName = this.gameCreationService.getDisplayName();
+            // set displayName based on whether created game or joined
+            if (displayName === undefined) {
+              this.isHost = true;
+              this.options = { 
+                roomName: this.game.roomPin + 'JordansQuiz',  
+                configOverwrite: { startWithAudioMuted: true },
+                width: '100%', 
+                height: 500, 
+                parentNode: this.meet.nativeElement,
+                userInfo: {
+                  displayName: this.game.displayName
                 }
               }
-            }
-          }, 100);
+            } else {
+            this.options = { 
+                roomName: this.game.roomPin + 'JordansQuiz',  
+                configOverwrite: { startWithAudioMuted: true },
+                width: '100%', 
+                height: 500, 
+                parentNode: this.meet.nativeElement,
+                  userInfo: {
+                  displayName: displayName
+                }
+              }
+            } 
+            // create Jitsi meeting 
+            this.api = new JitsiMeetExternalAPI(this.domain, this.options);
+            // add listener when user joins call
+            this.api.addListener('videoConferenceJoined', (message:any)=>{
+              
+              this.allPlayersReady = false;
+              this.currentPlayer = message;
+              this.participantArray = this.api._participants;
+              // if joined late set as ready automatically
+              if (this.gameAlreadyBegun) {
+                this.currentPlayer.ready = true;
+                this.participantArray[this.currentPlayer.id].ready = true;
+              } else {
+                this.currentPlayer.ready = false;
+                this.participantArray[this.currentPlayer.id].ready = false;
+                this.joined = true;
+              }
+              this.socketioService.joinGame(this.roomPin, this.currentPlayer);
+              this.participantArray[this.currentPlayer.id].id = this.currentPlayer.id;
+
+              setTimeout(()=>{
+                this.previousPlayers = this.socketioService.getPreviousJoinedPlayers();
+                if (!(this.previousPlayers === undefined)) {
+                  for (let key of this.objectKeys(this.previousPlayers)) {
+                    if (!(this.participantArray[key]===undefined)) {
+                      this.participantArray[key] = this.previousPlayers[key];
+                    }
+                  }
+                }
+              }, 100);
+            });
+
+            this.api.addListener('participantLeft',(message:any)=>{
+              this.currentPlayer = message;
+              delete this.participantArray[this.currentPlayer.id];
+              this.socketioService.playerLeft(this.roomPin, this.currentPlayer);
+            });
+
+          } else {
+            this.errorMessage = "You must create or enter a pin";
+          }
         });
-
-        this.api.addListener('participantLeft',(message:any)=>{
-          this.currentPlayer = message;
-          delete this.participantArray[this.currentPlayer.id];
-          this.socketioService.playerLeft(this.roomPin, this.currentPlayer);
-        });
-
-      } else {
-        this.errorMessage = "You must create or enter a pin";
-      }
-    });
-
       } else {
         this.router.navigate(['/']);
       }
@@ -210,9 +221,6 @@ export class GamePlayComponent implements OnInit {
       this.allPlayersReady = this.isAllReady();    
     });
   }
-  rounds:any;
-  includeQuestions:any;
-  roundsEntered:any;
 
   openTeamSettings(){
     let team = <HTMLInputElement> document.getElementById('teamNumber')!;
@@ -228,92 +236,42 @@ export class GamePlayComponent implements OnInit {
     });
     team.addEventListener('change', (event:any) => {
       this.teamNumber = parseInt(team.value); 
-      console.log(team.value);
-      console.log(this.teamNumber);
       let button = <HTMLInputElement> document.getElementById('setSettings');
       if (this.teamNumber > 0 && this.teamNumber <= noOfPlayers && this.teamNumber < 11 && !(this.teamNumber === NaN)) {
-        console.log('valid');
         button.disabled = false;
       } else {
-        console.log('invalid');
         button.disabled = true;
       }
     });
   }
+
   setHost() {
+    this.socketioService.claimHost(this.roomPin);
     this.host = true;
     this.participantArray[this.currentPlayer.id].host = true;
     this.playerReady();
-
-    // let team = <HTMLInputElement> document.getElementById('teamNumber')!;
-    // this.isChecked = <HTMLInputElement> document.getElementById('hostCheckbox');
-    // let noOfPlayers: any;
-
-    // this.isChecked.addEventListener('change', (event:any) => {
-    //   if (this.isChecked.checked) {
-    //     noOfPlayers = this.objectKeys(this.participantArray).length;
-    //   } else {
-    //     noOfPlayers = (this.objectKeys(this.participantArray).length)-1;
-    //   }
-    // });
-    // team.addEventListener('change', (event:any) => {
-    //   this.teamNumber = parseInt(team.value); 
-    //   console.log(team.value);
-    //   console.log(this.teamNumber);
-    //   let button = <HTMLInputElement> document.getElementById('setSettings');
-    //   if (this.teamNumber > 0 && this.teamNumber <= noOfPlayers && this.teamNumber < 11 && !(this.teamNumber === NaN)) {
-    //     console.log('valid');
-    //     button.disabled = false;
-    //   } else {
-    //     console.log('invalid');
-    //     button.disabled = true;
-    //   }
-    // });
-    // let questions = <HTMLInputElement> document.getElementById('questionCheckbox');
-    // questions.addEventListener('change', (event:any) => {
-    //   if (questions.checked) {
-    //     this.includeQuestions = true;
-    //   } else {
-    //     this.includeQuestions = false;
-    //   }
-    // });
-
+    
     let rounds = <HTMLInputElement> document.getElementById('rounds');
     rounds.addEventListener('change', (event:any) => {
-      console.log(rounds.value);
       this.roundsEntered = true;
       this.rounds = new Array(parseInt(rounds.value));
-      console.log(this.rounds);
     });
   }
 
-  counterArray:any;
-  firstCounterArray:any;
-  firstCounter(i: number) {
-    return new Array(i)
-      
-  }
-  
   counter(i:number){
     this.counterArray = new Array(i);
     return this.counterArray
   }
 
-  showQuestions: any;
-
   setQuestionSettings(){
-    console.log(this.rounds);
     if (!(this.rounds === undefined) || (this.rounds === Array(1))){
       if (this.rounds.length > 0) {
         this.showQuestions = true;
         this.roundsArray = [];
-        console.log(this.rounds.length, this.roundsArray);
         for (let i = 0; i < this.rounds.length; i++) {
           let name = <HTMLInputElement> document.getElementById('round' + (i+1) + 'questions')!;
-          console.log(name.value);
           let val = new Array(parseInt(name.value));
           this.roundsArray.push(val);
-          console.log(this.roundsArray);
         }
       } else {
         this.showQuestions = false;
@@ -321,14 +279,8 @@ export class GamePlayComponent implements OnInit {
     } else {
       this.showQuestions = false;
     }
-
-
-    
   }
 
-  addMoreQuestions: any;
-  openQuestionModal: any;
-  roundsArray: Array<Array<Number>> = [];
   setSettings(){
       this.isChecked = <HTMLInputElement> document.getElementById('hostCheckbox');
     if (this.isChecked.checked === true) {
@@ -342,8 +294,7 @@ export class GamePlayComponent implements OnInit {
     this.hostDetails = this.participantArray[this.currentPlayer.id];
     this.hostDetails.teamNumber = this.teamNumber;
   }
-  hostSubmittedQuestions = false;;
-  questionsObject: any;
+  
   setQuestions(){
     this.questionsObject = {};
     for (let i = 0; i < this.rounds.length; i++) {
@@ -353,7 +304,6 @@ export class GamePlayComponent implements OnInit {
         let questionElement = <HTMLInputElement> document.getElementById('q'+ (i+1) + (j+1)  )!;
         let answerElement = <HTMLInputElement> document.getElementById('a' + (i+1)+ (j+1) )!;
         let pointsElement = <HTMLInputElement> document.getElementById('p'  + (i+1) +(j+1))!;
-        console.log(questionElement.value, answerElement.value,pointsElement.value);
         let questionValue;
         let answerValue;
         let pointsValue;
@@ -376,19 +326,13 @@ export class GamePlayComponent implements OnInit {
         this.questionsObject[i+1][j+1].question = questionValue;
         this.questionsObject[i+1][j+1].answer = answerValue;
         this.questionsObject[i+1][j+1].points = pointsValue;
-        console.log(i+1, j+1, questionValue);
       }
     }
-    console.log(this.questionsObject);
-    //send to db?
-  
     this.hostSubmittedQuestions = true;
-    this.gameCreationService.createQuestions(this.roomPin, this.questionsObject).subscribe( (data:any) => {
-      console.log(data);
+    this.gameCreationService.createQuestions(this.roomPin, this.questionsObject).subscribe(()=>{
     });
-    // send to socket too
-
   }
+  
   joinGameLate(){
     this.gameStarted = true;
   }
@@ -418,9 +362,13 @@ export class GamePlayComponent implements OnInit {
 
   receiveTeams(){
     this.socketioService.receiveTeams().subscribe((teams:any)=>{
-      console.log(teams);
       this.teams = teams;
-      console.log(this.teams);
+    });
+  }
+
+  receiveClaimHost(){
+    this.socketioService.receiveClaimHost().subscribe((teams:any)=>{
+      this.hostClaimed = true;
     });
   }
 }
