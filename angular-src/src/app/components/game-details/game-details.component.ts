@@ -37,6 +37,8 @@ export class GameDetailsComponent implements OnInit {
   constructor(private socketioService: SocketioService, private router: Router, 
     private actRoute: ActivatedRoute, private gameCreationService: GameCreationService) { }
 
+    numberOfRounds: any;
+    numberOfQuestions: any;
   ngOnInit(): void {
     this.receiveBuzzerPressed();
     this.receiveNextQuestion();
@@ -53,6 +55,8 @@ export class GameDetailsComponent implements OnInit {
         this.currentRound = 1;
         this.firstQuestionBool = true;
         this.firstRoundBool = true;
+        this.numberOfRounds = Object.keys(this.questionObject).length;
+        this.numberOfQuestions =  Object.keys(this.questionObject[this.currentRound]).length
       }
     }, 500);
 
@@ -91,10 +95,11 @@ export class GameDetailsComponent implements OnInit {
   }
  
   buzzerPressed(){
-    let element = <HTMLInputElement> document.getElementById('buzzer');
-    element.disabled = true;
-    this.buzzerPress = true;
-    console.log('BP', this.buzzerPress);
+    // this.buzzerPress = true;
+    // let element = <HTMLInputElement> document.getElementById('buzzer');
+    // element.disabled = true;
+    
+    // console.log('BP', this.buzzerPress);
     this.socketioService.buzzerPressed(this.roomPin, this.currentPlayer.displayName, this.playerColour);
   }
 
@@ -115,60 +120,37 @@ export class GameDetailsComponent implements OnInit {
   nextRoundBool = false;
   startRound(){
     this.socketioService.startRound(this.roomPin, this.currentRound);
-    if (this.currentRound+1 <= Object.keys(this.questionObject).length) {
-      this.lastRoundBool = false;
-    } else {
-      this.lastRoundBool = true;
-    }
-    this.currentQuestion = 1;
-    if (this.currentQuestion+1 <= Object.keys(this.questionObject[this.currentRound]).length) {
-      this.lastQuestionBool = false;
-    } else {
-      this.lastQuestionBool = true;
-    }
-  }
 
-  
+  }
+  showAllAnswersBool = false;
+  lastQuestionBool = false;
+  showAnswersBool = false;
   endOfGame = false;
+
   endGamePlay(){
     this.socketioService.endGamePlay(this.roomPin)
   }
-  nextRound(){
-    console.log(Object.keys(this.questionObject).length);
-    this.socketioService.nextRound(this.roomPin);
 
-    // need to add logic from start round? so that the rest start also?
+  nextRound(){
+    this.socketioService.nextRound(this.roomPin);
   }
-  lastQuestionBool = false;
-  showAnswersBool = false;
+
   showAnswers(){
     this.socketioService.showAnswers(this.roomPin, 'one');
   }
-  showAllAnswersBool = false;
+  
   showAllAnswers(){
     this.socketioService.showAnswers(this.roomPin, 'all');
   }
 
   previousQuestion(){
-    console.log(Object.keys(this.questionObject[this.currentRound]).length, Object.keys(this.questionObject[this.currentRound]));
-    this.currentQuestion -=1;
+   this.currentQuestion -=1;
     this.socketioService.nextQuestion(this.roomPin, this.currentQuestion);
-    if (this.currentQuestion > 1) {
-      this.firstQuestionBool = false;
-    } else {
-      this.firstQuestionBool = true;
-    }
   }
 
   nextQuestion(){
-    console.log(Object.keys(this.questionObject[this.currentRound]).length, Object.keys(this.questionObject[this.currentRound]));
     this.currentQuestion +=1;
     this.socketioService.nextQuestion(this.roomPin, this.currentQuestion);
-    if (this.currentQuestion+1 <= Object.keys(this.questionObject[this.currentRound]).length) {
-      this.lastQuestionBool = false;
-    } else {
-      this.lastQuestionBool = true;
-    }
   }
 
   receiveNextQuestion(){
@@ -188,9 +170,17 @@ export class GameDetailsComponent implements OnInit {
         this.firstQuestionBool = true;
       }
 
+      
+      let element = <HTMLInputElement> document.getElementById('buzzer');
+      if (!(this.showAllAnswersBool || this.showAnswersBool)){
+        element.disabled = false;
+        this.buzzerPress = false;
+      }
+
     });
   }
 
+  showBuzzer:any;
   receiveStartRound(){
     this.socketioService.receiveStartRound().subscribe( (data:any) => {
       console.log(data);
@@ -202,13 +192,18 @@ export class GameDetailsComponent implements OnInit {
       } else {
         this.lastRoundBool = true;
       }
-
       this.currentQuestion = 1;
       this.firstQuestionBool = true;
+
       if (this.currentQuestion+1 <= Object.keys(this.questionObject[this.currentRound]).length) {
         this.lastQuestionBool = false;
       } else {
         this.lastQuestionBool = true;
+      }
+      if (this.showAllAnswersBool || this.showAnswersBool) {
+        this.showBuzzer = false
+      } else {
+        this.showBuzzer = true;
       }
     });
   }
@@ -220,6 +215,9 @@ export class GameDetailsComponent implements OnInit {
       this.currentQuestion = 0;
       this.currentRound +=1;
       this.showAnswersBool = false;
+      this.numberOfQuestions =  Object.keys(this.questionObject[this.currentRound]).length
+      this.showBuzzer = false;
+      this.buzzerPress = false;
     });
   }
 
@@ -240,6 +238,7 @@ export class GameDetailsComponent implements OnInit {
         this.currentRound = 1;
       }
       this.currentQuestion = 0;
+      this.showBuzzer = false;
     });
   }
 

@@ -10,3 +10,22 @@
     transform: translateY(4px);
     margin-bottom: 10px;
 }
+
+.roundHeaderFooter{
+    padding-top: 6px;
+    padding-bottom: 6px;
+    margin: 0px;
+}
+
+.roundBody{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.roundButton{
+    padding:5px
+}
+
+.roundTitle{
+    margin: 0px;
+}
