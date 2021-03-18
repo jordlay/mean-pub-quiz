@@ -6,7 +6,7 @@
     
         <div *ngIf="!this.gameAlreadyBegun">
             <div *ngIf="!this.gameStarted">
-                <h1>Game Waiting Room <span *ngIf="this.host"><mat-icon type="button" data-bs-toggle="modal" data-bs-target="#settingsModal" aria-hidden="false" >settings</mat-icon></span></h1>
+                <h1>Game Waiting Room <span *ngIf="this.host"><mat-icon type="button" data-bs-toggle="modal" data-bs-target="#questionSettingsModal" aria-hidden="false" >settings</mat-icon></span></h1>
                 <h2>Meeting Pin: {{this.roomPin}}</h2>
                 <button type="button" class="btn btn-primary" [cdkCopyToClipboard]="this.url">Copy Game Link!</button>
             
@@ -29,7 +29,7 @@
                     <p class="text-success"> <em>All players are ready!</em> </p>
                     <p class="text-success"> <em>Waiting for host to start the game...</em> </p>
                 </div>
-                <div *ngIf="!this.hostSubmitted && !this.host && this.joined">
+                <div *ngIf="!this.hostSubmitted && !this.host && !this.hostClaimed && this.joined">
                     <div class="card border-primary mb-3" style="max-width: 20rem; margin-top: 16px; padding:10px;">
                         <h4>Host Only!</h4>
                         <p>If you are the host, click below to gain your power!</p>

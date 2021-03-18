@@ -68,6 +68,10 @@ export class SocketioService {
   buzzerPressed(roomPin:any, playerName:any, playerColour:any){
     this.socket.emit('buzzerPressed', {gameId: roomPin, playerName: playerName, playerColour:playerColour });
   }
+  claimHost(roomPin:any){
+    this.socket.emit('claimHost', {gameId: roomPin });
+  
+  }
 
   getPreviousJoinedPlayers(){
     this.socket.on('getPreviousJoinedPlayers', (players: any) => {
@@ -96,7 +100,6 @@ export class SocketioService {
   receiveTeams(){
     return new Observable((observer) => {
       this.socket.on('getTeams', (message: any) => {
-        console.log(message);
         observer.next(message);
       });
     });
@@ -145,7 +148,6 @@ export class SocketioService {
   receiveNextRound() {
     return new Observable((observer) => {
       this.socket.on('nextRound', (message: any) => {
-        console.log(message);
         observer.next(message);
       });
     });
@@ -169,7 +171,14 @@ export class SocketioService {
   receiveReset() {
     return new Observable((observer) => {
       this.socket.on('reset', (message: any) => {
-        console.log(message);
+        observer.next(message);
+      });
+    });
+  }
+
+  receiveClaimHost() {
+    return new Observable((observer) => {
+      this.socket.on('claimHost', (message: any) => {
         observer.next(message);
       });
     });
@@ -178,7 +187,6 @@ export class SocketioService {
   receiveBuzzerPressed() {
     return new Observable((observer) => {
       this.socket.on('buzzerPressed', (message: any) => {
-        console.log(message);
         observer.next(message);
       });
     });
@@ -187,7 +195,6 @@ export class SocketioService {
   receiveShowAnswers(){
     return new Observable((observer) => {
       this.socket.on('showAnswers', (message: any) => {
-        console.log(message);
         observer.next(message);
       });
     });
@@ -196,7 +203,6 @@ export class SocketioService {
   receiveEndGamePlay(){
     return new Observable((observer) => {
       this.socket.on('endGamePlay', (message: any) => {
-        console.log(message);
         observer.next(message);
       });
     });
