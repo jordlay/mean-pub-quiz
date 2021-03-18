@@ -48,14 +48,16 @@ export class GameDetailsComponent implements OnInit {
     this.receiveEndGamePlay();
     this.receiveShowAnswers();
     this.receiveReset();
-    this.showBuzzer = true;
+    
     this.gameCreationService.getQuestions(this.roomPin).subscribe( (data:any) => {
       console.log(data.questions);
       this.questionObject = data.questions;
       if (this.questionObject === undefined) {
         this.showQuestions = false;
+        this.showBuzzer = true;
       } else {
         this.showQuestions = true;
+        this.showBuzzer = false;
         if (Object.keys(this.questionObject).length > 0) {
           this.currentRound = 1;
           this.firstQuestionBool = true;
@@ -217,6 +219,7 @@ export class GameDetailsComponent implements OnInit {
       } else {
         this.showBuzzer = true;
       }
+      this.buzzerPress = false;
     });
   }
 
@@ -228,8 +231,7 @@ export class GameDetailsComponent implements OnInit {
       this.currentRound +=1;
       this.showAnswersBool = false;
       this.numberOfQuestions =  Object.keys(this.questionObject[this.currentRound]).length
-      this.showBuzzer = false;
-      this.buzzerPress = false;
+
     });
   }
 

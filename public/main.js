@@ -39,8 +39,8 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 const environment = {
     production: false,
-    // SOCKET_ENDPOINT: 'http://localhost:8080'
-    SOCKET_ENDPOINT: 'https://mean-pub-quiz.herokuapp.com/'
+    SOCKET_ENDPOINT: 'http://localhost:8080'
+    // SOCKET_ENDPOINT: 'https://mean-pub-quiz.herokuapp.com/'
 };
 /*
  * For easier debugging in development mode, you can import the following file
@@ -2873,15 +2873,16 @@ class GameDetailsComponent {
         this.receiveEndGamePlay();
         this.receiveShowAnswers();
         this.receiveReset();
-        this.showBuzzer = true;
         this.gameCreationService.getQuestions(this.roomPin).subscribe((data) => {
             console.log(data.questions);
             this.questionObject = data.questions;
             if (this.questionObject === undefined) {
                 this.showQuestions = false;
+                this.showBuzzer = true;
             }
             else {
                 this.showQuestions = true;
+                this.showBuzzer = false;
                 if (Object.keys(this.questionObject).length > 0) {
                     this.currentRound = 1;
                     this.firstQuestionBool = true;
@@ -3018,6 +3019,7 @@ class GameDetailsComponent {
             else {
                 this.showBuzzer = true;
             }
+            this.buzzerPress = false;
         });
     }
     receiveNextRound() {
@@ -3028,8 +3030,6 @@ class GameDetailsComponent {
             this.currentRound += 1;
             this.showAnswersBool = false;
             this.numberOfQuestions = Object.keys(this.questionObject[this.currentRound]).length;
-            this.showBuzzer = false;
-            this.buzzerPress = false;
         });
     }
     receiveEndGamePlay() {
