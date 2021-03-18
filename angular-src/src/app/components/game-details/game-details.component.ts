@@ -9,79 +9,258 @@ import { Router,  ActivatedRoute, ParamMap } from '@angular/router';
   styleUrls: ['./game-details.component.css']
 })
 export class GameDetailsComponent implements OnInit {
-  // @Input('childToMaster')
-  @Input() readyPlayers: any;
+  @Input() roomPin:any;
+  @Input() playerObject: any;
   @Input() hostDetails: any;
-  // get participantArray(): any { return this._participantArray; }
-  // set participantArray(participantArray: any) {
-  //   this._participantArray = (participantArray  || '<no participantArray set>');
-  // }
-  // private _participantArray = '';
+  @Input() currentPlayer: any;
+  @Input() teams: any;
 
   api: any;
   toastMessage: any;
-  // socket!: Socket;
-  roomPin: any;
+  // roomPin: any;
   url: any;
   game: any;
   participantArray: any;
   host: any;
+  teamNumber: any;
+  playerColour: any;
+  // teams: any;
+  buzzerPress = false;
+  buzzerDetails: any;
+  gameSettingsOpened: any;
+  currentRound: any;
+  currentQuestion = 0;
+  firstQuestionBool: any;
+  firstRoundBool: any;
   objectKeys = Object.keys;
+  questionObject: any;
   constructor(private socketioService: SocketioService, private router: Router, 
     private actRoute: ActivatedRoute, private gameCreationService: GameCreationService) { }
 
-  
-  
+    numberOfRounds: any;
+    numberOfQuestions: any;
+    showQuestions: any;
   ngOnInit(): void {
-    console.log('in GD');
-    // this.receiveJoinedPlayers();
-    console.log('PD', this.readyPlayers);
-    console.log('HD', this.hostDetails);
-    this.receiveBeginGame();
+    this.receiveBuzzerPressed();
+    this.receiveNextQuestion();
+    this.receiveStartRound();
+    this.receiveNextRound();
+    this.receiveEndGamePlay();
+    this.receiveShowAnswers();
+    this.receiveReset();
+    this.showBuzzer = true;
+    this.gameCreationService.getQuestions(this.roomPin).subscribe( (data:any) => {
+      console.log(data.questions);
+      this.questionObject = data.questions;
+      if (this.questionObject === undefined) {
+        this.showQuestions = false;
+      } else {
+        this.showQuestions = true;
+        if (Object.keys(this.questionObject).length > 0) {
+          this.currentRound = 1;
+          this.firstQuestionBool = true;
+          this.firstRoundBool = true;
+          this.numberOfRounds = Object.keys(this.questionObject).length;
+          this.numberOfQuestions =  Object.keys(this.questionObject[this.currentRound]).length
+        }
+      }
+    });
+    // setTimeout( () => {
+    //   if (Object.keys(this.questionObject).length > 0) {
+    //     this.currentRound = 1;
+    //     this.firstQuestionBool = true;
+    //     this.firstRoundBool = true;
+    //     this.numberOfRounds = Object.keys(this.questionObject).length;
+    //     this.numberOfQuestions =  Object.keys(this.questionObject[this.currentRound]).length
+    //   }
+    // }, 500);
+
   }
 
   ngAfterViewInit(){
+    this.teamNumber = this.hostDetails.teamNumber;
+    setTimeout( () => {
+      for (let colour of this.objectKeys(this.teams)){
+        document.getElementById(colour)!.style.color = colour;
+        for (let player of this.objectKeys(this.teams[colour])){
+          if (this.currentPlayer.id === this.teams[colour][player].id) {
+            this.playerColour = colour;
+          }
+        }
+      }
+      if (!this.hostDetails.include) {
+        this.playerColour = "darkgoldenrod";
+      }
+    }, 100)
 
-    
-    console.log(this.hostDetails);
-     
-    
-    // this.socketioService.receiveHostDetails().subscribe((details:any)=> {
-    //   console.log(details);
-    //   // this.host = details;
-    // });
-    // console.log(this.host);
-    // console.log(this.participantArray);
-    // this.receiveJoinedPlayers();
   }
 
-  receiveBeginGame(){
-    this.socketioService.receiveBeginGame().subscribe((message: any) => {
-      console.log(message)
-        // this.readyPlayers = message;
+  receiveBuzzerPressed(){
+    this.socketioService.receiveBuzzerPressed().subscribe((player:any)=>{
+      let element = <HTMLInputElement> document.getElementById('buzzer');
+      element.disabled = true;
+      this.buzzerDetails = player;
+      this.buzzerPress = true;
+      setTimeout( () => {
+        document.getElementById('buzzerDetails')!.style.color = this.buzzerDetails.colour;
+      }, 10);
+    });
+  }
+ 
+  buzzerPressed(){
+    this.socketioService.buzzerPressed(this.roomPin, this.currentPlayer.displayName, this.playerColour);
+  }
+
+  reset(){
+    // FOR NO QUESTIONS
+    this.socketioService.reset(this.roomPin);
+  }
+  saveSettings(){
+
+    let buzzerElement = <HTMLInputElement> document.getElementById('buzzerToggle');
+    let timerElement = <HTMLInputElement> document.getElementById('timerToggle');
+    let hostElement = <HTMLInputElement> document.getElementById('hostToggle');
+    let timerLengthElement = <HTMLInputElement> document.getElementById('timerLength');
+
+    if (hostElement.checked === true){
+      this.currentPlayer.host = true;
+      this.socketioService.setNewHostDetails(this.roomPin, this.currentPlayer);
+    }
+    this.socketioService.setGameSettings(this.roomPin, buzzerElement.checked, timerElement.checked,timerLengthElement.value);
+  }
+  lastRoundBool = false;
+  nextRoundBool = false;
+  startRound(){
+    this.socketioService.startRound(this.roomPin, this.currentRound);
+
+  }
+  showAllAnswersBool = false;
+  lastQuestionBool = false;
+  showAnswersBool = false;
+  endOfGame = false;
+
+  endGamePlay(){
+    this.socketioService.endGamePlay(this.roomPin)
+  }
+
+  nextRound(){
+    this.socketioService.nextRound(this.roomPin);
+  }
+
+  showAnswers(){
+    this.socketioService.showAnswers(this.roomPin, 'one');
+  }
+  
+  showAllAnswers(){
+    this.socketioService.showAnswers(this.roomPin, 'all');
+  }
+
+  previousQuestion(){
+   this.currentQuestion -=1;
+    this.socketioService.nextQuestion(this.roomPin, this.currentQuestion);
+  }
+
+  nextQuestion(){
+    this.currentQuestion +=1;
+    this.socketioService.nextQuestion(this.roomPin, this.currentQuestion);
+  }
+
+  receiveNextQuestion(){
+    this.socketioService.receiveNextQuestion().subscribe( (data:any) => {
+      console.log('QLEN RNQ', Object.keys(this.questionObject[this.currentRound]).length);
+      console.log(Object.keys(this.questionObject[this.currentRound]).length, Object.keys(this.questionObject[this.currentRound]));
+      this.currentQuestion = data;
+      if (this.currentQuestion+1 <= Object.keys(this.questionObject[this.currentRound]).length) {
+        this.lastQuestionBool = false;
+      } else {
+        this.lastQuestionBool = true;
+      }
+
+      if (this.currentQuestion > 1) {
+        this.firstQuestionBool = false;
+      } else {
+        this.firstQuestionBool = true;
+      }
+
+      
+      let element = <HTMLInputElement> document.getElementById('buzzer');
+      if (!(this.showAllAnswersBool || this.showAnswersBool)){
+        element.disabled = false;
+        this.buzzerPress = false;
+      }
+
     });
   }
 
-  // receiveJoinedPlayers() {
-  //   this.socketioService.receiveJoinedPlayers().subscribe((message) => {
-  //     // this.snackbar.open(message, '', {
-  //     //   duration: 3000,
-  //     // });
-  //     this.toastMessage = message
-  //     console.log(message);
-  //   });
-  // }
+  showBuzzer:any;
+  receiveStartRound(){
+    this.socketioService.receiveStartRound().subscribe( (data:any) => {
+      console.log(data);
+      console.log('RLEN RSR', Object.keys(this.questionObject).length);
+      this.currentRound = data;
 
-  // receiveParticipants() {
-  // //  this.participantArray =  this.gameCreationService.getParticipants();
-  //  this.participantArray = this.gameCreationService.getParticipants().subscribe((array: any) => {
-  //     // this.participantArray = array;
-  //     console.log(array);
-  //   });
-    
-  //   console.log(this.participantArray);
-  // }
+      if (this.currentRound+1 <= Object.keys(this.questionObject).length) {
+        this.lastRoundBool = false;
+      } else {
+        this.lastRoundBool = true;
+      }
+      this.currentQuestion = 1;
+      this.firstQuestionBool = true;
 
+      if (this.currentQuestion+1 <= Object.keys(this.questionObject[this.currentRound]).length) {
+        this.lastQuestionBool = false;
+      } else {
+        this.lastQuestionBool = true;
+      }
+      if (this.showAllAnswersBool || this.showAnswersBool) {
+        this.showBuzzer = false
+      } else {
+        this.showBuzzer = true;
+      }
+    });
+  }
 
+  receiveNextRound(){
+    this.socketioService.receiveNextRound().subscribe( (data:any) => {
+      console.log(data);
+      this.lastQuestionBool = false;
+      this.currentQuestion = 0;
+      this.currentRound +=1;
+      this.showAnswersBool = false;
+      this.numberOfQuestions =  Object.keys(this.questionObject[this.currentRound]).length
+      this.showBuzzer = false;
+      this.buzzerPress = false;
+    });
+  }
 
+  receiveEndGamePlay(){
+    this.socketioService.receiveEndGamePlay().subscribe( (data:any) => {
+      console.log(data);
+      this.endOfGame = true;
+    });
+  }
+
+  receiveShowAnswers(){
+    this.socketioService.receiveShowAnswers().subscribe( (data:any) => {
+      console.log(data);
+      if (data === 'one') {
+        this.showAnswersBool = true;
+      } else if (data === 'all') {
+        this.showAllAnswersBool = true;
+        this.currentRound = 1;
+      }
+      this.currentQuestion = 0;
+      this.showBuzzer = false;
+    });
+  }
+  receiveReset(){
+    this.socketioService.receiveReset().subscribe( (data:any) => {
+      console.log(data);
+      // this.endOfGame = true;
+      let element = <HTMLInputElement> document.getElementById('buzzer');
+        element.disabled = false;
+        this.buzzerPress = false;
+      //buzzer stuff
+    });
+  }
 }

@@ -3,6 +3,31 @@
 /* @import "../node_modules/bootstrap/dist/css/bootstrap.min.css"; */
 /* @import "../node_modules/bootswatch/dist/journal/bootstrap.min.css"; */
 @import "~bootswatch/dist/sketchy/bootstrap.css";
+/* .modal.fade .modal-dialog {
+    transition: transform 0.3s ease-out;
+    transform: translate(0, -50px);
+  }
+
+  .fade{
+    transition: transform 0.3s ease-out;
+    transform: translate(0, -50px);
+  }
+
+  .modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1040;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000;
+  }
+  .modal-backdrop.fade {
+    opacity: 0;
+  }
+  .modal-backdrop.show {
+    opacity: 0.5;
+  } */
 /* @import "~bootstrap/dist/css/bootstrap.css";
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */

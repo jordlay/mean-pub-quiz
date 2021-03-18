@@ -32,12 +32,41 @@ export class SocketioService {
     this.socket.emit('startGame', {gameId: roomPin, playerData: playerData, hostDetails: hostDetails });
   }
 
+  startRound(roomPin:any, round:any){
+    this.socket.emit('startRound', {gameId: roomPin, round:round});
+  }
+  nextRound(roomPin:any){
+    this.socket.emit('nextRound', {gameId: roomPin});
+  }
+  nextQuestion(roomPin: any, questionNumber: any) {
+    this.socket.emit('nextQuestion', {gameId: roomPin, questionNumber: questionNumber});
+  }
+  showAnswers(roomPin:any, which:any){
+    this.socket.emit('showAnswers', {gameId: roomPin, which: which});
+  }
+  endGamePlay(roomPin:any){
+    this.socket.emit('endGamePlay', {gameId: roomPin});
+  }
   playerLeft(roomPin: any, playerData: any){
     this.socket.emit('playerLeft', {gameId: roomPin, playerData: playerData });
   }
-
+  reset(roomPin:any){
+    this.socket.emit('reset', {gameId: roomPin});
+  }
   endGame(roomPin: any){
     this.socket.emit('endGame', {gameId : roomPin});
+  }
+
+  setNewHostDetails(roomPin:any, hostDetails:any){
+    this.socket.emit('setNewHostDetails', {gameId : roomPin, hostDetails: hostDetails});
+  }
+
+  setGameSettings(roomPin:any, buzzer:any, timer:any, timerLength:any){
+    // emits boolean,boolean, number
+    this.socket.emit('setGameSettings', {gameId : roomPin, buzzer: buzzer, timer:timer, timerLength:timerLength})
+  }
+  buzzerPressed(roomPin:any, playerName:any, playerColour:any){
+    this.socket.emit('buzzerPressed', {gameId: roomPin, playerName: playerName, playerColour:playerColour });
   }
 
   getPreviousJoinedPlayers(){
@@ -59,6 +88,15 @@ export class SocketioService {
   receiveHostDetails(){
     return new Observable((observer) => {
       this.socket.on('getHostDetails', (message: any) => {
+        observer.next(message);
+      });
+    });
+  }
+
+  receiveTeams(){
+    return new Observable((observer) => {
+      this.socket.on('getTeams', (message: any) => {
+        console.log(message);
         observer.next(message);
       });
     });
@@ -88,6 +126,30 @@ export class SocketioService {
     });
   }
 
+  receiveNextQuestion() {
+    return new Observable((observer) => {
+      this.socket.on('nextQuestion', (message: any) => {
+        observer.next(message);
+      });
+    });
+  }
+
+  receiveStartRound() {
+    return new Observable((observer) => {
+      this.socket.on('startRound', (message: any) => {
+        observer.next(message);
+      });
+    });
+  }
+
+  receiveNextRound() {
+    return new Observable((observer) => {
+      this.socket.on('nextRound', (message: any) => {
+        console.log(message);
+        observer.next(message);
+      });
+    });
+  }
   receiveGameBegun() {
     return new Observable((observer) => {
       this.socket.on('checkGameBegan', (message: any) => {
@@ -104,4 +166,40 @@ export class SocketioService {
     });
   }
 
+  receiveReset() {
+    return new Observable((observer) => {
+      this.socket.on('reset', (message: any) => {
+        console.log(message);
+        observer.next(message);
+      });
+    });
+  }
+
+  receiveBuzzerPressed() {
+    return new Observable((observer) => {
+      this.socket.on('buzzerPressed', (message: any) => {
+        console.log(message);
+        observer.next(message);
+      });
+    });
+  }
+
+  receiveShowAnswers(){
+    return new Observable((observer) => {
+      this.socket.on('showAnswers', (message: any) => {
+        console.log(message);
+        observer.next(message);
+      });
+    });
+  }
+
+  receiveEndGamePlay(){
+    return new Observable((observer) => {
+      this.socket.on('endGamePlay', (message: any) => {
+        console.log(message);
+        observer.next(message);
+      });
+    });
+  }
+  
 }

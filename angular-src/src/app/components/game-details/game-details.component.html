@@ -1,8 +1,147 @@
-<p>game-details works!</p>
-<div *ngFor="let key of objectKeys(this.readyPlayers)">
-    <div>{{this.readyPlayers[key].displayName}}</div>
-    <div>{{this.readyPlayers[key].id}}</div> 
+<div class="row">
+    <h1>Game Play <mat-icon type="button" data-bs-toggle="modal" data-bs-target="#settingsModal" aria-hidden="false" >settings</mat-icon></h1>
+    <h2>Meeting Pin: {{this.roomPin}}</h2>
+    
+    <div style="color: darkgoldenrod;">Host: {{this.hostDetails.displayName}}</div>
+    <div *ngIf="this.teams">
+        <div *ngFor="let colours of objectKeys(this.teams)">
+            <p id="{{colours}}" class="col" style="padding-left: 0px; margin-bottom: 0px">{{colours}} Team: 
+                <span *ngFor="let players of objectKeys(this.teams[colours])">{{this.teams[colours][players].displayName}} </span>
+            </p>
+            
+        </div>
+    </div> 
+    <div *ngIf="this.showQuestions">
+    <div class="card border-primary mb-3" style="width:90%; margin:10px; padding:0px;">
+    <div *ngIf="!this.endOfGame">
+      <div *ngIf="this.currentQuestion === 0 && !this.showAnswersBool">
+        <div class="card-header roundHeaderFooter">
+          <h5 class="roundTitle">Round {{this.currentRound}}</h5> 
+        </div>
+        <div class="card-body roundBody">
+          There are {{this.numberOfQuestions}} questions in this round
+        </div>
+        <div class="card-footer roundHeaderFooter">
+          <button type="button"class="btn btn-secondary" (click)="startRound()">Start Round</button>
+        </div>
+        
+      </div>
+      <div *ngIf="this.currentQuestion > 0 && !this.showAllAnswersBool && !this.showAnswersBool">
+        <div class="card-header roundHeaderFooter">
+          <h5 class="roundTitle">Round {{this.currentRound}}</h5> 
+        </div>
+        <div class="card-body roundBody">
+          <h4>Question {{this.currentQuestion}}</h4>
+          <div> {{this.questionObject[this.currentRound][this.currentQuestion].question}}</div>
+          <div>{{this.questionObject[this.currentRound][this.currentQuestion].points}} points</div>
+        </div>
+        <div class="card-footer roundHeaderFooter">
+          <div class="row">
+            <div class="col roundButton" *ngIf="!this.firstQuestionBool"><button type="button" class="btn btn-secondary" (click)="previousQuestion()">Previous Question</button></div>
+            <div class="col roundButton" *ngIf="!this.lastQuestionBool"><button type="button" class="btn btn-secondary" (click)="nextQuestion()">Next Question</button></div>  
+            <div class="col roundButton" *ngIf="this.lastQuestionBool && !this.lastRoundBool"><button type="button" class="btn btn-secondary" (click)="nextRound()">Next Round</button></div>
+            <div class="col roundButton" *ngIf="this.lastQuestionBool && this.lastRoundBool"><button type="button" class="btn btn-secondary" (click)="endGamePlay()">End Game</button></div>
+          </div>
+          <div class="row">
+            <div class="col roundButton" *ngIf="this.lastQuestionBool" ><button type="button" class="btn btn-secondary" (click)="showAnswers()">Round {{this.currentRound}} Answers</button></div>
+            <div class="col roundButton" *ngIf="this.lastQuestionBool && this.lastRoundBool && !this.showAllAnswersBool"><button type="button"class="btn btn-secondary" (click)="showAllAnswers()">Show All Answers</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="showAnswersBool && !showAllAnswersBool && this.currentQuestion === 0">
+        <div class="card-header roundHeaderFooter">
+          <h5 class="roundTitle">Round {{this.currentRound}} Answers</h5> 
+        </div>
+        <div class="card-body roundBody">
+          There are {{this.numberOfQuestions}} answers in this round  
+        </div>
+        <div class="card-footer roundHeaderFooter">
+          <button type="button" class="btn btn-secondary" (click)="startRound()">Show Answers</button>
+        </div>
+      </div>
+
+      <div *ngIf="showAllAnswersBool && !showAnswers && this.currentQuestion === 0">
+        <div class="card-header roundHeaderFooter">
+          <h5 class="roundTitle">Round {{this.currentRound}} Answers</h5>
+        </div>
+        <div class="card-body roundBody">
+          There are {{this.numberOfQuestions}} questions in this round
+        </div>
+        <div class="card-footer roundHeaderFooter">
+          <button type="button" class="btn btn-secondary roundButton" (click)="startRound()">Show All Answers</button>
+        </div>
+      </div>
+      
+      <div *ngIf="(showAnswersBool || showAllAnswersBool) && this.currentQuestion > 0">
+        <div class="card-header roundHeaderFooter">
+          <h5 class="roundTitle">Round {{this.currentRound}} Answers</h5> 
+        </div>
+        <div class="card-body roundBody">
+          <h4>Answer {{this.currentQuestion}}</h4>  
+          <div>{{this.questionObject[this.currentRound][this.currentQuestion].question}}</div>
+          <div>{{this.questionObject[this.currentRound][this.currentQuestion].answer}}</div>
+          <div>{{this.questionObject[this.currentRound][this.currentQuestion].points}} points   </div>
+        </div>
+        <div class="card-footer roundHeaderFooter">
+          <div class="col roundButton" *ngIf="!this.firstQuestionBool"><button type="button" class="btn btn-secondary" (click)="previousQuestion()">Previous Answer</button></div>
+          <div class="col roundButton" *ngIf="!this.lastQuestionBool"><button type="button" class="btn btn-secondary" (click)="nextQuestion()">Next Answer</button></div>
+          <div class="col roundButton" *ngIf="this.lastQuestionBool && !this.lastRoundBool" ><button type="button" class="btn btn-secondary" (click)="nextRound()">Next Round</button></div>
+          <div class="col roundButton" *ngIf="this.lastQuestionBool && this.lastRoundBool"><button type="button" class="btn btn-secondary" (click)="endGamePlay()">End Game</button></div>
+        </div> 
+      </div>
+    </div>
+    <div *ngIf="this.endOfGame"><h1>End Of Game!</h1></div>
+  </div>
 </div>
-<div>{{this.hostDetails.displayName}}</div>
-<div>{{this.hostDetails.socketID}}</div>
-<div>{{this.hostDetails.teamNumber}}</div>
+<div *ngIf="!this.showQuestions">
+  <button class="btn btn-warning" (click)="reset()">Reset</button>
+</div>
+</div>
+<div *ngIf="this.showBuzzer">
+  <button type="button" id="buzzer" class="btn btn-warning buzzer" (click)="buzzerPressed()" [ngClass]="this.buzzerPress ? 'buzzerClicked':'buzzer' ">Team Buzzer</button>
+  <div id="buzzerDetails" *ngIf="this.buzzerPress">{{this.buzzerDetails.displayName}} pressed the buzzer for the {{this.buzzerDetails.colour}} team!</div>  
+</div>
+
+<div class="modal fade modal-dialog modal-dialog-centered modal-dialog-scrollable" data-bs-backdrop="static" id="settingsModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Game Settings</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="hostToggle" checked>
+                    <label class="custom-control-label" for="hostToggle">Claim Host (coming soon!)</label>
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="buzzerToggle" >
+                    <label class="custom-control-label" for="buzzerToggle">Include Buzzer (coming soon!)</label>
+                </div>
+            </div>
+            <div class="mb-3">
+                <div class="custom-control custom-switch">
+                    <input type="checkbox" class="custom-control-input" id="timerToggle">
+                    <label class="custom-control-label" for="timerToggle">Include Timer (coming soon!)</label>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="timerLength" class="form-label">Timer Length (Mins) (coming soon!)</label>
+                <input type="range" data-value="0.5"  class="form-range" min="0" max="5" step="0.5" value="timerLength" id="timerLength">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" (click)="saveSettings()">Save Settings</button>
+        </div>
+      </div>
+    </div>
+  </div>
+

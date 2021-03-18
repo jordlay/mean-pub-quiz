@@ -11,6 +11,7 @@ const GameSchema = mongoose.Schema( {
         type: String,
         required: true},
     password: {type: String},
+    questions: {type: Object}
     });
     
     const Game = module.exports = mongoose.model('Game', GameSchema);
@@ -27,4 +28,11 @@ const GameSchema = mongoose.Schema( {
     module.exports.deleteGame = function(roomPin,callback){
         const query = {roomPin : roomPin};
         Game.deleteOne(query, callback);
+    }
+
+    module.exports.createQuestions = function(game,callback){
+        console.log('G', game);
+        const query = {roomPin : game.roomPin};
+        const newQuestions = { $set: {questions: game.questions}}
+        Game.updateOne(query, newQuestions, callback);
     }

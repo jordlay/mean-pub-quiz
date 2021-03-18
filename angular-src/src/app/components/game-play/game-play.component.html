@@ -3,11 +3,11 @@
         <div class="jitsiMeet" #meet></div>
     </div>
     <div  class="col">
-        <h1>Game Waiting Room</h1>
-        <h2>Meeting Pin: {{this.roomPin}}</h2>
+    
         <div *ngIf="!this.gameAlreadyBegun">
             <div *ngIf="!this.gameStarted">
-           
+                <h1>Game Waiting Room <span *ngIf="this.host"><mat-icon type="button" data-bs-toggle="modal" data-bs-target="#settingsModal" aria-hidden="false" >settings</mat-icon></span></h1>
+                <h2>Meeting Pin: {{this.roomPin}}</h2>
                 <button type="button" class="btn btn-primary" [cdkCopyToClipboard]="this.url">Copy Game Link!</button>
             
                 <div *ngIf="this.participantArray" > 
@@ -33,51 +33,148 @@
                     <div class="card border-primary mb-3" style="max-width: 20rem; margin-top: 16px; padding:10px;">
                         <h4>Host Only!</h4>
                         <p>If you are the host, click below to gain your power!</p>
-                        <button type="button" class="btn btn-outline-secondary" (click)="setHost()">Confirm Host</button>
+                        <button type="button" class="btn btn-outline-secondary"  data-bs-toggle="modal" data-bs-target="#questionSettingsModal" (click)="setHost()">Confirm Host</button>
                     </div>
                 </div>
-                <div *ngIf="!this.hostSubmitted && this.host ">
-                    <div  class="card border-primary mb-3" style="max-width: 20rem; margin-top: 10px;">
-                        <div class="card-header">Game Settings</div>
-                        <div class="card-body">
-                            <div *ngIf="errorMessage.length > 0" class="alert alert-dismissible fade show alert-danger">
-                                <button type="button" class="close" data-dismiss="alert">&times;</button>
-                                <strong>{{errorMessage}}</strong>
-                              </div>
-                            <p class="card-text">Choose your game settings then begin the game</p>
-                            <form>
-                                <div class="form-check" style="padding-left: 0rem;">
-                                    <input class="form-check-input" type="checkbox" value ="" id="hostCheckbox">
-                                    <label class="form-check-label" style="padding-left: 30px;" for="hostCheckbox">
-                                    Include Host in Teams
-                                    </label>
-                                    <label for="teamNumber" style="margin-top:10px">How many teams would you like? (max 10)</label>
-                                    <input type="text" [(ngModel)]="teamNumber" name="teamNumber" class="form-control" class="form-control" id="teamNumber" aria-describedby="emailHelp" placeholder="Enter number of teams">
-                                </div>
-                            </form>
-                            <button type="button" style="margin-top: 10px;" class="btn btn-outline-success" (click)="setSettings()">Confirm Settings</button>
-                        </div>
-                    </div>
-                </div> 
-
-                <div *ngIf="allPlayersReady && this.hostSubmitted && this.host">
+                <div *ngIf="allPlayersReady && this.hostSubmitted && (this.showQuestions === hostSubmittedQuestions) && this.host">
                     <p class="text-success"> <em>Click below to start the game!</em> </p>
                     <button type="button" class="btn btn-outline-success" (click)="beginGame()">Begin Game</button>
                 </div>
+                
+                <div *ngIf="this.host">
+                    <div class="card border-primary mb-3" style="max-width: 20rem; margin-top: 16px; padding:10px;">
+                        <h4>Host Settings</h4>
+                        <p>You must choose your game settings before you can begin the game!</p>
+                        <div class="card-body">
+                            <button *ngIf="this.showQuestions" type="button" class="btn btn-outline-secondary"  data-bs-toggle="modal" data-bs-target="#questionsModal">Input Questions</button>
+                            <button type="button" class="btn btn-outline-secondary"  data-bs-toggle="modal" data-bs-target="#settingsModal" (click)="openTeamSettings()">Team Settings</button>
+                        </div>
+                    </div>
+                </div>
+         
+                <div class="modal fade modal-dialog " data-bs-backdrop="static" id="questionSettingsModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content" style="max-height: 400px;">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Question Settings</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p class="card-text">If you would like your quiz questions to appear on the screen as you play, enter the number of rounds and questions</p>
+                            <p class="card-text">If not just close this form.</p>
+                        <form class="needs-validation">
+                            <div class="mb-3">
+                                <label for="rounds" style="margin-top:10px">Enter the number of rounds</label>
+                                <input type="text" class="form-control " id="rounds" placeholder="Enter number of rounds">
+                            </div>
+                              
+                            <div *ngIf="this.roundsEntered">
+                                <div class="mb-3">
+                                    <div *ngFor="let in of this.rounds; let i = index;">
+                                    <label for="round{{i+1}}questions" style="margin-top:10px">Enter the number of questions for rounds {{i+1}}</label>
+                                    <input type="text" class="form-control " id="round{{i+1}}questions" placeholder="Enter number of questions">
+                                </div>
+                            </div>
+                      
+                            </div>
+                        </form>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="setQuestionSettings" (click)="setQuestionSettings()">Confirm Settings</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="modal fade modal-dialog " data-bs-backdrop="static" id="settingsModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content" style="max-height: 400px;">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Team Settings</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" style="max-height: 400px;">
+                            <p class="card-text">Make sure all your players are in the waiting room as you cannot change the number of teams once the game has begun</p>
+                        
+                        <form class="needs-validation">
+                            <div class="mb-3">
+                                <div class="form-check" style="padding-left: 0rem;">
+                                <input class="form-check-input" type="checkbox" value ="" id="hostCheckbox">
+                                <label class="form-check-label" style="padding-left: 30px;" for="hostCheckbox">Include Host in Teams
+                                </label>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="teamNumber" style="margin-top:10px">How many teams would you like? (max 10)</label>
+                                <input type="text" class="form-control " id="teamNumber" placeholder="Enter number of teams">
+                            </div>
+                        </form>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="setSettings" (click)="setSettings()" disabled>Confirm Settings</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+
+                <div *ngIf="this.openQuestionModal">
+                    <button type="button" class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#questionsModal" >Open Questions</button>
+                </div>
+                <div class="modal modal-dialog fade" data-bs-backdrop="static" id="questionsModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                    <div class="modal-content" style="max-height: 400px;">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Submit Questions</h5>
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#questionsModal" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" style="max-height: 400px;" >
+                        <p class="card-text">Paste or type your question, answer and the points they are worth</p>
+                        
+                        <form >
+                            <div *ngFor="let in of this.roundsArray; let i = index;"> Round {{i+1}}
+                                <div *ngFor="let in of this.roundsArray[i]; let j = index;">
+                                    <label for="q{{i+1}}{{j+1}}" style="margin-top:10px">Question {{j+1}}</label>
+                                    <div class="input-group mb-3">
+                                        
+                                        <input type="text" class="form-control " id="q{{i+1}}{{j+1}}" placeholder="Paste or type your question">
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text">Answer</span>
+                                        <input type="text" id="a{{i+1}}{{j+1}}" class="form-control">
+                                        <span class="input-group-text">Points</span>
+                                        <input type="text" id="p{{i+1}}{{j+1}}" class="form-control">
+                                    </div>  
+                                </div> 
+                            </div>
+                        </form>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" id="saveQuestions" (click)="setQuestions()">Save Questions</button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                
             </div>
             <div *ngIf="this.gameStarted === true">
-            <app-game-details [readyPlayers]="this.participantArray" [hostDetails]="this.hostDetails"></app-game-details>
+                <app-game-details [roomPin]="this.roomPin" [playerObject]="this.participantArray" [hostDetails]="this.hostDetails" [currentPlayer]="this.currentPlayer" [teams]="this.teams"></app-game-details>
             </div>
         <!-- </div> -->
         </div>
         <div *ngIf="this.gameAlreadyBegun">
             <div *ngIf="!this.gameStarted">
+                <h1>Game Waiting Room</h1>
+                <h2>Meeting Pin: {{this.roomPin}}</h2>
                 <p class="text-success"> <em>It looks like you're a little late! The game has already started!</em> </p>
                 <p>Click below to join the game!</p>
                 <button type="button" class="btn btn-outline-success" (click)="joinGameLate()">Join</button>
             </div>
             <div *ngIf="this.gameStarted">
-                <app-game-details [readyPlayers]="this.participantArray" [hostDetails]="this.hostDetails"></app-game-details>
+
+                <app-game-details [roomPin]="this.roomPin" [playerObject]="this.participantArray" [hostDetails]="this.hostDetails" [currentPlayer]="this.currentPlayer" [teams]="this.teams"></app-game-details>
             </div>
         </div>
     </div>

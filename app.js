@@ -21,10 +21,12 @@ const io = require('socket.io')(server, {
     });
 
 // global vars for users who connect "late"
+colours = ["Red", "Green", "Blue", "Orange", "Purple", "Pink", "Yellow", "Black", "Grey", "Brown"];
 previousJoinedPlayers =  {};
 gameBegan = {};
 previousHostDetails = {};
-
+teams = {};
+previousQuestionsObject = {}
 io.on("connection", (socket) => {
     console.log(socket.id, "a user connected");
     socket.on('joinGame', ({gameId, playerData}) => {
@@ -39,6 +41,8 @@ io.on("connection", (socket) => {
         socket.emit('checkGameBegan', gameBegan[gameId]);
         if (gameBegan[gameId]) {
             socket.emit('getHostDetails', previousHostDetails[gameId]);
+            console.log(teams[gameId]);
+            socket.emit('getTeams', teams[gameId])
             io.to(gameId).emit('startGame', previousJoinedPlayers[gameId]);
         }
         io.to(gameId).emit('joinGame', playerData);
@@ -51,13 +55,56 @@ io.on("connection", (socket) => {
         io.to(gameId).emit('playerReady',  playerData);
     })
 
+    socket.on('setNewHostDetails', ({gameId, hostDetails}) => {
+        previousHostDetails[gameId] = hostDetails;
+        io.to(gameId).emit('getHostDetails', previousHostDetails[gameId])
+    });
+
+    socket.on('setGameSettings', ({gameId : roomPin, buzzer: buzzer, timer:timer, timerLength:timerLength}) => {
+        //store before emitting to all in case join late?
+        console.log(buzzer,timer,timerLength);
+        io.to(gameId).emit('setGameSettings', {gameId : roomPin, buzzer: buzzer, timer:timer, timerLength:timerLength})
+    });
+
     socket.on('startGame', ({gameId, playerData, hostDetails}) => {
         gameBegan[gameId] = true;
         previousHostDetails[gameId] = hostDetails;
         previousJoinedPlayers[gameId] = playerData
         io.to(gameId).emit('startGame', playerData);
         io.to(gameId).emit('getHostDetails', previousHostDetails[gameId])
-        console.log('Game began' + gameId);
+        teams[gameId] = {}; 
+        numberOfTeams = hostDetails.teamNumber;
+        numberOfPlayers = Object.keys(previousJoinedPlayers[gameId]).length;
+        let playerNames = [];
+        let playerid = [];
+        for (let colour of colours.slice(0, numberOfTeams) ) {
+            teams[gameId][colour] = {};
+        }
+        for (let key of Object.keys(previousJoinedPlayers[gameId])) {
+            playerNames.push(previousJoinedPlayers[gameId][key].displayName);
+            playerid.push(previousJoinedPlayers[gameId][key].id);
+        }                                                                                                     
+        if (!hostDetails.include) {
+            let index = playerNames.indexOf(hostDetails.displayName);
+            playerNames.splice(index,1);
+            playerid.splice(index,1);
+            numberOfPlayers -= 1;
+        }
+        let i = 0;
+        while (i !== numberOfPlayers) {
+            let keys = Object.keys(teams[gameId]);
+            for (let j = 0; j < keys.length; j++) {
+                teams[gameId][keys[j]][playerid[i]] = {}
+                teams[gameId][keys[j]][playerid[i]].displayName = playerNames[i];
+                teams[gameId][keys[j]][playerid[i]].id = playerid[i];
+                i++
+                if (i === numberOfPlayers) {
+                    break;
+                }
+            }
+        }
+        io.to(gameId).emit('getTeams', teams[gameId])
+        console.log('Game began ' + gameId);
     })
 
     socket.on('endGame', ({gameId}) => {
@@ -73,6 +120,39 @@ io.on("connection", (socket) => {
         delete previousJoinedPlayers[gameId][playerData.id];
     });
 
+    socket.on('buzzerPressed', ({gameId, playerName, playerColour }) => {
+        console.log('PN', playerName);
+        console.log(gameId);
+        let buzzerDetail = {};
+        buzzerDetail[gameId] = {};
+        buzzerDetail[gameId].displayName = playerName;
+        buzzerDetail[gameId].colour = playerColour;
+        console.log(buzzerDetail[gameId]);
+        io.to(gameId).emit('buzzerPressed', buzzerDetail[gameId]);
+    });
+
+    socket.on('startRound', ({gameId, round}) => {
+        io.to(gameId).emit('startRound', round);
+    });
+
+    socket.on('nextQuestion', ({gameId, questionNumber}) => {
+        io.to(gameId).emit('nextQuestion', questionNumber);
+    });
+
+    socket.on('nextRound', ({gameId}) => {
+        let nextRound = 'nextRound';
+        io.to(gameId).emit('nextRound', gameId);
+    });
+    socket.on('endGamePlay', ({gameId}) => {
+        io.to(gameId).emit('endGamePlay', gameId);
+    });
+    socket.on('reset', ({gameId}) => {
+        console.log('RESET', gameId);
+        io.to(gameId).emit('reset', gameId);
+    });
+    socket.on('showAnswers', ({gameId, which}) => {
+        io.to(gameId).emit('showAnswers', which);
+    });
 });
 
 const uri = "mongodb+srv://jll541:mean-quiz@clusterquiz.inacn.mongodb.net/quizdb?retryWrites=true&w=majority";

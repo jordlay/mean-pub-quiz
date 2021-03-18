@@ -4,6 +4,7 @@ import { GameCreationService } from '../../services/game-creation.service';
 import { Router,  ActivatedRoute, ParamMap } from '@angular/router';
 import { SocketioService } from '../../services/socketio.service';
 import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
+import { Button } from 'selenium-webdriver';
 
 declare var JitsiMeetExternalAPI: any;
 
@@ -46,7 +47,8 @@ export class GamePlayComponent implements OnInit {
   gameAlreadyBegun: any;
   includeHost = true;
   joined = false;
-
+  teams:any
+  // questionsModalWidth = (window.innerWidth * .8);
   ngOnInit(): void {
     this.url = window.location.href;
     this.roomPin = this.actRoute.snapshot.params.pin;
@@ -69,6 +71,7 @@ export class GamePlayComponent implements OnInit {
     });
     // set observable listeners
     this.receiveHostDetails();
+    this.receiveTeams();
     this.receiveJoinedPlayers();
     this.receiveReadyPlayers();
     this.receiveBeginGame();
@@ -207,36 +210,185 @@ export class GamePlayComponent implements OnInit {
       this.allPlayersReady = this.isAllReady();    
     });
   }
+  rounds:any;
+  includeQuestions:any;
+  roundsEntered:any;
 
+  openTeamSettings(){
+    let team = <HTMLInputElement> document.getElementById('teamNumber')!;
+    this.isChecked = <HTMLInputElement> document.getElementById('hostCheckbox');
+    let noOfPlayers: any;
+
+    this.isChecked.addEventListener('change', (event:any) => {
+      if (this.isChecked.checked) {
+        noOfPlayers = this.objectKeys(this.participantArray).length;
+      } else {
+        noOfPlayers = (this.objectKeys(this.participantArray).length)-1;
+      }
+    });
+    team.addEventListener('change', (event:any) => {
+      this.teamNumber = parseInt(team.value); 
+      console.log(team.value);
+      console.log(this.teamNumber);
+      let button = <HTMLInputElement> document.getElementById('setSettings');
+      if (this.teamNumber > 0 && this.teamNumber <= noOfPlayers && this.teamNumber < 11 && !(this.teamNumber === NaN)) {
+        console.log('valid');
+        button.disabled = false;
+      } else {
+        console.log('invalid');
+        button.disabled = true;
+      }
+    });
+  }
   setHost() {
     this.host = true;
     this.participantArray[this.currentPlayer.id].host = true;
+    this.playerReady();
+
+    // let team = <HTMLInputElement> document.getElementById('teamNumber')!;
+    // this.isChecked = <HTMLInputElement> document.getElementById('hostCheckbox');
+    // let noOfPlayers: any;
+
+    // this.isChecked.addEventListener('change', (event:any) => {
+    //   if (this.isChecked.checked) {
+    //     noOfPlayers = this.objectKeys(this.participantArray).length;
+    //   } else {
+    //     noOfPlayers = (this.objectKeys(this.participantArray).length)-1;
+    //   }
+    // });
+    // team.addEventListener('change', (event:any) => {
+    //   this.teamNumber = parseInt(team.value); 
+    //   console.log(team.value);
+    //   console.log(this.teamNumber);
+    //   let button = <HTMLInputElement> document.getElementById('setSettings');
+    //   if (this.teamNumber > 0 && this.teamNumber <= noOfPlayers && this.teamNumber < 11 && !(this.teamNumber === NaN)) {
+    //     console.log('valid');
+    //     button.disabled = false;
+    //   } else {
+    //     console.log('invalid');
+    //     button.disabled = true;
+    //   }
+    // });
+    // let questions = <HTMLInputElement> document.getElementById('questionCheckbox');
+    // questions.addEventListener('change', (event:any) => {
+    //   if (questions.checked) {
+    //     this.includeQuestions = true;
+    //   } else {
+    //     this.includeQuestions = false;
+    //   }
+    // });
+
+    let rounds = <HTMLInputElement> document.getElementById('rounds');
+    rounds.addEventListener('change', (event:any) => {
+      console.log(rounds.value);
+      this.roundsEntered = true;
+      this.rounds = new Array(parseInt(rounds.value));
+      console.log(this.rounds);
+    });
   }
 
-  setSettings(){
-    if (this.teamNumber > 0 && this.teamNumber < 11) {
-      this.hostSubmitted = true;
-      this.isChecked = document.getElementById('hostCheckbox');
-      if (this.isChecked.checked === true) {
-        this.participantArray[this.currentPlayer.id].include = true;
-        this.includeHost = true;
-      } else {
-        this.participantArray[this.currentPlayer.id].include = false;
-        this.includeHost = false;
-      }
-      this.playerReady();
-      this.hostDetails = this.participantArray[this.currentPlayer.id];
-      this.hostDetails.teamNumber = this.teamNumber;
-    } else {
-      this.hostSubmitted = false;
-      this.errorMessage = "Invalid number of teams!";
-      setTimeout(()=>{                        
-        this.errorMessage = "";
-      }, 3000);
-    }
+  counterArray:any;
+  firstCounterArray:any;
+  firstCounter(i: number) {
+    return new Array(i)
+      
+  }
   
+  counter(i:number){
+    this.counterArray = new Array(i);
+    return this.counterArray
   }
 
+  showQuestions: any;
+
+  setQuestionSettings(){
+    console.log(this.rounds);
+    if (!(this.rounds === undefined) || (this.rounds === Array(1))){
+      if (this.rounds.length > 0) {
+        this.showQuestions = true;
+        this.roundsArray = [];
+        console.log(this.rounds.length, this.roundsArray);
+        for (let i = 0; i < this.rounds.length; i++) {
+          let name = <HTMLInputElement> document.getElementById('round' + (i+1) + 'questions')!;
+          console.log(name.value);
+          let val = new Array(parseInt(name.value));
+          this.roundsArray.push(val);
+          console.log(this.roundsArray);
+        }
+      } else {
+        this.showQuestions = false;
+      }
+    } else {
+      this.showQuestions = false;
+    }
+
+
+    
+  }
+
+  addMoreQuestions: any;
+  openQuestionModal: any;
+  roundsArray: Array<Array<Number>> = [];
+  setSettings(){
+      this.isChecked = <HTMLInputElement> document.getElementById('hostCheckbox');
+    if (this.isChecked.checked === true) {
+      this.participantArray[this.currentPlayer.id].include = true;
+      this.includeHost = true;
+    } else {
+      this.participantArray[this.currentPlayer.id].include = false;
+      this.includeHost = false;
+    }
+    this.hostSubmitted = true;
+    this.hostDetails = this.participantArray[this.currentPlayer.id];
+    this.hostDetails.teamNumber = this.teamNumber;
+  }
+  hostSubmittedQuestions = false;;
+  questionsObject: any;
+  setQuestions(){
+    this.questionsObject = {};
+    for (let i = 0; i < this.rounds.length; i++) {
+      this.questionsObject[i+1] = {};
+      for (let j = 0; j < this.roundsArray[i].length; j++){
+        this.questionsObject[i+1][j+1] = {};  
+        let questionElement = <HTMLInputElement> document.getElementById('q'+ (i+1) + (j+1)  )!;
+        let answerElement = <HTMLInputElement> document.getElementById('a' + (i+1)+ (j+1) )!;
+        let pointsElement = <HTMLInputElement> document.getElementById('p'  + (i+1) +(j+1))!;
+        console.log(questionElement.value, answerElement.value,pointsElement.value);
+        let questionValue;
+        let answerValue;
+        let pointsValue;
+        // to account for inputs left empty
+        if (questionElement === null) {
+          questionValue = "";
+        } else {
+          questionValue = questionElement.value
+        }
+        if (answerElement === null) {
+          answerValue = "";
+        } else {
+          answerValue = answerElement.value
+        }
+        if (pointsElement === null) {
+          pointsValue = "";
+        } else {
+          pointsValue = pointsElement.value
+        }
+        this.questionsObject[i+1][j+1].question = questionValue;
+        this.questionsObject[i+1][j+1].answer = answerValue;
+        this.questionsObject[i+1][j+1].points = pointsValue;
+        console.log(i+1, j+1, questionValue);
+      }
+    }
+    console.log(this.questionsObject);
+    //send to db?
+  
+    this.hostSubmittedQuestions = true;
+    this.gameCreationService.createQuestions(this.roomPin, this.questionsObject).subscribe( (data:any) => {
+      console.log(data);
+    });
+    // send to socket too
+
+  }
   joinGameLate(){
     this.gameStarted = true;
   }
@@ -261,6 +413,14 @@ export class GamePlayComponent implements OnInit {
       if (!this.gameAlreadyBegun){
         this.gameStarted = true;
       }  
+    });
+  }
+
+  receiveTeams(){
+    this.socketioService.receiveTeams().subscribe((teams:any)=>{
+      console.log(teams);
+      this.teams = teams;
+      console.log(this.teams);
     });
   }
 }
