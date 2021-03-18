@@ -213,11 +213,8 @@ export class GamePlayComponent implements OnInit {
   rounds:any;
   includeQuestions:any;
   roundsEntered:any;
-  setHost() {
-    this.host = true;
-    this.participantArray[this.currentPlayer.id].host = true;
-    this.playerReady();
 
+  openTeamSettings(){
     let team = <HTMLInputElement> document.getElementById('teamNumber')!;
     this.isChecked = <HTMLInputElement> document.getElementById('hostCheckbox');
     let noOfPlayers: any;
@@ -242,14 +239,44 @@ export class GamePlayComponent implements OnInit {
         button.disabled = true;
       }
     });
-    let questions = <HTMLInputElement> document.getElementById('questionCheckbox');
-    questions.addEventListener('change', (event:any) => {
-      if (questions.checked) {
-        this.includeQuestions = true;
-      } else {
-        this.includeQuestions = false;
-      }
-    });
+  }
+  setHost() {
+    this.host = true;
+    this.participantArray[this.currentPlayer.id].host = true;
+    this.playerReady();
+
+    // let team = <HTMLInputElement> document.getElementById('teamNumber')!;
+    // this.isChecked = <HTMLInputElement> document.getElementById('hostCheckbox');
+    // let noOfPlayers: any;
+
+    // this.isChecked.addEventListener('change', (event:any) => {
+    //   if (this.isChecked.checked) {
+    //     noOfPlayers = this.objectKeys(this.participantArray).length;
+    //   } else {
+    //     noOfPlayers = (this.objectKeys(this.participantArray).length)-1;
+    //   }
+    // });
+    // team.addEventListener('change', (event:any) => {
+    //   this.teamNumber = parseInt(team.value); 
+    //   console.log(team.value);
+    //   console.log(this.teamNumber);
+    //   let button = <HTMLInputElement> document.getElementById('setSettings');
+    //   if (this.teamNumber > 0 && this.teamNumber <= noOfPlayers && this.teamNumber < 11 && !(this.teamNumber === NaN)) {
+    //     console.log('valid');
+    //     button.disabled = false;
+    //   } else {
+    //     console.log('invalid');
+    //     button.disabled = true;
+    //   }
+    // });
+    // let questions = <HTMLInputElement> document.getElementById('questionCheckbox');
+    // questions.addEventListener('change', (event:any) => {
+    //   if (questions.checked) {
+    //     this.includeQuestions = true;
+    //   } else {
+    //     this.includeQuestions = false;
+    //   }
+    // });
 
     let rounds = <HTMLInputElement> document.getElementById('rounds');
     rounds.addEventListener('change', (event:any) => {
@@ -272,10 +299,38 @@ export class GamePlayComponent implements OnInit {
     return this.counterArray
   }
 
+  showQuestions: any;
+
+  setQuestionSettings(){
+    console.log(this.rounds);
+    if (!(this.rounds === undefined) || (this.rounds === Array(1))){
+      if (this.rounds.length > 0) {
+        this.showQuestions = true;
+        this.roundsArray = [];
+        console.log(this.rounds.length, this.roundsArray);
+        for (let i = 0; i < this.rounds.length; i++) {
+          let name = <HTMLInputElement> document.getElementById('round' + (i+1) + 'questions')!;
+          console.log(name.value);
+          let val = new Array(parseInt(name.value));
+          this.roundsArray.push(val);
+          console.log(this.roundsArray);
+        }
+      } else {
+        this.showQuestions = false;
+      }
+    } else {
+      this.showQuestions = false;
+    }
+
+
+    
+  }
+
   addMoreQuestions: any;
   openQuestionModal: any;
   roundsArray: Array<Array<Number>> = [];
   setSettings(){
+      this.isChecked = <HTMLInputElement> document.getElementById('hostCheckbox');
     if (this.isChecked.checked === true) {
       this.participantArray[this.currentPlayer.id].include = true;
       this.includeHost = true;
@@ -286,25 +341,8 @@ export class GamePlayComponent implements OnInit {
     this.hostSubmitted = true;
     this.hostDetails = this.participantArray[this.currentPlayer.id];
     this.hostDetails.teamNumber = this.teamNumber;
-
-    let questions = <HTMLInputElement> document.getElementById('questionCheckbox');
-    console.log(questions.checked)
-    if (questions.checked) {
-      this.openQuestionModal = true;
-      console.log(this.openQuestionModal);
-    }
-
-    this.roundsArray = [];
-      console.log(this.rounds.length, this.roundsArray);
-    for (let i = 0; i < this.rounds.length; i++) {
-      let name = <HTMLInputElement> document.getElementById('round' + (i+1) + 'questions')!;
-      console.log(name.value);
-      let val = new Array(parseInt(name.value));
-      this.roundsArray.push(val);
-      console.log(this.roundsArray);
-    }
   }
-
+  hostSubmittedQuestions = false;;
   questionsObject: any;
   setQuestions(){
     this.questionsObject = {};
@@ -343,6 +381,8 @@ export class GamePlayComponent implements OnInit {
     }
     console.log(this.questionsObject);
     //send to db?
+  
+    this.hostSubmittedQuestions = true;
     this.gameCreationService.createQuestions(this.roomPin, this.questionsObject).subscribe( (data:any) => {
       console.log(data);
     });

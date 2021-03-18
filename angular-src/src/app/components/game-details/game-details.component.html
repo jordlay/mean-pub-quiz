@@ -11,6 +11,7 @@
             
         </div>
     </div> 
+    <div *ngIf="this.showQuestions">
     <div class="card border-primary mb-3" style="width:90%; margin:10px; padding:0px;">
     <div *ngIf="!this.endOfGame">
       <div *ngIf="this.currentQuestion === 0 && !this.showAnswersBool">
@@ -93,6 +94,10 @@
     <div *ngIf="this.endOfGame"><h1>End Of Game!</h1></div>
   </div>
 </div>
+<div *ngIf="!this.showQuestions">
+  <button class="btn btn-warning" (click)="reset()">Reset</button>
+</div>
+</div>
 <div *ngIf="this.showBuzzer">
   <button type="button" id="buzzer" class="btn btn-warning buzzer" (click)="buzzerPressed()" [ngClass]="this.buzzerPress ? 'buzzerClicked':'buzzer' ">Team Buzzer</button>
   <div id="buzzerDetails" *ngIf="this.buzzerPress">{{this.buzzerDetails.displayName}} pressed the buzzer for the {{this.buzzerDetails.colour}} team!</div>  
@@ -127,11 +132,8 @@
                 </div>
             </div>
             <div class="mb-3">
-                <!-- <label for="timerLength" class="col-form-label">Set New Timer Length (coming soon!)</label>
-                <input type="text" class="form-control" id="timerLength"> -->
                 <label for="timerLength" class="form-label">Timer Length (Mins) (coming soon!)</label>
                 <input type="range" data-value="0.5"  class="form-range" min="0" max="5" step="0.5" value="timerLength" id="timerLength">
-                <!-- <p>{{timerLength.value}}</p> -->
             </div>
           </form>
         </div>

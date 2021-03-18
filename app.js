@@ -146,6 +146,10 @@ io.on("connection", (socket) => {
     socket.on('endGamePlay', ({gameId}) => {
         io.to(gameId).emit('endGamePlay', gameId);
     });
+    socket.on('reset', ({gameId}) => {
+        console.log('RESET', gameId);
+        io.to(gameId).emit('reset', gameId);
+    });
     socket.on('showAnswers', ({gameId, which}) => {
         io.to(gameId).emit('showAnswers', which);
     });

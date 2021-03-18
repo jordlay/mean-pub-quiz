@@ -39,6 +39,7 @@ export class GameDetailsComponent implements OnInit {
 
     numberOfRounds: any;
     numberOfQuestions: any;
+    showQuestions: any;
   ngOnInit(): void {
     this.receiveBuzzerPressed();
     this.receiveNextQuestion();
@@ -46,19 +47,33 @@ export class GameDetailsComponent implements OnInit {
     this.receiveNextRound();
     this.receiveEndGamePlay();
     this.receiveShowAnswers();
+    this.receiveReset();
+    this.showBuzzer = true;
     this.gameCreationService.getQuestions(this.roomPin).subscribe( (data:any) => {
       console.log(data.questions);
       this.questionObject = data.questions;
-    });
-    setTimeout( () => {
-      if (Object.keys(this.questionObject).length > 0) {
-        this.currentRound = 1;
-        this.firstQuestionBool = true;
-        this.firstRoundBool = true;
-        this.numberOfRounds = Object.keys(this.questionObject).length;
-        this.numberOfQuestions =  Object.keys(this.questionObject[this.currentRound]).length
+      if (this.questionObject === undefined) {
+        this.showQuestions = false;
+      } else {
+        this.showQuestions = true;
+        if (Object.keys(this.questionObject).length > 0) {
+          this.currentRound = 1;
+          this.firstQuestionBool = true;
+          this.firstRoundBool = true;
+          this.numberOfRounds = Object.keys(this.questionObject).length;
+          this.numberOfQuestions =  Object.keys(this.questionObject[this.currentRound]).length
+        }
       }
-    }, 500);
+    });
+    // setTimeout( () => {
+    //   if (Object.keys(this.questionObject).length > 0) {
+    //     this.currentRound = 1;
+    //     this.firstQuestionBool = true;
+    //     this.firstRoundBool = true;
+    //     this.numberOfRounds = Object.keys(this.questionObject).length;
+    //     this.numberOfQuestions =  Object.keys(this.questionObject[this.currentRound]).length
+    //   }
+    // }, 500);
 
   }
 
@@ -82,10 +97,8 @@ export class GameDetailsComponent implements OnInit {
 
   receiveBuzzerPressed(){
     this.socketioService.receiveBuzzerPressed().subscribe((player:any)=>{
-    
       let element = <HTMLInputElement> document.getElementById('buzzer');
       element.disabled = true;
-      console.log('RBP', player);
       this.buzzerDetails = player;
       this.buzzerPress = true;
       setTimeout( () => {
@@ -95,14 +108,13 @@ export class GameDetailsComponent implements OnInit {
   }
  
   buzzerPressed(){
-    // this.buzzerPress = true;
-    // let element = <HTMLInputElement> document.getElementById('buzzer');
-    // element.disabled = true;
-    
-    // console.log('BP', this.buzzerPress);
     this.socketioService.buzzerPressed(this.roomPin, this.currentPlayer.displayName, this.playerColour);
   }
 
+  reset(){
+    // FOR NO QUESTIONS
+    this.socketioService.reset(this.roomPin);
+  }
   saveSettings(){
 
     let buzzerElement = <HTMLInputElement> document.getElementById('buzzerToggle');
@@ -241,5 +253,14 @@ export class GameDetailsComponent implements OnInit {
       this.showBuzzer = false;
     });
   }
-
+  receiveReset(){
+    this.socketioService.receiveReset().subscribe( (data:any) => {
+      console.log(data);
+      // this.endOfGame = true;
+      let element = <HTMLInputElement> document.getElementById('buzzer');
+        element.disabled = false;
+        this.buzzerPress = false;
+      //buzzer stuff
+    });
+  }
 }

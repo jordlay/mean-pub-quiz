@@ -50,7 +50,9 @@ export class SocketioService {
   playerLeft(roomPin: any, playerData: any){
     this.socket.emit('playerLeft', {gameId: roomPin, playerData: playerData });
   }
-
+  reset(roomPin:any){
+    this.socket.emit('reset', {gameId: roomPin});
+  }
   endGame(roomPin: any){
     this.socket.emit('endGame', {gameId : roomPin});
   }
@@ -159,6 +161,15 @@ export class SocketioService {
   receiveEndGame() {
     return new Observable((observer) => {
       this.socket.on('endGame', (message: any) => {
+        observer.next(message);
+      });
+    });
+  }
+
+  receiveReset() {
+    return new Observable((observer) => {
+      this.socket.on('reset', (message: any) => {
+        console.log(message);
         observer.next(message);
       });
     });
