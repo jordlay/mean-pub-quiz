@@ -58,10 +58,16 @@ io.on("connection", (socket) => {
         io.to(gameId).emit('getHostDetails', previousHostDetails[gameId])
     });
 
-    socket.on('setGameSettings', ({gameId : roomPin, buzzer: buzzer, timer:timer, timerLength:timerLength}) => {
+    socket.on('setGameSettings', ({gameId, buzzer, timer, timerLength}) => {
         //store before emitting to all in case join late?
         console.log(buzzer,timer,timerLength);
-        io.to(gameId).emit('setGameSettings', {gameId : roomPin, buzzer: buzzer, timer:timer, timerLength:timerLength})
+        settings = {}
+        settings[gameId] = {}
+        settings[gameId].buzzer = buzzer
+        settings[gameId].timer = timer
+        settings[gameId].timerLength = timerLength
+        console.log(settings[gameId]);
+        io.to(gameId).emit('setGameSettings', settings[gameId])
     });
 
     socket.on('startGame', ({gameId, playerData, hostDetails}) => {
@@ -127,6 +133,7 @@ io.on("connection", (socket) => {
     });
 
     socket.on('startRound', ({gameId, round}) => {
+        console.log('ROUND', round)
         io.to(gameId).emit('startRound', round);
     });
     socket.on('nextQuestion', ({gameId, questionNumber}) => {
@@ -146,6 +153,10 @@ io.on("connection", (socket) => {
     });
     socket.on('claimHost', ({gameId}) => {
         io.to(gameId).emit('claimHost', gameId);
+    });
+    socket.on('startTimer', ({gameId, startBool}) => {
+        console.log(startBool);
+        io.to(gameId).emit('startTimer', startBool);
     });
 });
 

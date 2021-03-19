@@ -70,7 +70,9 @@ export class SocketioService {
   }
   claimHost(roomPin:any){
     this.socket.emit('claimHost', {gameId: roomPin });
-  
+  }
+  startTimer(roomPin:any, startBool:any){
+    this.socket.emit('startTimer', {gameId: roomPin, startBool: startBool });
   }
 
   getPreviousJoinedPlayers(){
@@ -128,7 +130,14 @@ export class SocketioService {
       });
     });
   }
-
+  receiveGameSettings() {
+    return new Observable((observer) => {
+      this.socket.on('setGameSettings', (message: any) => {
+        console.log(message);
+        observer.next(message);
+      });
+    });
+  }
   receiveNextQuestion() {
     return new Observable((observer) => {
       this.socket.on('nextQuestion', (message: any) => {
@@ -140,6 +149,7 @@ export class SocketioService {
   receiveStartRound() {
     return new Observable((observer) => {
       this.socket.on('startRound', (message: any) => {
+        console.log('STARTROUND', message);
         observer.next(message);
       });
     });
@@ -207,5 +217,14 @@ export class SocketioService {
       });
     });
   }
-  
+
+  receiveStartTimer(){
+    return new Observable((observer) => {
+      this.socket.on('startTimer', (message: any) => {
+        console.log(message);
+        observer.next(message);
+      });
+    });
+  }
+
 }

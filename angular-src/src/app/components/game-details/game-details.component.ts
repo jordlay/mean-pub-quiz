@@ -32,6 +32,7 @@ export class GameDetailsComponent implements OnInit {
   currentQuestion = 0;
   firstQuestionBool: any;
   firstRoundBool: any;
+  timerLength = 30;
   objectKeys = Object.keys;
   questionObject: any;
   constructor(private socketioService: SocketioService, private router: Router, 
@@ -48,16 +49,19 @@ export class GameDetailsComponent implements OnInit {
     this.receiveEndGamePlay();
     this.receiveShowAnswers();
     this.receiveReset();
-    
+    this.receiveGameSettings();
+    this.receiveStartTimer();
     this.gameCreationService.getQuestions(this.roomPin).subscribe( (data:any) => {
       console.log(data.questions);
       this.questionObject = data.questions;
       if (this.questionObject === undefined) {
         this.showQuestions = false;
         this.showBuzzer = true;
+        this.showTimer = true;
       } else {
         this.showQuestions = true;
         this.showBuzzer = false;
+        this.showTimer = false
         if (Object.keys(this.questionObject).length > 0) {
           this.currentRound = 1;
           this.firstQuestionBool = true;
@@ -67,16 +71,6 @@ export class GameDetailsComponent implements OnInit {
         }
       }
     });
-    // setTimeout( () => {
-    //   if (Object.keys(this.questionObject).length > 0) {
-    //     this.currentRound = 1;
-    //     this.firstQuestionBool = true;
-    //     this.firstRoundBool = true;
-    //     this.numberOfRounds = Object.keys(this.questionObject).length;
-    //     this.numberOfQuestions =  Object.keys(this.questionObject[this.currentRound]).length
-    //   }
-    // }, 500);
-
   }
 
   ngAfterViewInit(){
@@ -123,7 +117,6 @@ export class GameDetailsComponent implements OnInit {
     let timerElement = <HTMLInputElement> document.getElementById('timerToggle');
     let hostElement = <HTMLInputElement> document.getElementById('hostToggle');
     let timerLengthElement = <HTMLInputElement> document.getElementById('timerLength');
-
     if (hostElement.checked === true){
       this.currentPlayer.host = true;
       this.socketioService.setNewHostDetails(this.roomPin, this.currentPlayer);
@@ -133,8 +126,8 @@ export class GameDetailsComponent implements OnInit {
   lastRoundBool = false;
   nextRoundBool = false;
   startRound(){
+    console.log('STARTROUND', this.currentRound);
     this.socketioService.startRound(this.roomPin, this.currentRound);
-
   }
   showAllAnswersBool = false;
   lastQuestionBool = false;
@@ -177,30 +170,42 @@ export class GameDetailsComponent implements OnInit {
       } else {
         this.lastQuestionBool = true;
       }
-
       if (this.currentQuestion > 1) {
         this.firstQuestionBool = false;
       } else {
         this.firstQuestionBool = true;
       }
-
-      
       let element = <HTMLInputElement> document.getElementById('buzzer');
       if (!(this.showAllAnswersBool || this.showAnswersBool)){
         element.disabled = false;
         this.buzzerPress = false;
       }
+      this.stopTimer();
+      // clearInterval(this.interVal);
+      // if (!document.getElementById('timer') === null) {
+        
+      //   document.getElementById('timer')!.innerHTML = this.timerLength + '';
+      // }
+
 
     });
   }
+  interVal:any;
+  startTimer(){
+    this.socketioService.startTimer(this.roomPin, true);
+  }
 
+  stopTimer(){
+    this.socketioService.startTimer(this.roomPin, false);
+  }
   showBuzzer:any;
+  showTimer:any;
   receiveStartRound(){
     this.socketioService.receiveStartRound().subscribe( (data:any) => {
-      console.log(data);
-      console.log('RLEN RSR', Object.keys(this.questionObject).length);
+      console.log('ROUND');
       this.currentRound = data;
-
+      console.log(this.currentRound,this.showAnswersBool, this.showAllAnswersBool, this.currentQuestion);
+      
       if (this.currentRound+1 <= Object.keys(this.questionObject).length) {
         this.lastRoundBool = false;
       } else {
@@ -215,11 +220,21 @@ export class GameDetailsComponent implements OnInit {
         this.lastQuestionBool = true;
       }
       if (this.showAllAnswersBool || this.showAnswersBool) {
-        this.showBuzzer = false
+        this.showBuzzer = false;
+        this.showTimer = false;
       } else {
         this.showBuzzer = true;
+        this.showTimer = true;
+        this.buzzerPress = false;
+        if (this.timerEnabled && this.showTimer && (!document.getElementById('timer') === null)){
+          clearInterval(this.interVal);
+          document.getElementById('timer')!.innerHTML = this.timerLength + '';
+        }
+
       }
-      this.buzzerPress = false;
+    
+      console.log(this.currentRound,this.showAnswersBool, this.showAllAnswersBool, this.currentQuestion);
+      console.log(this.firstQuestionBool, this.lastQuestionBool, this.lastRoundBool)
     });
   }
 
@@ -237,6 +252,8 @@ export class GameDetailsComponent implements OnInit {
         element.disabled = false;
         this.buzzerPress = false;
       }
+      this.showTimer = false;
+      this.showBuzzer = false;
     });
   }
 
@@ -258,16 +275,56 @@ export class GameDetailsComponent implements OnInit {
       }
       this.currentQuestion = 0;
       this.showBuzzer = false;
+      this.showTimer = false;
     });
   }
   receiveReset(){
     this.socketioService.receiveReset().subscribe( (data:any) => {
       console.log(data);
-      // this.endOfGame = true;
-      let element = <HTMLInputElement> document.getElementById('buzzer');
+      if (this.buzzerEnabled && this.showBuzzer) {
+        let element = <HTMLInputElement> document.getElementById('buzzer');
         element.disabled = false;
         this.buzzerPress = false;
-      //buzzer stuff
+      }
+      if (this.timerEnabled && this.showTimer) {
+        clearInterval(this.interVal);
+        document.getElementById('timer')!.innerHTML = this.timerLength + '';
+      }
+
+    });
+  }
+
+  buzzerEnabled = true;
+  timerEnabled = true;
+  receiveGameSettings(){
+    this.socketioService.receiveGameSettings().subscribe( (data:any) => {
+      console.log(data);
+      this.buzzerEnabled = data.buzzer;
+      this.timerEnabled = data.timer;
+      this.timerLength = (parseFloat(data.timerLength) * 60);
+      document.getElementById('timer')!.innerHTML = this.timerLength + '';
+    });
+  }
+  timerStarted:any;
+  receiveStartTimer(){
+    this.socketioService.receiveStartTimer().subscribe( (data:any) => {
+    console.log(data);
+    if (data) {
+      this.timerStarted = true;
+      let time = this.timerLength;
+      this.interVal = setInterval( () => {
+      time -=1;
+      document.getElementById('timer')!.innerHTML = time + '';
+      if (time < 0) {
+        clearInterval(this.interVal);
+        document.getElementById('timer')!.innerHTML = "Time's Up";
+      }
+    }, 1000);
+    } else {
+      this.timerStarted = false;
+      clearInterval(this.interVal);
+      document.getElementById('timer')!.innerHTML = this.timerLength + '';
+    }
     });
   }
 }

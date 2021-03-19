@@ -1,7 +1,6 @@
 <div class="row">
     <h1>Game Play <mat-icon type="button" data-bs-toggle="modal" data-bs-target="#settingsModal" aria-hidden="false" >settings</mat-icon></h1>
     <h2>Meeting Pin: {{this.roomPin}}</h2>
-    
     <div style="color: darkgoldenrod;">Host: {{this.hostDetails.displayName}}</div>
     <div *ngIf="this.teams">
         <div *ngFor="let colours of objectKeys(this.teams)">
@@ -98,9 +97,14 @@
   <button class="btn btn-warning" (click)="reset()">Reset</button>
 </div>
 </div>
-<div *ngIf="this.showBuzzer">
-  <button type="button" id="buzzer" class="btn btn-warning buzzer" (click)="buzzerPressed()" [ngClass]="this.buzzerPress ? 'buzzerClicked':'buzzer' ">Team Buzzer</button>
+<div *ngIf="this.buzzerEnabled && this.showBuzzer">
+  <button type="button" id="buzzer" class="btn btn-warning" (click)="buzzerPressed()" [ngClass]="this.buzzerPress ? 'buzzerClicked':'buzzer' ">Team Buzzer</button>
   <div id="buzzerDetails" *ngIf="this.buzzerPress">{{this.buzzerDetails.displayName}} pressed the buzzer for the {{this.buzzerDetails.colour}} team!</div>  
+</div>
+<div *ngIf="this.timerEnabled && this.showTimer">
+  <button *ngIf="!timerStarted" type="button" class="btn btn-warning" (click)="startTimer()" >Start Timer</button>
+  <button *ngIf="timerStarted" type="button" class="btn btn-warning" (click)="stopTimer()" >Stop Timer</button>
+  <div id="timer" >{{this.timerLength}}</div>  
 </div>
 
 <div class="modal fade modal-dialog modal-dialog-centered modal-dialog-scrollable" data-bs-backdrop="static" id="settingsModal" tabindex="-1" aria-hidden="true">
@@ -114,25 +118,25 @@
           <form>
             <div class="mb-3">
                 <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="hostToggle" checked>
-                    <label class="custom-control-label" for="hostToggle">Claim Host (coming soon!)</label>
+                    <input type="checkbox" class="custom-control-input" id="hostToggle">
+                    <label class="custom-control-label" for="hostToggle">Claim Host</label>
                 </div>
             </div>
             
             <div class="mb-3">
                 <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="buzzerToggle" >
-                    <label class="custom-control-label" for="buzzerToggle">Include Buzzer (coming soon!)</label>
+                    <input type="checkbox" class="custom-control-input" id="buzzerToggle" checked >
+                    <label class="custom-control-label" for="buzzerToggle">Include Buzzer</label>
                 </div>
             </div>
             <div class="mb-3">
                 <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="timerToggle">
-                    <label class="custom-control-label" for="timerToggle">Include Timer (coming soon!)</label>
+                    <input type="checkbox" class="custom-control-input" id="timerToggle" checked>
+                    <label class="custom-control-label" for="timerToggle">Include Timer</label>
                 </div>
             </div>
             <div class="mb-3">
-                <label for="timerLength" class="form-label">Timer Length (Mins) (coming soon!)</label>
+                <label for="timerLength" class="form-label">Timer Length (Mins)</label>
                 <input type="range" data-value="0.5"  class="form-range" min="0" max="5" step="0.5" value="timerLength" id="timerLength">
             </div>
           </form>
