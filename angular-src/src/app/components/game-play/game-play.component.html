@@ -45,14 +45,14 @@
                     <div class="card border-primary mb-3" style="max-width: 20rem; margin-top: 16px; padding:10px;">
                         <h4>Host Settings</h4>
                         <p>You must choose your game settings before you can begin the game!</p>
-                        <div class="card-body">
+                        <div class="card-body row" style="padding: 10px;">
                             <button *ngIf="this.showQuestions" type="button" class="btn btn-outline-secondary"  data-bs-toggle="modal" data-bs-target="#questionsModal">Input Questions</button>
                             <button type="button" class="btn btn-outline-secondary"  data-bs-toggle="modal" data-bs-target="#settingsModal" (click)="openTeamSettings()">Team Settings</button>
                         </div>
                     </div>
                 </div>
          
-                <div class="modal fade modal-dialog " data-bs-backdrop="static" id="questionSettingsModal" tabindex="-1" aria-hidden="true">
+                <div class="modal fade" data-bs-backdrop="static" id="questionSettingsModal" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div class="modal-content" style="max-height: 400px;">
                         <div class="modal-header">
@@ -87,7 +87,7 @@
                     </div>
                 </div>
 
-                <div class="modal fade modal-dialog " data-bs-backdrop="static" id="settingsModal" tabindex="-1" aria-hidden="true">
+                <div class="modal fade" data-bs-backdrop="static" id="settingsModal" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div class="modal-content" style="max-height: 400px;">
                         <div class="modal-header">
@@ -122,7 +122,7 @@
                 <div *ngIf="this.openQuestionModal">
                     <button type="button" class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#questionsModal" >Open Questions</button>
                 </div>
-                <div class="modal modal-dialog fade" data-bs-backdrop="static" id="questionsModal" tabindex="-1" aria-hidden="true">
+                <div class="modal fade" data-bs-backdrop="static" id="questionsModal" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
                     <div class="modal-content" style="max-height: 400px;">
                         <div class="modal-header">
