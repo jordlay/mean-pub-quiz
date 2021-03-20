@@ -36,6 +36,7 @@
         </div>
         <div class="card-footer roundHeaderFooter">
           <div class="row">
+            <div class="col roundButton" *ngIf="this.firstQuestionBool"></div>
             <div class="col roundButton" *ngIf="!this.firstQuestionBool"><button type="button" class="btn btn-secondary" (click)="previousQuestion()">Previous Question</button></div>
             <div class="col roundButton" *ngIf="!this.lastQuestionBool"><button type="button" class="btn btn-secondary" (click)="nextQuestion()">Next Question</button></div>  
             <div class="col roundButton" *ngIf="this.lastQuestionBool && !this.lastRoundBool"><button type="button" class="btn btn-secondary" (click)="nextRound()">Next Round</button></div>
@@ -82,7 +83,7 @@
           <div>{{this.questionObject[this.currentRound][this.currentQuestion].answer}}</div>
           <div>{{this.questionObject[this.currentRound][this.currentQuestion].points}} points   </div>
         </div>
-        <div class="card-footer roundHeaderFooter">
+        <div class="card-footer roundHeaderFooter row ">
           <div class="col roundButton" *ngIf="!this.firstQuestionBool"><button type="button" class="btn btn-secondary" (click)="previousQuestion()">Previous Answer</button></div>
           <div class="col roundButton" *ngIf="!this.lastQuestionBool"><button type="button" class="btn btn-secondary" (click)="nextQuestion()">Next Answer</button></div>
           <div class="col roundButton" *ngIf="this.lastQuestionBool && !this.lastRoundBool" ><button type="button" class="btn btn-secondary" (click)="nextRound()">Next Round</button></div>
@@ -93,22 +94,39 @@
     <div *ngIf="this.endOfGame"><h1>End Of Game!</h1></div>
   </div>
 </div>
-<div *ngIf="!this.showQuestions">
-  <button class="btn btn-warning" (click)="reset()">Reset</button>
+
 </div>
-</div>
-<div *ngIf="this.buzzerEnabled && this.showBuzzer">
-  <button type="button" id="buzzer" class="btn btn-warning" (click)="buzzerPressed()" [ngClass]="this.buzzerPress ? 'buzzerClicked':'buzzer' ">Team Buzzer</button>
-  <div id="buzzerDetails" *ngIf="this.buzzerPress">{{this.buzzerDetails.displayName}} pressed the buzzer for the {{this.buzzerDetails.colour}} team!</div>  
-</div>
-<div *ngIf="this.timerEnabled && this.showTimer">
-  <button *ngIf="!timerStarted" type="button" class="btn btn-warning" (click)="startTimer()" >Start Timer</button>
-  <button *ngIf="timerStarted" type="button" class="btn btn-warning" (click)="stopTimer()" >Stop Timer</button>
-  <div id="timer" >{{this.timerLength}}</div>  
+<div class="row">
+  <div class="col" *ngIf="this.buzzerEnabled && this.showBuzzer">
+    <button type="button" id="buzzer" class="btn btn-warning" (click)="buzzerPressed()" [ngClass]="this.buzzerPress ? 'buzzerClicked':'buzzer' ">Team Buzzer</button>
+    <div id="buzzerDetails" *ngIf="this.buzzerPress">{{this.buzzerDetails.displayName}} pressed the buzzer for the {{this.buzzerDetails.colour}} team!</div>  
+  </div>
+  <div class="col" *ngIf="this.timerEnabled && this.showTimer">
+    <div class=" card border-warning mb-3">
+      <div class="row" >
+        <div class="col"  id="timer" style="padding-right: 0px;">
+          <h1 >{{this.timerLength}}</h1>
+        </div>
+        
+        <div class="col" style="padding-left: 0px;">
+          <button class="btn" *ngIf="!timerStarted" type="button" style="padding:0px" (click)="startTimer()" >
+            <span class="material-icons" style="font-size:40px">play_arrow</span>
+          </button>
+          <button class="btn" *ngIf="timerStarted" type="button" style="padding:0px" (click)="stopTimer()" >
+            <span class="material-icons" style="font-size:40px">pause</span>
+          </button> 
+        </div>
+    </div>
+    </div>
+  </div>
+  <div *ngIf="!this.showQuestions">
+    <button class="btn btn-warning" (click)="reset()">Reset</button>
+  </div>
 </div>
 
-<div class="modal fade modal-dialog modal-dialog-centered modal-dialog-scrollable" data-bs-backdrop="static" id="settingsModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog">
+
+<div class="modal fade" data-bs-backdrop="static" id="settingsModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Game Settings</h5>

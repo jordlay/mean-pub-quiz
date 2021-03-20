@@ -181,13 +181,6 @@ export class GameDetailsComponent implements OnInit {
         this.buzzerPress = false;
       }
       this.stopTimer();
-      // clearInterval(this.interVal);
-      // if (!document.getElementById('timer') === null) {
-        
-      //   document.getElementById('timer')!.innerHTML = this.timerLength + '';
-      // }
-
-
     });
   }
   interVal:any;
@@ -254,6 +247,7 @@ export class GameDetailsComponent implements OnInit {
       }
       this.showTimer = false;
       this.showBuzzer = false;
+      this.stopTimer();
     });
   }
 
@@ -289,8 +283,9 @@ export class GameDetailsComponent implements OnInit {
       if (this.timerEnabled && this.showTimer) {
         clearInterval(this.interVal);
         document.getElementById('timer')!.innerHTML = this.timerLength + '';
+        this.currentTimer = this.timerLength;
       }
-
+      this.timerStarted = false;
     });
   }
 
@@ -302,28 +297,46 @@ export class GameDetailsComponent implements OnInit {
       this.buzzerEnabled = data.buzzer;
       this.timerEnabled = data.timer;
       this.timerLength = (parseFloat(data.timerLength) * 60);
+      document.getElementById('timer')!.style.fontFamily = "Cabin Sketch";
+      document.getElementById('timer')!.style.fontWeight = "500";
+      document.getElementById('timer')!.style.fontSize ="xx-large";
       document.getElementById('timer')!.innerHTML = this.timerLength + '';
     });
   }
   timerStarted:any;
+  currentTimer = 0;
+
+  // cT < 1?
   receiveStartTimer(){
     this.socketioService.receiveStartTimer().subscribe( (data:any) => {
     console.log(data);
     if (data) {
       this.timerStarted = true;
-      let time = this.timerLength;
+      // let time = this.timerLength;
+      if (this.currentTimer < 1) {
+        this.currentTimer = this.timerLength;
+      }
+    
       this.interVal = setInterval( () => {
-      time -=1;
-      document.getElementById('timer')!.innerHTML = time + '';
-      if (time < 0) {
+      // time -=1;
+      this.currentTimer -=1;
+      document.getElementById('timer')!.style.fontFamily = "Cabin Sketch";
+      document.getElementById('timer')!.style.fontWeight = "500";
+      document.getElementById('timer')!.style.fontSize ="xx-large";
+      document.getElementById('timer')!.innerHTML = this.currentTimer + '';
+      if (this.currentTimer < 0) {
         clearInterval(this.interVal);
+        document.getElementById('timer')!.style.fontFamily = "Cabin Sketch";
+        document.getElementById('timer')!.style.fontWeight = "500";
+        document.getElementById('timer')!.style.fontSize ="x-large";
         document.getElementById('timer')!.innerHTML = "Time's Up";
+        this.timerStarted = false;
+        clearInterval(this.interVal);
       }
     }, 1000);
     } else {
       this.timerStarted = false;
       clearInterval(this.interVal);
-      document.getElementById('timer')!.innerHTML = this.timerLength + '';
     }
     });
   }
