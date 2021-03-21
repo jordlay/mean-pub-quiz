@@ -13,11 +13,17 @@ export class SocketioService {
   previousPlayers: any;
   gameBegan: any;
   hostDetails: any;
-
+  roomPin:any;
   constructor() { }
-
+  getSocket(){
+    return this.socket; 
+  }
+  getRoomPin(){
+    return this.roomPin;
+  }
   connect(roomPin: any){
     this.socket = io(environment.SOCKET_ENDPOINT);
+    this.roomPin = roomPin;
   }
 
   joinGame(roomPin:any, playerData: any){

@@ -81,13 +81,15 @@ export class GameDetailsComponent implements OnInit {
         for (let player of this.objectKeys(this.teams[colour])){
           if (this.currentPlayer.id === this.teams[colour][player].id) {
             this.playerColour = colour;
+            this.currentPlayer.colour = colour;
           }
         }
       }
+      console.log(this.teams, this.currentPlayer);
       if (!this.hostDetails.include) {
         this.playerColour = "darkgoldenrod";
       }
-    }, 100)
+    }, 500)
 
   }
 

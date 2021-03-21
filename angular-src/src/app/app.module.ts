@@ -21,7 +21,8 @@ import {ClipboardModule} from '@angular/cdk/clipboard';
 import {MatIconModule} from '@angular/material/icon';
 import { SocketioService } from './services/socketio.service';
 import { GameDetailsComponent } from './components/game-details/game-details.component';
-
+import { GameChatComponent } from './components/game-chat/game-chat.component';
+import { ChatSocketIOService } from './services/chat-socket-io.service';
 const routes: Routes = [
 {path: '', component: HomeComponent},
 {path: 'register', component: RegisterComponent},
@@ -42,7 +43,8 @@ const routes: Routes = [
     DashboardComponent,
     ProfileComponent,
     GamePlayComponent,
-    GameDetailsComponent
+    GameDetailsComponent,
+    GameChatComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +59,7 @@ const routes: Routes = [
     MatIconModule
   ],
   exports: [RouterModule, CommonModule, BrowserModule],
-  providers: [AuthService, AuthGuard, SocketioService ],
+  providers: [AuthService, AuthGuard, SocketioService,ChatSocketIOService ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

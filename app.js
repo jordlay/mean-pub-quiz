@@ -158,6 +158,17 @@ io.on("connection", (socket) => {
         console.log(startBool);
         io.to(gameId).emit('startTimer', startBool);
     });
+    socket.on('chatMessage', ({gameId, message, player}) => {
+        console.log(message);
+        console.log(player);
+        chatMessage = {}
+        chatMessage[gameId] = {}
+        chatMessage[gameId][player.colour] ={}
+        chatMessage[gameId][player.colour] = player
+        chatMessage[gameId][player.colour].message = message;
+        console.log(chatMessage[gameId][player.colour]);
+        socket.to(gameId).emit('chatMessage', chatMessage[gameId]);
+      });
 });
 
 const uri = "mongodb+srv://jll541:mean-quiz@clusterquiz.inacn.mongodb.net/quizdb?retryWrites=true&w=majority";

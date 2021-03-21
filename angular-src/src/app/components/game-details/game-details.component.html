@@ -31,8 +31,8 @@
         </div>
         <div class="card-body roundBody">
           <h4>Question {{this.currentQuestion}}</h4>
-          <div> {{this.questionObject[this.currentRound][this.currentQuestion].question}}</div>
-          <div>{{this.questionObject[this.currentRound][this.currentQuestion].points}} points</div>
+          <div> {{this.questionObject[this.currentRound][this.currentQuestion].question}} ({{this.questionObject[this.currentRound][this.currentQuestion].points}} points)</div>
+          <!-- <div>{{this.questionObject[this.currentRound][this.currentQuestion].points}} points</div> -->
         </div>
         <div class="card-footer roundHeaderFooter">
           <div class="row">
@@ -122,6 +122,10 @@
   <div *ngIf="!this.showQuestions">
     <button class="btn btn-warning" (click)="reset()">Reset</button>
   </div>
+</div>
+
+<div class="row">
+  <app-game-chat [player]="this.currentPlayer"></app-game-chat>
 </div>
 
 

@@ -1,0 +1,11 @@
+<div class="card border-secondary mb-3 {{this.player.colour}}" style="max-width: 100%;">
+    <div class="card-header chatHeaderFooter">Team {{this.player.colour}} Chat</div>
+    <div class="card-body scroll row chatBody">
+        <div id="messages" class=""></div> 
+    </div>
+    <div class="card-footer chatHeaderFooter">
+        <form id="form">
+            <input id="messageInput"><button class="btn" (click)="sendMessage()">Send</button>
+        </form>
+    </div>
+</div>
