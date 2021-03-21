@@ -99,9 +99,9 @@ export class GameDetailsComponent implements OnInit {
       element.disabled = true;
       this.buzzerDetails = player;
       this.buzzerPress = true;
-      setTimeout( () => {
-        document.getElementById('buzzerDetails')!.style.color = this.buzzerDetails.colour;
-      }, 10);
+      // setTimeout( () => {
+      //   document.getElementById('buzzerDetails')!.style.color = this.buzzerDetails.colour;
+      // }, 10);
     });
   }
  

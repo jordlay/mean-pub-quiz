@@ -30,19 +30,17 @@ export class GameChatComponent implements OnInit {
     if (messageElement.value) {
       this.chatSocketIOService.chatMessage(this.roomPin, messageElement.value, this.player);
 
-      // var item = document.createElement('li');
-      // item.textContent = messageElement.value;
-      // item.style.float ="right";
-      // this.personalMessages.appendChild(item);
-      // window.scrollTo(0, document.body.scrollHeight);
-      // messageElement.value = '';
       let item = document.createElement('div');
       var innerItem = document.createElement('span');
       innerItem.textContent = messageElement.value;
       innerItem.style.clear = "both"
       innerItem.style.float ="right";
-      innerItem.className = "card border-secondary mb-3"
+      innerItem.className = "card border mb-3"
+      innerItem.style.color = "color{{this.player.colour}} !important"
+      innerItem.style.borderColor = "outline{{this.player.colour}} !important"
+      innerItem.style.marginBottom ="0px !important";
       innerItem.style.maxWidth = '50%';
+      innerItem.style.padding = "2px";
       item.appendChild(innerItem);
       this.messages.appendChild(item);
       window.scrollTo(0, document.body.scrollHeight);
@@ -64,13 +62,17 @@ export class GameChatComponent implements OnInit {
         innerItem.style.clear = "both"
         innerItem.style.float ="left";
         innerItem.style.marginBottom ="0px !important";
-        innerItem.className = "card border-secondary mb-3"
+        innerItem.className = "card border mb-3"
+        innerItem.style.color = "color{{this.player.colour}} !important"
+        innerItem.style.borderColor = "outline{{this.player.colour}} !important"
         innerItem.style.maxWidth = '50%';
+        innerItem.style.padding = "2px";
 
         innerItem2.textContent = data[this.player.colour].displayName;
         innerItem2.style.clear = "both"
         innerItem2.style.float ="left";
         innerItem2.style.maxWidth = '50%';
+        innerItem2.style.color = "color{{this.player.colour}}"
         item.appendChild(innerItem);
         item.appendChild(innerItem2);
         this.messages.appendChild(item);

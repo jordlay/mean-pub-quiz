@@ -1,12 +1,12 @@
 .buzzer{
     border-radius: 16px;
-    box-shadow: 0 5px #ffd74066;   
+    /* box-shadow: 0 5px #ffd74066;    */
     margin-bottom: 10px;
 }
 
 .buzzerClicked{
     border-radius: 16px;
-    box-shadow: 0 0px #ffefb3;
+    box-shadow: 0 0px !important;
     transform: translateY(4px);
     margin-bottom: 10px;
 }
@@ -31,4 +31,22 @@
 
 .roundTitle{
     margin: 0px;
+}
+
+.Red {
+    background-color: crimson !important;
+    color: white !important;
+}
+.outlineRed{
+    border-color: crimson  !important;
+}
+.colorRed{
+    color:crimson  !important;
+}
+.backgroundRed{
+    background-color: #ffc6d180  !important;;
+}
+.shadowRed{
+    /* background-color: #ffc6d180  !important; */
+    box-shadow: 0 5px #ffc6d180;
 }

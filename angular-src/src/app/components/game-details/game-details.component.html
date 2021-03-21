@@ -1,15 +1,33 @@
 <div class="row">
-    <h1>Game Play <mat-icon type="button" data-bs-toggle="modal" data-bs-target="#settingsModal" aria-hidden="false" >settings</mat-icon></h1>
-    <h2>Meeting Pin: {{this.roomPin}}</h2>
-    <div style="color: darkgoldenrod;">Host: {{this.hostDetails.displayName}}</div>
-    <div *ngIf="this.teams">
-        <div *ngFor="let colours of objectKeys(this.teams)">
-            <p id="{{colours}}" class="col" style="padding-left: 0px; margin-bottom: 0px">{{colours}} Team: 
-                <span *ngFor="let players of objectKeys(this.teams[colours])">{{this.teams[colours][players].displayName}} </span>
-            </p>
-            
+    <h2>Game Play <mat-icon type="button" data-bs-toggle="modal" data-bs-target="#settingsModal" aria-hidden="false" >settings</mat-icon></h2>
+    <div class="col">
+      <div class="card border mb-3" style="color: darkgoldenrod;">Host: {{this.hostDetails.displayName}}</div>
+    </div>
+    <div *ngIf="this.teams" class="col">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#teamsModal">
+        Teams
+      </button>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="teamsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Teams</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div *ngFor="let colours of objectKeys(this.teams)">
+              <p id="{{colours}}" class="col" style="padding-left: 0px; margin-bottom: 0px">{{colours}} Team: 
+                  <span *ngFor="let players of objectKeys(this.teams[colours])">{{this.teams[colours][players].displayName}}</span>
+              </p> 
+          </div>
+          </div>
         </div>
-    </div> 
+      </div>
+    </div>
+
     <div *ngIf="this.showQuestions">
     <div class="card border-primary mb-3" style="width:90%; margin:10px; padding:0px;">
     <div *ngIf="!this.endOfGame">
@@ -98,34 +116,34 @@
 </div>
 <div class="row">
   <div class="col" *ngIf="this.buzzerEnabled && this.showBuzzer">
-    <button type="button" id="buzzer" class="btn btn-warning" (click)="buzzerPressed()" [ngClass]="this.buzzerPress ? 'buzzerClicked':'buzzer' ">Team Buzzer</button>
-    <div id="buzzerDetails" *ngIf="this.buzzerPress">{{this.buzzerDetails.displayName}} pressed the buzzer for the {{this.buzzerDetails.colour}} team!</div>  
+    <button type="button" id="buzzer" class="btn {{this.currentPlayer.colour}}" (click)="buzzerPressed()" [ngClass]="this.buzzerPress ? 'buzzerClicked':'buzzer' ">Team Buzzer</button>
+    
   </div>
   <div class="col" *ngIf="this.timerEnabled && this.showTimer">
-    <div class=" card border-warning mb-3">
+    <div class=" card border outline{{this.currentPlayer.colour}} mb-3" style="max-width: 100px; max-height: 50px;">
       <div class="row" >
-        <div class="col"  id="timer" style="padding-right: 0px;">
+        <div class="col color{{this.currentPlayer.colour}}"  id="timer" style="padding-right: 0px;">
           <h1 >{{this.timerLength}}</h1>
         </div>
         
         <div class="col" style="padding-left: 0px;">
           <button class="btn" *ngIf="!timerStarted" type="button" style="padding:0px" (click)="startTimer()" >
-            <span class="material-icons" style="font-size:40px">play_arrow</span>
+            <span class="material-icons color{{this.currentPlayer.colour}}" style="font-size:40px">play_arrow</span>
           </button>
           <button class="btn" *ngIf="timerStarted" type="button" style="padding:0px" (click)="stopTimer()" >
-            <span class="material-icons" style="font-size:40px">pause</span>
+            <span class="material-icons color{{this.currentPlayer.colour}}" style="font-size:40px">pause</span>
           </button> 
         </div>
     </div>
     </div>
   </div>
   <div *ngIf="!this.showQuestions">
-    <button class="btn btn-warning" (click)="reset()">Reset</button>
+    <button class="btn btn {{this.currentPlayer.colour}}" (click)="reset()">Reset</button>
   </div>
 </div>
-
-<div class="row">
-  <app-game-chat [player]="this.currentPlayer"></app-game-chat>
+<div class="row color{{this.currentPlayer.colour}}" id="buzzerDetails" *ngIf="this.buzzerPress">{{this.buzzerDetails.displayName}} pressed the buzzer for the {{this.buzzerDetails.colour}} team!</div>
+<div class="row" >
+  <app-game-chat style="padding:0px !important" [player]="this.currentPlayer"></app-game-chat>
 </div>
 
 
