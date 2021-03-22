@@ -35,15 +35,18 @@ export class GameChatComponent implements OnInit {
       innerItem.textContent = messageElement.value;
       innerItem.style.clear = "both"
       innerItem.style.float ="right";
-      innerItem.className = "card border mb-3"
+      innerItem.className = "card border-primary"
       innerItem.style.color = "color{{this.player.colour}} !important"
       innerItem.style.borderColor = "outline{{this.player.colour}} !important"
-      innerItem.style.marginBottom ="0px !important";
+      // innerItem.style.marginBottom ="0px !important";
       innerItem.style.maxWidth = '50%';
       innerItem.style.padding = "2px";
       item.appendChild(innerItem);
+      
       this.messages.appendChild(item);
-      this.messages.scrollTo(0, this.messages.scrollHeight);
+      this.messages.className = "color"+this.player.colour;
+      // this.messages.scrollTo(0, this.messages.scrollHeight);
+      item.scrollTop = item.scrollHeight;
       // window.scrollTo(0, document.body.scrollHeight);
       messageElement.value = '';
     }
@@ -63,9 +66,7 @@ export class GameChatComponent implements OnInit {
         innerItem.style.clear = "both"
         innerItem.style.float ="left";
         innerItem.style.marginBottom ="0px !important";
-        innerItem.className = "card border mb-3 color"+this.player.colour+" outline"+ this.player.colour;
-        // innerItem.style.color = "color{{this.player.colour}} !important"
-        // innerItem.style.borderColor = "outline{{this.player.colour}} !important"
+        innerItem.className = "card border-primary color"+this.player.colour+" outline"+ this.player.colour;
         innerItem.style.maxWidth = '50%';
         innerItem.style.padding = "2px";
 
@@ -73,11 +74,13 @@ export class GameChatComponent implements OnInit {
         innerItem2.style.clear = "both"
         innerItem2.style.float ="left";
         innerItem2.style.maxWidth = '50%';
-        innerItem2.style.color = "color{{this.player.colour}}"
+        // innerItem2.style.color = "color{{this.player.colour}}"
         item.appendChild(innerItem);
         item.appendChild(innerItem2);
         this.messages.appendChild(item);
-        this.messages.scrollTo(0, this.messages.scrollHeight);
+        this.messages.className = "color"+this.player.colour;
+        // this.messages.scrollTo(0, this.messages.scrollHeight);
+        item.scrollTop = item.scrollHeight;
 
         // window.scrollTo(0, document.body.scrollHeight);
       }

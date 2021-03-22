@@ -21,7 +21,9 @@
     border-radius: 0px 0px 4px 2px
 }
 .chatHeader{
-    padding: 5px 20px 5px 10px;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 .chatBody{
     padding-top: 5px;
@@ -36,7 +38,12 @@
 .chatTitle{
     margin: 0px;
 }
-
+.chatButton{
+    padding-left: 5px;
+    padding-top: 0px;
+    padding-right: 5px;
+    padding-bottom: 0px;
+}
 .Red {
     background-color: crimson !important;
     color: white !important;

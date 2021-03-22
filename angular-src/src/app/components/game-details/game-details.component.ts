@@ -110,10 +110,6 @@ export class GameDetailsComponent implements OnInit {
     this.socketioService.buzzerPressed(this.roomPin, this.currentPlayer.displayName, this.playerColour);
   }
 
-  reset(){
-    // FOR NO QUESTIONS
-    this.socketioService.reset(this.roomPin);
-  }
   saveSettings(){
 
     let buzzerElement = <HTMLInputElement> document.getElementById('buzzerToggle');
@@ -183,7 +179,8 @@ export class GameDetailsComponent implements OnInit {
         element.disabled = false;
         this.buzzerPress = false;
       }
-      this.stopTimer();
+      // this.stopTimer();
+      this.reset();
     });
   }
   interVal:any;
@@ -234,6 +231,21 @@ export class GameDetailsComponent implements OnInit {
     });
   }
 
+  reset(){
+    // FOR NO QUESTIONS
+    if (this.buzzerEnabled && this.showBuzzer) {
+      let element = <HTMLInputElement> document.getElementById('buzzer');
+      element.disabled = false;
+      this.buzzerPress = false;
+    }
+    if (this.timerEnabled && this.showTimer) {
+      clearInterval(this.interVal);
+      document.getElementById('timer')!.innerHTML = this.timerLength + '';
+      this.currentTimer = this.timerLength;
+    }
+    this.timerStarted = false;
+  }
+
   receiveNextRound(){
     this.socketioService.receiveNextRound().subscribe( (data:any) => {
       console.log(data);
@@ -250,7 +262,8 @@ export class GameDetailsComponent implements OnInit {
       }
       this.showTimer = false;
       this.showBuzzer = false;
-      this.stopTimer();
+      // this.stopTimer();
+      this.reset();
     });
   }
 
@@ -278,18 +291,12 @@ export class GameDetailsComponent implements OnInit {
   receiveReset(){
     this.socketioService.receiveReset().subscribe( (data:any) => {
       console.log(data);
-      if (this.buzzerEnabled && this.showBuzzer) {
-        let element = <HTMLInputElement> document.getElementById('buzzer');
-        element.disabled = false;
-        this.buzzerPress = false;
-      }
-      if (this.timerEnabled && this.showTimer) {
-        clearInterval(this.interVal);
-        document.getElementById('timer')!.innerHTML = this.timerLength + '';
-        this.currentTimer = this.timerLength;
-      }
-      this.timerStarted = false;
+      this.reset();
     });
+  }
+
+  onReset(){
+    this.socketioService.reset(this.roomPin);
   }
 
   buzzerEnabled = true;
@@ -319,28 +326,27 @@ export class GameDetailsComponent implements OnInit {
       if (this.currentTimer < 1) {
         this.currentTimer = this.timerLength;
       }
-    
-      this.interVal = setInterval( () => {
-      // time -=1;
-      this.currentTimer -=1;
-      document.getElementById('timer')!.style.fontFamily = "Cabin Sketch";
-      document.getElementById('timer')!.style.fontWeight = "500";
-      document.getElementById('timer')!.style.fontSize ="xx-large";
-      document.getElementById('timer')!.innerHTML = this.currentTimer + '';
-      if (this.currentTimer < 0) {
-        clearInterval(this.interVal);
-        document.getElementById('timer')!.style.fontFamily = "Cabin Sketch";
-        document.getElementById('timer')!.style.fontWeight = "500";
-        document.getElementById('timer')!.style.fontSize ="x-large";
-        document.getElementById('timer')!.innerHTML = "Time's Up";
-        this.timerStarted = false;
-        clearInterval(this.interVal);
-      }
-    }, 1000);
+      // if (!document.getElementById('timer')===null){
+        this.interVal = setInterval( () => {
+          this.currentTimer -=1;
+          document.getElementById('timer')!.style.fontFamily = "Cabin Sketch";
+          document.getElementById('timer')!.style.fontWeight = "500";
+          document.getElementById('timer')!.style.fontSize ="xx-large";
+          document.getElementById('timer')!.innerHTML = this.currentTimer + '';
+          if (this.currentTimer < 0) {
+            clearInterval(this.interVal);
+            document.getElementById('timer')!.style.fontFamily = "Cabin Sketch";
+            document.getElementById('timer')!.style.fontWeight = "500";
+            document.getElementById('timer')!.style.fontSize ="x-large";
+            document.getElementById('timer')!.innerHTML = "Time's Up";
+            this.timerStarted = false;
+            clearInterval(this.interVal);
+          }
+         }, 1000);
+      // }
     } else {
       this.timerStarted = false;
       clearInterval(this.interVal);
-      document.getElementById('timer')!.innerHTML = this.currentTimer + '';
     }
     });
   }

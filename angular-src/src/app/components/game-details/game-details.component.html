@@ -17,12 +17,13 @@
           </div>
           <div class="modal-body">
             <div style="color: darkgoldenrod;">Host: {{this.hostDetails.displayName}}</div>
- 
-            <div *ngFor="let colours of objectKeys(this.teams)">
-              <p id="{{colours}}" class="col" style="padding-left: 0px; margin-bottom: 0px">{{colours}} Team: 
-                  <span *ngFor="let players of objectKeys(this.teams[colours])">{{this.teams[colours][players].displayName}} </span>
-              </p> 
-          </div>
+            <div *ngIf="this.teams">
+              <div *ngFor="let colours of objectKeys(this.teams)">
+                <p id="{{colours}}" class="col" style="padding-left: 0px; margin-bottom: 0px">{{colours}} Team: 
+                    <span *ngFor="let players of objectKeys(this.teams[colours])">{{this.teams[colours][players].displayName}} </span>
+                </p> 
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -136,7 +137,7 @@
     </div>
   </div>
   <div *ngIf="!this.showQuestions">
-    <button class="btn btn {{this.currentPlayer.colour}}" (click)="reset()">Reset</button>
+    <button class="btn btn {{this.currentPlayer.colour}}" (click)="onReset()">Reset</button>
   </div>
 </div>
 <div class="row color{{this.buzzerDetails.colour}}" style="padding-left:15px; padding-bottom: 5px;" id="buzzerDetails" *ngIf="this.buzzerPress">{{this.buzzerDetails.displayName}} pressed the buzzer for the {{this.buzzerDetails.colour}} team!</div>
