@@ -282,6 +282,9 @@ export class GamePlayComponent implements OnInit {
   }
 
   setSettings(){
+    let teamButton = <HTMLInputElement> document.getElementById("teamSettings");
+    teamButton.style.borderColor = "green";
+    teamButton.style.color = "green";
       this.isChecked = <HTMLInputElement> document.getElementById('hostCheckbox');
     if (this.isChecked.checked === true) {
       this.participantArray[this.currentPlayer.id].include = true;
@@ -296,6 +299,9 @@ export class GamePlayComponent implements OnInit {
   }
   
   setQuestions(){
+    let inputButton = <HTMLInputElement> document.getElementById("inputQuestions");
+    inputButton.style.borderColor = "green";
+    inputButton.style.color = "green";
     this.questionsObject = {};
     for (let i = 0; i < this.rounds.length; i++) {
       this.questionsObject[i+1] = {};

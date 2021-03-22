@@ -13,23 +13,6 @@
     overflow-y: auto;
 }
 
-.Red {
-    background-color: crimson !important;
-    color: white !important;
-}
-.outlineRed{
-    border-color: crimson  !important;;
-}
-.colorRed{
-    color:crimson  !important;;
-}
-.shadowRed{
-    /* background-color: #ffc6d180  !important; */
-    box-shadow: 0 5px #ffc6d180;
-}
-.backgroundRed{
-    background-color: #ffc6d180 !important;
-}
 .chatFooter{
     padding-top: 5px;
     padding-bottom: 5px;
@@ -38,12 +21,8 @@
     border-radius: 0px 0px 4px 2px
 }
 .chatHeader{
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-left: 10px;
-    margin: 0px;
+    padding: 5px 20px 5px 10px;
 }
-
 .chatBody{
     padding-top: 5px;
     padding-bottom: 5px;
@@ -51,11 +30,179 @@
     padding-right: 10px;
     margin:0px;
 }
-
 .chatButton{
     padding:5px
 }
-
 .chatTitle{
     margin: 0px;
+}
+
+.Red {
+    background-color: crimson !important;
+    color: white !important;
+}
+.outlineRed{
+    border-color: crimson  !important;
+}
+.colorRed{
+    color:crimson  !important;
+}
+.backgroundRed{
+    background-color: #ffc6d180  !important;
+}
+.shadowRed{
+    box-shadow: 0 5px #ffc6d180;
+}
+
+.Green {
+    background-color: darkgreen !important;
+    color: white !important;
+}
+.outlineGreen{
+    border-color: darkgreen  !important;
+}
+.colorGreen{
+    color:darkgreen  !important;
+}
+.backgroundGreen{
+    background-color: #8ab88a  !important;
+}
+.shadowGreen{
+    box-shadow: 0 5px #8ab88a;
+}
+
+.Blue {
+    background-color: royalblue !important;
+    color: white !important;
+}
+.outlineBlue{
+    border-color: royalblue  !important;
+}
+.colorBlue{
+    color:royalblue  !important;
+}
+.backgroundBlue{
+    background-color:#4169e17d  !important;
+}
+.shadowBlue{
+    box-shadow: 0 5px #4169e17d;
+}
+
+.Orange {
+    background-color: darkorange !important;
+    color: white !important;
+}
+.outlineOrange{
+    border-color: darkorange  !important;
+}
+.colorOrange{
+    color:darkorange  !important;
+}
+.backgroundOrange{
+    background-color: #ff8c0052  !important;
+}
+.shadowOrange{
+    box-shadow: 0 5px #ff8c0052;
+}
+
+.Purple {
+    background-color: darkorchid !important;
+    color: white !important;
+}
+.outlinePurple{
+    border-color: darkorchid  !important;
+}
+.colorPurple{
+    color:darkorchid  !important;
+}
+.backgroundPurple{
+    background-color: #9932cc52  !important;
+}
+.shadowPurple{
+    box-shadow: 0 5px #9932cc52;
+}
+
+.Pink {
+    background-color: hotpink !important;
+    color: white !important;
+}
+.outlinePink{
+    border-color: hotpink  !important;
+}
+.colorPink{
+    color:hotpink  !important;
+}
+.backgroundPink{
+    background-color: #ff69b45e !important;
+}
+.shadowPink{
+    box-shadow: 0 5px #ff69b45e;
+}
+
+.Yellow {
+    background-color: gold !important;
+    color: white !important;
+}
+.outlineYellow{
+    border-color: gold  !important;
+}
+.colorYellow{
+    color:gold  !important;
+}
+.backgroundYellow{
+    background-color:#ffd70061  !important;
+}
+.shadowYellow{
+    box-shadow: 0 5px #ffd70061;
+}
+
+.Brown {
+    background-color: brown !important;
+    color: white !important;
+}
+.outlineBrown{
+    border-color: brown  !important;
+}
+.colorBrown{
+    color:brown  !important;
+}
+.backgroundBrown{
+    background-color: #a52a2a75  !important;
+}
+.shadowBrown{
+    box-shadow: 0 5px #a52a2a75;
+}
+
+.Grey {
+    background-color: darkgrey !important;
+    color: white !important;
+}
+.outlineGrey{
+    border-color: darkgrey  !important;
+}
+.colorGrey{
+    color:darkgrey  !important;
+}
+.backgroundGrey{
+    background-color: #a9a9a96e !important;
+}
+.shadowGrey{
+    box-shadow: 0 5px #a9a9a96e;
+}
+
+.Black {
+    background-color: black !important;
+    color: white !important;
+}
+.outlineBlack{
+    border-color: black  !important;
+}
+.colorBlack{
+    color:black  !important;
+}
+.backgroundBlack{
+    background-color: #0000006b !important;
+}
+.shadowBlack{
+    box-shadow: 0 5px #0000006b;
 }

@@ -21,7 +21,7 @@ const io = require('socket.io')(server, {
     });
 
 // global vars for users who connect "late"
-colours = ["Red", "Green", "Blue", "Orange", "Purple", "Pink", "Yellow", "Black", "Grey", "Brown"];
+colours = ["Red", "Green", "Blue","Purple", "Pink", "Orange", "Yellow", "Grey", "Brown", "Black"];
 previousJoinedPlayers =  {};
 gameBegan = {};
 previousHostDetails = {};

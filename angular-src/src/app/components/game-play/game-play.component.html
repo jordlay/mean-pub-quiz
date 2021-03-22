@@ -1,13 +1,13 @@
 <div class="row">
-    <div class="col">
-        <div class="jitsiMeet" #meet></div>
+    <div class="col" style="padding:0px">
+        <div class="jitsiMeet"  style="padding:0px" #meet></div>
     </div>
-    <div  class="col">
+    <div  class="col" style="padding-right:0px">
     
         <div *ngIf="!this.gameAlreadyBegun">
             <div *ngIf="!this.gameStarted">
-                <h2>Game Waiting Room <span *ngIf="this.host"><mat-icon type="button" data-bs-toggle="modal" data-bs-target="#questionSettingsModal" aria-hidden="false" >settings</mat-icon></span></h2>
-                <h3>Meeting Pin: {{this.roomPin}} <button type="button" class="btn btn-primary" [cdkCopyToClipboard]="this.url">Copy Game Link!</button>
+                <h2 style="margin-bottom: 0px;">Game Waiting Room <span *ngIf="this.host"><mat-icon type="button" data-bs-toggle="modal" data-bs-target="#questionSettingsModal" aria-hidden="false" >settings</mat-icon></span></h2>
+                <h3>Meeting Pin: {{this.roomPin}} <button type="button" class="btn btn-primary copyButton" [cdkCopyToClipboard]="this.url">Copy Game Link!</button>
                 </h3>
                 
                 <div *ngIf="this.participantArray" > 
@@ -45,12 +45,12 @@
                     <div class="card border-primary mb-3" style="max-width: 20rem; margin-top: 16px; padding:10px;">
                         <h4>Host Settings</h4>
                         <p>You must choose your game settings before you can begin the game!</p>
-                        <div class="card-body row" style="padding: 10px;">
+                        <div class="card-body row" style="padding: 5px;">
                             <div *ngIf="this.showQuestions" class="col">
-                                <button type="button" class="btn btn-outline-secondary"  data-bs-toggle="modal" data-bs-target="#questionsModal">Input Questions</button>
+                                <button id="inputQuestions" type="button" class="btn btn-outline-secondary"  data-bs-toggle="modal" data-bs-target="#questionsModal">Input Questions</button>
                             </div>
                             <div class="col">
-                                <button type="button" class="btn btn-outline-secondary"  data-bs-toggle="modal" data-bs-target="#settingsModal" (click)="openTeamSettings()">Team Settings</button>
+                                <button id="teamSettings" type="button" class="btn btn-outline-secondary"  data-bs-toggle="modal" data-bs-target="#settingsModal" (click)="openTeamSettings()">Team Settings</button>
                             </div>
                          </div>
                     </div>

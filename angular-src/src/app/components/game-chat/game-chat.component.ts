@@ -43,7 +43,8 @@ export class GameChatComponent implements OnInit {
       innerItem.style.padding = "2px";
       item.appendChild(innerItem);
       this.messages.appendChild(item);
-      window.scrollTo(0, document.body.scrollHeight);
+      this.messages.scrollTo(0, this.messages.scrollHeight);
+      // window.scrollTo(0, document.body.scrollHeight);
       messageElement.value = '';
     }
   }
@@ -62,9 +63,9 @@ export class GameChatComponent implements OnInit {
         innerItem.style.clear = "both"
         innerItem.style.float ="left";
         innerItem.style.marginBottom ="0px !important";
-        innerItem.className = "card border mb-3"
-        innerItem.style.color = "color{{this.player.colour}} !important"
-        innerItem.style.borderColor = "outline{{this.player.colour}} !important"
+        innerItem.className = "card border mb-3 color"+this.player.colour+" outline"+ this.player.colour;
+        // innerItem.style.color = "color{{this.player.colour}} !important"
+        // innerItem.style.borderColor = "outline{{this.player.colour}} !important"
         innerItem.style.maxWidth = '50%';
         innerItem.style.padding = "2px";
 
@@ -76,7 +77,9 @@ export class GameChatComponent implements OnInit {
         item.appendChild(innerItem);
         item.appendChild(innerItem2);
         this.messages.appendChild(item);
-        window.scrollTo(0, document.body.scrollHeight);
+        this.messages.scrollTo(0, this.messages.scrollHeight);
+
+        // window.scrollTo(0, document.body.scrollHeight);
       }
  
     });

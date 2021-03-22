@@ -939,7 +939,7 @@ __webpack_require__.r(__webpack_exports__);
 const _c0 = ["meet"];
 function GamePlayComponent_div_5_div_1_span_3_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "span");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "mat-icon", 35);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "mat-icon", 37);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](2, "settings");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
@@ -947,7 +947,7 @@ function GamePlayComponent_div_5_div_1_span_3_Template(rf, ctx) { if (rf & 1) {
 const _c1 = function (a0) { return { "selectedColour": a0 }; };
 function GamePlayComponent_div_5_div_1_div_8_div_4_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "div", 37);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "div", 39);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
@@ -962,7 +962,7 @@ function GamePlayComponent_div_5_div_1_div_8_div_4_Template(rf, ctx) { if (rf & 
 function GamePlayComponent_div_5_div_1_div_8_div_5_Template(rf, ctx) { if (rf & 1) {
     const _r19 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "button", 38);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "button", 40);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function GamePlayComponent_div_5_div_1_div_8_div_5_Template_button_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r19); const ctx_r18 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](4); return ctx_r18.playerReady(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](2, "Ready to Play?");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
@@ -970,13 +970,13 @@ function GamePlayComponent_div_5_div_1_div_8_div_5_Template(rf, ctx) { if (rf & 
 } }
 function GamePlayComponent_div_5_div_1_div_8_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "div", 36);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "div", 38);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](2, "h4");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](3, "Current Players:");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](4, GamePlayComponent_div_5_div_1_div_8_div_4_Template, 3, 4, "div", 33);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](4, GamePlayComponent_div_5_div_1_div_8_div_4_Template, 3, 4, "div", 35);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](5, GamePlayComponent_div_5_div_1_div_8_div_5_Template, 3, 0, "div", 4);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](5, GamePlayComponent_div_5_div_1_div_8_div_5_Template, 3, 0, "div", 5);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r6 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](3);
@@ -987,12 +987,12 @@ function GamePlayComponent_div_5_div_1_div_8_Template(rf, ctx) { if (rf & 1) {
 } }
 function GamePlayComponent_div_5_div_1_div_9_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "p", 39);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "p", 41);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](2, "em");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](3, "You are ready to play!");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](4, "p", 39);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](4, "p", 41);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](5, "em");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](6, "Waiting for other players...");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
@@ -1001,12 +1001,12 @@ function GamePlayComponent_div_5_div_1_div_9_Template(rf, ctx) { if (rf & 1) {
 } }
 function GamePlayComponent_div_5_div_1_div_10_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "p", 39);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "p", 41);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](2, "em");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](3, "All players are ready!");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](4, "p", 39);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](4, "p", 41);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](5, "em");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](6, "Waiting for host to start the game...");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
@@ -1016,14 +1016,14 @@ function GamePlayComponent_div_5_div_1_div_10_Template(rf, ctx) { if (rf & 1) {
 function GamePlayComponent_div_5_div_1_div_11_Template(rf, ctx) { if (rf & 1) {
     const _r21 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "div", 36);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "div", 38);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](2, "h4");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](3, "Host Only!");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](4, "p");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](5, "If you are the host, click below to gain your power!");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](6, "button", 40);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](6, "button", 42);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function GamePlayComponent_div_5_div_1_div_11_Template_button_click_6_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r21); const ctx_r20 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](3); return ctx_r20.setHost(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](7, "Confirm Host");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
@@ -1033,20 +1033,20 @@ function GamePlayComponent_div_5_div_1_div_11_Template(rf, ctx) { if (rf & 1) {
 function GamePlayComponent_div_5_div_1_div_12_Template(rf, ctx) { if (rf & 1) {
     const _r23 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "p", 39);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "p", 41);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](2, "em");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](3, "Click below to start the game!");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](4, "button", 38);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](4, "button", 40);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function GamePlayComponent_div_5_div_1_div_12_Template_button_click_4_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r23); const ctx_r22 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](3); return ctx_r22.beginGame(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](5, "Begin Game");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } }
 function GamePlayComponent_div_5_div_1_div_13_div_7_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "button", 44);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 45);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "button", 47);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](2, "Input Questions");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
@@ -1054,17 +1054,17 @@ function GamePlayComponent_div_5_div_1_div_13_div_7_Template(rf, ctx) { if (rf &
 function GamePlayComponent_div_5_div_1_div_13_Template(rf, ctx) { if (rf & 1) {
     const _r26 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "div", 36);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "div", 38);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](2, "h4");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](3, "Host Settings");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](4, "p");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](5, "You must choose your game settings before you can begin the game!");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](6, "div", 41);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](7, GamePlayComponent_div_5_div_1_div_13_div_7_Template, 3, 0, "div", 42);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](8, "div", 1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](9, "button", 43);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](6, "div", 43);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](7, GamePlayComponent_div_5_div_1_div_13_div_7_Template, 3, 0, "div", 44);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](8, "div", 45);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](9, "button", 46);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function GamePlayComponent_div_5_div_1_div_13_Template_button_click_9_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r26); const ctx_r25 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](3); return ctx_r25.openTeamSettings(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](10, "Team Settings");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
@@ -1079,10 +1079,10 @@ function GamePlayComponent_div_5_div_1_div_13_Template(rf, ctx) { if (rf & 1) {
 } }
 function GamePlayComponent_div_5_div_1_div_31_div_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "label", 45);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "label", 48);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](3, "input", 46);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](3, "input", 49);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const i_r29 = ctx.index;
@@ -1095,8 +1095,8 @@ function GamePlayComponent_div_5_div_1_div_31_div_2_Template(rf, ctx) { if (rf &
 } }
 function GamePlayComponent_div_5_div_1_div_31_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "div", 16);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](2, GamePlayComponent_div_5_div_1_div_31_div_2_Template, 4, 3, "div", 33);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "div", 18);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](2, GamePlayComponent_div_5_div_1_div_31_div_2_Template, 4, 3, "div", 35);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
@@ -1106,28 +1106,28 @@ function GamePlayComponent_div_5_div_1_div_31_Template(rf, ctx) { if (rf & 1) {
 } }
 function GamePlayComponent_div_5_div_1_div_62_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "button", 47);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "button", 50);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](2, "Open Questions");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } }
 function GamePlayComponent_div_5_div_1_div_74_div_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "label", 45);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "label", 48);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](3, "div", 48);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](4, "input", 49);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](3, "div", 51);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](4, "input", 52);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](5, "div", 48);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](6, "span", 50);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](5, "div", 51);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](6, "span", 53);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](7, "Answer");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](8, "input", 51);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](9, "span", 50);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](8, "input", 54);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](9, "span", 53);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](10, "Points");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](11, "input", 51);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](11, "input", 54);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
@@ -1147,7 +1147,7 @@ function GamePlayComponent_div_5_div_1_div_74_div_2_Template(rf, ctx) { if (rf &
 function GamePlayComponent_div_5_div_1_div_74_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](2, GamePlayComponent_div_5_div_1_div_74_div_2_Template, 12, 9, "div", 33);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](2, GamePlayComponent_div_5_div_1_div_74_div_2_Template, 12, 9, "div", 35);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const i_r31 = ctx.index;
@@ -1160,54 +1160,54 @@ function GamePlayComponent_div_5_div_1_div_74_Template(rf, ctx) { if (rf & 1) {
 function GamePlayComponent_div_5_div_1_Template(rf, ctx) { if (rf & 1) {
     const _r37 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "h2");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "h2", 7);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](2, "Game Waiting Room ");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](3, GamePlayComponent_div_5_div_1_span_3_Template, 3, 0, "span", 4);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](3, GamePlayComponent_div_5_div_1_span_3_Template, 3, 0, "span", 5);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](4, "h3");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](5);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](6, "button", 6);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](6, "button", 8);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](7, "Copy Game Link!");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](8, GamePlayComponent_div_5_div_1_div_8_Template, 6, 2, "div", 4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](9, GamePlayComponent_div_5_div_1_div_9_Template, 7, 0, "div", 4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](10, GamePlayComponent_div_5_div_1_div_10_Template, 7, 0, "div", 4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](11, GamePlayComponent_div_5_div_1_div_11_Template, 8, 0, "div", 4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](12, GamePlayComponent_div_5_div_1_div_12_Template, 6, 0, "div", 4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](13, GamePlayComponent_div_5_div_1_div_13_Template, 11, 1, "div", 4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](14, "div", 7);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](15, "div", 8);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](16, "div", 9);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](17, "div", 10);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](18, "h5", 11);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](8, GamePlayComponent_div_5_div_1_div_8_Template, 6, 2, "div", 5);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](9, GamePlayComponent_div_5_div_1_div_9_Template, 7, 0, "div", 5);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](10, GamePlayComponent_div_5_div_1_div_10_Template, 7, 0, "div", 5);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](11, GamePlayComponent_div_5_div_1_div_11_Template, 8, 0, "div", 5);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](12, GamePlayComponent_div_5_div_1_div_12_Template, 6, 0, "div", 5);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](13, GamePlayComponent_div_5_div_1_div_13_Template, 11, 1, "div", 5);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](14, "div", 9);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](15, "div", 10);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](16, "div", 11);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](17, "div", 12);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](18, "h5", 13);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](19, "Question Settings");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](20, "button", 12);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](20, "button", 14);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](21, "div", 13);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](22, "p", 14);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](21, "div", 15);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](22, "p", 16);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](23, "If you would like your quiz questions to appear on the screen as you play, enter the number of rounds and questions");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](24, "p", 14);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](24, "p", 16);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](25, "If not just close this form.");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](26, "form", 15);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](27, "div", 16);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](28, "label", 17);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](26, "form", 17);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](27, "div", 18);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](28, "label", 19);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](29, "Enter the number of rounds");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](30, "input", 18);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](30, "input", 20);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](31, GamePlayComponent_div_5_div_1_div_31_Template, 3, 1, "div", 4);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](31, GamePlayComponent_div_5_div_1_div_31_Template, 3, 1, "div", 5);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](32, "div", 19);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](33, "button", 20);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](32, "div", 21);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](33, "button", 22);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function GamePlayComponent_div_5_div_1_Template_button_click_33_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r37); const ctx_r36 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r36.showQuestions = false; });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](34, "Close");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](35, "button", 21);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](35, "button", 23);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function GamePlayComponent_div_5_div_1_Template_button_click_35_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r37); const ctx_r38 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r38.setQuestionSettings(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](36, "Confirm Settings");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
@@ -1215,41 +1215,41 @@ function GamePlayComponent_div_5_div_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](37, "div", 22);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](38, "div", 8);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](39, "div", 9);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](40, "div", 10);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](41, "h5", 11);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](37, "div", 24);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](38, "div", 10);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](39, "div", 11);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](40, "div", 12);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](41, "h5", 13);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](42, "Team Settings");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](43, "button", 12);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](43, "button", 14);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](44, "div", 23);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](45, "p", 14);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](44, "div", 25);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](45, "p", 16);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](46, "Make sure all your players are in the waiting room as you cannot change the number of teams once the game has begun");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](47, "form", 15);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](48, "div", 16);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](49, "div", 24);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](50, "input", 25);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](51, "label", 26);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](47, "form", 17);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](48, "div", 18);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](49, "div", 26);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](50, "input", 27);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](51, "label", 28);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](52, "Include Host in Teams ");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](53, "div", 16);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](54, "label", 27);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](53, "div", 18);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](54, "label", 29);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](55, "How many teams would you like? (max 10)");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](56, "input", 28);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](56, "input", 30);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](57, "div", 19);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](58, "button", 29);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](57, "div", 21);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](58, "button", 31);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](59, "Close");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](60, "button", 30);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](60, "button", 32);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function GamePlayComponent_div_5_div_1_Template_button_click_60_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r37); const ctx_r39 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r39.setSettings(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](61, "Confirm Settings");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
@@ -1257,29 +1257,29 @@ function GamePlayComponent_div_5_div_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](62, GamePlayComponent_div_5_div_1_div_62_Template, 3, 0, "div", 4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](63, "div", 31);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](64, "div", 8);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](65, "div", 9);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](66, "div", 10);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](67, "h5", 11);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](62, GamePlayComponent_div_5_div_1_div_62_Template, 3, 0, "div", 5);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](63, "div", 33);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](64, "div", 10);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](65, "div", 11);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](66, "div", 12);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](67, "h5", 13);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](68, "Submit Questions");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](69, "button", 32);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](69, "button", 34);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](70, "div", 23);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](71, "p", 14);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](70, "div", 25);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](71, "p", 16);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](72, "Paste or type your question, answer and the points they are worth");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](73, "form");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](74, GamePlayComponent_div_5_div_1_div_74_Template, 3, 2, "div", 33);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](74, GamePlayComponent_div_5_div_1_div_74_Template, 3, 2, "div", 35);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](75, "div", 19);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](76, "button", 29);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](75, "div", 21);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](76, "button", 31);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](77, "Close");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](78, "button", 34);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](78, "button", 36);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function GamePlayComponent_div_5_div_1_Template_button_click_78_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r37); const ctx_r40 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r40.setQuestions(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](79, "Save Questions");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
@@ -1317,7 +1317,7 @@ function GamePlayComponent_div_5_div_1_Template(rf, ctx) { if (rf & 1) {
 } }
 function GamePlayComponent_div_5_div_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "app-game-details", 52);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "app-game-details", 55);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r4 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
@@ -1326,8 +1326,8 @@ function GamePlayComponent_div_5_div_2_Template(rf, ctx) { if (rf & 1) {
 } }
 function GamePlayComponent_div_5_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](1, GamePlayComponent_div_5_div_1_Template, 80, 12, "div", 4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](2, GamePlayComponent_div_5_div_2_Template, 2, 5, "div", 4);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](1, GamePlayComponent_div_5_div_1_Template, 80, 12, "div", 5);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](2, GamePlayComponent_div_5_div_2_Template, 2, 5, "div", 5);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
@@ -1345,7 +1345,7 @@ function GamePlayComponent_div_6_div_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](3, "h2");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](4);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](5, "p", 39);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](5, "p", 41);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](6, "em");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](7, "It looks like you're a little late! The game has already started!");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
@@ -1353,7 +1353,7 @@ function GamePlayComponent_div_6_div_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](8, "p");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](9, "Click below to join the game!");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](10, "button", 38);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](10, "button", 40);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function GamePlayComponent_div_6_div_1_Template_button_click_10_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r44); const ctx_r43 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r43.joinGameLate(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](11, "Join");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
@@ -1365,7 +1365,7 @@ function GamePlayComponent_div_6_div_1_Template(rf, ctx) { if (rf & 1) {
 } }
 function GamePlayComponent_div_6_div_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "app-game-details", 52);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "app-game-details", 55);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r42 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
@@ -1374,8 +1374,8 @@ function GamePlayComponent_div_6_div_2_Template(rf, ctx) { if (rf & 1) {
 } }
 function GamePlayComponent_div_6_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div");
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](1, GamePlayComponent_div_6_div_1_Template, 12, 1, "div", 4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](2, GamePlayComponent_div_6_div_2_Template, 2, 5, "div", 4);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](1, GamePlayComponent_div_6_div_1_Template, 12, 1, "div", 5);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](2, GamePlayComponent_div_6_div_2_Template, 2, 5, "div", 5);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]();
@@ -1617,6 +1617,9 @@ class GamePlayComponent {
         }
     }
     setSettings() {
+        let teamButton = document.getElementById("teamSettings");
+        teamButton.style.borderColor = "green";
+        teamButton.style.color = "green";
         this.isChecked = document.getElementById('hostCheckbox');
         if (this.isChecked.checked === true) {
             this.participantArray[this.currentPlayer.id].include = true;
@@ -1631,6 +1634,9 @@ class GamePlayComponent {
         this.hostDetails.teamNumber = this.teamNumber;
     }
     setQuestions() {
+        let inputButton = document.getElementById("inputQuestions");
+        inputButton.style.borderColor = "green";
+        inputButton.style.color = "green";
         this.questionsObject = {};
         for (let i = 0; i < this.rounds.length; i++) {
             this.questionsObject[i + 1] = {};
@@ -1710,18 +1716,18 @@ GamePlayComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefine
     } if (rf & 2) {
         let _t;
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵloadQuery"]()) && (ctx.meet = _t.first);
-    } }, decls: 10, vars: 2, consts: [[1, "row"], [1, "col"], [1, "jitsiMeet"], ["meet", ""], [4, "ngIf"], ["type", "button", 1, "btn", "btn-outline-danger", 3, "click"], ["type", "button", 1, "btn", "btn-primary", 3, "cdkCopyToClipboard"], ["data-bs-backdrop", "static", "id", "questionSettingsModal", "tabindex", "-1", "aria-hidden", "true", 1, "modal", "fade"], [1, "modal-dialog", "modal-dialog-centered", "modal-dialog-scrollable"], [1, "modal-content", 2, "max-height", "400px"], [1, "modal-header"], ["id", "exampleModalLabel", 1, "modal-title"], ["type", "button", "data-bs-dismiss", "modal", "aria-label", "Close", 1, "btn-close"], [1, "modal-body"], [1, "card-text"], [1, "needs-validation"], [1, "mb-3"], ["for", "rounds", 2, "margin-top", "10px"], ["type", "text", "id", "rounds", "placeholder", "Enter number of rounds", 1, "form-control"], [1, "modal-footer"], ["type", "button", "data-bs-dismiss", "modal", 1, "btn", "btn-secondary", 3, "click"], ["type", "button", "data-bs-dismiss", "modal", "id", "setQuestionSettings", 1, "btn", "btn-primary", 3, "click"], ["data-bs-backdrop", "static", "id", "settingsModal", "tabindex", "-1", "aria-hidden", "true", 1, "modal", "fade"], [1, "modal-body", 2, "max-height", "400px"], [1, "form-check", 2, "padding-left", "0rem"], ["type", "checkbox", "value", "", "id", "hostCheckbox", 1, "form-check-input"], ["for", "hostCheckbox", 1, "form-check-label", 2, "padding-left", "30px"], ["for", "teamNumber", 2, "margin-top", "10px"], ["type", "text", "id", "teamNumber", "placeholder", "Enter number of teams", 1, "form-control"], ["type", "button", "data-bs-dismiss", "modal", 1, "btn", "btn-secondary"], ["type", "button", "data-bs-dismiss", "modal", "id", "setSettings", "disabled", "", 1, "btn", "btn-primary", 3, "click"], ["data-bs-backdrop", "static", "id", "questionsModal", "tabindex", "-1", "aria-hidden", "true", 1, "modal", "fade"], ["type", "button", "data-bs-toggle", "modal", "data-bs-target", "#questionsModal", "data-bs-dismiss", "modal", "aria-label", "Close", 1, "btn-close"], [4, "ngFor", "ngForOf"], ["type", "button", "data-bs-dismiss", "modal", "id", "saveQuestions", 1, "btn", "btn-primary", 3, "click"], ["type", "button", "data-bs-toggle", "modal", "data-bs-target", "#questionSettingsModal", "aria-hidden", "false"], [1, "card", "border-primary", "mb-3", 2, "max-width", "20rem", "margin-top", "16px", "padding", "10px"], [3, "ngClass"], ["type", "button", 1, "btn", "btn-outline-success", 3, "click"], [1, "text-success"], ["type", "button", "data-bs-toggle", "modal", "data-bs-target", "#questionSettingsModal", 1, "btn", "btn-outline-secondary", 3, "click"], [1, "card-body", "row", 2, "padding", "10px"], ["class", "col", 4, "ngIf"], ["type", "button", "data-bs-toggle", "modal", "data-bs-target", "#settingsModal", 1, "btn", "btn-outline-secondary", 3, "click"], ["type", "button", "data-bs-toggle", "modal", "data-bs-target", "#questionsModal", 1, "btn", "btn-outline-secondary"], [2, "margin-top", "10px", 3, "for"], ["type", "text", "placeholder", "Enter number of questions", 1, "form-control", 3, "id"], ["type", "button", "data-bs-toggle", "modal", "data-bs-target", "#questionsModal", 1, "btn", "btn-secondary"], [1, "input-group", "mb-3"], ["type", "text", "placeholder", "Paste or type your question", 1, "form-control", 3, "id"], [1, "input-group-text"], ["type", "text", 1, "form-control", 3, "id"], [3, "roomPin", "playerObject", "hostDetails", "currentPlayer", "teams"]], template: function GamePlayComponent_Template(rf, ctx) { if (rf & 1) {
+    } }, decls: 10, vars: 2, consts: [[1, "row"], [1, "col", 2, "padding", "0px"], [1, "jitsiMeet", 2, "padding", "0px"], ["meet", ""], [1, "col", 2, "padding-right", "0px"], [4, "ngIf"], ["type", "button", 1, "btn", "btn-outline-danger", 3, "click"], [2, "margin-bottom", "0px"], ["type", "button", 1, "btn", "btn-primary", "copyButton", 3, "cdkCopyToClipboard"], ["data-bs-backdrop", "static", "id", "questionSettingsModal", "tabindex", "-1", "aria-hidden", "true", 1, "modal", "fade"], [1, "modal-dialog", "modal-dialog-centered", "modal-dialog-scrollable"], [1, "modal-content", 2, "max-height", "400px"], [1, "modal-header"], ["id", "exampleModalLabel", 1, "modal-title"], ["type", "button", "data-bs-dismiss", "modal", "aria-label", "Close", 1, "btn-close"], [1, "modal-body"], [1, "card-text"], [1, "needs-validation"], [1, "mb-3"], ["for", "rounds", 2, "margin-top", "10px"], ["type", "text", "id", "rounds", "placeholder", "Enter number of rounds", 1, "form-control"], [1, "modal-footer"], ["type", "button", "data-bs-dismiss", "modal", 1, "btn", "btn-secondary", 3, "click"], ["type", "button", "data-bs-dismiss", "modal", "id", "setQuestionSettings", 1, "btn", "btn-primary", 3, "click"], ["data-bs-backdrop", "static", "id", "settingsModal", "tabindex", "-1", "aria-hidden", "true", 1, "modal", "fade"], [1, "modal-body", 2, "max-height", "400px"], [1, "form-check", 2, "padding-left", "0rem"], ["type", "checkbox", "value", "", "id", "hostCheckbox", 1, "form-check-input"], ["for", "hostCheckbox", 1, "form-check-label", 2, "padding-left", "30px"], ["for", "teamNumber", 2, "margin-top", "10px"], ["type", "text", "id", "teamNumber", "placeholder", "Enter number of teams", 1, "form-control"], ["type", "button", "data-bs-dismiss", "modal", 1, "btn", "btn-secondary"], ["type", "button", "data-bs-dismiss", "modal", "id", "setSettings", "disabled", "", 1, "btn", "btn-primary", 3, "click"], ["data-bs-backdrop", "static", "id", "questionsModal", "tabindex", "-1", "aria-hidden", "true", 1, "modal", "fade"], ["type", "button", "data-bs-toggle", "modal", "data-bs-target", "#questionsModal", "data-bs-dismiss", "modal", "aria-label", "Close", 1, "btn-close"], [4, "ngFor", "ngForOf"], ["type", "button", "data-bs-dismiss", "modal", "id", "saveQuestions", 1, "btn", "btn-primary", 3, "click"], ["type", "button", "data-bs-toggle", "modal", "data-bs-target", "#questionSettingsModal", "aria-hidden", "false"], [1, "card", "border-primary", "mb-3", 2, "max-width", "20rem", "margin-top", "16px", "padding", "10px"], [3, "ngClass"], ["type", "button", 1, "btn", "btn-outline-success", 3, "click"], [1, "text-success"], ["type", "button", "data-bs-toggle", "modal", "data-bs-target", "#questionSettingsModal", 1, "btn", "btn-outline-secondary", 3, "click"], [1, "card-body", "row", 2, "padding", "5px"], ["class", "col", 4, "ngIf"], [1, "col"], ["id", "teamSettings", "type", "button", "data-bs-toggle", "modal", "data-bs-target", "#settingsModal", 1, "btn", "btn-outline-secondary", 3, "click"], ["id", "inputQuestions", "type", "button", "data-bs-toggle", "modal", "data-bs-target", "#questionsModal", 1, "btn", "btn-outline-secondary"], [2, "margin-top", "10px", 3, "for"], ["type", "text", "placeholder", "Enter number of questions", 1, "form-control", 3, "id"], ["type", "button", "data-bs-toggle", "modal", "data-bs-target", "#questionsModal", 1, "btn", "btn-secondary"], [1, "input-group", "mb-3"], ["type", "text", "placeholder", "Paste or type your question", 1, "form-control", 3, "id"], [1, "input-group-text"], ["type", "text", 1, "form-control", 3, "id"], [3, "roomPin", "playerObject", "hostDetails", "currentPlayer", "teams"]], template: function GamePlayComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "div", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](2, "div", 2, 3);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](4, "div", 1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](5, GamePlayComponent_div_5_Template, 3, 2, "div", 4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](6, GamePlayComponent_div_6_Template, 3, 2, "div", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](4, "div", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](5, GamePlayComponent_div_5_Template, 3, 2, "div", 5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](6, GamePlayComponent_div_6_Template, 3, 2, "div", 5);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](7, "div");
-        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](8, "button", 5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](8, "button", 6);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function GamePlayComponent_Template_button_click_8_listener() { return ctx.endGame(); });
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](9, "End Game");
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
@@ -1731,7 +1737,7 @@ GamePlayComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefine
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", !ctx.gameAlreadyBegun);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx.gameAlreadyBegun);
-    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_5__["NgIf"], _angular_cdk_clipboard__WEBPACK_IMPORTED_MODULE_6__["CdkCopyToClipboard"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["NgForm"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgForOf"], _angular_material_icon__WEBPACK_IMPORTED_MODULE_8__["MatIcon"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgClass"], _game_details_game_details_component__WEBPACK_IMPORTED_MODULE_9__["GameDetailsComponent"]], styles: [".jitsiMeet[_ngcontent-%COMP%]{\r\n    height:auto;\r\n    \r\n    width: auto;\r\n    \r\n}\r\n\r\n.selectedColour[_ngcontent-%COMP%]{\r\n  color: green;\r\n}\r\n\r\n\r\n\r\n.form-check[_ngcontent-%COMP%]{\r\n  padding-left: 0em !important;\r\n}\r\n\r\ninput[type=\"checkbox\"][_ngcontent-%COMP%]::after{\r\n  top: 0em !important;\r\n  left: 1.5em !important;\r\n}\r\n\r\ninput[type=\"checkbox\"][_ngcontent-%COMP%]::before{\r\n  top: 0em !important;\r\n  left: 1.5em !important;\r\n}\r\n\r\ninput[type=checkbox][_ngcontent-%COMP%]::before{\r\n  top: 0em !important;\r\n  left: 1.5em !important;\r\n}\r\n\r\ninput[type=checkbox][_ngcontent-%COMP%]::after{\r\n  top: 0em !important;\r\n  left: 1.5em !important;\r\n}\r\n\r\ninput[type=checkbox][_ngcontent-%COMP%]:checked::after{\r\n  top: 0em !important;\r\n  left: 1.1em !important;\r\n}\r\n\r\ninput[type=\"checkbox\"][_ngcontent-%COMP%]:checked::after{\r\n  top: 0em !important;\r\n  left: 1.1em !important;\r\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImdhbWUtcGxheS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksV0FBVztJQUNYLHVCQUF1QjtJQUN2QixXQUFXO0lBQ1g7OztxQkFHaUI7QUFDckI7O0FBRUE7RUFDRSxZQUFZO0FBQ2Q7O0FBRUE7O0dBRUc7O0FBQ0g7RUFDRSw0QkFBNEI7QUFDOUI7O0FBRUE7RUFDRSxtQkFBbUI7RUFDbkIsc0JBQXNCO0FBQ3hCOztBQUNBO0VBQ0UsbUJBQW1CO0VBQ25CLHNCQUFzQjtBQUN4Qjs7QUFDQTtFQUNFLG1CQUFtQjtFQUNuQixzQkFBc0I7QUFDeEI7O0FBQ0E7RUFDRSxtQkFBbUI7RUFDbkIsc0JBQXNCO0FBQ3hCOztBQUVBO0VBQ0UsbUJBQW1CO0VBQ25CLHNCQUFzQjtBQUN4Qjs7QUFDQTtFQUNFLG1CQUFtQjtFQUNuQixzQkFBc0I7QUFDeEI7O0FBQ0E7Ozs7R0FJRyIsImZpbGUiOiJnYW1lLXBsYXkuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5qaXRzaU1lZXR7XHJcbiAgICBoZWlnaHQ6YXV0bztcclxuICAgIC8qIG1pbi1oZWlnaHQ6IDYwMHB4OyAqL1xyXG4gICAgd2lkdGg6IGF1dG87XHJcbiAgICAvKiBoZWlnaHQ6IGF1dG87XHJcbiAgICB3aWR0aDogYXV0bztcclxuICAgIGZsb2F0OiBsZWZ0O1xyXG4gICAgbWluLXdpZHRoOiA4MCU7ICovXHJcbn1cclxuXHJcbi5zZWxlY3RlZENvbG91cntcclxuICBjb2xvcjogZ3JlZW47XHJcbn1cclxuXHJcbi8qIC5sYWJlbHtcclxuICBwYWRkaW5nLXRvcDogMTBweCAhaW1wb3J0YW50O1xyXG59ICovXHJcbi5mb3JtLWNoZWNre1xyXG4gIHBhZGRpbmctbGVmdDogMGVtICFpbXBvcnRhbnQ7XHJcbn1cclxuXHJcbmlucHV0W3R5cGU9XCJjaGVja2JveFwiXTo6YWZ0ZXJ7XHJcbiAgdG9wOiAwZW0gIWltcG9ydGFudDtcclxuICBsZWZ0OiAxLjVlbSAhaW1wb3J0YW50O1xyXG59XHJcbmlucHV0W3R5cGU9XCJjaGVja2JveFwiXTo6YmVmb3Jle1xyXG4gIHRvcDogMGVtICFpbXBvcnRhbnQ7XHJcbiAgbGVmdDogMS41ZW0gIWltcG9ydGFudDtcclxufVxyXG5pbnB1dFt0eXBlPWNoZWNrYm94XTo6YmVmb3Jle1xyXG4gIHRvcDogMGVtICFpbXBvcnRhbnQ7XHJcbiAgbGVmdDogMS41ZW0gIWltcG9ydGFudDtcclxufVxyXG5pbnB1dFt0eXBlPWNoZWNrYm94XTo6YWZ0ZXJ7XHJcbiAgdG9wOiAwZW0gIWltcG9ydGFudDtcclxuICBsZWZ0OiAxLjVlbSAhaW1wb3J0YW50O1xyXG59XHJcblxyXG5pbnB1dFt0eXBlPWNoZWNrYm94XTpjaGVja2VkOjphZnRlcntcclxuICB0b3A6IDBlbSAhaW1wb3J0YW50O1xyXG4gIGxlZnQ6IDEuMWVtICFpbXBvcnRhbnQ7XHJcbn1cclxuaW5wdXRbdHlwZT1cImNoZWNrYm94XCJdOmNoZWNrZWQ6OmFmdGVye1xyXG4gIHRvcDogMGVtICFpbXBvcnRhbnQ7XHJcbiAgbGVmdDogMS4xZW0gIWltcG9ydGFudDtcclxufVxyXG4vKiBcclxuLm1vZGFsLmZhZGUgLm1vZGFsLWRpYWxvZyB7XHJcbiAgdHJhbnNpdGlvbjogdHJhbnNmb3JtIDAuM3MgZWFzZS1vdXQ7XHJcbiAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoMCwgLTUwcHgpO1xyXG59ICovIl19 */"] });
+    } }, directives: [_angular_common__WEBPACK_IMPORTED_MODULE_5__["NgIf"], _angular_cdk_clipboard__WEBPACK_IMPORTED_MODULE_6__["CdkCopyToClipboard"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["NgForm"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgForOf"], _angular_material_icon__WEBPACK_IMPORTED_MODULE_8__["MatIcon"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgClass"], _game_details_game_details_component__WEBPACK_IMPORTED_MODULE_9__["GameDetailsComponent"]], styles: [".jitsiMeet[_ngcontent-%COMP%]{\r\n    height:auto;\r\n    \r\n    width: auto;\r\n    \r\n}\r\n\r\n.selectedColour[_ngcontent-%COMP%]{\r\n  color: green;\r\n}\r\n\r\n\r\n\r\n.form-check[_ngcontent-%COMP%]{\r\n  padding-left: 0em !important;\r\n}\r\n\r\ninput[type=\"checkbox\"][_ngcontent-%COMP%]::after{\r\n  top: 0em !important;\r\n  left: 1.5em !important;\r\n}\r\n\r\ninput[type=\"checkbox\"][_ngcontent-%COMP%]::before{\r\n  top: 0em !important;\r\n  left: 1.5em !important;\r\n}\r\n\r\ninput[type=checkbox][_ngcontent-%COMP%]::before{\r\n  top: 0em !important;\r\n  left: 1.5em !important;\r\n}\r\n\r\ninput[type=checkbox][_ngcontent-%COMP%]::after{\r\n  top: 0em !important;\r\n  left: 1.5em !important;\r\n}\r\n\r\ninput[type=checkbox][_ngcontent-%COMP%]:checked::after{\r\n  top: 0em !important;\r\n  left: 1.1em !important;\r\n}\r\n\r\ninput[type=\"checkbox\"][_ngcontent-%COMP%]:checked::after{\r\n  top: 0em !important;\r\n  left: 1.1em !important;\r\n}\r\n\r\n\r\n\r\n.copyButton[_ngcontent-%COMP%]{\r\n  padding-left: 5px;\r\n  padding-right: 5px;\r\n  padding-top:0px;\r\n  padding-bottom: 0px;\r\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImdhbWUtcGxheS5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksV0FBVztJQUNYLHVCQUF1QjtJQUN2QixXQUFXO0lBQ1g7OztxQkFHaUI7QUFDckI7O0FBRUE7RUFDRSxZQUFZO0FBQ2Q7O0FBRUE7O0dBRUc7O0FBQ0g7RUFDRSw0QkFBNEI7QUFDOUI7O0FBRUE7RUFDRSxtQkFBbUI7RUFDbkIsc0JBQXNCO0FBQ3hCOztBQUNBO0VBQ0UsbUJBQW1CO0VBQ25CLHNCQUFzQjtBQUN4Qjs7QUFDQTtFQUNFLG1CQUFtQjtFQUNuQixzQkFBc0I7QUFDeEI7O0FBQ0E7RUFDRSxtQkFBbUI7RUFDbkIsc0JBQXNCO0FBQ3hCOztBQUVBO0VBQ0UsbUJBQW1CO0VBQ25CLHNCQUFzQjtBQUN4Qjs7QUFDQTtFQUNFLG1CQUFtQjtFQUNuQixzQkFBc0I7QUFDeEI7O0FBQ0E7Ozs7R0FJRzs7QUFFSDtFQUNFLGlCQUFpQjtFQUNqQixrQkFBa0I7RUFDbEIsZUFBZTtFQUNmLG1CQUFtQjtBQUNyQiIsImZpbGUiOiJnYW1lLXBsYXkuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi5qaXRzaU1lZXR7XHJcbiAgICBoZWlnaHQ6YXV0bztcclxuICAgIC8qIG1pbi1oZWlnaHQ6IDYwMHB4OyAqL1xyXG4gICAgd2lkdGg6IGF1dG87XHJcbiAgICAvKiBoZWlnaHQ6IGF1dG87XHJcbiAgICB3aWR0aDogYXV0bztcclxuICAgIGZsb2F0OiBsZWZ0O1xyXG4gICAgbWluLXdpZHRoOiA4MCU7ICovXHJcbn1cclxuXHJcbi5zZWxlY3RlZENvbG91cntcclxuICBjb2xvcjogZ3JlZW47XHJcbn1cclxuXHJcbi8qIC5sYWJlbHtcclxuICBwYWRkaW5nLXRvcDogMTBweCAhaW1wb3J0YW50O1xyXG59ICovXHJcbi5mb3JtLWNoZWNre1xyXG4gIHBhZGRpbmctbGVmdDogMGVtICFpbXBvcnRhbnQ7XHJcbn1cclxuXHJcbmlucHV0W3R5cGU9XCJjaGVja2JveFwiXTo6YWZ0ZXJ7XHJcbiAgdG9wOiAwZW0gIWltcG9ydGFudDtcclxuICBsZWZ0OiAxLjVlbSAhaW1wb3J0YW50O1xyXG59XHJcbmlucHV0W3R5cGU9XCJjaGVja2JveFwiXTo6YmVmb3Jle1xyXG4gIHRvcDogMGVtICFpbXBvcnRhbnQ7XHJcbiAgbGVmdDogMS41ZW0gIWltcG9ydGFudDtcclxufVxyXG5pbnB1dFt0eXBlPWNoZWNrYm94XTo6YmVmb3Jle1xyXG4gIHRvcDogMGVtICFpbXBvcnRhbnQ7XHJcbiAgbGVmdDogMS41ZW0gIWltcG9ydGFudDtcclxufVxyXG5pbnB1dFt0eXBlPWNoZWNrYm94XTo6YWZ0ZXJ7XHJcbiAgdG9wOiAwZW0gIWltcG9ydGFudDtcclxuICBsZWZ0OiAxLjVlbSAhaW1wb3J0YW50O1xyXG59XHJcblxyXG5pbnB1dFt0eXBlPWNoZWNrYm94XTpjaGVja2VkOjphZnRlcntcclxuICB0b3A6IDBlbSAhaW1wb3J0YW50O1xyXG4gIGxlZnQ6IDEuMWVtICFpbXBvcnRhbnQ7XHJcbn1cclxuaW5wdXRbdHlwZT1cImNoZWNrYm94XCJdOmNoZWNrZWQ6OmFmdGVye1xyXG4gIHRvcDogMGVtICFpbXBvcnRhbnQ7XHJcbiAgbGVmdDogMS4xZW0gIWltcG9ydGFudDtcclxufVxyXG4vKiBcclxuLm1vZGFsLmZhZGUgLm1vZGFsLWRpYWxvZyB7XHJcbiAgdHJhbnNpdGlvbjogdHJhbnNmb3JtIDAuM3MgZWFzZS1vdXQ7XHJcbiAgdHJhbnNmb3JtOiB0cmFuc2xhdGUoMCwgLTUwcHgpO1xyXG59ICovXHJcblxyXG4uY29weUJ1dHRvbntcclxuICBwYWRkaW5nLWxlZnQ6IDVweDtcclxuICBwYWRkaW5nLXJpZ2h0OiA1cHg7XHJcbiAgcGFkZGluZy10b3A6MHB4O1xyXG4gIHBhZGRpbmctYm90dG9tOiAwcHg7XHJcbn0iXX0= */"] });
 
 
 /***/ }),
@@ -2506,14 +2512,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function GameDetailsComponent_div_8_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 31);
+function GameDetailsComponent_div_5_Template(rf, ctx) { if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 31);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 32);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, " Teams ");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
-function GameDetailsComponent_div_17_span_3_Template(rf, ctx) { if (rf & 1) {
+function GameDetailsComponent_div_16_span_3_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "span");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -2522,13 +2528,13 @@ function GameDetailsComponent_div_17_span_3_Template(rf, ctx) { if (rf & 1) {
     const colours_r7 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]().$implicit;
     const ctx_r8 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx_r8.teams[colours_r7][players_r9].displayName);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("", ctx_r8.teams[colours_r7][players_r9].displayName, " ");
 } }
-function GameDetailsComponent_div_17_Template(rf, ctx) { if (rf & 1) {
+function GameDetailsComponent_div_16_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "p", 32);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "p", 33);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](3, GameDetailsComponent_div_17_span_3_Template, 2, 1, "span", 12);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](3, GameDetailsComponent_div_16_span_3_Template, 2, 1, "span", 11);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
@@ -2541,20 +2547,20 @@ function GameDetailsComponent_div_17_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx_r1.objectKeys(ctx_r1.teams[colours_r7]));
 } }
-function GameDetailsComponent_div_18_div_2_div_1_Template(rf, ctx) { if (rf & 1) {
+function GameDetailsComponent_div_17_div_2_div_1_Template(rf, ctx) { if (rf & 1) {
     const _r19 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 34);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "h5", 35);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 35);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "h5", 36);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](3);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "div", 36);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "div", 37);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](5);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "div", 37);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "button", 38);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_18_div_2_div_1_Template_button_click_7_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r19); const ctx_r18 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](3); return ctx_r18.startRound(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "div", 38);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "button", 39);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_17_div_2_div_1_Template_button_click_7_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r19); const ctx_r18 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](3); return ctx_r18.startRound(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](8, "Start Round");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -2566,50 +2572,50 @@ function GameDetailsComponent_div_18_div_2_div_1_Template(rf, ctx) { if (rf & 1)
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" There are ", ctx_r13.numberOfQuestions, " questions in this round ");
 } }
-function GameDetailsComponent_div_18_div_2_div_2_div_11_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "div", 40);
+function GameDetailsComponent_div_17_div_2_div_2_div_11_Template(rf, ctx) { if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "div", 44);
 } }
-function GameDetailsComponent_div_18_div_2_div_2_div_12_Template(rf, ctx) { if (rf & 1) {
+function GameDetailsComponent_div_17_div_2_div_2_div_12_Template(rf, ctx) { if (rf & 1) {
     const _r28 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 40);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 38);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_18_div_2_div_2_div_12_Template_button_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r28); const ctx_r27 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](4); return ctx_r27.previousQuestion(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 44);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 39);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_17_div_2_div_2_div_12_Template_button_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r28); const ctx_r27 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](4); return ctx_r27.previousQuestion(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "Previous Question");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
-function GameDetailsComponent_div_18_div_2_div_2_div_13_Template(rf, ctx) { if (rf & 1) {
+function GameDetailsComponent_div_17_div_2_div_2_div_13_Template(rf, ctx) { if (rf & 1) {
     const _r30 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 40);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 38);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_18_div_2_div_2_div_13_Template_button_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r30); const ctx_r29 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](4); return ctx_r29.nextQuestion(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 44);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 39);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_17_div_2_div_2_div_13_Template_button_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r30); const ctx_r29 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](4); return ctx_r29.nextQuestion(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "Next Question");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
-function GameDetailsComponent_div_18_div_2_div_2_div_14_Template(rf, ctx) { if (rf & 1) {
+function GameDetailsComponent_div_17_div_2_div_2_div_14_Template(rf, ctx) { if (rf & 1) {
     const _r32 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 40);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 38);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_18_div_2_div_2_div_14_Template_button_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r32); const ctx_r31 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](4); return ctx_r31.nextRound(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 44);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 39);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_17_div_2_div_2_div_14_Template_button_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r32); const ctx_r31 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](4); return ctx_r31.nextRound(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "Next Round");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
-function GameDetailsComponent_div_18_div_2_div_2_div_15_Template(rf, ctx) { if (rf & 1) {
+function GameDetailsComponent_div_17_div_2_div_2_div_15_Template(rf, ctx) { if (rf & 1) {
     const _r34 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 40);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 38);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_18_div_2_div_2_div_15_Template_button_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r34); const ctx_r33 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](4); return ctx_r33.endGamePlay(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 44);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 39);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_17_div_2_div_2_div_15_Template_button_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r34); const ctx_r33 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](4); return ctx_r33.endGamePlay(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "End Game");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
-function GameDetailsComponent_div_18_div_2_div_2_div_17_Template(rf, ctx) { if (rf & 1) {
+function GameDetailsComponent_div_17_div_2_div_2_div_17_Template(rf, ctx) { if (rf & 1) {
     const _r36 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 40);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 38);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_18_div_2_div_2_div_17_Template_button_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r36); const ctx_r35 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](4); return ctx_r35.showAnswers(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 44);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 39);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_17_div_2_div_2_div_17_Template_button_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r36); const ctx_r35 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](4); return ctx_r35.showAnswers(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -2618,41 +2624,41 @@ function GameDetailsComponent_div_18_div_2_div_2_div_17_Template(rf, ctx) { if (
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("Round ", ctx_r25.currentRound, " Answers");
 } }
-function GameDetailsComponent_div_18_div_2_div_2_div_18_Template(rf, ctx) { if (rf & 1) {
+function GameDetailsComponent_div_17_div_2_div_2_div_18_Template(rf, ctx) { if (rf & 1) {
     const _r38 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 40);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 38);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_18_div_2_div_2_div_18_Template_button_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r38); const ctx_r37 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](4); return ctx_r37.showAllAnswers(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 44);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 39);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_17_div_2_div_2_div_18_Template_button_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r38); const ctx_r37 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](4); return ctx_r37.showAllAnswers(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "Show All Answers");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
-function GameDetailsComponent_div_18_div_2_div_2_Template(rf, ctx) { if (rf & 1) {
+function GameDetailsComponent_div_17_div_2_div_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 34);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "h5", 35);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 35);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "h5", 36);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](3);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "div", 36);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "h4");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "div", 37);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "h4", 40);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](6);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "div");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](8);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "div", 37);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](10, "div", 0);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](11, GameDetailsComponent_div_18_div_2_div_2_div_11_Template, 1, 0, "div", 39);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](12, GameDetailsComponent_div_18_div_2_div_2_div_12_Template, 3, 0, "div", 39);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](13, GameDetailsComponent_div_18_div_2_div_2_div_13_Template, 3, 0, "div", 39);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](14, GameDetailsComponent_div_18_div_2_div_2_div_14_Template, 3, 0, "div", 39);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](15, GameDetailsComponent_div_18_div_2_div_2_div_15_Template, 3, 0, "div", 39);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "div", 41);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](10, "div", 42);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](11, GameDetailsComponent_div_17_div_2_div_2_div_11_Template, 1, 0, "div", 43);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](12, GameDetailsComponent_div_17_div_2_div_2_div_12_Template, 3, 0, "div", 43);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](13, GameDetailsComponent_div_17_div_2_div_2_div_13_Template, 3, 0, "div", 43);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](14, GameDetailsComponent_div_17_div_2_div_2_div_14_Template, 3, 0, "div", 43);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](15, GameDetailsComponent_div_17_div_2_div_2_div_15_Template, 3, 0, "div", 43);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](16, "div", 0);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](17, GameDetailsComponent_div_18_div_2_div_2_div_17_Template, 3, 1, "div", 39);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](18, GameDetailsComponent_div_18_div_2_div_2_div_18_Template, 3, 0, "div", 39);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](16, "div", 42);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](17, GameDetailsComponent_div_17_div_2_div_2_div_17_Template, 3, 1, "div", 43);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](18, GameDetailsComponent_div_17_div_2_div_2_div_18_Template, 3, 0, "div", 43);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -2679,20 +2685,20 @@ function GameDetailsComponent_div_18_div_2_div_2_Template(rf, ctx) { if (rf & 1)
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r14.lastQuestionBool && ctx_r14.lastRoundBool && !ctx_r14.showAllAnswersBool);
 } }
-function GameDetailsComponent_div_18_div_2_div_3_Template(rf, ctx) { if (rf & 1) {
+function GameDetailsComponent_div_17_div_2_div_3_Template(rf, ctx) { if (rf & 1) {
     const _r40 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 34);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "h5", 35);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 35);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "h5", 36);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](3);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "div", 36);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "div", 37);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](5);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "div", 37);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "button", 38);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_18_div_2_div_3_Template_button_click_7_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r40); const ctx_r39 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](3); return ctx_r39.startRound(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "div", 38);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "button", 39);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_17_div_2_div_3_Template_button_click_7_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r40); const ctx_r39 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](3); return ctx_r39.startRound(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](8, "Show Answers");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -2704,20 +2710,20 @@ function GameDetailsComponent_div_18_div_2_div_3_Template(rf, ctx) { if (rf & 1)
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" There are ", ctx_r15.numberOfQuestions, " answers in this round ");
 } }
-function GameDetailsComponent_div_18_div_2_div_4_Template(rf, ctx) { if (rf & 1) {
+function GameDetailsComponent_div_17_div_2_div_4_Template(rf, ctx) { if (rf & 1) {
     const _r42 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 34);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "h5", 35);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 35);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "h5", 36);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](3);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "div", 36);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "div", 37);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](5);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "div", 37);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "button", 41);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_18_div_2_div_4_Template_button_click_7_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r42); const ctx_r41 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](3); return ctx_r41.startRound(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "div", 41);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "button", 39);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_17_div_2_div_4_Template_button_click_7_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r42); const ctx_r41 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](3); return ctx_r41.startRound(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](8, "Show All Answers");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -2729,51 +2735,51 @@ function GameDetailsComponent_div_18_div_2_div_4_Template(rf, ctx) { if (rf & 1)
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"](" There are ", ctx_r16.numberOfQuestions, " questions in this round ");
 } }
-function GameDetailsComponent_div_18_div_2_div_5_div_14_Template(rf, ctx) { if (rf & 1) {
+function GameDetailsComponent_div_17_div_2_div_5_div_12_Template(rf, ctx) { if (rf & 1) {
     const _r48 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 40);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 38);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_18_div_2_div_5_div_14_Template_button_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r48); const ctx_r47 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](4); return ctx_r47.previousQuestion(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 44);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 39);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_17_div_2_div_5_div_12_Template_button_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r48); const ctx_r47 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](4); return ctx_r47.previousQuestion(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "Previous Answer");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
-function GameDetailsComponent_div_18_div_2_div_5_div_15_Template(rf, ctx) { if (rf & 1) {
+function GameDetailsComponent_div_17_div_2_div_5_div_13_Template(rf, ctx) { if (rf & 1) {
     const _r50 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 40);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 38);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_18_div_2_div_5_div_15_Template_button_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r50); const ctx_r49 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](4); return ctx_r49.nextQuestion(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 44);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 39);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_17_div_2_div_5_div_13_Template_button_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r50); const ctx_r49 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](4); return ctx_r49.nextQuestion(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "Next Answer");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
-function GameDetailsComponent_div_18_div_2_div_5_div_16_Template(rf, ctx) { if (rf & 1) {
+function GameDetailsComponent_div_17_div_2_div_5_div_14_Template(rf, ctx) { if (rf & 1) {
     const _r52 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 40);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 38);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_18_div_2_div_5_div_16_Template_button_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r52); const ctx_r51 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](4); return ctx_r51.nextRound(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 44);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 39);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_17_div_2_div_5_div_14_Template_button_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r52); const ctx_r51 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](4); return ctx_r51.nextRound(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "Next Round");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
-function GameDetailsComponent_div_18_div_2_div_5_div_17_Template(rf, ctx) { if (rf & 1) {
+function GameDetailsComponent_div_17_div_2_div_5_div_15_Template(rf, ctx) { if (rf & 1) {
     const _r54 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 40);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 38);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_18_div_2_div_5_div_17_Template_button_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r54); const ctx_r53 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](4); return ctx_r53.endGamePlay(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 44);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 39);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_17_div_2_div_5_div_15_Template_button_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r54); const ctx_r53 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](4); return ctx_r53.endGamePlay(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "End Game");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
-function GameDetailsComponent_div_18_div_2_div_5_Template(rf, ctx) { if (rf & 1) {
+function GameDetailsComponent_div_17_div_2_div_5_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 34);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "h5", 35);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 35);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "h5", 36);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](3);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "div", 36);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "h4");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "div", 37);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "h4", 36);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](6);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "div");
@@ -2782,15 +2788,12 @@ function GameDetailsComponent_div_18_div_2_div_5_Template(rf, ctx) { if (rf & 1)
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "div");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](10);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](11, "div");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](12);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](13, "div", 42);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](14, GameDetailsComponent_div_18_div_2_div_5_div_14_Template, 3, 0, "div", 39);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](15, GameDetailsComponent_div_18_div_2_div_5_div_15_Template, 3, 0, "div", 39);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](16, GameDetailsComponent_div_18_div_2_div_5_div_16_Template, 3, 0, "div", 39);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](17, GameDetailsComponent_div_18_div_2_div_5_div_17_Template, 3, 0, "div", 39);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](11, "div", 45);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](12, GameDetailsComponent_div_17_div_2_div_5_div_12_Template, 3, 0, "div", 43);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](13, GameDetailsComponent_div_17_div_2_div_5_div_13_Template, 3, 0, "div", 43);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](14, GameDetailsComponent_div_17_div_2_div_5_div_14_Template, 3, 0, "div", 43);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](15, GameDetailsComponent_div_17_div_2_div_5_div_15_Template, 3, 0, "div", 43);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
@@ -2800,11 +2803,9 @@ function GameDetailsComponent_div_18_div_2_div_5_Template(rf, ctx) { if (rf & 1)
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](3);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("Answer ", ctx_r17.currentQuestion, "");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx_r17.questionObject[ctx_r17.currentRound][ctx_r17.currentQuestion].question);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate2"]("", ctx_r17.questionObject[ctx_r17.currentRound][ctx_r17.currentQuestion].question, " (", ctx_r17.questionObject[ctx_r17.currentRound][ctx_r17.currentQuestion].points, " points)");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate"](ctx_r17.questionObject[ctx_r17.currentRound][ctx_r17.currentQuestion].answer);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("", ctx_r17.questionObject[ctx_r17.currentRound][ctx_r17.currentQuestion].points, " points ");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", !ctx_r17.firstQuestionBool);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
@@ -2814,13 +2815,13 @@ function GameDetailsComponent_div_18_div_2_div_5_Template(rf, ctx) { if (rf & 1)
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r17.lastQuestionBool && ctx_r17.lastRoundBool);
 } }
-function GameDetailsComponent_div_18_div_2_Template(rf, ctx) { if (rf & 1) {
+function GameDetailsComponent_div_17_div_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, GameDetailsComponent_div_18_div_2_div_1_Template, 9, 2, "div", 13);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, GameDetailsComponent_div_18_div_2_div_2_Template, 19, 11, "div", 13);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](3, GameDetailsComponent_div_18_div_2_div_3_Template, 9, 2, "div", 13);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](4, GameDetailsComponent_div_18_div_2_div_4_Template, 9, 2, "div", 13);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](5, GameDetailsComponent_div_18_div_2_div_5_Template, 18, 9, "div", 13);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](1, GameDetailsComponent_div_17_div_2_div_1_Template, 9, 2, "div", 12);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, GameDetailsComponent_div_17_div_2_div_2_Template, 19, 11, "div", 12);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](3, GameDetailsComponent_div_17_div_2_div_3_Template, 9, 2, "div", 12);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](4, GameDetailsComponent_div_17_div_2_div_4_Template, 9, 2, "div", 12);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](5, GameDetailsComponent_div_17_div_2_div_5_Template, 16, 9, "div", 12);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r11 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2);
@@ -2835,18 +2836,18 @@ function GameDetailsComponent_div_18_div_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", (ctx_r11.showAnswersBool || ctx_r11.showAllAnswersBool) && ctx_r11.currentQuestion > 0);
 } }
-function GameDetailsComponent_div_18_div_3_Template(rf, ctx) { if (rf & 1) {
+function GameDetailsComponent_div_17_div_3_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "h1");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "End Of Game!");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } }
-function GameDetailsComponent_div_18_Template(rf, ctx) { if (rf & 1) {
+function GameDetailsComponent_div_17_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 33);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, GameDetailsComponent_div_18_div_2_Template, 6, 5, "div", 13);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](3, GameDetailsComponent_div_18_div_3_Template, 3, 0, "div", 13);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 34);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](2, GameDetailsComponent_div_17_div_2_Template, 6, 5, "div", 12);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](3, GameDetailsComponent_div_17_div_3_Template, 3, 0, "div", 12);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
@@ -2856,25 +2857,25 @@ function GameDetailsComponent_div_18_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r2.endOfGame);
 } }
-function GameDetailsComponent_div_20_Template(rf, ctx) { if (rf & 1) {
+function GameDetailsComponent_div_19_Template(rf, ctx) { if (rf & 1) {
     const _r56 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 43);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_20_Template_button_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r56); const ctx_r55 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r55.buzzerPressed(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 46);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 47);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_19_Template_button_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r56); const ctx_r55 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r55.buzzerPressed(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "Team Buzzer");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r3 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassMapInterpolate1"]("btn ", ctx_r3.currentPlayer.colour, "");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassMapInterpolate2"]("btn shadow", ctx_r3.currentPlayer.colour, " ", ctx_r3.currentPlayer.colour, "");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngClass", ctx_r3.buzzerPress ? "buzzerClicked" : "buzzer");
 } }
-function GameDetailsComponent_div_21_button_7_Template(rf, ctx) { if (rf & 1) {
+function GameDetailsComponent_div_20_button_7_Template(rf, ctx) { if (rf & 1) {
     const _r60 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 48);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_21_button_7_Template_button_click_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r60); const ctx_r59 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2); return ctx_r59.startTimer(); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "span", 49);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 52);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_20_button_7_Template_button_click_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r60); const ctx_r59 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2); return ctx_r59.startTimer(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "span", 53);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "play_arrow");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -2883,11 +2884,11 @@ function GameDetailsComponent_div_21_button_7_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassMapInterpolate1"]("material-icons color", ctx_r57.currentPlayer.colour, "");
 } }
-function GameDetailsComponent_div_21_button_8_Template(rf, ctx) { if (rf & 1) {
+function GameDetailsComponent_div_20_button_8_Template(rf, ctx) { if (rf & 1) {
     const _r62 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 48);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_21_button_8_Template_button_click_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r62); const ctx_r61 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2); return ctx_r61.stopTimer(); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "span", 49);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "button", 52);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_20_button_8_Template_button_click_0_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r62); const ctx_r61 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](2); return ctx_r61.stopTimer(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "span", 53);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "pause");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -2896,18 +2897,18 @@ function GameDetailsComponent_div_21_button_8_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassMapInterpolate1"]("material-icons color", ctx_r58.currentPlayer.colour, "");
 } }
-function GameDetailsComponent_div_21_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 44);
+function GameDetailsComponent_div_20_Template(rf, ctx) { if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 46);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "div", 48);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](2, "div", 0);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "div", 45);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](3, "div", 49);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](4, "h1");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](5);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "div", 46);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](7, GameDetailsComponent_div_21_button_7_Template, 3, 3, "button", 47);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](8, GameDetailsComponent_div_21_button_8_Template, 3, 3, "button", 47);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "div", 50);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](7, GameDetailsComponent_div_20_button_7_Template, 3, 3, "button", 51);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](8, GameDetailsComponent_div_20_button_8_Template, 3, 3, "button", 51);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -2925,11 +2926,11 @@ function GameDetailsComponent_div_21_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx_r4.timerStarted);
 } }
-function GameDetailsComponent_div_22_Template(rf, ctx) { if (rf & 1) {
+function GameDetailsComponent_div_21_Template(rf, ctx) { if (rf & 1) {
     const _r64 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div");
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 50);
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_22_Template_button_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r64); const ctx_r63 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r63.reset(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "button", 54);
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_div_21_Template_button_click_1_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵrestoreView"](_r64); const ctx_r63 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"](); return ctx_r63.reset(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "Reset");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
@@ -2938,13 +2939,13 @@ function GameDetailsComponent_div_22_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassMapInterpolate1"]("btn btn ", ctx_r5.currentPlayer.colour, "");
 } }
-function GameDetailsComponent_div_23_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 51);
+function GameDetailsComponent_div_22_Template(rf, ctx) { if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 55);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r6 = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassMapInterpolate1"]("row color", ctx_r6.currentPlayer.colour, "");
+    _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassMapInterpolate1"]("row color", ctx_r6.buzzerDetails.colour, "");
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate2"]("", ctx_r6.buzzerDetails.displayName, " pressed the buzzer for the ", ctx_r6.buzzerDetails.colour, " team!");
 } }
@@ -3017,6 +3018,9 @@ class GameDetailsComponent {
             if (!this.hostDetails.include) {
                 this.playerColour = "darkgoldenrod";
             }
+            if (this.teams) {
+                document.getElementById('teamButton').click();
+            }
         }, 500);
     }
     receiveBuzzerPressed() {
@@ -3025,9 +3029,6 @@ class GameDetailsComponent {
             element.disabled = true;
             this.buzzerDetails = player;
             this.buzzerPress = true;
-            // setTimeout( () => {
-            //   document.getElementById('buzzerDetails')!.style.color = this.buzzerDetails.colour;
-            // }, 10);
         });
     }
     buzzerPressed() {
@@ -3237,12 +3238,13 @@ class GameDetailsComponent {
             else {
                 this.timerStarted = false;
                 clearInterval(this.interVal);
+                document.getElementById('timer').innerHTML = this.currentTimer + '';
             }
         });
     }
 }
 GameDetailsComponent.ɵfac = function GameDetailsComponent_Factory(t) { return new (t || GameDetailsComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_socketio_service__WEBPACK_IMPORTED_MODULE_1__["SocketioService"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]), _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_services_game_creation_service__WEBPACK_IMPORTED_MODULE_3__["GameCreationService"])); };
-GameDetailsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: GameDetailsComponent, selectors: [["app-game-details"]], inputs: { roomPin: "roomPin", playerObject: "playerObject", hostDetails: "hostDetails", currentPlayer: "currentPlayer", teams: "teams" }, decls: 59, vars: 9, consts: [[1, "row"], ["type", "button", "data-bs-toggle", "modal", "data-bs-target", "#settingsModal", "aria-hidden", "false"], [1, "col"], [1, "card", "border", "mb-3", 2, "color", "darkgoldenrod"], ["class", "col", 4, "ngIf"], ["id", "teamsModal", "tabindex", "-1", "aria-labelledby", "exampleModalLabel", "aria-hidden", "true", 1, "modal", "fade"], [1, "modal-dialog"], [1, "modal-content"], [1, "modal-header"], ["id", "exampleModalLabel", 1, "modal-title"], ["type", "button", "data-bs-dismiss", "modal", "aria-label", "Close", 1, "btn-close"], [1, "modal-body"], [4, "ngFor", "ngForOf"], [4, "ngIf"], ["id", "buzzerDetails", 3, "class", 4, "ngIf"], [2, "padding", "0px !important", 3, "player"], ["data-bs-backdrop", "static", "id", "settingsModal", "tabindex", "-1", "aria-hidden", "true", 1, "modal", "fade"], [1, "modal-dialog", "modal-dialog-centered", "modal-dialog-scrollable"], [1, "mb-3"], [1, "custom-control", "custom-switch"], ["type", "checkbox", "id", "hostToggle", 1, "custom-control-input"], ["for", "hostToggle", 1, "custom-control-label"], ["type", "checkbox", "id", "buzzerToggle", "checked", "", 1, "custom-control-input"], ["for", "buzzerToggle", 1, "custom-control-label"], ["type", "checkbox", "id", "timerToggle", "checked", "", 1, "custom-control-input"], ["for", "timerToggle", 1, "custom-control-label"], ["for", "timerLength", 1, "form-label"], ["type", "range", "data-value", "0.5", "min", "0", "max", "5", "step", "0.5", "value", "timerLength", "id", "timerLength", 1, "form-range"], [1, "modal-footer"], ["type", "button", "data-bs-dismiss", "modal", 1, "btn", "btn-secondary"], ["type", "button", "data-bs-dismiss", "modal", 1, "btn", "btn-primary", 3, "click"], ["type", "button", "data-bs-toggle", "modal", "data-bs-target", "#teamsModal", 1, "btn", "btn-primary"], [1, "col", 2, "padding-left", "0px", "margin-bottom", "0px", 3, "id"], [1, "card", "border-primary", "mb-3", 2, "width", "90%", "margin", "10px", "padding", "0px"], [1, "card-header", "roundHeaderFooter"], [1, "roundTitle"], [1, "card-body", "roundBody"], [1, "card-footer", "roundHeaderFooter"], ["type", "button", 1, "btn", "btn-secondary", 3, "click"], ["class", "col roundButton", 4, "ngIf"], [1, "col", "roundButton"], ["type", "button", 1, "btn", "btn-secondary", "roundButton", 3, "click"], [1, "card-footer", "roundHeaderFooter", "row"], ["type", "button", "id", "buzzer", 3, "ngClass", "click"], [2, "max-width", "100px", "max-height", "50px"], ["id", "timer", 2, "padding-right", "0px"], [1, "col", 2, "padding-left", "0px"], ["class", "btn", "type", "button", "style", "padding:0px", 3, "click", 4, "ngIf"], ["type", "button", 1, "btn", 2, "padding", "0px", 3, "click"], [2, "font-size", "40px"], [3, "click"], ["id", "buzzerDetails"]], template: function GameDetailsComponent_Template(rf, ctx) { if (rf & 1) {
+GameDetailsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: GameDetailsComponent, selectors: [["app-game-details"]], inputs: { roomPin: "roomPin", playerObject: "playerObject", hostDetails: "hostDetails", currentPlayer: "currentPlayer", teams: "teams" }, decls: 58, vars: 9, consts: [[1, "row"], ["type", "button", "data-bs-toggle", "modal", "data-bs-target", "#settingsModal", "aria-hidden", "false"], ["style", "padding-bottom: 5px;", "class", "col", 4, "ngIf"], ["id", "teamsModal", "tabindex", "-1", "aria-labelledby", "exampleModalLabel", "aria-hidden", "true", 1, "modal", "fade"], [1, "modal-dialog"], [1, "modal-content"], [1, "modal-header"], ["id", "exampleModalLabel", 1, "modal-title"], ["type", "button", "data-bs-dismiss", "modal", "aria-label", "Close", 1, "btn-close"], [1, "modal-body"], [2, "color", "darkgoldenrod"], [4, "ngFor", "ngForOf"], [4, "ngIf"], ["class", "col", 4, "ngIf"], ["style", "padding-left:15px; padding-bottom: 5px;", "id", "buzzerDetails", 3, "class", 4, "ngIf"], [3, "player"], ["data-bs-backdrop", "static", "id", "settingsModal", "tabindex", "-1", "aria-hidden", "true", 1, "modal", "fade"], [1, "modal-dialog", "modal-dialog-centered", "modal-dialog-scrollable"], [1, "mb-3"], [1, "custom-control", "custom-switch"], ["type", "checkbox", "id", "hostToggle", 1, "custom-control-input"], ["for", "hostToggle", 1, "custom-control-label"], ["type", "checkbox", "id", "buzzerToggle", "checked", "", 1, "custom-control-input"], ["for", "buzzerToggle", 1, "custom-control-label"], ["type", "checkbox", "id", "timerToggle", "checked", "", 1, "custom-control-input"], ["for", "timerToggle", 1, "custom-control-label"], ["for", "timerLength", 1, "form-label"], ["type", "range", "data-value", "0.5", "min", "0", "max", "5", "step", "0.5", "value", "timerLength", "id", "timerLength", 1, "form-range"], [1, "modal-footer"], ["type", "button", "data-bs-dismiss", "modal", 1, "btn", "btn-secondary"], ["type", "button", "data-bs-dismiss", "modal", 1, "btn", "btn-primary", 3, "click"], [1, "col", 2, "padding-bottom", "5px"], ["id", "teamButton", "type", "button", "data-bs-toggle", "modal", "data-bs-target", "#teamsModal", 1, "btn", "btn-primary", "roundButton"], [1, "col", 2, "padding-left", "0px", "margin-bottom", "0px", 3, "id"], [1, "card", "border-primary", "mb-3", 2, "width", "100%", "margin", "0px", "padding", "0px"], [1, "card-header", "roundHeader"], [1, "roundTitle"], [1, "card-body", "roundBody"], [1, "card-footer", "roundFooter", "colButton"], ["type", "button", 1, "btn", "btn-secondary", "roundButton", 3, "click"], [2, "margin", "0px"], [1, "card-footer", "roundFooter"], [1, "row", 2, "margin", "0px"], ["class", "col colButton", 4, "ngIf"], [1, "col", "colButton"], [1, "card-footer", "roundFooter", "row", 2, "margin", "0px"], [1, "col"], ["type", "button", "id", "buzzer", 3, "ngClass", "click"], [2, "max-width", "100px", "max-height", "50px"], ["id", "timer", 2, "padding-right", "0px"], [1, "col", 2, "padding-left", "0px"], ["class", "btn", "type", "button", "style", "padding:0px", 3, "click", 4, "ngIf"], ["type", "button", 1, "btn", 2, "padding", "0px", 3, "click"], [2, "font-size", "40px"], [3, "click"], ["id", "buzzerDetails", 2, "padding-left", "15px", "padding-bottom", "5px"]], template: function GameDetailsComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](1, "h2");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](2, "Game Play ");
@@ -3250,99 +3252,97 @@ GameDetailsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdef
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](4, "settings");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](5, "div", 2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](5, GameDetailsComponent_div_5_Template, 3, 0, "div", 2);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](6, "div", 3);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](7);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](7, "div", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](8, "div", 5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "div", 6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](10, "h5", 7);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](11, "Teams");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](12, "button", 8);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](8, GameDetailsComponent_div_8_Template, 3, 0, "div", 4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](9, "div", 5);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](10, "div", 6);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](11, "div", 7);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](12, "div", 8);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](13, "h5", 9);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](14, "Teams");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](13, "div", 9);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](14, "div", 10);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](15);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](15, "button", 10);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](16, "div", 11);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](17, GameDetailsComponent_div_17_Template, 4, 3, "div", 12);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](16, GameDetailsComponent_div_16_Template, 4, 3, "div", 11);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](18, GameDetailsComponent_div_18_Template, 4, 2, "div", 13);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](17, GameDetailsComponent_div_17_Template, 4, 2, "div", 12);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](19, "div", 0);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](20, GameDetailsComponent_div_20_Template, 3, 4, "div", 4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](21, GameDetailsComponent_div_21_Template, 9, 9, "div", 4);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](22, GameDetailsComponent_div_22_Template, 3, 3, "div", 13);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](18, "div", 0);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](19, GameDetailsComponent_div_19_Template, 3, 5, "div", 13);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](20, GameDetailsComponent_div_20_Template, 9, 9, "div", 13);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](21, GameDetailsComponent_div_21_Template, 3, 3, "div", 12);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](23, GameDetailsComponent_div_23_Template, 2, 5, "div", 14);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](24, "div", 0);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](25, "app-game-chat", 15);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtemplate"](22, GameDetailsComponent_div_22_Template, 2, 5, "div", 14);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](23, "div", 0);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](24, "app-game-chat", 15);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](26, "div", 16);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](27, "div", 17);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](28, "div", 7);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](29, "div", 8);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](30, "h5", 9);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](31, "Game Settings");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](25, "div", 16);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](26, "div", 17);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](27, "div", 5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](28, "div", 6);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](29, "h5", 7);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](30, "Game Settings");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](32, "button", 10);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](31, "button", 8);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](33, "div", 11);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](34, "form");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](35, "div", 18);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](36, "div", 19);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](37, "input", 20);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](38, "label", 21);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](39, "Claim Host");
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](40, "div", 18);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](41, "div", 19);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](42, "input", 22);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](43, "label", 23);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](44, "Include Buzzer");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](32, "div", 9);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](33, "form");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](34, "div", 18);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](35, "div", 19);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](36, "input", 20);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](37, "label", 21);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](38, "Claim Host");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](45, "div", 18);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](46, "div", 19);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](47, "input", 24);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](48, "label", 25);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](49, "Include Timer");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](39, "div", 18);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](40, "div", 19);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](41, "input", 22);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](42, "label", 23);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](43, "Include Buzzer");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](50, "div", 18);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](51, "label", 26);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](52, "Timer Length (Mins)");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](44, "div", 18);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](45, "div", 19);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](46, "input", 24);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](47, "label", 25);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](48, "Include Timer");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](53, "input", 27);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](49, "div", 18);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](50, "label", 26);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](51, "Timer Length (Mins)");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](52, "input", 27);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](54, "div", 28);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](55, "button", 29);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](56, "Close");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](53, "div", 28);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](54, "button", 29);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](55, "Close");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](57, "button", 30);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_Template_button_click_57_listener() { return ctx.saveSettings(); });
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](58, "Save Settings");
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementStart"](56, "button", 30);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵlistener"]("click", function GameDetailsComponent_Template_button_click_56_listener() { return ctx.saveSettings(); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtext"](57, "Save Settings");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelementEnd"]();
     } if (rf & 2) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](7);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](5);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.teams);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](10);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵtextInterpolate1"]("Host: ", ctx.hostDetails.displayName, "");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.teams);
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](9);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngForOf", ctx.objectKeys(ctx.teams));
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.showQuestions);
@@ -3356,7 +3356,7 @@ GameDetailsComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdef
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("ngIf", ctx.buzzerPress);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵproperty"]("player", ctx.currentPlayer);
-    } }, directives: [_angular_material_icon__WEBPACK_IMPORTED_MODULE_4__["MatIcon"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgIf"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgForOf"], _game_chat_game_chat_component__WEBPACK_IMPORTED_MODULE_6__["GameChatComponent"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["NgForm"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgClass"]], styles: [".buzzer[_ngcontent-%COMP%]{\r\n    border-radius: 16px;\r\n    \r\n    margin-bottom: 10px;\r\n}\r\n\r\n.buzzerClicked[_ngcontent-%COMP%]{\r\n    border-radius: 16px;\r\n    box-shadow: 0 0px !important;\r\n    transform: translateY(4px);\r\n    margin-bottom: 10px;\r\n}\r\n\r\n.roundHeaderFooter[_ngcontent-%COMP%]{\r\n    padding-top: 5px;\r\n    padding-bottom: 5px;\r\n    padding-left: 10px;\r\n    margin: 0px;\r\n}\r\n\r\n.roundBody[_ngcontent-%COMP%]{\r\n    padding-top: 5px;\r\n    padding-bottom: 5px;\r\n    padding-left: 10px;\r\n    padding-right: 10px;\r\n}\r\n\r\n.roundButton[_ngcontent-%COMP%]{\r\n    padding:5px\r\n}\r\n\r\n.roundTitle[_ngcontent-%COMP%]{\r\n    margin: 0px;\r\n}\r\n\r\n.Red[_ngcontent-%COMP%] {\r\n    background-color: crimson !important;\r\n    color: white !important;\r\n}\r\n\r\n.outlineRed[_ngcontent-%COMP%]{\r\n    border-color: crimson  !important;\r\n}\r\n\r\n.colorRed[_ngcontent-%COMP%]{\r\n    color:crimson  !important;\r\n}\r\n\r\n.backgroundRed[_ngcontent-%COMP%]{\r\n    background-color: #ffc6d180  !important;;\r\n}\r\n\r\n.shadowRed[_ngcontent-%COMP%]{\r\n    \r\n    box-shadow: 0 5px #ffc6d180;\r\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImdhbWUtZGV0YWlscy5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksbUJBQW1CO0lBQ25CLG9DQUFvQztJQUNwQyxtQkFBbUI7QUFDdkI7O0FBRUE7SUFDSSxtQkFBbUI7SUFDbkIsNEJBQTRCO0lBQzVCLDBCQUEwQjtJQUMxQixtQkFBbUI7QUFDdkI7O0FBRUE7SUFDSSxnQkFBZ0I7SUFDaEIsbUJBQW1CO0lBQ25CLGtCQUFrQjtJQUNsQixXQUFXO0FBQ2Y7O0FBRUE7SUFDSSxnQkFBZ0I7SUFDaEIsbUJBQW1CO0lBQ25CLGtCQUFrQjtJQUNsQixtQkFBbUI7QUFDdkI7O0FBRUE7SUFDSTtBQUNKOztBQUVBO0lBQ0ksV0FBVztBQUNmOztBQUVBO0lBQ0ksb0NBQW9DO0lBQ3BDLHVCQUF1QjtBQUMzQjs7QUFDQTtJQUNJLGlDQUFpQztBQUNyQzs7QUFDQTtJQUNJLHlCQUF5QjtBQUM3Qjs7QUFDQTtJQUNJLHVDQUF1QztBQUMzQzs7QUFDQTtJQUNJLDZDQUE2QztJQUM3QywyQkFBMkI7QUFDL0IiLCJmaWxlIjoiZ2FtZS1kZXRhaWxzLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuYnV6emVye1xyXG4gICAgYm9yZGVyLXJhZGl1czogMTZweDtcclxuICAgIC8qIGJveC1zaGFkb3c6IDAgNXB4ICNmZmQ3NDA2NjsgICAgKi9cclxuICAgIG1hcmdpbi1ib3R0b206IDEwcHg7XHJcbn1cclxuXHJcbi5idXp6ZXJDbGlja2Vke1xyXG4gICAgYm9yZGVyLXJhZGl1czogMTZweDtcclxuICAgIGJveC1zaGFkb3c6IDAgMHB4ICFpbXBvcnRhbnQ7XHJcbiAgICB0cmFuc2Zvcm06IHRyYW5zbGF0ZVkoNHB4KTtcclxuICAgIG1hcmdpbi1ib3R0b206IDEwcHg7XHJcbn1cclxuXHJcbi5yb3VuZEhlYWRlckZvb3RlcntcclxuICAgIHBhZGRpbmctdG9wOiA1cHg7XHJcbiAgICBwYWRkaW5nLWJvdHRvbTogNXB4O1xyXG4gICAgcGFkZGluZy1sZWZ0OiAxMHB4O1xyXG4gICAgbWFyZ2luOiAwcHg7XHJcbn1cclxuXHJcbi5yb3VuZEJvZHl7XHJcbiAgICBwYWRkaW5nLXRvcDogNXB4O1xyXG4gICAgcGFkZGluZy1ib3R0b206IDVweDtcclxuICAgIHBhZGRpbmctbGVmdDogMTBweDtcclxuICAgIHBhZGRpbmctcmlnaHQ6IDEwcHg7XHJcbn1cclxuXHJcbi5yb3VuZEJ1dHRvbntcclxuICAgIHBhZGRpbmc6NXB4XHJcbn1cclxuXHJcbi5yb3VuZFRpdGxle1xyXG4gICAgbWFyZ2luOiAwcHg7XHJcbn1cclxuXHJcbi5SZWQge1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogY3JpbXNvbiAhaW1wb3J0YW50O1xyXG4gICAgY29sb3I6IHdoaXRlICFpbXBvcnRhbnQ7XHJcbn1cclxuLm91dGxpbmVSZWR7XHJcbiAgICBib3JkZXItY29sb3I6IGNyaW1zb24gICFpbXBvcnRhbnQ7XHJcbn1cclxuLmNvbG9yUmVke1xyXG4gICAgY29sb3I6Y3JpbXNvbiAgIWltcG9ydGFudDtcclxufVxyXG4uYmFja2dyb3VuZFJlZHtcclxuICAgIGJhY2tncm91bmQtY29sb3I6ICNmZmM2ZDE4MCAgIWltcG9ydGFudDs7XHJcbn1cclxuLnNoYWRvd1JlZHtcclxuICAgIC8qIGJhY2tncm91bmQtY29sb3I6ICNmZmM2ZDE4MCAgIWltcG9ydGFudDsgKi9cclxuICAgIGJveC1zaGFkb3c6IDAgNXB4ICNmZmM2ZDE4MDtcclxufSJdfQ== */"] });
+    } }, directives: [_angular_material_icon__WEBPACK_IMPORTED_MODULE_4__["MatIcon"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgIf"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgForOf"], _game_chat_game_chat_component__WEBPACK_IMPORTED_MODULE_6__["GameChatComponent"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_7__["NgForm"], _angular_common__WEBPACK_IMPORTED_MODULE_5__["NgClass"]], styles: [".buzzer[_ngcontent-%COMP%]{\r\n    border-radius: 16px;\r\n    margin-bottom: 10px;\r\n}\r\n\r\n.buzzerClicked[_ngcontent-%COMP%]{\r\n    border-radius: 16px;\r\n    box-shadow: 0 0px !important;\r\n    transform: translateY(4px);\r\n    margin-bottom: 10px;\r\n}\r\n\r\n.roundHeader[_ngcontent-%COMP%]{\r\n    padding-top: 5px;\r\n    padding-bottom: 5px;\r\n    padding-left: 10px;\r\n    margin: 0px;\r\n}\r\n\r\n.roundFooter[_ngcontent-%COMP%]{\r\n  padding:0px  \r\n}\r\n\r\n.roundBody[_ngcontent-%COMP%]{\r\n    padding-top: 5px;\r\n    padding-bottom: 5px;\r\n    padding-left: 10px;\r\n    padding-right: 10px;\r\n}\r\n\r\n.roundButton[_ngcontent-%COMP%]{\r\n    padding-left: 5px;\r\n    padding-right: 5px;\r\n    padding-top: 0px;\r\n    padding-bottom: 0px;\r\n}\r\n\r\n.roundTitle[_ngcontent-%COMP%]{\r\n    margin: 0px;\r\n}\r\n\r\n.colButton[_ngcontent-%COMP%]{\r\n    padding-left: 5px;\r\n    padding-right: 5px;\r\n    padding-top: 5px;\r\n    padding-bottom: 5px;\r\n}\r\n\r\n.Red[_ngcontent-%COMP%] {\r\n    background-color: crimson !important;\r\n    color: white !important;\r\n}\r\n\r\n.outlineRed[_ngcontent-%COMP%]{\r\n    border-color: crimson  !important;\r\n}\r\n\r\n.colorRed[_ngcontent-%COMP%]{\r\n    color:crimson  !important;\r\n}\r\n\r\n.backgroundRed[_ngcontent-%COMP%]{\r\n    background-color: #ffc6d180  !important;\r\n}\r\n\r\n.shadowRed[_ngcontent-%COMP%]{\r\n    box-shadow: 0 5px #ffc6d180;\r\n}\r\n\r\n.Green[_ngcontent-%COMP%] {\r\n    background-color: darkgreen !important;\r\n    color: white !important;\r\n}\r\n\r\n.outlineGreen[_ngcontent-%COMP%]{\r\n    border-color: darkgreen  !important;\r\n}\r\n\r\n.colorGreen[_ngcontent-%COMP%]{\r\n    color:darkgreen  !important;\r\n}\r\n\r\n.backgroundGreen[_ngcontent-%COMP%]{\r\n    background-color: #8ab88a  !important;\r\n}\r\n\r\n.shadowGreen[_ngcontent-%COMP%]{\r\n    box-shadow: 0 5px #8ab88a;\r\n}\r\n\r\n.Blue[_ngcontent-%COMP%] {\r\n    background-color: royalblue !important;\r\n    color: white !important;\r\n}\r\n\r\n.outlineBlue[_ngcontent-%COMP%]{\r\n    border-color: royalblue  !important;\r\n}\r\n\r\n.colorBlue[_ngcontent-%COMP%]{\r\n    color:royalblue  !important;\r\n}\r\n\r\n.backgroundBlue[_ngcontent-%COMP%]{\r\n    background-color:#4169e17d  !important;\r\n}\r\n\r\n.shadowBlue[_ngcontent-%COMP%]{\r\n    box-shadow: 0 5px #4169e17d;\r\n}\r\n\r\n.Orange[_ngcontent-%COMP%] {\r\n    background-color: darkorange !important;\r\n    color: white !important;\r\n}\r\n\r\n.outlineOrange[_ngcontent-%COMP%]{\r\n    border-color: darkorange  !important;\r\n}\r\n\r\n.colorOrange[_ngcontent-%COMP%]{\r\n    color:darkorange  !important;\r\n}\r\n\r\n.backgroundOrange[_ngcontent-%COMP%]{\r\n    background-color: #ff8c0052  !important;\r\n}\r\n\r\n.shadowOrange[_ngcontent-%COMP%]{\r\n    box-shadow: 0 5px #ff8c0052;\r\n}\r\n\r\n.Purple[_ngcontent-%COMP%] {\r\n    background-color: darkorchid !important;\r\n    color: white !important;\r\n}\r\n\r\n.outlinePurple[_ngcontent-%COMP%]{\r\n    border-color: darkorchid  !important;\r\n}\r\n\r\n.colorPurple[_ngcontent-%COMP%]{\r\n    color:darkorchid  !important;\r\n}\r\n\r\n.backgroundPurple[_ngcontent-%COMP%]{\r\n    background-color: #9932cc52  !important;\r\n}\r\n\r\n.shadowPurple[_ngcontent-%COMP%]{\r\n    box-shadow: 0 5px #9932cc52;\r\n}\r\n\r\n.Pink[_ngcontent-%COMP%] {\r\n    background-color: hotpink !important;\r\n    color: white !important;\r\n}\r\n\r\n.outlinePink[_ngcontent-%COMP%]{\r\n    border-color: hotpink  !important;\r\n}\r\n\r\n.colorPink[_ngcontent-%COMP%]{\r\n    color:hotpink  !important;\r\n}\r\n\r\n.backgroundPink[_ngcontent-%COMP%]{\r\n    background-color: #ff69b45e !important;\r\n}\r\n\r\n.shadowPink[_ngcontent-%COMP%]{\r\n    box-shadow: 0 5px #ff69b45e;\r\n}\r\n\r\n.Yellow[_ngcontent-%COMP%] {\r\n    background-color: gold !important;\r\n    color: white !important;\r\n}\r\n\r\n.outlineYellow[_ngcontent-%COMP%]{\r\n    border-color: gold  !important;\r\n}\r\n\r\n.colorYellow[_ngcontent-%COMP%]{\r\n    color:gold  !important;\r\n}\r\n\r\n.backgroundYellow[_ngcontent-%COMP%]{\r\n    background-color:#ffd70061  !important;\r\n}\r\n\r\n.shadowYellow[_ngcontent-%COMP%]{\r\n    box-shadow: 0 5px #ffd70061;\r\n}\r\n\r\n.Brown[_ngcontent-%COMP%] {\r\n    background-color: brown !important;\r\n    color: white !important;\r\n}\r\n\r\n.outlineBrown[_ngcontent-%COMP%]{\r\n    border-color: brown  !important;\r\n}\r\n\r\n.colorBrown[_ngcontent-%COMP%]{\r\n    color:brown  !important;\r\n}\r\n\r\n.backgroundBrown[_ngcontent-%COMP%]{\r\n    background-color: #a52a2a75  !important;\r\n}\r\n\r\n.shadowBrown[_ngcontent-%COMP%]{\r\n    box-shadow: 0 5px #a52a2a75;\r\n}\r\n\r\n.Grey[_ngcontent-%COMP%] {\r\n    background-color: darkgrey !important;\r\n    color: white !important;\r\n}\r\n\r\n.outlineGrey[_ngcontent-%COMP%]{\r\n    border-color: darkgrey  !important;\r\n}\r\n\r\n.colorGrey[_ngcontent-%COMP%]{\r\n    color:darkgrey  !important;\r\n}\r\n\r\n.backgroundGrey[_ngcontent-%COMP%]{\r\n    background-color: #a9a9a96e !important;\r\n}\r\n\r\n.shadowGrey[_ngcontent-%COMP%]{\r\n    box-shadow: 0 5px #a9a9a96e;\r\n}\r\n\r\n.Black[_ngcontent-%COMP%] {\r\n    background-color: black !important;\r\n    color: white !important;\r\n}\r\n\r\n.outlineBlack[_ngcontent-%COMP%]{\r\n    border-color: black  !important;\r\n}\r\n\r\n.colorBlack[_ngcontent-%COMP%]{\r\n    color:black  !important;\r\n}\r\n\r\n.backgroundBlack[_ngcontent-%COMP%]{\r\n    background-color: #0000006b !important;\r\n}\r\n\r\n.shadowBlack[_ngcontent-%COMP%]{\r\n    box-shadow: 0 5px #0000006b;\r\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImdhbWUtZGV0YWlscy5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBO0lBQ0ksbUJBQW1CO0lBQ25CLG1CQUFtQjtBQUN2Qjs7QUFFQTtJQUNJLG1CQUFtQjtJQUNuQiw0QkFBNEI7SUFDNUIsMEJBQTBCO0lBQzFCLG1CQUFtQjtBQUN2Qjs7QUFFQTtJQUNJLGdCQUFnQjtJQUNoQixtQkFBbUI7SUFDbkIsa0JBQWtCO0lBQ2xCLFdBQVc7QUFDZjs7QUFFQTtFQUNFO0FBQ0Y7O0FBQ0E7SUFDSSxnQkFBZ0I7SUFDaEIsbUJBQW1CO0lBQ25CLGtCQUFrQjtJQUNsQixtQkFBbUI7QUFDdkI7O0FBRUE7SUFDSSxpQkFBaUI7SUFDakIsa0JBQWtCO0lBQ2xCLGdCQUFnQjtJQUNoQixtQkFBbUI7QUFDdkI7O0FBRUE7SUFDSSxXQUFXO0FBQ2Y7O0FBRUE7SUFDSSxpQkFBaUI7SUFDakIsa0JBQWtCO0lBQ2xCLGdCQUFnQjtJQUNoQixtQkFBbUI7QUFDdkI7O0FBRUE7SUFDSSxvQ0FBb0M7SUFDcEMsdUJBQXVCO0FBQzNCOztBQUNBO0lBQ0ksaUNBQWlDO0FBQ3JDOztBQUNBO0lBQ0kseUJBQXlCO0FBQzdCOztBQUNBO0lBQ0ksdUNBQXVDO0FBQzNDOztBQUNBO0lBQ0ksMkJBQTJCO0FBQy9COztBQUVBO0lBQ0ksc0NBQXNDO0lBQ3RDLHVCQUF1QjtBQUMzQjs7QUFDQTtJQUNJLG1DQUFtQztBQUN2Qzs7QUFDQTtJQUNJLDJCQUEyQjtBQUMvQjs7QUFDQTtJQUNJLHFDQUFxQztBQUN6Qzs7QUFDQTtJQUNJLHlCQUF5QjtBQUM3Qjs7QUFFQTtJQUNJLHNDQUFzQztJQUN0Qyx1QkFBdUI7QUFDM0I7O0FBQ0E7SUFDSSxtQ0FBbUM7QUFDdkM7O0FBQ0E7SUFDSSwyQkFBMkI7QUFDL0I7O0FBQ0E7SUFDSSxzQ0FBc0M7QUFDMUM7O0FBQ0E7SUFDSSwyQkFBMkI7QUFDL0I7O0FBRUE7SUFDSSx1Q0FBdUM7SUFDdkMsdUJBQXVCO0FBQzNCOztBQUNBO0lBQ0ksb0NBQW9DO0FBQ3hDOztBQUNBO0lBQ0ksNEJBQTRCO0FBQ2hDOztBQUNBO0lBQ0ksdUNBQXVDO0FBQzNDOztBQUNBO0lBQ0ksMkJBQTJCO0FBQy9COztBQUVBO0lBQ0ksdUNBQXVDO0lBQ3ZDLHVCQUF1QjtBQUMzQjs7QUFDQTtJQUNJLG9DQUFvQztBQUN4Qzs7QUFDQTtJQUNJLDRCQUE0QjtBQUNoQzs7QUFDQTtJQUNJLHVDQUF1QztBQUMzQzs7QUFDQTtJQUNJLDJCQUEyQjtBQUMvQjs7QUFFQTtJQUNJLG9DQUFvQztJQUNwQyx1QkFBdUI7QUFDM0I7O0FBQ0E7SUFDSSxpQ0FBaUM7QUFDckM7O0FBQ0E7SUFDSSx5QkFBeUI7QUFDN0I7O0FBQ0E7SUFDSSxzQ0FBc0M7QUFDMUM7O0FBQ0E7SUFDSSwyQkFBMkI7QUFDL0I7O0FBRUE7SUFDSSxpQ0FBaUM7SUFDakMsdUJBQXVCO0FBQzNCOztBQUNBO0lBQ0ksOEJBQThCO0FBQ2xDOztBQUNBO0lBQ0ksc0JBQXNCO0FBQzFCOztBQUNBO0lBQ0ksc0NBQXNDO0FBQzFDOztBQUNBO0lBQ0ksMkJBQTJCO0FBQy9COztBQUVBO0lBQ0ksa0NBQWtDO0lBQ2xDLHVCQUF1QjtBQUMzQjs7QUFDQTtJQUNJLCtCQUErQjtBQUNuQzs7QUFDQTtJQUNJLHVCQUF1QjtBQUMzQjs7QUFDQTtJQUNJLHVDQUF1QztBQUMzQzs7QUFDQTtJQUNJLDJCQUEyQjtBQUMvQjs7QUFFQTtJQUNJLHFDQUFxQztJQUNyQyx1QkFBdUI7QUFDM0I7O0FBQ0E7SUFDSSxrQ0FBa0M7QUFDdEM7O0FBQ0E7SUFDSSwwQkFBMEI7QUFDOUI7O0FBQ0E7SUFDSSxzQ0FBc0M7QUFDMUM7O0FBQ0E7SUFDSSwyQkFBMkI7QUFDL0I7O0FBRUE7SUFDSSxrQ0FBa0M7SUFDbEMsdUJBQXVCO0FBQzNCOztBQUNBO0lBQ0ksK0JBQStCO0FBQ25DOztBQUNBO0lBQ0ksdUJBQXVCO0FBQzNCOztBQUNBO0lBQ0ksc0NBQXNDO0FBQzFDOztBQUNBO0lBQ0ksMkJBQTJCO0FBQy9CIiwiZmlsZSI6ImdhbWUtZGV0YWlscy5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmJ1enplcntcclxuICAgIGJvcmRlci1yYWRpdXM6IDE2cHg7XHJcbiAgICBtYXJnaW4tYm90dG9tOiAxMHB4O1xyXG59XHJcblxyXG4uYnV6emVyQ2xpY2tlZHtcclxuICAgIGJvcmRlci1yYWRpdXM6IDE2cHg7XHJcbiAgICBib3gtc2hhZG93OiAwIDBweCAhaW1wb3J0YW50O1xyXG4gICAgdHJhbnNmb3JtOiB0cmFuc2xhdGVZKDRweCk7XHJcbiAgICBtYXJnaW4tYm90dG9tOiAxMHB4O1xyXG59XHJcblxyXG4ucm91bmRIZWFkZXJ7XHJcbiAgICBwYWRkaW5nLXRvcDogNXB4O1xyXG4gICAgcGFkZGluZy1ib3R0b206IDVweDtcclxuICAgIHBhZGRpbmctbGVmdDogMTBweDtcclxuICAgIG1hcmdpbjogMHB4O1xyXG59XHJcblxyXG4ucm91bmRGb290ZXJ7XHJcbiAgcGFkZGluZzowcHggIFxyXG59XHJcbi5yb3VuZEJvZHl7XHJcbiAgICBwYWRkaW5nLXRvcDogNXB4O1xyXG4gICAgcGFkZGluZy1ib3R0b206IDVweDtcclxuICAgIHBhZGRpbmctbGVmdDogMTBweDtcclxuICAgIHBhZGRpbmctcmlnaHQ6IDEwcHg7XHJcbn1cclxuXHJcbi5yb3VuZEJ1dHRvbntcclxuICAgIHBhZGRpbmctbGVmdDogNXB4O1xyXG4gICAgcGFkZGluZy1yaWdodDogNXB4O1xyXG4gICAgcGFkZGluZy10b3A6IDBweDtcclxuICAgIHBhZGRpbmctYm90dG9tOiAwcHg7XHJcbn1cclxuXHJcbi5yb3VuZFRpdGxle1xyXG4gICAgbWFyZ2luOiAwcHg7XHJcbn1cclxuXHJcbi5jb2xCdXR0b257XHJcbiAgICBwYWRkaW5nLWxlZnQ6IDVweDtcclxuICAgIHBhZGRpbmctcmlnaHQ6IDVweDtcclxuICAgIHBhZGRpbmctdG9wOiA1cHg7XHJcbiAgICBwYWRkaW5nLWJvdHRvbTogNXB4O1xyXG59XHJcblxyXG4uUmVkIHtcclxuICAgIGJhY2tncm91bmQtY29sb3I6IGNyaW1zb24gIWltcG9ydGFudDtcclxuICAgIGNvbG9yOiB3aGl0ZSAhaW1wb3J0YW50O1xyXG59XHJcbi5vdXRsaW5lUmVke1xyXG4gICAgYm9yZGVyLWNvbG9yOiBjcmltc29uICAhaW1wb3J0YW50O1xyXG59XHJcbi5jb2xvclJlZHtcclxuICAgIGNvbG9yOmNyaW1zb24gICFpbXBvcnRhbnQ7XHJcbn1cclxuLmJhY2tncm91bmRSZWR7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmZjNmQxODAgICFpbXBvcnRhbnQ7XHJcbn1cclxuLnNoYWRvd1JlZHtcclxuICAgIGJveC1zaGFkb3c6IDAgNXB4ICNmZmM2ZDE4MDtcclxufVxyXG5cclxuLkdyZWVuIHtcclxuICAgIGJhY2tncm91bmQtY29sb3I6IGRhcmtncmVlbiAhaW1wb3J0YW50O1xyXG4gICAgY29sb3I6IHdoaXRlICFpbXBvcnRhbnQ7XHJcbn1cclxuLm91dGxpbmVHcmVlbntcclxuICAgIGJvcmRlci1jb2xvcjogZGFya2dyZWVuICAhaW1wb3J0YW50O1xyXG59XHJcbi5jb2xvckdyZWVue1xyXG4gICAgY29sb3I6ZGFya2dyZWVuICAhaW1wb3J0YW50O1xyXG59XHJcbi5iYWNrZ3JvdW5kR3JlZW57XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjOGFiODhhICAhaW1wb3J0YW50O1xyXG59XHJcbi5zaGFkb3dHcmVlbntcclxuICAgIGJveC1zaGFkb3c6IDAgNXB4ICM4YWI4OGE7XHJcbn1cclxuXHJcbi5CbHVlIHtcclxuICAgIGJhY2tncm91bmQtY29sb3I6IHJveWFsYmx1ZSAhaW1wb3J0YW50O1xyXG4gICAgY29sb3I6IHdoaXRlICFpbXBvcnRhbnQ7XHJcbn1cclxuLm91dGxpbmVCbHVle1xyXG4gICAgYm9yZGVyLWNvbG9yOiByb3lhbGJsdWUgICFpbXBvcnRhbnQ7XHJcbn1cclxuLmNvbG9yQmx1ZXtcclxuICAgIGNvbG9yOnJveWFsYmx1ZSAgIWltcG9ydGFudDtcclxufVxyXG4uYmFja2dyb3VuZEJsdWV7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiM0MTY5ZTE3ZCAgIWltcG9ydGFudDtcclxufVxyXG4uc2hhZG93Qmx1ZXtcclxuICAgIGJveC1zaGFkb3c6IDAgNXB4ICM0MTY5ZTE3ZDtcclxufVxyXG5cclxuLk9yYW5nZSB7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiBkYXJrb3JhbmdlICFpbXBvcnRhbnQ7XHJcbiAgICBjb2xvcjogd2hpdGUgIWltcG9ydGFudDtcclxufVxyXG4ub3V0bGluZU9yYW5nZXtcclxuICAgIGJvcmRlci1jb2xvcjogZGFya29yYW5nZSAgIWltcG9ydGFudDtcclxufVxyXG4uY29sb3JPcmFuZ2V7XHJcbiAgICBjb2xvcjpkYXJrb3JhbmdlICAhaW1wb3J0YW50O1xyXG59XHJcbi5iYWNrZ3JvdW5kT3Jhbmdle1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2ZmOGMwMDUyICAhaW1wb3J0YW50O1xyXG59XHJcbi5zaGFkb3dPcmFuZ2V7XHJcbiAgICBib3gtc2hhZG93OiAwIDVweCAjZmY4YzAwNTI7XHJcbn1cclxuXHJcbi5QdXJwbGUge1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogZGFya29yY2hpZCAhaW1wb3J0YW50O1xyXG4gICAgY29sb3I6IHdoaXRlICFpbXBvcnRhbnQ7XHJcbn1cclxuLm91dGxpbmVQdXJwbGV7XHJcbiAgICBib3JkZXItY29sb3I6IGRhcmtvcmNoaWQgICFpbXBvcnRhbnQ7XHJcbn1cclxuLmNvbG9yUHVycGxle1xyXG4gICAgY29sb3I6ZGFya29yY2hpZCAgIWltcG9ydGFudDtcclxufVxyXG4uYmFja2dyb3VuZFB1cnBsZXtcclxuICAgIGJhY2tncm91bmQtY29sb3I6ICM5OTMyY2M1MiAgIWltcG9ydGFudDtcclxufVxyXG4uc2hhZG93UHVycGxle1xyXG4gICAgYm94LXNoYWRvdzogMCA1cHggIzk5MzJjYzUyO1xyXG59XHJcblxyXG4uUGluayB7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiBob3RwaW5rICFpbXBvcnRhbnQ7XHJcbiAgICBjb2xvcjogd2hpdGUgIWltcG9ydGFudDtcclxufVxyXG4ub3V0bGluZVBpbmt7XHJcbiAgICBib3JkZXItY29sb3I6IGhvdHBpbmsgICFpbXBvcnRhbnQ7XHJcbn1cclxuLmNvbG9yUGlua3tcclxuICAgIGNvbG9yOmhvdHBpbmsgICFpbXBvcnRhbnQ7XHJcbn1cclxuLmJhY2tncm91bmRQaW5re1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2ZmNjliNDVlICFpbXBvcnRhbnQ7XHJcbn1cclxuLnNoYWRvd1Bpbmt7XHJcbiAgICBib3gtc2hhZG93OiAwIDVweCAjZmY2OWI0NWU7XHJcbn1cclxuXHJcbi5ZZWxsb3cge1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogZ29sZCAhaW1wb3J0YW50O1xyXG4gICAgY29sb3I6IHdoaXRlICFpbXBvcnRhbnQ7XHJcbn1cclxuLm91dGxpbmVZZWxsb3d7XHJcbiAgICBib3JkZXItY29sb3I6IGdvbGQgICFpbXBvcnRhbnQ7XHJcbn1cclxuLmNvbG9yWWVsbG93e1xyXG4gICAgY29sb3I6Z29sZCAgIWltcG9ydGFudDtcclxufVxyXG4uYmFja2dyb3VuZFllbGxvd3tcclxuICAgIGJhY2tncm91bmQtY29sb3I6I2ZmZDcwMDYxICAhaW1wb3J0YW50O1xyXG59XHJcbi5zaGFkb3dZZWxsb3d7XHJcbiAgICBib3gtc2hhZG93OiAwIDVweCAjZmZkNzAwNjE7XHJcbn1cclxuXHJcbi5Ccm93biB7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiBicm93biAhaW1wb3J0YW50O1xyXG4gICAgY29sb3I6IHdoaXRlICFpbXBvcnRhbnQ7XHJcbn1cclxuLm91dGxpbmVCcm93bntcclxuICAgIGJvcmRlci1jb2xvcjogYnJvd24gICFpbXBvcnRhbnQ7XHJcbn1cclxuLmNvbG9yQnJvd257XHJcbiAgICBjb2xvcjpicm93biAgIWltcG9ydGFudDtcclxufVxyXG4uYmFja2dyb3VuZEJyb3due1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2E1MmEyYTc1ICAhaW1wb3J0YW50O1xyXG59XHJcbi5zaGFkb3dCcm93bntcclxuICAgIGJveC1zaGFkb3c6IDAgNXB4ICNhNTJhMmE3NTtcclxufVxyXG5cclxuLkdyZXkge1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogZGFya2dyZXkgIWltcG9ydGFudDtcclxuICAgIGNvbG9yOiB3aGl0ZSAhaW1wb3J0YW50O1xyXG59XHJcbi5vdXRsaW5lR3JleXtcclxuICAgIGJvcmRlci1jb2xvcjogZGFya2dyZXkgICFpbXBvcnRhbnQ7XHJcbn1cclxuLmNvbG9yR3JleXtcclxuICAgIGNvbG9yOmRhcmtncmV5ICAhaW1wb3J0YW50O1xyXG59XHJcbi5iYWNrZ3JvdW5kR3JleXtcclxuICAgIGJhY2tncm91bmQtY29sb3I6ICNhOWE5YTk2ZSAhaW1wb3J0YW50O1xyXG59XHJcbi5zaGFkb3dHcmV5e1xyXG4gICAgYm94LXNoYWRvdzogMCA1cHggI2E5YTlhOTZlO1xyXG59XHJcblxyXG4uQmxhY2sge1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogYmxhY2sgIWltcG9ydGFudDtcclxuICAgIGNvbG9yOiB3aGl0ZSAhaW1wb3J0YW50O1xyXG59XHJcbi5vdXRsaW5lQmxhY2t7XHJcbiAgICBib3JkZXItY29sb3I6IGJsYWNrICAhaW1wb3J0YW50O1xyXG59XHJcbi5jb2xvckJsYWNre1xyXG4gICAgY29sb3I6YmxhY2sgICFpbXBvcnRhbnQ7XHJcbn1cclxuLmJhY2tncm91bmRCbGFja3tcclxuICAgIGJhY2tncm91bmQtY29sb3I6ICMwMDAwMDA2YiAhaW1wb3J0YW50O1xyXG59XHJcbi5zaGFkb3dCbGFja3tcclxuICAgIGJveC1zaGFkb3c6IDAgNXB4ICMwMDAwMDA2YjtcclxufVxyXG4iXX0= */"] });
 
 
 /***/ }),
@@ -3435,7 +3435,8 @@ class GameChatComponent {
             innerItem.style.padding = "2px";
             item.appendChild(innerItem);
             this.messages.appendChild(item);
-            window.scrollTo(0, document.body.scrollHeight);
+            this.messages.scrollTo(0, this.messages.scrollHeight);
+            // window.scrollTo(0, document.body.scrollHeight);
             messageElement.value = '';
         }
     }
@@ -3453,9 +3454,9 @@ class GameChatComponent {
                 innerItem.style.clear = "both";
                 innerItem.style.float = "left";
                 innerItem.style.marginBottom = "0px !important";
-                innerItem.className = "card border mb-3";
-                innerItem.style.color = "color{{this.player.colour}} !important";
-                innerItem.style.borderColor = "outline{{this.player.colour}} !important";
+                innerItem.className = "card border mb-3 color" + this.player.colour + " outline" + this.player.colour;
+                // innerItem.style.color = "color{{this.player.colour}} !important"
+                // innerItem.style.borderColor = "outline{{this.player.colour}} !important"
                 innerItem.style.maxWidth = '50%';
                 innerItem.style.padding = "2px";
                 innerItem2.textContent = data[this.player.colour].displayName;
@@ -3466,7 +3467,8 @@ class GameChatComponent {
                 item.appendChild(innerItem);
                 item.appendChild(innerItem2);
                 this.messages.appendChild(item);
-                window.scrollTo(0, document.body.scrollHeight);
+                this.messages.scrollTo(0, this.messages.scrollHeight);
+                // window.scrollTo(0, document.body.scrollHeight);
             }
         });
     }
@@ -3504,7 +3506,7 @@ GameChatComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefine
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassMapInterpolate1"]("outline", ctx.player.colour, "");
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵadvance"](1);
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵclassMapInterpolate1"]("btn ", ctx.player.colour, "");
-    } }, directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgForm"]], styles: ["#messages[_ngcontent-%COMP%] { list-style-type: none; margin: 0; padding: 0; }\r\n#messages[_ngcontent-%COMP%]    > li[_ngcontent-%COMP%] { padding: 0.5rem 1rem; }\r\n#messages[_ngcontent-%COMP%]    > li[_ngcontent-%COMP%]:nth-child(odd) { background: #efefef; }\r\n.scroll[_ngcontent-%COMP%] {\r\n    height: 100px;\r\n    max-height: 100px;\r\n    overflow-y: auto;\r\n}\r\n.Red[_ngcontent-%COMP%] {\r\n    background-color: crimson !important;\r\n    color: white !important;\r\n}\r\n.outlineRed[_ngcontent-%COMP%]{\r\n    border-color: crimson  !important;;\r\n}\r\n.colorRed[_ngcontent-%COMP%]{\r\n    color:crimson  !important;;\r\n}\r\n.shadowRed[_ngcontent-%COMP%]{\r\n    \r\n    box-shadow: 0 5px #ffc6d180;\r\n}\r\n.backgroundRed[_ngcontent-%COMP%]{\r\n    background-color: #ffc6d180 !important;\r\n}\r\n.chatFooter[_ngcontent-%COMP%]{\r\n    padding-top: 5px;\r\n    padding-bottom: 5px;\r\n    padding-left: 10px;\r\n    margin: 0px;\r\n    border-radius: 0px 0px 4px 2px\r\n}\r\n.chatHeader[_ngcontent-%COMP%]{\r\n    padding-top: 5px;\r\n    padding-bottom: 5px;\r\n    padding-left: 10px;\r\n    margin: 0px;\r\n}\r\n.chatBody[_ngcontent-%COMP%]{\r\n    padding-top: 5px;\r\n    padding-bottom: 5px;\r\n    padding-left: 10px;\r\n    padding-right: 10px;\r\n    margin:0px;\r\n}\r\n.chatButton[_ngcontent-%COMP%]{\r\n    padding:5px\r\n}\r\n.chatTitle[_ngcontent-%COMP%]{\r\n    margin: 0px;\r\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImdhbWUtY2hhdC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLGlIQUFpSDtBQUNqSDtpQ0FDaUM7QUFDakMsc0ZBQXNGO0FBRXRGLFlBQVkscUJBQXFCLEVBQUUsU0FBUyxFQUFFLFVBQVUsRUFBRTtBQUMxRCxpQkFBaUIsb0JBQW9CLEVBQUU7QUFDdkMsZ0NBQWdDLG1CQUFtQixFQUFFO0FBRXJEO0lBQ0ksYUFBYTtJQUNiLGlCQUFpQjtJQUNqQixnQkFBZ0I7QUFDcEI7QUFFQTtJQUNJLG9DQUFvQztJQUNwQyx1QkFBdUI7QUFDM0I7QUFDQTtJQUNJLGlDQUFpQztBQUNyQztBQUNBO0lBQ0kseUJBQXlCO0FBQzdCO0FBQ0E7SUFDSSw2Q0FBNkM7SUFDN0MsMkJBQTJCO0FBQy9CO0FBQ0E7SUFDSSxzQ0FBc0M7QUFDMUM7QUFDQTtJQUNJLGdCQUFnQjtJQUNoQixtQkFBbUI7SUFDbkIsa0JBQWtCO0lBQ2xCLFdBQVc7SUFDWDtBQUNKO0FBQ0E7SUFDSSxnQkFBZ0I7SUFDaEIsbUJBQW1CO0lBQ25CLGtCQUFrQjtJQUNsQixXQUFXO0FBQ2Y7QUFFQTtJQUNJLGdCQUFnQjtJQUNoQixtQkFBbUI7SUFDbkIsa0JBQWtCO0lBQ2xCLG1CQUFtQjtJQUNuQixVQUFVO0FBQ2Q7QUFFQTtJQUNJO0FBQ0o7QUFFQTtJQUNJLFdBQVc7QUFDZiIsImZpbGUiOiJnYW1lLWNoYXQuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi8qICNmb3JtIHsgYm90dG9tOiAwOyBsZWZ0OiAwOyByaWdodDogMDsgZGlzcGxheTogZmxleDsgIGJveC1zaXppbmc6IGJvcmRlci1ib3g7IGJhY2tkcm9wLWZpbHRlcjogYmx1cigxMHB4KTsgfSAqL1xyXG4vKiAjaW5wdXQgeyBib3JkZXI6IG5vbmU7IHBhZGRpbmc6IDAgMXJlbTsgZmxleC1ncm93OiAxOyBib3JkZXItcmFkaXVzOiAycmVtOyBtYXJnaW46IDAuMjVyZW07IH1cclxuI2lucHV0OmZvY3VzIHsgb3V0bGluZTogbm9uZTsgfSAqL1xyXG4vKiAjZm9ybSA+IGJ1dHRvbiB7IGJhY2tncm91bmQ6ICMzMzM7cGFkZGluZzogMCAxcmVtOyBtYXJnaW46IDAuMjVyZW07Y29sb3I6ICNmZmY7IH0gKi9cclxuXHJcbiNtZXNzYWdlcyB7IGxpc3Qtc3R5bGUtdHlwZTogbm9uZTsgbWFyZ2luOiAwOyBwYWRkaW5nOiAwOyB9XHJcbiNtZXNzYWdlcyA+IGxpIHsgcGFkZGluZzogMC41cmVtIDFyZW07IH1cclxuI21lc3NhZ2VzID4gbGk6bnRoLWNoaWxkKG9kZCkgeyBiYWNrZ3JvdW5kOiAjZWZlZmVmOyB9XHJcblxyXG4uc2Nyb2xsIHtcclxuICAgIGhlaWdodDogMTAwcHg7XHJcbiAgICBtYXgtaGVpZ2h0OiAxMDBweDtcclxuICAgIG92ZXJmbG93LXk6IGF1dG87XHJcbn1cclxuXHJcbi5SZWQge1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogY3JpbXNvbiAhaW1wb3J0YW50O1xyXG4gICAgY29sb3I6IHdoaXRlICFpbXBvcnRhbnQ7XHJcbn1cclxuLm91dGxpbmVSZWR7XHJcbiAgICBib3JkZXItY29sb3I6IGNyaW1zb24gICFpbXBvcnRhbnQ7O1xyXG59XHJcbi5jb2xvclJlZHtcclxuICAgIGNvbG9yOmNyaW1zb24gICFpbXBvcnRhbnQ7O1xyXG59XHJcbi5zaGFkb3dSZWR7XHJcbiAgICAvKiBiYWNrZ3JvdW5kLWNvbG9yOiAjZmZjNmQxODAgICFpbXBvcnRhbnQ7ICovXHJcbiAgICBib3gtc2hhZG93OiAwIDVweCAjZmZjNmQxODA7XHJcbn1cclxuLmJhY2tncm91bmRSZWR7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmZjNmQxODAgIWltcG9ydGFudDtcclxufVxyXG4uY2hhdEZvb3RlcntcclxuICAgIHBhZGRpbmctdG9wOiA1cHg7XHJcbiAgICBwYWRkaW5nLWJvdHRvbTogNXB4O1xyXG4gICAgcGFkZGluZy1sZWZ0OiAxMHB4O1xyXG4gICAgbWFyZ2luOiAwcHg7XHJcbiAgICBib3JkZXItcmFkaXVzOiAwcHggMHB4IDRweCAycHhcclxufVxyXG4uY2hhdEhlYWRlcntcclxuICAgIHBhZGRpbmctdG9wOiA1cHg7XHJcbiAgICBwYWRkaW5nLWJvdHRvbTogNXB4O1xyXG4gICAgcGFkZGluZy1sZWZ0OiAxMHB4O1xyXG4gICAgbWFyZ2luOiAwcHg7XHJcbn1cclxuXHJcbi5jaGF0Qm9keXtcclxuICAgIHBhZGRpbmctdG9wOiA1cHg7XHJcbiAgICBwYWRkaW5nLWJvdHRvbTogNXB4O1xyXG4gICAgcGFkZGluZy1sZWZ0OiAxMHB4O1xyXG4gICAgcGFkZGluZy1yaWdodDogMTBweDtcclxuICAgIG1hcmdpbjowcHg7XHJcbn1cclxuXHJcbi5jaGF0QnV0dG9ue1xyXG4gICAgcGFkZGluZzo1cHhcclxufVxyXG5cclxuLmNoYXRUaXRsZXtcclxuICAgIG1hcmdpbjogMHB4O1xyXG59Il19 */"] });
+    } }, directives: [_angular_forms__WEBPACK_IMPORTED_MODULE_3__["ɵangular_packages_forms_forms_y"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgControlStatusGroup"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgForm"]], styles: ["#messages[_ngcontent-%COMP%] { list-style-type: none; margin: 0; padding: 0; }\r\n#messages[_ngcontent-%COMP%]    > li[_ngcontent-%COMP%] { padding: 0.5rem 1rem; }\r\n#messages[_ngcontent-%COMP%]    > li[_ngcontent-%COMP%]:nth-child(odd) { background: #efefef; }\r\n.scroll[_ngcontent-%COMP%] {\r\n    height: 100px;\r\n    max-height: 100px;\r\n    overflow-y: auto;\r\n}\r\n.chatFooter[_ngcontent-%COMP%]{\r\n    padding-top: 5px;\r\n    padding-bottom: 5px;\r\n    padding-left: 10px;\r\n    margin: 0px;\r\n    border-radius: 0px 0px 4px 2px\r\n}\r\n.chatHeader[_ngcontent-%COMP%]{\r\n    padding: 5px 20px 5px 10px;\r\n}\r\n.chatBody[_ngcontent-%COMP%]{\r\n    padding-top: 5px;\r\n    padding-bottom: 5px;\r\n    padding-left: 10px;\r\n    padding-right: 10px;\r\n    margin:0px;\r\n}\r\n.chatButton[_ngcontent-%COMP%]{\r\n    padding:5px\r\n}\r\n.chatTitle[_ngcontent-%COMP%]{\r\n    margin: 0px;\r\n}\r\n.Red[_ngcontent-%COMP%] {\r\n    background-color: crimson !important;\r\n    color: white !important;\r\n}\r\n.outlineRed[_ngcontent-%COMP%]{\r\n    border-color: crimson  !important;\r\n}\r\n.colorRed[_ngcontent-%COMP%]{\r\n    color:crimson  !important;\r\n}\r\n.backgroundRed[_ngcontent-%COMP%]{\r\n    background-color: #ffc6d180  !important;\r\n}\r\n.shadowRed[_ngcontent-%COMP%]{\r\n    box-shadow: 0 5px #ffc6d180;\r\n}\r\n.Green[_ngcontent-%COMP%] {\r\n    background-color: darkgreen !important;\r\n    color: white !important;\r\n}\r\n.outlineGreen[_ngcontent-%COMP%]{\r\n    border-color: darkgreen  !important;\r\n}\r\n.colorGreen[_ngcontent-%COMP%]{\r\n    color:darkgreen  !important;\r\n}\r\n.backgroundGreen[_ngcontent-%COMP%]{\r\n    background-color: #8ab88a  !important;\r\n}\r\n.shadowGreen[_ngcontent-%COMP%]{\r\n    box-shadow: 0 5px #8ab88a;\r\n}\r\n.Blue[_ngcontent-%COMP%] {\r\n    background-color: royalblue !important;\r\n    color: white !important;\r\n}\r\n.outlineBlue[_ngcontent-%COMP%]{\r\n    border-color: royalblue  !important;\r\n}\r\n.colorBlue[_ngcontent-%COMP%]{\r\n    color:royalblue  !important;\r\n}\r\n.backgroundBlue[_ngcontent-%COMP%]{\r\n    background-color:#4169e17d  !important;\r\n}\r\n.shadowBlue[_ngcontent-%COMP%]{\r\n    box-shadow: 0 5px #4169e17d;\r\n}\r\n.Orange[_ngcontent-%COMP%] {\r\n    background-color: darkorange !important;\r\n    color: white !important;\r\n}\r\n.outlineOrange[_ngcontent-%COMP%]{\r\n    border-color: darkorange  !important;\r\n}\r\n.colorOrange[_ngcontent-%COMP%]{\r\n    color:darkorange  !important;\r\n}\r\n.backgroundOrange[_ngcontent-%COMP%]{\r\n    background-color: #ff8c0052  !important;\r\n}\r\n.shadowOrange[_ngcontent-%COMP%]{\r\n    box-shadow: 0 5px #ff8c0052;\r\n}\r\n.Purple[_ngcontent-%COMP%] {\r\n    background-color: darkorchid !important;\r\n    color: white !important;\r\n}\r\n.outlinePurple[_ngcontent-%COMP%]{\r\n    border-color: darkorchid  !important;\r\n}\r\n.colorPurple[_ngcontent-%COMP%]{\r\n    color:darkorchid  !important;\r\n}\r\n.backgroundPurple[_ngcontent-%COMP%]{\r\n    background-color: #9932cc52  !important;\r\n}\r\n.shadowPurple[_ngcontent-%COMP%]{\r\n    box-shadow: 0 5px #9932cc52;\r\n}\r\n.Pink[_ngcontent-%COMP%] {\r\n    background-color: hotpink !important;\r\n    color: white !important;\r\n}\r\n.outlinePink[_ngcontent-%COMP%]{\r\n    border-color: hotpink  !important;\r\n}\r\n.colorPink[_ngcontent-%COMP%]{\r\n    color:hotpink  !important;\r\n}\r\n.backgroundPink[_ngcontent-%COMP%]{\r\n    background-color: #ff69b45e !important;\r\n}\r\n.shadowPink[_ngcontent-%COMP%]{\r\n    box-shadow: 0 5px #ff69b45e;\r\n}\r\n.Yellow[_ngcontent-%COMP%] {\r\n    background-color: gold !important;\r\n    color: white !important;\r\n}\r\n.outlineYellow[_ngcontent-%COMP%]{\r\n    border-color: gold  !important;\r\n}\r\n.colorYellow[_ngcontent-%COMP%]{\r\n    color:gold  !important;\r\n}\r\n.backgroundYellow[_ngcontent-%COMP%]{\r\n    background-color:#ffd70061  !important;\r\n}\r\n.shadowYellow[_ngcontent-%COMP%]{\r\n    box-shadow: 0 5px #ffd70061;\r\n}\r\n.Brown[_ngcontent-%COMP%] {\r\n    background-color: brown !important;\r\n    color: white !important;\r\n}\r\n.outlineBrown[_ngcontent-%COMP%]{\r\n    border-color: brown  !important;\r\n}\r\n.colorBrown[_ngcontent-%COMP%]{\r\n    color:brown  !important;\r\n}\r\n.backgroundBrown[_ngcontent-%COMP%]{\r\n    background-color: #a52a2a75  !important;\r\n}\r\n.shadowBrown[_ngcontent-%COMP%]{\r\n    box-shadow: 0 5px #a52a2a75;\r\n}\r\n.Grey[_ngcontent-%COMP%] {\r\n    background-color: darkgrey !important;\r\n    color: white !important;\r\n}\r\n.outlineGrey[_ngcontent-%COMP%]{\r\n    border-color: darkgrey  !important;\r\n}\r\n.colorGrey[_ngcontent-%COMP%]{\r\n    color:darkgrey  !important;\r\n}\r\n.backgroundGrey[_ngcontent-%COMP%]{\r\n    background-color: #a9a9a96e !important;\r\n}\r\n.shadowGrey[_ngcontent-%COMP%]{\r\n    box-shadow: 0 5px #a9a9a96e;\r\n}\r\n.Black[_ngcontent-%COMP%] {\r\n    background-color: black !important;\r\n    color: white !important;\r\n}\r\n.outlineBlack[_ngcontent-%COMP%]{\r\n    border-color: black  !important;\r\n}\r\n.colorBlack[_ngcontent-%COMP%]{\r\n    color:black  !important;\r\n}\r\n.backgroundBlack[_ngcontent-%COMP%]{\r\n    background-color: #0000006b !important;\r\n}\r\n.shadowBlack[_ngcontent-%COMP%]{\r\n    box-shadow: 0 5px #0000006b;\r\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImdhbWUtY2hhdC5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLGlIQUFpSDtBQUNqSDtpQ0FDaUM7QUFDakMsc0ZBQXNGO0FBRXRGLFlBQVkscUJBQXFCLEVBQUUsU0FBUyxFQUFFLFVBQVUsRUFBRTtBQUMxRCxpQkFBaUIsb0JBQW9CLEVBQUU7QUFDdkMsZ0NBQWdDLG1CQUFtQixFQUFFO0FBRXJEO0lBQ0ksYUFBYTtJQUNiLGlCQUFpQjtJQUNqQixnQkFBZ0I7QUFDcEI7QUFFQTtJQUNJLGdCQUFnQjtJQUNoQixtQkFBbUI7SUFDbkIsa0JBQWtCO0lBQ2xCLFdBQVc7SUFDWDtBQUNKO0FBQ0E7SUFDSSwwQkFBMEI7QUFDOUI7QUFDQTtJQUNJLGdCQUFnQjtJQUNoQixtQkFBbUI7SUFDbkIsa0JBQWtCO0lBQ2xCLG1CQUFtQjtJQUNuQixVQUFVO0FBQ2Q7QUFDQTtJQUNJO0FBQ0o7QUFDQTtJQUNJLFdBQVc7QUFDZjtBQUVBO0lBQ0ksb0NBQW9DO0lBQ3BDLHVCQUF1QjtBQUMzQjtBQUNBO0lBQ0ksaUNBQWlDO0FBQ3JDO0FBQ0E7SUFDSSx5QkFBeUI7QUFDN0I7QUFDQTtJQUNJLHVDQUF1QztBQUMzQztBQUNBO0lBQ0ksMkJBQTJCO0FBQy9CO0FBRUE7SUFDSSxzQ0FBc0M7SUFDdEMsdUJBQXVCO0FBQzNCO0FBQ0E7SUFDSSxtQ0FBbUM7QUFDdkM7QUFDQTtJQUNJLDJCQUEyQjtBQUMvQjtBQUNBO0lBQ0kscUNBQXFDO0FBQ3pDO0FBQ0E7SUFDSSx5QkFBeUI7QUFDN0I7QUFFQTtJQUNJLHNDQUFzQztJQUN0Qyx1QkFBdUI7QUFDM0I7QUFDQTtJQUNJLG1DQUFtQztBQUN2QztBQUNBO0lBQ0ksMkJBQTJCO0FBQy9CO0FBQ0E7SUFDSSxzQ0FBc0M7QUFDMUM7QUFDQTtJQUNJLDJCQUEyQjtBQUMvQjtBQUVBO0lBQ0ksdUNBQXVDO0lBQ3ZDLHVCQUF1QjtBQUMzQjtBQUNBO0lBQ0ksb0NBQW9DO0FBQ3hDO0FBQ0E7SUFDSSw0QkFBNEI7QUFDaEM7QUFDQTtJQUNJLHVDQUF1QztBQUMzQztBQUNBO0lBQ0ksMkJBQTJCO0FBQy9CO0FBRUE7SUFDSSx1Q0FBdUM7SUFDdkMsdUJBQXVCO0FBQzNCO0FBQ0E7SUFDSSxvQ0FBb0M7QUFDeEM7QUFDQTtJQUNJLDRCQUE0QjtBQUNoQztBQUNBO0lBQ0ksdUNBQXVDO0FBQzNDO0FBQ0E7SUFDSSwyQkFBMkI7QUFDL0I7QUFFQTtJQUNJLG9DQUFvQztJQUNwQyx1QkFBdUI7QUFDM0I7QUFDQTtJQUNJLGlDQUFpQztBQUNyQztBQUNBO0lBQ0kseUJBQXlCO0FBQzdCO0FBQ0E7SUFDSSxzQ0FBc0M7QUFDMUM7QUFDQTtJQUNJLDJCQUEyQjtBQUMvQjtBQUVBO0lBQ0ksaUNBQWlDO0lBQ2pDLHVCQUF1QjtBQUMzQjtBQUNBO0lBQ0ksOEJBQThCO0FBQ2xDO0FBQ0E7SUFDSSxzQkFBc0I7QUFDMUI7QUFDQTtJQUNJLHNDQUFzQztBQUMxQztBQUNBO0lBQ0ksMkJBQTJCO0FBQy9CO0FBRUE7SUFDSSxrQ0FBa0M7SUFDbEMsdUJBQXVCO0FBQzNCO0FBQ0E7SUFDSSwrQkFBK0I7QUFDbkM7QUFDQTtJQUNJLHVCQUF1QjtBQUMzQjtBQUNBO0lBQ0ksdUNBQXVDO0FBQzNDO0FBQ0E7SUFDSSwyQkFBMkI7QUFDL0I7QUFFQTtJQUNJLHFDQUFxQztJQUNyQyx1QkFBdUI7QUFDM0I7QUFDQTtJQUNJLGtDQUFrQztBQUN0QztBQUNBO0lBQ0ksMEJBQTBCO0FBQzlCO0FBQ0E7SUFDSSxzQ0FBc0M7QUFDMUM7QUFDQTtJQUNJLDJCQUEyQjtBQUMvQjtBQUVBO0lBQ0ksa0NBQWtDO0lBQ2xDLHVCQUF1QjtBQUMzQjtBQUNBO0lBQ0ksK0JBQStCO0FBQ25DO0FBQ0E7SUFDSSx1QkFBdUI7QUFDM0I7QUFDQTtJQUNJLHNDQUFzQztBQUMxQztBQUNBO0lBQ0ksMkJBQTJCO0FBQy9CIiwiZmlsZSI6ImdhbWUtY2hhdC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLyogI2Zvcm0geyBib3R0b206IDA7IGxlZnQ6IDA7IHJpZ2h0OiAwOyBkaXNwbGF5OiBmbGV4OyAgYm94LXNpemluZzogYm9yZGVyLWJveDsgYmFja2Ryb3AtZmlsdGVyOiBibHVyKDEwcHgpOyB9ICovXHJcbi8qICNpbnB1dCB7IGJvcmRlcjogbm9uZTsgcGFkZGluZzogMCAxcmVtOyBmbGV4LWdyb3c6IDE7IGJvcmRlci1yYWRpdXM6IDJyZW07IG1hcmdpbjogMC4yNXJlbTsgfVxyXG4jaW5wdXQ6Zm9jdXMgeyBvdXRsaW5lOiBub25lOyB9ICovXHJcbi8qICNmb3JtID4gYnV0dG9uIHsgYmFja2dyb3VuZDogIzMzMztwYWRkaW5nOiAwIDFyZW07IG1hcmdpbjogMC4yNXJlbTtjb2xvcjogI2ZmZjsgfSAqL1xyXG5cclxuI21lc3NhZ2VzIHsgbGlzdC1zdHlsZS10eXBlOiBub25lOyBtYXJnaW46IDA7IHBhZGRpbmc6IDA7IH1cclxuI21lc3NhZ2VzID4gbGkgeyBwYWRkaW5nOiAwLjVyZW0gMXJlbTsgfVxyXG4jbWVzc2FnZXMgPiBsaTpudGgtY2hpbGQob2RkKSB7IGJhY2tncm91bmQ6ICNlZmVmZWY7IH1cclxuXHJcbi5zY3JvbGwge1xyXG4gICAgaGVpZ2h0OiAxMDBweDtcclxuICAgIG1heC1oZWlnaHQ6IDEwMHB4O1xyXG4gICAgb3ZlcmZsb3cteTogYXV0bztcclxufVxyXG5cclxuLmNoYXRGb290ZXJ7XHJcbiAgICBwYWRkaW5nLXRvcDogNXB4O1xyXG4gICAgcGFkZGluZy1ib3R0b206IDVweDtcclxuICAgIHBhZGRpbmctbGVmdDogMTBweDtcclxuICAgIG1hcmdpbjogMHB4O1xyXG4gICAgYm9yZGVyLXJhZGl1czogMHB4IDBweCA0cHggMnB4XHJcbn1cclxuLmNoYXRIZWFkZXJ7XHJcbiAgICBwYWRkaW5nOiA1cHggMjBweCA1cHggMTBweDtcclxufVxyXG4uY2hhdEJvZHl7XHJcbiAgICBwYWRkaW5nLXRvcDogNXB4O1xyXG4gICAgcGFkZGluZy1ib3R0b206IDVweDtcclxuICAgIHBhZGRpbmctbGVmdDogMTBweDtcclxuICAgIHBhZGRpbmctcmlnaHQ6IDEwcHg7XHJcbiAgICBtYXJnaW46MHB4O1xyXG59XHJcbi5jaGF0QnV0dG9ue1xyXG4gICAgcGFkZGluZzo1cHhcclxufVxyXG4uY2hhdFRpdGxle1xyXG4gICAgbWFyZ2luOiAwcHg7XHJcbn1cclxuXHJcbi5SZWQge1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogY3JpbXNvbiAhaW1wb3J0YW50O1xyXG4gICAgY29sb3I6IHdoaXRlICFpbXBvcnRhbnQ7XHJcbn1cclxuLm91dGxpbmVSZWR7XHJcbiAgICBib3JkZXItY29sb3I6IGNyaW1zb24gICFpbXBvcnRhbnQ7XHJcbn1cclxuLmNvbG9yUmVke1xyXG4gICAgY29sb3I6Y3JpbXNvbiAgIWltcG9ydGFudDtcclxufVxyXG4uYmFja2dyb3VuZFJlZHtcclxuICAgIGJhY2tncm91bmQtY29sb3I6ICNmZmM2ZDE4MCAgIWltcG9ydGFudDtcclxufVxyXG4uc2hhZG93UmVke1xyXG4gICAgYm94LXNoYWRvdzogMCA1cHggI2ZmYzZkMTgwO1xyXG59XHJcblxyXG4uR3JlZW4ge1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogZGFya2dyZWVuICFpbXBvcnRhbnQ7XHJcbiAgICBjb2xvcjogd2hpdGUgIWltcG9ydGFudDtcclxufVxyXG4ub3V0bGluZUdyZWVue1xyXG4gICAgYm9yZGVyLWNvbG9yOiBkYXJrZ3JlZW4gICFpbXBvcnRhbnQ7XHJcbn1cclxuLmNvbG9yR3JlZW57XHJcbiAgICBjb2xvcjpkYXJrZ3JlZW4gICFpbXBvcnRhbnQ7XHJcbn1cclxuLmJhY2tncm91bmRHcmVlbntcclxuICAgIGJhY2tncm91bmQtY29sb3I6ICM4YWI4OGEgICFpbXBvcnRhbnQ7XHJcbn1cclxuLnNoYWRvd0dyZWVue1xyXG4gICAgYm94LXNoYWRvdzogMCA1cHggIzhhYjg4YTtcclxufVxyXG5cclxuLkJsdWUge1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogcm95YWxibHVlICFpbXBvcnRhbnQ7XHJcbiAgICBjb2xvcjogd2hpdGUgIWltcG9ydGFudDtcclxufVxyXG4ub3V0bGluZUJsdWV7XHJcbiAgICBib3JkZXItY29sb3I6IHJveWFsYmx1ZSAgIWltcG9ydGFudDtcclxufVxyXG4uY29sb3JCbHVle1xyXG4gICAgY29sb3I6cm95YWxibHVlICAhaW1wb3J0YW50O1xyXG59XHJcbi5iYWNrZ3JvdW5kQmx1ZXtcclxuICAgIGJhY2tncm91bmQtY29sb3I6IzQxNjllMTdkICAhaW1wb3J0YW50O1xyXG59XHJcbi5zaGFkb3dCbHVle1xyXG4gICAgYm94LXNoYWRvdzogMCA1cHggIzQxNjllMTdkO1xyXG59XHJcblxyXG4uT3JhbmdlIHtcclxuICAgIGJhY2tncm91bmQtY29sb3I6IGRhcmtvcmFuZ2UgIWltcG9ydGFudDtcclxuICAgIGNvbG9yOiB3aGl0ZSAhaW1wb3J0YW50O1xyXG59XHJcbi5vdXRsaW5lT3Jhbmdle1xyXG4gICAgYm9yZGVyLWNvbG9yOiBkYXJrb3JhbmdlICAhaW1wb3J0YW50O1xyXG59XHJcbi5jb2xvck9yYW5nZXtcclxuICAgIGNvbG9yOmRhcmtvcmFuZ2UgICFpbXBvcnRhbnQ7XHJcbn1cclxuLmJhY2tncm91bmRPcmFuZ2V7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmY4YzAwNTIgICFpbXBvcnRhbnQ7XHJcbn1cclxuLnNoYWRvd09yYW5nZXtcclxuICAgIGJveC1zaGFkb3c6IDAgNXB4ICNmZjhjMDA1MjtcclxufVxyXG5cclxuLlB1cnBsZSB7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiBkYXJrb3JjaGlkICFpbXBvcnRhbnQ7XHJcbiAgICBjb2xvcjogd2hpdGUgIWltcG9ydGFudDtcclxufVxyXG4ub3V0bGluZVB1cnBsZXtcclxuICAgIGJvcmRlci1jb2xvcjogZGFya29yY2hpZCAgIWltcG9ydGFudDtcclxufVxyXG4uY29sb3JQdXJwbGV7XHJcbiAgICBjb2xvcjpkYXJrb3JjaGlkICAhaW1wb3J0YW50O1xyXG59XHJcbi5iYWNrZ3JvdW5kUHVycGxle1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogIzk5MzJjYzUyICAhaW1wb3J0YW50O1xyXG59XHJcbi5zaGFkb3dQdXJwbGV7XHJcbiAgICBib3gtc2hhZG93OiAwIDVweCAjOTkzMmNjNTI7XHJcbn1cclxuXHJcbi5QaW5rIHtcclxuICAgIGJhY2tncm91bmQtY29sb3I6IGhvdHBpbmsgIWltcG9ydGFudDtcclxuICAgIGNvbG9yOiB3aGl0ZSAhaW1wb3J0YW50O1xyXG59XHJcbi5vdXRsaW5lUGlua3tcclxuICAgIGJvcmRlci1jb2xvcjogaG90cGluayAgIWltcG9ydGFudDtcclxufVxyXG4uY29sb3JQaW5re1xyXG4gICAgY29sb3I6aG90cGluayAgIWltcG9ydGFudDtcclxufVxyXG4uYmFja2dyb3VuZFBpbmt7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmY2OWI0NWUgIWltcG9ydGFudDtcclxufVxyXG4uc2hhZG93UGlua3tcclxuICAgIGJveC1zaGFkb3c6IDAgNXB4ICNmZjY5YjQ1ZTtcclxufVxyXG5cclxuLlllbGxvdyB7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiBnb2xkICFpbXBvcnRhbnQ7XHJcbiAgICBjb2xvcjogd2hpdGUgIWltcG9ydGFudDtcclxufVxyXG4ub3V0bGluZVllbGxvd3tcclxuICAgIGJvcmRlci1jb2xvcjogZ29sZCAgIWltcG9ydGFudDtcclxufVxyXG4uY29sb3JZZWxsb3d7XHJcbiAgICBjb2xvcjpnb2xkICAhaW1wb3J0YW50O1xyXG59XHJcbi5iYWNrZ3JvdW5kWWVsbG93e1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjojZmZkNzAwNjEgICFpbXBvcnRhbnQ7XHJcbn1cclxuLnNoYWRvd1llbGxvd3tcclxuICAgIGJveC1zaGFkb3c6IDAgNXB4ICNmZmQ3MDA2MTtcclxufVxyXG5cclxuLkJyb3duIHtcclxuICAgIGJhY2tncm91bmQtY29sb3I6IGJyb3duICFpbXBvcnRhbnQ7XHJcbiAgICBjb2xvcjogd2hpdGUgIWltcG9ydGFudDtcclxufVxyXG4ub3V0bGluZUJyb3due1xyXG4gICAgYm9yZGVyLWNvbG9yOiBicm93biAgIWltcG9ydGFudDtcclxufVxyXG4uY29sb3JCcm93bntcclxuICAgIGNvbG9yOmJyb3duICAhaW1wb3J0YW50O1xyXG59XHJcbi5iYWNrZ3JvdW5kQnJvd257XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjYTUyYTJhNzUgICFpbXBvcnRhbnQ7XHJcbn1cclxuLnNoYWRvd0Jyb3due1xyXG4gICAgYm94LXNoYWRvdzogMCA1cHggI2E1MmEyYTc1O1xyXG59XHJcblxyXG4uR3JleSB7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiBkYXJrZ3JleSAhaW1wb3J0YW50O1xyXG4gICAgY29sb3I6IHdoaXRlICFpbXBvcnRhbnQ7XHJcbn1cclxuLm91dGxpbmVHcmV5e1xyXG4gICAgYm9yZGVyLWNvbG9yOiBkYXJrZ3JleSAgIWltcG9ydGFudDtcclxufVxyXG4uY29sb3JHcmV5e1xyXG4gICAgY29sb3I6ZGFya2dyZXkgICFpbXBvcnRhbnQ7XHJcbn1cclxuLmJhY2tncm91bmRHcmV5e1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogI2E5YTlhOTZlICFpbXBvcnRhbnQ7XHJcbn1cclxuLnNoYWRvd0dyZXl7XHJcbiAgICBib3gtc2hhZG93OiAwIDVweCAjYTlhOWE5NmU7XHJcbn1cclxuXHJcbi5CbGFjayB7XHJcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiBibGFjayAhaW1wb3J0YW50O1xyXG4gICAgY29sb3I6IHdoaXRlICFpbXBvcnRhbnQ7XHJcbn1cclxuLm91dGxpbmVCbGFja3tcclxuICAgIGJvcmRlci1jb2xvcjogYmxhY2sgICFpbXBvcnRhbnQ7XHJcbn1cclxuLmNvbG9yQmxhY2t7XHJcbiAgICBjb2xvcjpibGFjayAgIWltcG9ydGFudDtcclxufVxyXG4uYmFja2dyb3VuZEJsYWNre1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogIzAwMDAwMDZiICFpbXBvcnRhbnQ7XHJcbn1cclxuLnNoYWRvd0JsYWNre1xyXG4gICAgYm94LXNoYWRvdzogMCA1cHggIzAwMDAwMDZiO1xyXG59Il19 */"] });
 
 
 /***/ }),

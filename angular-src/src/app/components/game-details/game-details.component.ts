@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, ViewChild, ElementRef } from '@angular/core';
 import { SocketioService } from '../../services/socketio.service';
 import { GameCreationService } from '../../services/game-creation.service';
 import { Router,  ActivatedRoute, ParamMap } from '@angular/router';
@@ -14,6 +14,7 @@ export class GameDetailsComponent implements OnInit {
   @Input() hostDetails: any;
   @Input() currentPlayer: any;
   @Input() teams: any;
+  // @ViewChild('teamButton') teamButton!:ElementRef;
 
   api: any;
   toastMessage: any;
@@ -89,6 +90,9 @@ export class GameDetailsComponent implements OnInit {
       if (!this.hostDetails.include) {
         this.playerColour = "darkgoldenrod";
       }
+      if (this.teams) {
+        document.getElementById('teamButton')!.click();
+      }
     }, 500)
 
   }
@@ -99,9 +103,6 @@ export class GameDetailsComponent implements OnInit {
       element.disabled = true;
       this.buzzerDetails = player;
       this.buzzerPress = true;
-      // setTimeout( () => {
-      //   document.getElementById('buzzerDetails')!.style.color = this.buzzerDetails.colour;
-      // }, 10);
     });
   }
  
@@ -339,6 +340,7 @@ export class GameDetailsComponent implements OnInit {
     } else {
       this.timerStarted = false;
       clearInterval(this.interVal);
+      document.getElementById('timer')!.innerHTML = this.currentTimer + '';
     }
     });
   }
