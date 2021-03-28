@@ -181,6 +181,11 @@ export class GamePlayComponent implements OnInit {
     }
     console.log(this.participantArray);
     this.socketioService.beginGame(this.roomPin, this.participantArray, this.hostDetails);
+    // this.socketioService.receiveTeams().subscribe((teams:any)=>{
+    //   this.teams = teams;
+
+    // });
+    
     this.gameStarted = true;
   }
 
@@ -363,9 +368,15 @@ export class GamePlayComponent implements OnInit {
   receiveBeginGame() {
     this.socketioService.receiveBeginGame().subscribe((message:any)=>{
       this.participantArray = message;
-      if (!this.gameAlreadyBegun){
-        this.gameStarted = true;
-      }  
+      console.log('message', message);
+      this.gameCreationService.setPlayers(this.roomPin, message).subscribe(()=>{
+      });
+      setTimeout( () => {
+        if (!this.gameAlreadyBegun){
+          this.gameStarted = true;
+        }
+      } ,1000);
+    
     });
   }
 

@@ -13,13 +13,23 @@ export class GameChatComponent implements OnInit {
   roomPin:any;
   messages:any;
   personalMessages:any;
-
+  currentPlayer:any;
+  playerColour:any;
   ngOnInit(): void {
     this.chatSocketIOService.ngOnInit();
     this.roomPin = this.socketioService.getRoomPin();
     this.receiveChatMessage();
     this.messages = document.getElementById('messages');
     this.personalMessages = document.getElementById('personalMessages');
+  }
+
+  ngAfterViewInit() {
+    setTimeout( ()=> {
+      this.currentPlayer = this.player;
+      this.playerColour = this.currentPlayer.colour;
+      console.log(this.currentPlayer, this.player);
+    }, 500);
+
   }
 
   sendMessage(){

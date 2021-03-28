@@ -141,7 +141,7 @@
   </div>
 </div>
 <div class="row color{{this.buzzerDetails.colour}}" style="padding-left:15px; padding-bottom: 5px;" id="buzzerDetails" *ngIf="this.buzzerPress">{{this.buzzerDetails.displayName}} pressed the buzzer for the {{this.buzzerDetails.colour}} team!</div>
-<div class="row" >
+<div *ngIf="this.currentPlayer" class="row" >
   <app-game-chat [player]="this.currentPlayer"></app-game-chat>
 </div>
 
@@ -184,9 +184,9 @@
             </div>
             <div *ngIf="this.reconnectPlayer" class="mb-3">
               <!-- left players -->
-              <div *ngFor="let key of objectKeys(this.playerObject)">
-                {{this.playerObject[key].displayName}} : {{this.playerObject[key].uid}}
-              </div>
+              <!-- <div *ngFor="let key of objectKeys(this.participantArray)">
+                {{this.participantArray[key].displayName}} : {{this.participantArray[key].uid}}
+              </div> -->
             </div>
           </form>
         </div>

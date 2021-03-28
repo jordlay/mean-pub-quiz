@@ -10,7 +10,7 @@ import { Router,  ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class GameDetailsComponent implements OnInit {
   @Input() roomPin:any;
-  @Input() playerObject: any;
+  // @Input() playerObject: any;
   @Input() hostDetails: any;
   @Input() player: any;
   @Input() teams: any;
@@ -55,6 +55,9 @@ export class GameDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     // set listeners 
+ 
+   
+
     this.receiveBuzzerPressed();
     this.receiveNextQuestion();
     this.receiveStartRound();
@@ -91,10 +94,21 @@ export class GameDetailsComponent implements OnInit {
     this.teamNumber = this.hostDetails.teamNumber;
     this.currentPlayer = this.player;
     setTimeout( () => {
+      this.gameCreationService.getPlayers(this.roomPin).subscribe((data:any) => {
+        console.log('PA', data.players);
+        console.log('CPB', this.currentPlayer);
+        this.participantArray = data.players;
+        // update w new fields?
+        this.currentPlayer = this.participantArray[this.currentPlayer.id];
+        console.log('CPA', this.currentPlayer);
+      });
+      
       for (let colour of this.objectKeys(this.teams)){
         document.getElementById(colour)!.style.color = colour;
+        //remove?
         for (let player of this.objectKeys(this.teams[colour])){
           if (this.currentPlayer.id === this.teams[colour][player].id) {
+            //remove?
             this.playerColour = colour;
             this.currentPlayer.colour = colour;
           }
@@ -109,10 +123,10 @@ export class GameDetailsComponent implements OnInit {
       }
       if (this.hostDetails.id === this.currentPlayer.id) {
         this.host = true;
-        this.participantArray = this.playerObject;
+        // this.participantArray = this.playerObject;
       }
     }, 500)
-
+    // setTimeout( () => {  }, 1000);
   }
 
   receiveBuzzerPressed(){
@@ -236,7 +250,7 @@ export class GameDetailsComponent implements OnInit {
   }
   reconnectPlayer(){
     console.log('reconnect');
-    console.log(this.participantArray, this.playerObject);
+    console.log(this.participantArray);
     this.reconnectPlayerBool = true;
     // for (let player of this.objectKeys(this.participantArray)){
     //   if 

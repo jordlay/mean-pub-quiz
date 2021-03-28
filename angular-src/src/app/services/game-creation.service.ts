@@ -50,6 +50,32 @@ export class GameCreationService {
     return this.http.post('games/joinGame',game, {headers: headers}).pipe(map((res) => res)); 
   } 
 
+  setPlayers(roomPin:any, players:any){
+    let game = {
+      roomPin: roomPin,
+      hostName: '',
+      displayName: '',
+      players: players
+    };
+    console.log(game);
+    let headers = new HttpHeaders()
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('games/setPlayers',game, {headers: headers}).pipe(map((res) => res)); 
+  }
+
+  getPlayers(roomPin: any){
+    let game = {
+      roomPin: roomPin,
+      hostName: '',
+      displayName: '',
+      players: {}
+    };
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+    return this.http.post('games/getPlayers', game, {headers: headers})
+      .pipe(map((res) => res));  
+  }
+  
   createQuestions(roomPin:any, questionsObject:any){
     let game = {
       roomPin: roomPin,
