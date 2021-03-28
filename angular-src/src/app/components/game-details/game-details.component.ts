@@ -12,20 +12,18 @@ export class GameDetailsComponent implements OnInit {
   @Input() roomPin:any;
   @Input() playerObject: any;
   @Input() hostDetails: any;
-  @Input() currentPlayer: any;
+  @Input() player: any;
   @Input() teams: any;
-  // @ViewChild('teamButton') teamButton!:ElementRef;
-
+  objectKeys = Object.keys;
+  currentPlayer:any;
   api: any;
   toastMessage: any;
-  // roomPin: any;
   url: any;
   game: any;
   participantArray: any;
   host: any;
   teamNumber: any;
   playerColour: any;
-  // teams: any;
   buzzerPress = false;
   buzzerDetails: any;
   gameSettingsOpened: any;
@@ -34,15 +32,29 @@ export class GameDetailsComponent implements OnInit {
   firstQuestionBool: any;
   firstRoundBool: any;
   timerLength = 30;
-  objectKeys = Object.keys;
   questionObject: any;
+  numberOfRounds: any;
+  numberOfQuestions: any;
+  showQuestions: any;
+  lastRoundBool = false;
+  nextRoundBool = false;
+  showAllAnswersBool = false;
+  lastQuestionBool = false;
+  showAnswersBool = false;
+  endOfGame = false;
+  interVal:any;
+  showBuzzer:any;
+  showTimer:any;
+  buzzerEnabled = true;
+  timerEnabled = true;
+  timerStarted:any;
+  currentTimer = 0;
+  reconnectPlayerBool: any;
   constructor(private socketioService: SocketioService, private router: Router, 
     private actRoute: ActivatedRoute, private gameCreationService: GameCreationService) { }
 
-    numberOfRounds: any;
-    numberOfQuestions: any;
-    showQuestions: any;
   ngOnInit(): void {
+    // set listeners 
     this.receiveBuzzerPressed();
     this.receiveNextQuestion();
     this.receiveStartRound();
@@ -52,8 +64,9 @@ export class GameDetailsComponent implements OnInit {
     this.receiveReset();
     this.receiveGameSettings();
     this.receiveStartTimer();
+    console.log(this.hostDetails, this.currentPlayer);
+    
     this.gameCreationService.getQuestions(this.roomPin).subscribe( (data:any) => {
-      console.log(data.questions);
       this.questionObject = data.questions;
       if (this.questionObject === undefined) {
         this.showQuestions = false;
@@ -63,12 +76,12 @@ export class GameDetailsComponent implements OnInit {
         this.showQuestions = true;
         this.showBuzzer = false;
         this.showTimer = false
-        if (Object.keys(this.questionObject).length > 0) {
+        if (this.objectKeys(this.questionObject).length > 0) {
           this.currentRound = 1;
           this.firstQuestionBool = true;
           this.firstRoundBool = true;
-          this.numberOfRounds = Object.keys(this.questionObject).length;
-          this.numberOfQuestions =  Object.keys(this.questionObject[this.currentRound]).length
+          this.numberOfRounds = this.objectKeys(this.questionObject).length;
+          this.numberOfQuestions =  this.objectKeys(this.questionObject[this.currentRound]).length
         }
       }
     });
@@ -76,6 +89,7 @@ export class GameDetailsComponent implements OnInit {
 
   ngAfterViewInit(){
     this.teamNumber = this.hostDetails.teamNumber;
+    this.currentPlayer = this.player;
     setTimeout( () => {
       for (let colour of this.objectKeys(this.teams)){
         document.getElementById(colour)!.style.color = colour;
@@ -93,6 +107,10 @@ export class GameDetailsComponent implements OnInit {
       if (this.teams) {
         document.getElementById('teamButton')!.click();
       }
+      if (this.hostDetails.id === this.currentPlayer.id) {
+        this.host = true;
+        this.participantArray = this.playerObject;
+      }
     }, 500)
 
   }
@@ -106,12 +124,14 @@ export class GameDetailsComponent implements OnInit {
     });
   }
  
+  logCurrentPlayer(){
+    console.log(this.currentPlayer);
+  }
   buzzerPressed(){
     this.socketioService.buzzerPressed(this.roomPin, this.currentPlayer.displayName, this.playerColour);
   }
 
   saveSettings(){
-
     let buzzerElement = <HTMLInputElement> document.getElementById('buzzerToggle');
     let timerElement = <HTMLInputElement> document.getElementById('timerToggle');
     let hostElement = <HTMLInputElement> document.getElementById('hostToggle');
@@ -122,16 +142,10 @@ export class GameDetailsComponent implements OnInit {
     }
     this.socketioService.setGameSettings(this.roomPin, buzzerElement.checked, timerElement.checked,timerLengthElement.value);
   }
-  lastRoundBool = false;
-  nextRoundBool = false;
+
   startRound(){
-    console.log('STARTROUND', this.currentRound);
     this.socketioService.startRound(this.roomPin, this.currentRound);
   }
-  showAllAnswersBool = false;
-  lastQuestionBool = false;
-  showAnswersBool = false;
-  endOfGame = false;
 
   endGamePlay(){
     this.socketioService.endGamePlay(this.roomPin)
@@ -161,10 +175,8 @@ export class GameDetailsComponent implements OnInit {
 
   receiveNextQuestion(){
     this.socketioService.receiveNextQuestion().subscribe( (data:any) => {
-      console.log('QLEN RNQ', Object.keys(this.questionObject[this.currentRound]).length);
-      console.log(Object.keys(this.questionObject[this.currentRound]).length, Object.keys(this.questionObject[this.currentRound]));
       this.currentQuestion = data;
-      if (this.currentQuestion+1 <= Object.keys(this.questionObject[this.currentRound]).length) {
+      if (this.currentQuestion+1 <= this.objectKeys(this.questionObject[this.currentRound]).length) {
         this.lastQuestionBool = false;
       } else {
         this.lastQuestionBool = true;
@@ -179,11 +191,10 @@ export class GameDetailsComponent implements OnInit {
         element.disabled = false;
         this.buzzerPress = false;
       }
-      // this.stopTimer();
       this.reset();
     });
   }
-  interVal:any;
+ 
   startTimer(){
     this.socketioService.startTimer(this.roomPin, true);
   }
@@ -191,15 +202,11 @@ export class GameDetailsComponent implements OnInit {
   stopTimer(){
     this.socketioService.startTimer(this.roomPin, false);
   }
-  showBuzzer:any;
-  showTimer:any;
+
   receiveStartRound(){
     this.socketioService.receiveStartRound().subscribe( (data:any) => {
-      console.log('ROUND');
-      this.currentRound = data;
-      console.log(this.currentRound,this.showAnswersBool, this.showAllAnswersBool, this.currentQuestion);
-      
-      if (this.currentRound+1 <= Object.keys(this.questionObject).length) {
+      this.currentRound = data; 
+      if (this.currentRound+1 <= this.objectKeys(this.questionObject).length) {
         this.lastRoundBool = false;
       } else {
         this.lastRoundBool = true;
@@ -207,7 +214,7 @@ export class GameDetailsComponent implements OnInit {
       this.currentQuestion = 1;
       this.firstQuestionBool = true;
 
-      if (this.currentQuestion+1 <= Object.keys(this.questionObject[this.currentRound]).length) {
+      if (this.currentQuestion+1 <= this.objectKeys(this.questionObject[this.currentRound]).length) {
         this.lastQuestionBool = false;
       } else {
         this.lastQuestionBool = true;
@@ -225,12 +232,21 @@ export class GameDetailsComponent implements OnInit {
         }
 
       }
-    
-      console.log(this.currentRound,this.showAnswersBool, this.showAllAnswersBool, this.currentQuestion);
-      console.log(this.firstQuestionBool, this.lastQuestionBool, this.lastRoundBool)
     });
   }
-
+  reconnectPlayer(){
+    console.log('reconnect');
+    console.log(this.participantArray, this.playerObject);
+    this.reconnectPlayerBool = true;
+    // for (let player of this.objectKeys(this.participantArray)){
+    //   if 
+    //   // for (let play of this.objectKeys(this.playerObject)) {
+    //     if (this.playerObject[player]===undefined) {
+    //       console.log(this.participantArray[player]);
+    //     }
+      // }
+    // }
+  }
   reset(){
     // FOR NO QUESTIONS
     if (this.buzzerEnabled && this.showBuzzer) {
@@ -248,12 +264,11 @@ export class GameDetailsComponent implements OnInit {
 
   receiveNextRound(){
     this.socketioService.receiveNextRound().subscribe( (data:any) => {
-      console.log(data);
       this.lastQuestionBool = false;
       this.currentQuestion = 0;
       this.currentRound +=1;
       this.showAnswersBool = false;
-      this.numberOfQuestions =  Object.keys(this.questionObject[this.currentRound]).length
+      this.numberOfQuestions =  this.objectKeys(this.questionObject[this.currentRound]).length
          
       let element = <HTMLInputElement> document.getElementById('buzzer');
       if (!(this.showAllAnswersBool || this.showAnswersBool)){
@@ -262,21 +277,18 @@ export class GameDetailsComponent implements OnInit {
       }
       this.showTimer = false;
       this.showBuzzer = false;
-      // this.stopTimer();
       this.reset();
     });
   }
 
   receiveEndGamePlay(){
     this.socketioService.receiveEndGamePlay().subscribe( (data:any) => {
-      console.log(data);
       this.endOfGame = true;
     });
   }
 
   receiveShowAnswers(){
     this.socketioService.receiveShowAnswers().subscribe( (data:any) => {
-      console.log(data);
       if (data === 'one') {
         this.showAnswersBool = true;
       } else if (data === 'all') {
@@ -290,7 +302,6 @@ export class GameDetailsComponent implements OnInit {
   }
   receiveReset(){
     this.socketioService.receiveReset().subscribe( (data:any) => {
-      console.log(data);
       this.reset();
     });
   }
@@ -299,8 +310,6 @@ export class GameDetailsComponent implements OnInit {
     this.socketioService.reset(this.roomPin);
   }
 
-  buzzerEnabled = true;
-  timerEnabled = true;
   receiveGameSettings(){
     this.socketioService.receiveGameSettings().subscribe( (data:any) => {
       console.log(data);
@@ -313,13 +322,10 @@ export class GameDetailsComponent implements OnInit {
       document.getElementById('timer')!.innerHTML = this.timerLength + '';
     });
   }
-  timerStarted:any;
-  currentTimer = 0;
 
   // cT < 1?
   receiveStartTimer(){
     this.socketioService.receiveStartTimer().subscribe( (data:any) => {
-    console.log(data);
     if (data) {
       this.timerStarted = true;
       // let time = this.timerLength;

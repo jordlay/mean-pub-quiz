@@ -164,7 +164,7 @@
                 
             </div>
             <div *ngIf="this.gameStarted === true">
-                <app-game-details [roomPin]="this.roomPin" [playerObject]="this.participantArray" [hostDetails]="this.hostDetails" [currentPlayer]="this.currentPlayer" [teams]="this.teams"></app-game-details>
+                <app-game-details [roomPin]="this.roomPin" [playerObject]="this.participantArray" [hostDetails]="this.hostDetails" [player]="this.currentPlayer" [teams]="this.teams"></app-game-details>
             </div>
         <!-- </div> -->
         </div>
@@ -178,7 +178,7 @@
             </div>
             <div *ngIf="this.gameStarted">
 
-                <app-game-details [roomPin]="this.roomPin" [playerObject]="this.participantArray" [hostDetails]="this.hostDetails" [currentPlayer]="this.currentPlayer" [teams]="this.teams"></app-game-details>
+                <app-game-details [roomPin]="this.roomPin" [playerObject]="this.participantArray" [hostDetails]="this.hostDetails" [player]="this.currentPlayer" [teams]="this.teams"></app-game-details>
             </div>
         </div>
     </div>

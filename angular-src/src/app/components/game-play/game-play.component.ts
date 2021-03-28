@@ -3,9 +3,6 @@ import '../../../vendor/jitsi/external_api.js';
 import { GameCreationService } from '../../services/game-creation.service';
 import { Router,  ActivatedRoute, ParamMap } from '@angular/router';
 import { SocketioService } from '../../services/socketio.service';
-import { connectableObservableDescriptor } from 'rxjs/internal/observable/ConnectableObservable';
-import { Button } from 'selenium-webdriver';
-
 declare var JitsiMeetExternalAPI: any;
 
 @Component({
@@ -14,9 +11,8 @@ declare var JitsiMeetExternalAPI: any;
   styleUrls: ['./game-play.component.css']
 })
 export class GamePlayComponent implements OnInit {
-
-  constructor(private gameCreationService: GameCreationService, 
-    private router: Router, private actRoute: ActivatedRoute, private socketioService: SocketioService) { }
+  constructor(private gameCreationService: GameCreationService, private router: Router, 
+              private actRoute: ActivatedRoute, private socketioService: SocketioService) { }
  
   @ViewChild('meet') meet: ElementRef | any;
   objectKeys = Object.keys;
@@ -175,8 +171,15 @@ export class GamePlayComponent implements OnInit {
     this.router.navigate(['/']);
     this.gameCreationService.endGame(this.game).subscribe(()=>{});
   }
-
+  generateCode() {
+    return Math.random().toString(20).substr(2, 5).toUpperCase();
+  }
   beginGame(){
+    //loop through partArray, give them unique pin so they can rejoin if needed
+    for (let key of this.objectKeys(this.participantArray)) {
+      this.participantArray[key].uid = this.generateCode();
+    }
+    console.log(this.participantArray);
     this.socketioService.beginGame(this.roomPin, this.participantArray, this.hostDetails);
     this.gameStarted = true;
   }

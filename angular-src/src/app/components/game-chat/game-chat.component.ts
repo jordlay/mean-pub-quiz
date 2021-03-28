@@ -13,15 +13,13 @@ export class GameChatComponent implements OnInit {
   roomPin:any;
   messages:any;
   personalMessages:any;
-  // colour:any
+
   ngOnInit(): void {
-    
     this.chatSocketIOService.ngOnInit();
     this.roomPin = this.socketioService.getRoomPin();
     this.receiveChatMessage();
     this.messages = document.getElementById('messages');
     this.personalMessages = document.getElementById('personalMessages');
-
   }
 
   sendMessage(){
@@ -38,28 +36,20 @@ export class GameChatComponent implements OnInit {
       innerItem.className = "card border-primary"
       innerItem.style.color = "color{{this.player.colour}} !important"
       innerItem.style.borderColor = "outline{{this.player.colour}} !important"
-      // innerItem.style.marginBottom ="0px !important";
       innerItem.style.maxWidth = '50%';
       innerItem.style.padding = "2px";
       item.appendChild(innerItem);
-      
       this.messages.appendChild(item);
       this.messages.className = "color"+this.player.colour;
-      // this.messages.scrollTo(0, this.messages.scrollHeight);
-      item.scrollTop = item.scrollHeight;
-      // window.scrollTo(0, document.body.scrollHeight);
+      innerItem.scrollIntoView(true);
       messageElement.value = '';
     }
   }
 
   receiveChatMessage(){
     this.chatSocketIOService.receiveChatMessage().subscribe( (data:any) => {
-      console.log(data)
-      console.log(Object.keys(data));
-      console.log(data[this.player.colour]);
       if ((Object.keys(data))[0] === this.player.colour) {
         var item = document.createElement('div');
-        // item.style.maxWidth = '50%';
         var innerItem = document.createElement('span');
         var innerItem2 = document.createElement('span');
         innerItem.textContent = data[this.player.colour].message;
@@ -69,20 +59,15 @@ export class GameChatComponent implements OnInit {
         innerItem.className = "card border-primary color"+this.player.colour+" outline"+ this.player.colour;
         innerItem.style.maxWidth = '50%';
         innerItem.style.padding = "2px";
-
         innerItem2.textContent = data[this.player.colour].displayName;
         innerItem2.style.clear = "both"
         innerItem2.style.float ="left";
         innerItem2.style.maxWidth = '50%';
-        // innerItem2.style.color = "color{{this.player.colour}}"
         item.appendChild(innerItem);
         item.appendChild(innerItem2);
         this.messages.appendChild(item);
         this.messages.className = "color"+this.player.colour;
-        // this.messages.scrollTo(0, this.messages.scrollHeight);
-        item.scrollTop = item.scrollHeight;
-
-        // window.scrollTo(0, document.body.scrollHeight);
+        innerItem.scrollIntoView(true);
       }
  
     });
