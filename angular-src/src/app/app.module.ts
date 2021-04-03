@@ -16,11 +16,11 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from './services/auth.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './guards/auth.guard';
-import { GamePlayComponent } from './components/game-play/game-play.component';
+import { GamePlayComponent } from './components/game-waiting-room/game-waiting-room.component';
 import {ClipboardModule} from '@angular/cdk/clipboard';
 import {MatIconModule} from '@angular/material/icon';
 import { SocketioService } from './services/socketio.service';
-import { GameDetailsComponent } from './components/game-details/game-details.component';
+import { GameDetailsComponent } from './components/game-play/game-play.component';
 import { GameChatComponent } from './components/game-chat/game-chat.component';
 import { ChatSocketIOService } from './services/chat-socket-io.service';
 const routes: Routes = [
