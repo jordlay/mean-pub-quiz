@@ -70,4 +70,22 @@ router.post('/getQuestions',(req,res,next) => {
         });
 });
 
+router.post('/setPlayers',(req,res,next) => {
+    const game = req.body;
+    console.log('SP', game)
+        Game.setPlayers(game, (err,game) => {
+            if (err) { throw err; }
+            return res.json({success: true, msg: 'Players Set'});
+        });
+});
+
+router.post('/getPlayers',(req,res,next) => {
+    const game = req.body;
+    console.log('GP', game)
+        Game.getGameByPin(game.roomPin, (err,game) => {
+            console.log(game);
+            if (err) { throw err; }
+            return res.json({success: true, msg: 'Got Players', players: game.players});
+        });
+});
 module.exports = router;

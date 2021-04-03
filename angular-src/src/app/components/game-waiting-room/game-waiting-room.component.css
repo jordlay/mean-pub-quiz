@@ -1,0 +1,58 @@
+.jitsiMeet{
+    height:auto;
+    /* min-height: 600px; */
+    width: auto;
+    /* height: auto;
+    width: auto;
+    float: left;
+    min-width: 80%; */
+}
+
+.selectedColour{
+  color: green;
+}
+
+/* .label{
+  padding-top: 10px !important;
+} */
+.form-check{
+  padding-left: 0em !important;
+}
+
+input[type="checkbox"]::after{
+  top: 0em !important;
+  left: 1.5em !important;
+}
+input[type="checkbox"]::before{
+  top: 0em !important;
+  left: 1.5em !important;
+}
+input[type=checkbox]::before{
+  top: 0em !important;
+  left: 1.5em !important;
+}
+input[type=checkbox]::after{
+  top: 0em !important;
+  left: 1.5em !important;
+}
+
+input[type=checkbox]:checked::after{
+  top: 0em !important;
+  left: 1.1em !important;
+}
+input[type="checkbox"]:checked::after{
+  top: 0em !important;
+  left: 1.1em !important;
+}
+/* 
+.modal.fade .modal-dialog {
+  transition: transform 0.3s ease-out;
+  transform: translate(0, -50px);
+} */
+
+.copyButton{
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top:0px;
+  padding-bottom: 0px;
+}

@@ -11,7 +11,8 @@ const GameSchema = mongoose.Schema( {
         type: String,
         required: true},
     password: {type: String},
-    questions: {type: Object}
+    questions: {type: Object},
+    players: {type: Object}
     });
     
     const Game = module.exports = mongoose.model('Game', GameSchema);
@@ -35,4 +36,11 @@ const GameSchema = mongoose.Schema( {
         const query = {roomPin : game.roomPin};
         const newQuestions = { $set: {questions: game.questions}}
         Game.updateOne(query, newQuestions, callback);
+    }
+
+    module.exports.setPlayers = function(game,callback){
+        console.log('G', game);
+        const query = {roomPin : game.roomPin};
+        const newPlayers = { $set: {players: game.players}}
+        Game.updateOne(query, newPlayers, callback);
     }

@@ -74,7 +74,9 @@ io.on("connection", (socket) => {
         gameBegan[gameId] = true;
         previousHostDetails[gameId] = hostDetails;
         previousJoinedPlayers[gameId] = playerData
-        io.to(gameId).emit('startGame', playerData);
+        // move this to end with added team colours
+        // io.to(gameId).emit('startGame', playerData);
+       
         io.to(gameId).emit('getHostDetails', previousHostDetails[gameId])
         teams[gameId] = {}; 
         numberOfTeams = hostDetails.teamNumber;
@@ -87,6 +89,7 @@ io.on("connection", (socket) => {
         for (let key of Object.keys(previousJoinedPlayers[gameId])) {
             playerNames.push(previousJoinedPlayers[gameId][key].displayName);
             playerid.push(previousJoinedPlayers[gameId][key].id);
+            
         }                                                                                                     
         if (!hostDetails.include) {
             let index = playerNames.indexOf(hostDetails.displayName);
@@ -98,15 +101,20 @@ io.on("connection", (socket) => {
         while (i !== numberOfPlayers) {
             let keys = Object.keys(teams[gameId]);
             for (let j = 0; j < keys.length; j++) {
+                //keys is colours
                 teams[gameId][keys[j]][playerid[i]] = {}
                 teams[gameId][keys[j]][playerid[i]].displayName = playerNames[i];
                 teams[gameId][keys[j]][playerid[i]].id = playerid[i];
+                previousJoinedPlayers[gameId][playerid[i]].colour = keys[j];
+                console.log(previousJoinedPlayers[gameId][playerid[i]]);
                 i++
                 if (i === numberOfPlayers) {
                     break;
                 }
             }
         }
+        console.log(previousJoinedPlayers[gameId])
+        io.to(gameId).emit('startGame', previousJoinedPlayers[gameId])
         io.to(gameId).emit('getTeams', teams[gameId])
         console.log('Game began ' + gameId);
     })
