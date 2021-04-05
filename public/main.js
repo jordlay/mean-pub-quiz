@@ -564,7 +564,7 @@ class GamePlayComponent {
                         if (displayName === undefined) {
                             this.isHost = true;
                             this.options = {
-                                roomName: this.game.roomPin + 'JordansQuiz',
+                                roomName: this.game.roomPin + 'JordansQuiz' + '#config.disableDeepLinking=true',
                                 configOverwrite: { startWithAudioMuted: true },
                                 width: '100%',
                                 height: 500,
@@ -576,7 +576,7 @@ class GamePlayComponent {
                         }
                         else {
                             this.options = {
-                                roomName: this.game.roomPin + 'JordansQuiz',
+                                roomName: this.game.roomPin + 'JordansQuiz' + '#config.disableDeepLinking=true',
                                 configOverwrite: { startWithAudioMuted: true },
                                 width: '100%',
                                 height: 500,
@@ -906,8 +906,8 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 const environment = {
     production: false,
-    // SOCKET_ENDPOINT: 'http://localhost:8080'
-    SOCKET_ENDPOINT: 'https://mean-pub-quiz.herokuapp.com/'
+    SOCKET_ENDPOINT: 'http://localhost:8080'
+    // SOCKET_ENDPOINT: 'https://mean-pub-quiz.herokuapp.com/'
 };
 /*
  * For easier debugging in development mode, you can import the following file
