@@ -564,8 +564,8 @@ class GamePlayComponent {
                         if (displayName === undefined) {
                             this.isHost = true;
                             this.options = {
-                                roomName: this.game.roomPin + 'JordansQuiz' + '#config.disableDeepLinking=true',
-                                configOverwrite: { startWithAudioMuted: true },
+                                roomName: this.game.roomPin + 'JordansQuiz',
+                                configOverwrite: { startWithAudioMuted: true, disableDeepLinking: true },
                                 width: '100%',
                                 height: 500,
                                 parentNode: this.meet.nativeElement,
@@ -576,8 +576,8 @@ class GamePlayComponent {
                         }
                         else {
                             this.options = {
-                                roomName: this.game.roomPin + 'JordansQuiz' + '#config.disableDeepLinking=true',
-                                configOverwrite: { startWithAudioMuted: true },
+                                roomName: this.game.roomPin + 'JordansQuiz',
+                                configOverwrite: { startWithAudioMuted: true, disableDeepLinking: true },
                                 width: '100%',
                                 height: 500,
                                 parentNode: this.meet.nativeElement,
