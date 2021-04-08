@@ -28,15 +28,21 @@
     "bootstrap": "^5.0.0-beta1",
     "bootstrap-icons": "^1.4.0",
     "bootswatch": "^4.6.0",
+    "bufferutil": "^4.0.3",
     "crypto-js": "^4.0.0",
     "crypto-random-string": "^3.3.1",
+    "fibers": "^5.0.0",
+    "html-webpack-plugin": "^4.5.2",
     "jquery": "^3.5.1",
     "material-design-icons": "^3.0.1",
+    "ng-packagr": "^11.2.4",
+    "node-sass": "^5.0.0",
     "npm-install": "^1.7.1",
-    "rxjs": "~6.6.0",
+    "rxjs": "^6.6.7",
     "socket.io-client": "^3.1.2",
     "tslib": "^2.0.0",
-    "zone.js": "~0.11.3"
+    "utf-8-validate": "^5.0.4",
+    "zone.js": "^0.11.4"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.1101.4",

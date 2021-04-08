@@ -19,7 +19,7 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! D:\MEAN-Pub-Quiz-Platform\angular-src\src\main.ts */"zUnb");
+module.exports = __webpack_require__(/*! D:\mean-pub-quiz\angular-src\src\main.ts */"zUnb");
 
 
 /***/ }),
