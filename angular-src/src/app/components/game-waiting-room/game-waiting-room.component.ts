@@ -202,6 +202,7 @@ export class GamePlayComponent implements OnInit {
       this.allPlayersReady = false;
       let joinedPlayer = message;
       if (!(this.participantArray === undefined)) {
+        // this.participantArray[joinedPlayer.id] = {}
         this.participantArray[joinedPlayer.id].id = joinedPlayer.id
         this.participantArray[joinedPlayer.id].socketID = joinedPlayer.socketID
         this.participantArray[joinedPlayer.id].ready = joinedPlayer.ready        
@@ -231,26 +232,26 @@ export class GamePlayComponent implements OnInit {
   }
 
   openTeamSettings(){
-    let team = <HTMLInputElement> document.getElementById('teamNumber')!;
-    this.isChecked = <HTMLInputElement> document.getElementById('hostCheckbox');
-    let noOfPlayers: any;
+    // let team = <HTMLInputElement> document.getElementById('teamNumber')!;
+    // this.isChecked = <HTMLInputElement> document.getElementById('hostCheckbox');
+    // let noOfPlayers: any;
 
-    this.isChecked.addEventListener('change', (event:any) => {
-      if (this.isChecked.checked) {
-        noOfPlayers = this.objectKeys(this.participantArray).length;
-      } else {
-        noOfPlayers = (this.objectKeys(this.participantArray).length)-1;
-      }
-    });
-    team.addEventListener('change', (event:any) => {
-      this.teamNumber = parseInt(team.value); 
-      let button = <HTMLInputElement> document.getElementById('setSettings');
-      if (this.teamNumber > 0 && this.teamNumber <= noOfPlayers && this.teamNumber < 11 && !(this.teamNumber === NaN)) {
-        button.disabled = false;
-      } else {
-        button.disabled = true;
-      }
-    });
+    // this.isChecked.addEventListener('change', (event:any) => {
+    //   if (this.isChecked.checked) {
+    //     noOfPlayers = this.objectKeys(this.participantArray).length;
+    //   } else {
+    //     noOfPlayers = (this.objectKeys(this.participantArray).length)-1;
+    //   }
+    // });
+    // // team.addEventListener('change', (event:any) => {
+    // //   this.teamNumber = parseInt(team.value); 
+    // //   let button = <HTMLInputElement> document.getElementById('setSettings');
+    // //   // if (this.teamNumber > 0 && this.teamNumber <= noOfPlayers && this.teamNumber < 11 && !(this.teamNumber === NaN)) {
+    // //   //   button.disabled = false;
+    // //   // } else {
+    // //   //   button.disabled = true;
+    // //   // }
+    // // });
   }
 
   setHost() {
@@ -290,17 +291,72 @@ export class GamePlayComponent implements OnInit {
   }
 
   setSettings(){
+    let team = <HTMLInputElement> document.getElementById('teamNumber')!;
+    this.isChecked = <HTMLInputElement> document.getElementById('hostCheckbox');
+    let noOfPlayers: any;
+    let dismissButton = <HTMLInputElement> document.getElementById('dismissModal')!;
+
+      if (this.isChecked.checked) {
+        noOfPlayers = this.objectKeys(this.participantArray).length;
+        this.participantArray[this.currentPlayer.id].include = true;
+        this.includeHost = true;
+      } else {
+        noOfPlayers = (this.objectKeys(this.participantArray).length)-1;
+        this.participantArray[this.currentPlayer.id].include = false;
+        this.includeHost = false;
+      }
+      let roundsBool;
+      this.teamNumber = parseInt(team.value); 
+      let button = <HTMLInputElement> document.getElementById('setSettings');
+      if (this.teamNumber > 0 && this.teamNumber <= noOfPlayers && this.teamNumber < 11 && !(this.teamNumber === NaN)) {
+        // do something to save this?
+        if (!(this.rounds === undefined) || (this.rounds === Array(1))){
+          if (this.rounds.length > 0) {
+            this.showQuestions = true;
+            this.roundsArray = [];
+            for (let i = 0; i < this.rounds.length; i++) {
+              let name = <HTMLInputElement> document.getElementById('round' + (i+1) + 'questions')!;
+              if (name.value === "" || name.value === undefined || (name.value) === null) {
+                this.errorMessage = "You must enter an integer for each round";
+                setTimeout(()=>{this.errorMessage = "";}, 3000);
+                roundsBool = false;
+                break;
+              } else {
+                let val = new Array(parseInt(name.value));
+                this.roundsArray.push(val);
+                roundsBool = true;
+              }
+            }
+          if (roundsBool) {
+            dismissButton.click();
+          }
+          } else {
+            this.showQuestions = false;
+            // add here too?
+            if (roundsBool) {
+              dismissButton.click();
+            }
+          }
+        } else {
+          this.showQuestions = false;
+          dismissButton.click();
+        }
+
+      } else {
+        this.errorMessage = "There cannot be more teams than players";
+        setTimeout(()=>{this.errorMessage = "";}, 3000);
+      }
+
+      let buzzerElement = <HTMLInputElement> document.getElementById('buzzerToggle');
+      let timerElement = <HTMLInputElement> document.getElementById('timerToggle');
+      let timerLengthElement = <HTMLInputElement> document.getElementById('timerLength');
+      let timerAutoStartElement = <HTMLInputElement> document.getElementById('timerStart');
+      this.socketioService.setGameSettings(this.roomPin, buzzerElement.checked, timerElement.checked,timerLengthElement.value, timerAutoStartElement.checked);
+
     let teamButton = <HTMLInputElement> document.getElementById("teamSettings");
     teamButton.style.borderColor = "green";
     teamButton.style.color = "green";
-      this.isChecked = <HTMLInputElement> document.getElementById('hostCheckbox');
-    if (this.isChecked.checked === true) {
-      this.participantArray[this.currentPlayer.id].include = true;
-      this.includeHost = true;
-    } else {
-      this.participantArray[this.currentPlayer.id].include = false;
-      this.includeHost = false;
-    }
+
     this.hostSubmitted = true;
     this.hostDetails = this.participantArray[this.currentPlayer.id];
     this.hostDetails.teamNumber = this.teamNumber;

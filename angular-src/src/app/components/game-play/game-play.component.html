@@ -25,8 +25,8 @@
               </div>
             </div>
           </div>
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Reconnect Code</h5>
+          <div *ngIf="this.currentPlayer" class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Reconnect Code:  {{this.currentPlayer.uid}}</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div *ngIf="this.currentPlayer" class="modal-body">
@@ -120,7 +120,7 @@
 </div>
 
 </div>
-<div class="row">
+<div class="row" *ngIf="!this.endOfGame">
   <div class="col" *ngIf="this.buzzerEnabled && this.showBuzzer">
     <button type="button" id="buzzer" class="btn shadow{{this.playerColour}} {{this.playerColour}}" (click)="buzzerPressed()" [ngClass]="this.buzzerPress ? 'buzzerClicked':'buzzer' ">Team Buzzer</button>
     
@@ -143,9 +143,12 @@
     </div>
     </div>
   </div>
-  <div *ngIf="!this.showQuestions">
-    <button class="btn btn {{this.playerColour}}" (click)="onReset()">Reset</button>
+  <div >
+    <button *ngIf="this.buzzerEnabled && this.showBuzzer" class="btn btn {{this.playerColour}}" (click)="onResetBuzzer()">Reset Buzzer</button>
+    <button *ngIf="this.timerEnabled && this.showTimer" class="btn btn {{this.playerColour}}" (click)="onResetTimer()">Reset Timer</button>
+    <button *ngIf="this.timerEnabled && this.showTimer && this.buzzerEnabled && this.showBuzzer" class="btn btn {{this.playerColour}}" (click)="onReset()">Reset All</button>
   </div>
+  <div class="row color{{this.buzzerDetails.colour}}" style="padding-left:15px; padding-bottom: 5px;" id="buzzerDetails" *ngIf="this.buzzerPress">{{this.buzzerDetails.displayName}} pressed the buzzer for the {{this.buzzerDetails.colour}} team!</div>
 </div>
 <div class="row color{{this.buzzerDetails.colour}}" style="padding-left:15px; padding-bottom: 5px;" id="buzzerDetails" *ngIf="this.buzzerPress">{{this.buzzerDetails.displayName}} pressed the buzzer for the {{this.buzzerDetails.colour}} team!</div>
 <div *ngIf="this.currentPlayer" class="row" >

@@ -150,11 +150,12 @@ export class GameDetailsComponent implements OnInit {
     let timerElement = <HTMLInputElement> document.getElementById('timerToggle');
     let hostElement = <HTMLInputElement> document.getElementById('hostToggle');
     let timerLengthElement = <HTMLInputElement> document.getElementById('timerLength');
+    let timerAutoStartElement = <HTMLInputElement> document.getElementById('timerStart');
     if (hostElement.checked === true){
       this.currentPlayer.host = true;
       this.socketioService.setNewHostDetails(this.roomPin, this.currentPlayer);
     }
-    this.socketioService.setGameSettings(this.roomPin, buzzerElement.checked, timerElement.checked,timerLengthElement.value);
+    this.socketioService.setGameSettings(this.roomPin, buzzerElement.checked, timerElement.checked,timerLengthElement.value, timerAutoStartElement.checked);
   }
 
   startRound(){
@@ -243,6 +244,9 @@ export class GameDetailsComponent implements OnInit {
         if (this.timerEnabled && this.showTimer && (!document.getElementById('timer') === null)){
           clearInterval(this.interVal);
           document.getElementById('timer')!.innerHTML = this.timerLength + '';
+          if (this.timerAutoStart) {
+            this.startTimer()
+          }
         }
 
       }
@@ -261,8 +265,8 @@ export class GameDetailsComponent implements OnInit {
       // }
     // }
   }
+
   reset(){
-    // FOR NO QUESTIONS
     if (this.buzzerEnabled && this.showBuzzer) {
       let element = <HTMLInputElement> document.getElementById('buzzer');
       element.disabled = false;
@@ -316,19 +320,42 @@ export class GameDetailsComponent implements OnInit {
   }
   receiveReset(){
     this.socketioService.receiveReset().subscribe( (data:any) => {
-      this.reset();
+      if (data === 'both') {
+        console.log('both');
+        this.reset();
+      } else if (data === 't') {
+        console.log('t');
+        clearInterval(this.interVal);
+        document.getElementById('timer')!.innerHTML = this.timerLength + '';
+        this.currentTimer = this.timerLength;
+        this.timerStarted = false;
+      } else if (data === 'b') {
+        let element = <HTMLInputElement> document.getElementById('buzzer');
+        element.disabled = false;
+        this.buzzerPress = false;
+        console.log('b');
+      }
     });
   }
 
   onReset(){
-    this.socketioService.reset(this.roomPin);
+    this.socketioService.reset(this.roomPin, 'both');
   }
 
+  onResetTimer(){
+    this.socketioService.reset(this.roomPin, 't');
+  }
+
+  onResetBuzzer(){
+    this.socketioService.reset(this.roomPin, 'b');
+  }
+  timerAutoStart:any;
   receiveGameSettings(){
     this.socketioService.receiveGameSettings().subscribe( (data:any) => {
       console.log(data);
       this.buzzerEnabled = data.buzzer;
       this.timerEnabled = data.timer;
+      this.timerAutoStart = data.timerStart
       this.timerLength = (parseFloat(data.timerLength) * 60);
       document.getElementById('timer')!.style.fontFamily = "Cabin Sketch";
       document.getElementById('timer')!.style.fontWeight = "500";

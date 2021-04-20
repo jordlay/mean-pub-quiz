@@ -56,8 +56,8 @@ export class SocketioService {
   playerLeft(roomPin: any, playerData: any){
     this.socket.emit('playerLeft', {gameId: roomPin, playerData: playerData });
   }
-  reset(roomPin:any){
-    this.socket.emit('reset', {gameId: roomPin});
+  reset(roomPin:any, type: any){
+    this.socket.emit('reset', {gameId: roomPin, type: type});
   }
   endGame(roomPin: any){
     this.socket.emit('endGame', {gameId : roomPin});
@@ -67,9 +67,9 @@ export class SocketioService {
     this.socket.emit('setNewHostDetails', {gameId : roomPin, hostDetails: hostDetails});
   }
 
-  setGameSettings(roomPin:any, buzzer:any, timer:any, timerLength:any){
+  setGameSettings(roomPin:any, buzzer:any, timer:any, timerLength:any, timerStart:any){
     // emits boolean,boolean, number
-    this.socket.emit('setGameSettings', {gameId : roomPin, buzzer: buzzer, timer:timer, timerLength:timerLength})
+    this.socket.emit('setGameSettings', {gameId : roomPin, buzzer: buzzer, timer:timer, timerLength:timerLength, timerStart:timerStart})
   }
   buzzerPressed(roomPin:any, playerName:any, playerColour:any){
     this.socket.emit('buzzerPressed', {gameId: roomPin, playerName: playerName, playerColour:playerColour });
