@@ -262,11 +262,10 @@ export class GamePlayComponent implements OnInit {
     
     let rounds = <HTMLInputElement> document.getElementById('rounds');
     rounds.addEventListener('change', (event:any) => {
-      console.log(parseInt(rounds.value))
       if (Number.isInteger(parseInt(rounds.value))) {
         this.rounds = new Array(parseInt(rounds.value));
       } else {
-        //valueAsNumber returns NaN
+        //isInt returns NaN
         this.rounds = 0;
       }
       
@@ -282,24 +281,6 @@ export class GamePlayComponent implements OnInit {
     this.counterArray = new Array(i);
     return this.counterArray
   }
-
-  // setQuestionSettings(){
-  //   if (!(this.rounds === undefined) || (this.rounds === Array(1))){
-  //     if (this.rounds.length > 0) {
-  //       this.showQuestions = true;
-  //       this.roundsArray = [];
-  //       for (let i = 0; i < this.rounds.length; i++) {
-  //         let name = <HTMLInputElement> document.getElementById('round' + (i+1) + 'questions')!;
-  //         let val = new Array(parseInt(name.value));
-  //         this.roundsArray.push(val);
-  //       }
-  //     } else {
-  //       this.showQuestions = false;
-  //     }
-  //   } else {
-  //     this.showQuestions = false;
-  //   }
-  // }
 
   setSettings(){
     let team = <HTMLInputElement> document.getElementById('teamNumber')!;

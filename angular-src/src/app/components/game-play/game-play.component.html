@@ -39,7 +39,7 @@
     <div *ngIf="this.showQuestions">
     <div class="card border-primary mb-3" style="width:100%; margin:0px; padding:0px;">
     <div *ngIf="!this.endOfGame">
-      <div *ngIf="this.currentQuestion === 0 && !this.showAnswersBool">
+      <div *ngIf="this.currentQuestion === 0 && !this.showAllAnswersBool && !this.showAnswersBool">
         <div class="card-header roundHeader">
           <h5 class="roundTitle">Round {{this.currentRound}}</h5> 
         </div>
@@ -85,7 +85,7 @@
           <button type="button" class="btn btn-secondary roundButton" (click)="startRound()">Show Answers</button>
         </div>
       </div>
-
+<!-- 
       <div *ngIf="showAllAnswersBool && !showAnswers && this.currentQuestion === 0">
         <div class="card-header roundHeader">
           <h5 class="roundTitle">Round {{this.currentRound}} Answers</h5>
@@ -96,9 +96,9 @@
         <div *ngIf="this.host" class="card-footer roundFooter">
           <button type="button" class="btn btn-secondary roundButton" (click)="startRound()">Show All Answers</button>
         </div>
-      </div>
+      </div> -->
       
-      <div *ngIf="(showAnswersBool || showAllAnswersBool) && this.currentQuestion > 0">
+      <div *ngIf="showAnswersBool && this.currentQuestion > 0">
         <div class="card-header roundHeader">
           <h5 class="roundTitle">Round {{this.currentRound}} Answers</h5> 
         </div>
@@ -111,9 +111,33 @@
           <div class="col colButton" *ngIf="!this.firstQuestionBool"><button type="button" class="btn btn-secondary roundButton" (click)="previousQuestion()">Previous Answer</button></div>
           <div class="col colButton" *ngIf="!this.lastQuestionBool"><button type="button" class="btn btn-secondary roundButton" (click)="nextQuestion()">Next Answer</button></div>
           <div class="col colButton" *ngIf="this.lastQuestionBool && !this.lastRoundBool" ><button type="button" class="btn btn-secondary roundButton" (click)="nextRound()">Next Round</button></div>
+          <div class="col colButton" *ngIf="this.lastQuestionBool && this.lastRoundBool"><button type="button" class="btn btn-secondary roundButton" (click)="showAllAnswers()">Show All Answers</button></div>
           <div class="col colButton" *ngIf="this.lastQuestionBool && this.lastRoundBool"><button type="button" class="btn btn-secondary roundButton" (click)="endGamePlay()">End Game</button></div>
+     
         </div> 
       </div>
+      <!-- show all answers -->
+      <div *ngIf="showAllAnswersBool">
+        <div class="card-header roundHeader">
+          <h5 class="roundTitle">Answers</h5> 
+        </div>
+        <div class="card-body roundBody scroll">
+          <div *ngFor="let rounds of this.objectKeys(this.questionObject)">
+            <h4 class="roundTitle">Round {{rounds}}</h4>
+            <div *ngFor="let questions of this.objectKeys(this.questionObject[rounds])">
+              <h5 class="roundTitle">Answer {{questions}}</h5> 
+              <div>{{this.questionObject[rounds][questions].question}} ({{this.questionObject[rounds][questions].points}} points)</div>
+              <div>{{this.questionObject[rounds][questions].answer}}</div> 
+            </div>
+          </div>
+        
+         </div>
+         <div *ngIf="this.host" style="margin:0px" class="card-footer roundFooter row ">
+          
+          <div class="col colButton" *ngIf="this.lastQuestionBool && this.lastRoundBool"><button type="button" class="btn btn-secondary roundButton" (click)="endGamePlay()">End Game</button></div>
+        </div>
+      </div>
+
     </div>
     <div *ngIf="this.endOfGame"><h1>End Of Game!</h1></div>
   </div>

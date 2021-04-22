@@ -315,7 +315,9 @@ export class GameDetailsComponent implements OnInit {
         this.showAnswersBool = true;
       } else if (data === 'all') {
         this.showAllAnswersBool = true;
-        this.currentRound = 1;
+        this.showAnswersBool = false;
+        // this.currentRound = 1;
+        //answers pop up?
       }
       this.currentQuestion = 0;
       this.showBuzzer = false;
