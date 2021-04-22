@@ -55,9 +55,6 @@ export class GameDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     // set listeners 
- 
-   
-
     this.receiveBuzzerPressed();
     this.receiveNextQuestion();
     this.receiveStartRound();
@@ -67,7 +64,6 @@ export class GameDetailsComponent implements OnInit {
     this.receiveReset();
     this.receiveGameSettings();
     this.receiveStartTimer();
-    console.log(this.hostDetails, this.currentPlayer);
     
     this.gameCreationService.getQuestions(this.roomPin).subscribe( (data:any) => {
       this.questionObject = data.questions;
@@ -201,12 +197,15 @@ export class GameDetailsComponent implements OnInit {
       } else {
         this.firstQuestionBool = true;
       }
-      let element = <HTMLInputElement> document.getElementById('buzzer');
-      if (!(this.showAllAnswersBool || this.showAnswersBool)){
-        element.disabled = false;
-        this.buzzerPress = false;
-      }
+      // let element = <HTMLInputElement> document.getElementById('buzzer');
+      // if (!(this.showAllAnswersBool || this.showAnswersBool)){
+      //   element.disabled = false;
+      //   this.buzzerPress = false;
+      // }
       this.reset();
+      if (this.timerAutoStart) {
+        this.startTimer()
+      }
     });
   }
  
@@ -234,6 +233,8 @@ export class GameDetailsComponent implements OnInit {
       } else {
         this.lastQuestionBool = true;
       }
+
+      this.reset();
       if (this.showAllAnswersBool || this.showAnswersBool) {
         this.showBuzzer = false;
         this.showTimer = false;
@@ -241,15 +242,15 @@ export class GameDetailsComponent implements OnInit {
         this.showBuzzer = true;
         this.showTimer = true;
         this.buzzerPress = false;
+      }
         if (this.timerEnabled && this.showTimer && (!document.getElementById('timer') === null)){
           clearInterval(this.interVal);
           document.getElementById('timer')!.innerHTML = this.timerLength + '';
+        }
           if (this.timerAutoStart) {
             this.startTimer()
           }
-        }
-
-      }
+      // }
     });
   }
   reconnectPlayer(){
@@ -277,7 +278,10 @@ export class GameDetailsComponent implements OnInit {
       document.getElementById('timer')!.innerHTML = this.timerLength + '';
       this.currentTimer = this.timerLength;
     }
-    this.timerStarted = false;
+    if (this.timerAutoStart) {
+      this.stopTimer();
+    }
+    // this.timerStarted = false;
   }
 
   receiveNextRound(){
@@ -352,15 +356,15 @@ export class GameDetailsComponent implements OnInit {
   timerAutoStart:any;
   receiveGameSettings(){
     this.socketioService.receiveGameSettings().subscribe( (data:any) => {
-      console.log(data);
+      console.log('GAMESETTINGS', data);
       this.buzzerEnabled = data.buzzer;
       this.timerEnabled = data.timer;
       this.timerAutoStart = data.timerStart
       this.timerLength = (parseFloat(data.timerLength) * 60);
-      document.getElementById('timer')!.style.fontFamily = "Cabin Sketch";
-      document.getElementById('timer')!.style.fontWeight = "500";
-      document.getElementById('timer')!.style.fontSize ="xx-large";
-      document.getElementById('timer')!.innerHTML = this.timerLength + '';
+      // document.getElementById('timer')!.style.fontFamily = "Cabin Sketch";
+      // document.getElementById('timer')!.style.fontWeight = "500";
+      // document.getElementById('timer')!.style.fontSize ="xx-large";
+      // document.getElementById('timer')!.innerHTML = this.timerLength + '';
     });
   }
 

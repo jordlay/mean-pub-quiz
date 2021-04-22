@@ -68,7 +68,6 @@ export class SocketioService {
   }
 
   setGameSettings(roomPin:any, buzzer:any, timer:any, timerLength:any, timerStart:any){
-    // emits boolean,boolean, number
     this.socket.emit('setGameSettings', {gameId : roomPin, buzzer: buzzer, timer:timer, timerLength:timerLength, timerStart:timerStart})
   }
   buzzerPressed(roomPin:any, playerName:any, playerColour:any){

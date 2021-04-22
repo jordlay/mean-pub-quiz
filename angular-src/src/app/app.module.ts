@@ -23,12 +23,14 @@ import { SocketioService } from './services/socketio.service';
 import { GameDetailsComponent } from './components/game-play/game-play.component';
 import { GameChatComponent } from './components/game-chat/game-chat.component';
 import { ChatSocketIOService } from './services/chat-socket-io.service';
+import { HowToPlayComponent } from './components/how-to-play/how-to-play.component';
 const routes: Routes = [
 {path: '', component: HomeComponent},
 {path: 'register', component: RegisterComponent},
 {path: 'login', component: LoginComponent},
 {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
 {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+{path: 'howtoplay', component: HowToPlayComponent},
 {path: 'playgame/:pin', component: GamePlayComponent},
 {path: '**', redirectTo: '/'},
 ]; 
@@ -44,7 +46,8 @@ const routes: Routes = [
     ProfileComponent,
     GamePlayComponent,
     GameDetailsComponent,
-    GameChatComponent
+    GameChatComponent,
+    HowToPlayComponent
   ],
   imports: [
     BrowserModule,

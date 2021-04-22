@@ -262,8 +262,19 @@ export class GamePlayComponent implements OnInit {
     
     let rounds = <HTMLInputElement> document.getElementById('rounds');
     rounds.addEventListener('change', (event:any) => {
-      this.roundsEntered = true;
-      this.rounds = new Array(parseInt(rounds.value));
+      console.log(parseInt(rounds.value))
+      if (Number.isInteger(parseInt(rounds.value))) {
+        this.rounds = new Array(parseInt(rounds.value));
+      } else {
+        //valueAsNumber returns NaN
+        this.rounds = 0;
+      }
+      
+      if (this.rounds.length > 0) {
+        this.roundsEntered = true;
+      } else {
+        this.roundsEntered = false;
+      }
     });
   }
 
@@ -272,23 +283,23 @@ export class GamePlayComponent implements OnInit {
     return this.counterArray
   }
 
-  setQuestionSettings(){
-    if (!(this.rounds === undefined) || (this.rounds === Array(1))){
-      if (this.rounds.length > 0) {
-        this.showQuestions = true;
-        this.roundsArray = [];
-        for (let i = 0; i < this.rounds.length; i++) {
-          let name = <HTMLInputElement> document.getElementById('round' + (i+1) + 'questions')!;
-          let val = new Array(parseInt(name.value));
-          this.roundsArray.push(val);
-        }
-      } else {
-        this.showQuestions = false;
-      }
-    } else {
-      this.showQuestions = false;
-    }
-  }
+  // setQuestionSettings(){
+  //   if (!(this.rounds === undefined) || (this.rounds === Array(1))){
+  //     if (this.rounds.length > 0) {
+  //       this.showQuestions = true;
+  //       this.roundsArray = [];
+  //       for (let i = 0; i < this.rounds.length; i++) {
+  //         let name = <HTMLInputElement> document.getElementById('round' + (i+1) + 'questions')!;
+  //         let val = new Array(parseInt(name.value));
+  //         this.roundsArray.push(val);
+  //       }
+  //     } else {
+  //       this.showQuestions = false;
+  //     }
+  //   } else {
+  //     this.showQuestions = false;
+  //   }
+  // }
 
   setSettings(){
     let team = <HTMLInputElement> document.getElementById('teamNumber')!;
@@ -311,6 +322,7 @@ export class GamePlayComponent implements OnInit {
       if (this.teamNumber > 0 && this.teamNumber <= noOfPlayers && this.teamNumber < 11 && !(this.teamNumber === NaN)) {
         // do something to save this?
         if (!(this.rounds === undefined) || (this.rounds === Array(1))){
+          console.log(this.rounds);
           if (this.rounds.length > 0) {
             this.showQuestions = true;
             this.roundsArray = [];
@@ -327,15 +339,12 @@ export class GamePlayComponent implements OnInit {
                 roundsBool = true;
               }
             }
-          if (roundsBool) {
-            dismissButton.click();
-          }
-          } else {
-            this.showQuestions = false;
-            // add here too?
             if (roundsBool) {
               dismissButton.click();
             }
+          } else {
+            this.showQuestions = false;
+            dismissButton.click();
           }
         } else {
           this.showQuestions = false;

@@ -41,6 +41,7 @@ io.on("connection", (socket) => {
         if (gameBegan[gameId]) {
             socket.emit('getHostDetails', previousHostDetails[gameId]);
             socket.emit('getTeams', teams[gameId])
+            socket.emit('setGameSettings', settings[gameId])
             io.to(gameId).emit('startGame', previousJoinedPlayers[gameId]);
         }
         io.to(gameId).emit('joinGame', playerData);
@@ -117,6 +118,8 @@ io.on("connection", (socket) => {
         console.log(previousJoinedPlayers[gameId])
         io.to(gameId).emit('startGame', previousJoinedPlayers[gameId])
         io.to(gameId).emit('getTeams', teams[gameId])
+        io.to(gameId).emit('setGameSettings', settings[gameId])
+        console.log('GS in SG', settings[gameId]);
         console.log('Game began ' + gameId);
     })
 
@@ -144,9 +147,15 @@ io.on("connection", (socket) => {
     socket.on('startRound', ({gameId, round}) => {
         console.log('ROUND', round)
         io.to(gameId).emit('startRound', round);
+        // if (settings[gameId].timerStart) {
+        //     io.to(gameId).emit('startTimer', true);
+        // }
     });
     socket.on('nextQuestion', ({gameId, questionNumber}) => {
         io.to(gameId).emit('nextQuestion', questionNumber);
+        // if (settings[gameId].timerStart) {
+        //     io.to(gameId).emit('startTimer', true);
+        // }
     });
     socket.on('nextRound', ({gameId}) => {
         io.to(gameId).emit('nextRound', gameId);
