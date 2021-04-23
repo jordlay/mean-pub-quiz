@@ -57,7 +57,6 @@ export class GameCreationService {
       displayName: '',
       players: players
     };
-    console.log(game);
     let headers = new HttpHeaders()
     headers.append('Content-Type', 'application/json');
     return this.http.post('games/setPlayers',game, {headers: headers}).pipe(map((res) => res)); 
@@ -83,7 +82,6 @@ export class GameCreationService {
       displayName: '',
       questions: questionsObject
     };
-    console.log(game);
     let headers = new HttpHeaders()
     headers.append('Content-Type', 'application/json');
     return this.http.post('games/createQuestions',game, {headers: headers}).pipe(map((res) => res)); 

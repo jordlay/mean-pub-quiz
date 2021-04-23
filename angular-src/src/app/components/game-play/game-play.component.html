@@ -25,8 +25,8 @@
               </div>
             </div>
           </div>
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Reconnect Code</h5>
+          <div *ngIf="this.currentPlayer" class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Reconnect Code:  {{this.currentPlayer.uid}}</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div *ngIf="this.currentPlayer" class="modal-body">
@@ -39,14 +39,14 @@
     <div *ngIf="this.showQuestions">
     <div class="card border-primary mb-3" style="width:100%; margin:0px; padding:0px;">
     <div *ngIf="!this.endOfGame">
-      <div *ngIf="this.currentQuestion === 0 && !this.showAnswersBool">
+      <div *ngIf="this.currentQuestion === 0 && !this.showAllAnswersBool && !this.showAnswersBool">
         <div class="card-header roundHeader">
           <h5 class="roundTitle">Round {{this.currentRound}}</h5> 
         </div>
         <div class="card-body roundBody">
           There are {{this.numberOfQuestions}} questions in this round
         </div>
-        <div class="card-footer roundFooter colButton">
+        <div *ngIf="this.host" class="card-footer roundFooter colButton">
           <button type="button"class="btn btn-secondary roundButton" (click)="startRound()">Start Round</button>
         </div>
         
@@ -59,7 +59,7 @@
           <h4 style="margin:0px">Question {{this.currentQuestion}}</h4>
           <div> {{this.questionObject[this.currentRound][this.currentQuestion].question}} ({{this.questionObject[this.currentRound][this.currentQuestion].points}} points)</div>
         </div>
-        <div class="card-footer roundFooter">
+        <div *ngIf="this.host" class="card-footer roundFooter">
           <div class="row" style="margin:0px">
             <div class="col colButton" *ngIf="this.firstQuestionBool"></div>
             <div class="col colButton" *ngIf="!this.firstQuestionBool"><button type="button" class="btn btn-secondary roundButton" (click)="previousQuestion()">Previous Question</button></div>
@@ -81,11 +81,11 @@
         <div class="card-body roundBody">
           There are {{this.numberOfQuestions}} answers in this round  
         </div>
-        <div class="card-footer roundFooter colButton">
+        <div *ngIf="this.host" class="card-footer roundFooter colButton">
           <button type="button" class="btn btn-secondary roundButton" (click)="startRound()">Show Answers</button>
         </div>
       </div>
-
+<!-- 
       <div *ngIf="showAllAnswersBool && !showAnswers && this.currentQuestion === 0">
         <div class="card-header roundHeader">
           <h5 class="roundTitle">Round {{this.currentRound}} Answers</h5>
@@ -93,12 +93,12 @@
         <div class="card-body roundBody">
           There are {{this.numberOfQuestions}} questions in this round
         </div>
-        <div class="card-footer roundFooter">
+        <div *ngIf="this.host" class="card-footer roundFooter">
           <button type="button" class="btn btn-secondary roundButton" (click)="startRound()">Show All Answers</button>
         </div>
-      </div>
+      </div> -->
       
-      <div *ngIf="(showAnswersBool || showAllAnswersBool) && this.currentQuestion > 0">
+      <div *ngIf="showAnswersBool && this.currentQuestion > 0">
         <div class="card-header roundHeader">
           <h5 class="roundTitle">Round {{this.currentRound}} Answers</h5> 
         </div>
@@ -107,20 +107,44 @@
           <div>{{this.questionObject[this.currentRound][this.currentQuestion].question}} ({{this.questionObject[this.currentRound][this.currentQuestion].points}} points)</div>
           <div>{{this.questionObject[this.currentRound][this.currentQuestion].answer}}</div>
         </div>
-        <div style="margin:0px" class="card-footer roundFooter row ">
+        <div *ngIf="this.host" style="margin:0px" class="card-footer roundFooter row ">
           <div class="col colButton" *ngIf="!this.firstQuestionBool"><button type="button" class="btn btn-secondary roundButton" (click)="previousQuestion()">Previous Answer</button></div>
           <div class="col colButton" *ngIf="!this.lastQuestionBool"><button type="button" class="btn btn-secondary roundButton" (click)="nextQuestion()">Next Answer</button></div>
           <div class="col colButton" *ngIf="this.lastQuestionBool && !this.lastRoundBool" ><button type="button" class="btn btn-secondary roundButton" (click)="nextRound()">Next Round</button></div>
+          <div class="col colButton" *ngIf="this.lastQuestionBool && this.lastRoundBool"><button type="button" class="btn btn-secondary roundButton" (click)="showAllAnswers()">Show All Answers</button></div>
           <div class="col colButton" *ngIf="this.lastQuestionBool && this.lastRoundBool"><button type="button" class="btn btn-secondary roundButton" (click)="endGamePlay()">End Game</button></div>
+     
         </div> 
       </div>
+      
+      <div *ngIf="showAllAnswersBool">
+        <div class="card-header roundHeader">
+          <h5 class="roundTitle">Answers</h5> 
+        </div>
+        <div class="card-body roundBody scroll">
+          <div *ngFor="let rounds of this.objectKeys(this.questionObject)">
+            <h4 class="roundTitle">Round {{rounds}}</h4>
+            <div *ngFor="let questions of this.objectKeys(this.questionObject[rounds])">
+              <h5 class="roundTitle">Answer {{questions}}</h5> 
+              <div>{{this.questionObject[rounds][questions].question}} ({{this.questionObject[rounds][questions].points}} points)</div>
+              <div>{{this.questionObject[rounds][questions].answer}}</div> 
+            </div>
+          </div>
+        
+         </div>
+         <div *ngIf="this.host" style="margin:0px" class="card-footer roundFooter row ">
+          
+          <div class="col colButton" *ngIf="this.lastQuestionBool && this.lastRoundBool"><button type="button" class="btn btn-secondary roundButton" (click)="endGamePlay()">End Game</button></div>
+        </div>
+      </div>
+
     </div>
     <div *ngIf="this.endOfGame"><h1>End Of Game!</h1></div>
   </div>
 </div>
 
 </div>
-<div class="row">
+<div class="row" *ngIf="!this.endOfGame">
   <div class="col" *ngIf="this.buzzerEnabled && this.showBuzzer">
     <button type="button" id="buzzer" class="btn shadow{{this.playerColour}} {{this.playerColour}}" (click)="buzzerPressed()" [ngClass]="this.buzzerPress ? 'buzzerClicked':'buzzer' ">Team Buzzer</button>
     
@@ -132,7 +156,7 @@
           <h1 >{{this.timerLength}}</h1>
         </div>
         
-        <div class="col" style="padding-left: 0px;">
+        <div *ngIf="this.host" class="col" id="" style="padding-left: 0px;">
           <button class="btn" *ngIf="!timerStarted" type="button" style="padding:0px" (click)="startTimer()" >
             <span class="material-icons color{{this.playerColour}}" style="font-size:40px">play_arrow</span>
           </button>
@@ -143,12 +167,14 @@
     </div>
     </div>
   </div>
-  <div *ngIf="!this.showQuestions">
-    <button class="btn btn {{this.playerColour}}" (click)="onReset()">Reset</button>
+  <div *ngIf="this.host">
+    <button *ngIf="this.buzzerEnabled && this.showBuzzer" class="btn btn {{this.playerColour}}" (click)="onResetBuzzer()">Reset Buzzer</button>
+    <button *ngIf="this.timerEnabled && this.showTimer" class="btn btn {{this.playerColour}}" (click)="onResetTimer()">Reset Timer</button>
+    <button *ngIf="this.timerEnabled && this.showTimer && this.buzzerEnabled && this.showBuzzer" class="btn btn {{this.playerColour}}" (click)="onReset()">Reset All</button>
   </div>
+  <div class="row color{{this.buzzerDetails.colour}}" style="padding-left:15px; padding-bottom: 5px;" id="buzzerDetails" *ngIf="this.buzzerPress">{{this.buzzerDetails.displayName}} pressed the buzzer for the {{this.buzzerDetails.colour}} team!</div>
 </div>
-<div class="row color{{this.buzzerDetails.colour}}" style="padding-left:15px; padding-bottom: 5px;" id="buzzerDetails" *ngIf="this.buzzerPress">{{this.buzzerDetails.displayName}} pressed the buzzer for the {{this.buzzerDetails.colour}} team!</div>
-<div *ngIf="this.currentPlayer" class="row" >
+<div *ngIf="this.currentPlayer" class="row">
   <app-game-chat [player]="this.currentPlayer"></app-game-chat>
 </div>
 
@@ -185,6 +211,12 @@
                 <label for="timerLength" class="form-label">Timer Length (Mins)</label>
                 <input type="range" data-value="0.5"  class="form-range" min="0" max="5" step="0.5" value="timerLength" id="timerLength">
             </div>
+            <div class="mb-3">
+              <div class="custom-control custom-switch">
+                  <input type="checkbox" class="custom-control-input" id="timerStart">
+                  <label class="custom-control-label" for="timerStart">Autostart Timer on New Question</label>
+              </div>
+          </div>
             <!-- <div class="mb-3">
               <label for="reconnectButton" class="form-label">Reconnect a Player</label>
               <button type="button" class="btn btn-secondary" id="reconnectButton" (click)="reconnectPlayer()"></button>

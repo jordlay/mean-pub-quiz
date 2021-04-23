@@ -21,11 +21,11 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\MEAN-Pub-Quiz-Platform\angular-src\node_modules\@angular\material\prebuilt-themes\deeppurple-amber.css */"tNt0");
-__webpack_require__(/*! D:\MEAN-Pub-Quiz-Platform\angular-src\node_modules\jquery\dist\jquery.min.js */"xexB");
-__webpack_require__(/*! D:\MEAN-Pub-Quiz-Platform\angular-src\node_modules\bootstrap\dist\css\bootstrap.css */"+eM2");
-__webpack_require__(/*! D:\MEAN-Pub-Quiz-Platform\angular-src\node_modules\bootswatch\dist\sketchy\bootstrap.min.css */"MFSH");
-module.exports = __webpack_require__(/*! D:\MEAN-Pub-Quiz-Platform\angular-src\src\styles.css */"OmL/");
+__webpack_require__(/*! D:\mean-pub-quiz\angular-src\node_modules\@angular\material\prebuilt-themes\deeppurple-amber.css */"tNt0");
+__webpack_require__(/*! D:\mean-pub-quiz\angular-src\node_modules\jquery\dist\jquery.min.js */"xexB");
+__webpack_require__(/*! D:\mean-pub-quiz\angular-src\node_modules\bootstrap\dist\css\bootstrap.css */"+eM2");
+__webpack_require__(/*! D:\mean-pub-quiz\angular-src\node_modules\bootswatch\dist\sketchy\bootstrap.min.css */"MFSH");
+module.exports = __webpack_require__(/*! D:\mean-pub-quiz\angular-src\src\styles.css */"OmL/");
 
 
 /***/ }),

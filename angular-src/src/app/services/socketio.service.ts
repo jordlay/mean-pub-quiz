@@ -56,8 +56,8 @@ export class SocketioService {
   playerLeft(roomPin: any, playerData: any){
     this.socket.emit('playerLeft', {gameId: roomPin, playerData: playerData });
   }
-  reset(roomPin:any){
-    this.socket.emit('reset', {gameId: roomPin});
+  reset(roomPin:any, type: any){
+    this.socket.emit('reset', {gameId: roomPin, type: type});
   }
   endGame(roomPin: any){
     this.socket.emit('endGame', {gameId : roomPin});
@@ -67,9 +67,8 @@ export class SocketioService {
     this.socket.emit('setNewHostDetails', {gameId : roomPin, hostDetails: hostDetails});
   }
 
-  setGameSettings(roomPin:any, buzzer:any, timer:any, timerLength:any){
-    // emits boolean,boolean, number
-    this.socket.emit('setGameSettings', {gameId : roomPin, buzzer: buzzer, timer:timer, timerLength:timerLength})
+  setGameSettings(roomPin:any, buzzer:any, timer:any, timerLength:any, timerStart:any){
+    this.socket.emit('setGameSettings', {gameId : roomPin, buzzer: buzzer, timer:timer, timerLength:timerLength, timerStart:timerStart})
   }
   buzzerPressed(roomPin:any, playerName:any, playerColour:any){
     this.socket.emit('buzzerPressed', {gameId: roomPin, playerName: playerName, playerColour:playerColour });
@@ -97,6 +96,9 @@ export class SocketioService {
     return this.gameBegan
   }
 
+  rejoinPlayer(roomPin:any, previousID:any, currentPlayer:any){
+    this.socket.emit('rejoinPlayer', {gameId : roomPin, previousID: previousID, currentPlayer:currentPlayer});
+  }
   receiveHostDetails(){
     return new Observable((observer) => {
       this.socket.on('getHostDetails', (message: any) => {
@@ -139,7 +141,6 @@ export class SocketioService {
   receiveGameSettings() {
     return new Observable((observer) => {
       this.socket.on('setGameSettings', (message: any) => {
-        console.log(message);
         observer.next(message);
       });
     });
@@ -155,7 +156,6 @@ export class SocketioService {
   receiveStartRound() {
     return new Observable((observer) => {
       this.socket.on('startRound', (message: any) => {
-        console.log('STARTROUND', message);
         observer.next(message);
       });
     });
@@ -227,7 +227,6 @@ export class SocketioService {
   receiveStartTimer(){
     return new Observable((observer) => {
       this.socket.on('startTimer', (message: any) => {
-        console.log(message);
         observer.next(message);
       });
     });

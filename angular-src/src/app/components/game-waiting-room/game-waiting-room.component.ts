@@ -179,13 +179,7 @@ export class GamePlayComponent implements OnInit {
     for (let key of this.objectKeys(this.participantArray)) {
       this.participantArray[key].uid = this.generateCode();
     }
-    console.log(this.participantArray);
-    this.socketioService.beginGame(this.roomPin, this.participantArray, this.hostDetails);
-    // this.socketioService.receiveTeams().subscribe((teams:any)=>{
-    //   this.teams = teams;
-
-    // });
-    
+    this.socketioService.beginGame(this.roomPin, this.participantArray, this.hostDetails);   
     this.gameStarted = true;
   }
 
@@ -202,6 +196,7 @@ export class GamePlayComponent implements OnInit {
       this.allPlayersReady = false;
       let joinedPlayer = message;
       if (!(this.participantArray === undefined)) {
+        // this.participantArray[joinedPlayer.id] = {}
         this.participantArray[joinedPlayer.id].id = joinedPlayer.id
         this.participantArray[joinedPlayer.id].socketID = joinedPlayer.socketID
         this.participantArray[joinedPlayer.id].ready = joinedPlayer.ready        
@@ -230,29 +225,6 @@ export class GamePlayComponent implements OnInit {
     });
   }
 
-  openTeamSettings(){
-    let team = <HTMLInputElement> document.getElementById('teamNumber')!;
-    this.isChecked = <HTMLInputElement> document.getElementById('hostCheckbox');
-    let noOfPlayers: any;
-
-    this.isChecked.addEventListener('change', (event:any) => {
-      if (this.isChecked.checked) {
-        noOfPlayers = this.objectKeys(this.participantArray).length;
-      } else {
-        noOfPlayers = (this.objectKeys(this.participantArray).length)-1;
-      }
-    });
-    team.addEventListener('change', (event:any) => {
-      this.teamNumber = parseInt(team.value); 
-      let button = <HTMLInputElement> document.getElementById('setSettings');
-      if (this.teamNumber > 0 && this.teamNumber <= noOfPlayers && this.teamNumber < 11 && !(this.teamNumber === NaN)) {
-        button.disabled = false;
-      } else {
-        button.disabled = true;
-      }
-    });
-  }
-
   setHost() {
     this.socketioService.claimHost(this.roomPin);
     this.host = true;
@@ -261,8 +233,18 @@ export class GamePlayComponent implements OnInit {
     
     let rounds = <HTMLInputElement> document.getElementById('rounds');
     rounds.addEventListener('change', (event:any) => {
-      this.roundsEntered = true;
-      this.rounds = new Array(parseInt(rounds.value));
+      if (Number.isInteger(parseInt(rounds.value))) {
+        this.rounds = new Array(parseInt(rounds.value));
+      } else {
+        //isInt returns NaN
+        this.rounds = 0;
+      }
+      
+      if (this.rounds.length > 0) {
+        this.roundsEntered = true;
+      } else {
+        this.roundsEntered = false;
+      }
     });
   }
 
@@ -271,36 +253,70 @@ export class GamePlayComponent implements OnInit {
     return this.counterArray
   }
 
-  setQuestionSettings(){
-    if (!(this.rounds === undefined) || (this.rounds === Array(1))){
-      if (this.rounds.length > 0) {
-        this.showQuestions = true;
-        this.roundsArray = [];
-        for (let i = 0; i < this.rounds.length; i++) {
-          let name = <HTMLInputElement> document.getElementById('round' + (i+1) + 'questions')!;
-          let val = new Array(parseInt(name.value));
-          this.roundsArray.push(val);
-        }
-      } else {
-        this.showQuestions = false;
-      }
-    } else {
-      this.showQuestions = false;
-    }
-  }
-
   setSettings(){
+    let team = <HTMLInputElement> document.getElementById('teamNumber')!;
+    this.isChecked = <HTMLInputElement> document.getElementById('hostCheckbox');
+    let noOfPlayers: any;
+    let dismissButton = <HTMLInputElement> document.getElementById('dismissModal')!;
+
+      if (this.isChecked.checked) {
+        noOfPlayers = this.objectKeys(this.participantArray).length;
+        this.participantArray[this.currentPlayer.id].include = true;
+        this.includeHost = true;
+      } else {
+        noOfPlayers = (this.objectKeys(this.participantArray).length)-1;
+        this.participantArray[this.currentPlayer.id].include = false;
+        this.includeHost = false;
+      }
+      let roundsBool;
+      this.teamNumber = parseInt(team.value); 
+      let button = <HTMLInputElement> document.getElementById('setSettings');
+      if (this.teamNumber > 0 && this.teamNumber <= noOfPlayers && this.teamNumber < 11 && !(this.teamNumber === NaN)) {
+        // do something to save this?
+        if (!(this.rounds === undefined) || (this.rounds === Array(1))){
+          if (this.rounds.length > 0) {
+            this.showQuestions = true;
+            this.roundsArray = [];
+            for (let i = 0; i < this.rounds.length; i++) {
+              let name = <HTMLInputElement> document.getElementById('round' + (i+1) + 'questions')!;
+              if (name.value === "" || name.value === undefined || (name.value) === null) {
+                this.errorMessage = "You must enter an integer for each round";
+                setTimeout(()=>{this.errorMessage = "";}, 3000);
+                roundsBool = false;
+                break;
+              } else {
+                let val = new Array(parseInt(name.value));
+                this.roundsArray.push(val);
+                roundsBool = true;
+              }
+            }
+            if (roundsBool) {
+              dismissButton.click();
+            }
+          } else {
+            this.showQuestions = false;
+            dismissButton.click();
+          }
+        } else {
+          this.showQuestions = false;
+          dismissButton.click();
+        }
+
+      } else {
+        this.errorMessage = "There cannot be more teams than players";
+        setTimeout(()=>{this.errorMessage = "";}, 3000);
+      }
+
+      let buzzerElement = <HTMLInputElement> document.getElementById('buzzerToggle');
+      let timerElement = <HTMLInputElement> document.getElementById('timerToggle');
+      let timerLengthElement = <HTMLInputElement> document.getElementById('timerLength');
+      let timerAutoStartElement = <HTMLInputElement> document.getElementById('timerStart');
+      this.socketioService.setGameSettings(this.roomPin, buzzerElement.checked, timerElement.checked,timerLengthElement.value, timerAutoStartElement.checked);
+
     let teamButton = <HTMLInputElement> document.getElementById("teamSettings");
     teamButton.style.borderColor = "green";
     teamButton.style.color = "green";
-      this.isChecked = <HTMLInputElement> document.getElementById('hostCheckbox');
-    if (this.isChecked.checked === true) {
-      this.participantArray[this.currentPlayer.id].include = true;
-      this.includeHost = true;
-    } else {
-      this.participantArray[this.currentPlayer.id].include = false;
-      this.includeHost = false;
-    }
+
     this.hostSubmitted = true;
     this.hostDetails = this.participantArray[this.currentPlayer.id];
     this.hostDetails.teamNumber = this.teamNumber;
@@ -351,13 +367,41 @@ export class GamePlayComponent implements OnInit {
     // find player with that unique id and update that current player w new PI and socketID
     let code = <HTMLInputElement> document.getElementById('lateCode')!;
     console.log(code.value);
+    console.log(this.currentPlayer);
     this.gameCreationService.getPlayers(this.roomPin).subscribe((data:any) => {
       let players = data.players;
+      console.log('players', data.players)
       //does it remove from db on disconnect??? shouldnt???
       for (let key of this.objectKeys(players)) {
         console.log(players[key].uid, code.value);
         if (players[key].uid === code.value) {
+          this.currentPlayer.uid = players[key].uid;
           this.currentPlayer.colour = players[key].colour;
+          
+          console.log(this.currentPlayer);
+          // add CP to players
+          console.log(players);
+          players[this.currentPlayer.id] = this.currentPlayer;
+          // updat teams + get socket id
+          this.socketioService.rejoinPlayer(this.roomPin, players[players[key].id], this.currentPlayer);
+          delete players[players[key].id];
+          
+          console.log(players);
+          console.log(this.currentPlayer)
+
+          this.previousPlayers = this.socketioService.getPreviousJoinedPlayers();
+          for (let key of this.objectKeys(this.previousPlayers))  {
+            console.log(this.previousPlayers[key], this.currentPlayer);
+            if (key === this.currentPlayer.id) {
+              this.previousPlayers[key].colour = this.currentPlayer.colour;
+              this.previousPlayers[key].uid = this.currentPlayer.uid;
+            }
+          }
+          console.log('PPs', this.previousPlayers);
+          this.gameCreationService.setPlayers(this.roomPin, this.previousPlayers).subscribe(()=>{
+            console.log('message in Rejoin', this.previousPlayers);
+          });
+
           this.gameStarted = true;
         }
       } 
@@ -382,21 +426,24 @@ export class GamePlayComponent implements OnInit {
 
   receiveBeginGame() {
     this.socketioService.receiveBeginGame().subscribe((message:any)=>{
-      this.participantArray = message;
-      console.log('message', message);
-      this.gameCreationService.setPlayers(this.roomPin, message).subscribe(()=>{
-      });
-      setTimeout( () => {
-        if (!this.gameAlreadyBegun){
-          this.gameStarted = true;
-        }
-      } ,1000);
-    
+      console.log('BG Mess', message);
+      // this.participantArray = message;
+      if (!this.gameAlreadyBegun){
+        this.participantArray = message;
+        this.gameCreationService.setPlayers(this.roomPin, message).subscribe(()=>{
+          console.log('message in RBG', message);
+        });
+        this.gameStarted = true;
+        this.gameAlreadyBegun = true;
+      } else {
+        console.log('gamebegun');
+      }   
     });
   }
 
   receiveTeams(){
     this.socketioService.receiveTeams().subscribe((teams:any)=>{
+      console.log('teams', teams)
       this.teams = teams;
     });
   }
