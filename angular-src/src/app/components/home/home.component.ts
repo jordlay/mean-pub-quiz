@@ -52,7 +52,6 @@ export class HomeComponent implements OnInit {
   joinRoom(){
     if (this.joinedDisplayNamed.length > 0) {
       this.roomPin = this.roomPin.toUpperCase();
-      console.log('RP' , this.roomPin)
       const game = {
         // hostName: '',
         roomPin: this.roomPin,

@@ -171,7 +171,6 @@ function GamePlayComponent_div_5_div_1_div_13_div_7_Template(rf, ctx) { if (rf &
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } }
 function GamePlayComponent_div_5_div_1_div_13_Template(rf, ctx) { if (rf & 1) {
-    const _r27 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "div", 47);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](2, "h4");
@@ -184,8 +183,7 @@ function GamePlayComponent_div_5_div_1_div_13_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](7, GamePlayComponent_div_5_div_1_div_13_div_7_Template, 3, 0, "div", 53);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](8, "div", 54);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](9, "button", 55);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function GamePlayComponent_div_5_div_1_div_13_Template_button_click_9_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r27); const ctx_r26 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](3); return ctx_r26.openTeamSettings(); });
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](10, "Team Settings");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](10, "Change Settings");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
@@ -218,13 +216,13 @@ function GamePlayComponent_div_5_div_1_div_32_div_2_Template(rf, ctx) { if (rf &
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](3, "input", 60);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    const i_r30 = ctx.index;
+    const i_r28 = ctx.index;
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpropertyInterpolate1"]("for", "round", i_r30 + 1, "questions");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpropertyInterpolate1"]("for", "round", i_r28 + 1, "questions");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"]("Enter the number of questions for round ", i_r30 + 1, "");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"]("Enter the number of questions for round ", i_r28 + 1, "");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpropertyInterpolate1"]("id", "round", i_r30 + 1, "questions");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpropertyInterpolate1"]("id", "round", i_r28 + 1, "questions");
 } }
 function GamePlayComponent_div_5_div_1_div_32_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div");
@@ -264,18 +262,18 @@ function GamePlayComponent_div_5_div_1_div_88_div_2_Template(rf, ctx) { if (rf &
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    const j_r35 = ctx.index;
-    const i_r32 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]().index;
+    const j_r33 = ctx.index;
+    const i_r30 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"]().index;
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpropertyInterpolate2"]("for", "q", i_r32 + 1, "", j_r35 + 1, "");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpropertyInterpolate2"]("for", "q", i_r30 + 1, "", j_r33 + 1, "");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"]("Question ", j_r35 + 1, "");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"]("Question ", j_r33 + 1, "");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpropertyInterpolate2"]("id", "q", i_r32 + 1, "", j_r35 + 1, "");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpropertyInterpolate2"]("id", "q", i_r30 + 1, "", j_r33 + 1, "");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpropertyInterpolate2"]("id", "a", i_r32 + 1, "", j_r35 + 1, "");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpropertyInterpolate2"]("id", "a", i_r30 + 1, "", j_r33 + 1, "");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpropertyInterpolate2"]("id", "p", i_r32 + 1, "", j_r35 + 1, "");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵpropertyInterpolate2"]("id", "p", i_r30 + 1, "", j_r33 + 1, "");
 } }
 function GamePlayComponent_div_5_div_1_div_88_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div");
@@ -283,15 +281,15 @@ function GamePlayComponent_div_5_div_1_div_88_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtemplate"](2, GamePlayComponent_div_5_div_1_div_88_div_2_Template, 12, 9, "div", 43);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    const i_r32 = ctx.index;
+    const i_r30 = ctx.index;
     const ctx_r15 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](3);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"](" Round ", i_r32 + 1, " ");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"](" Round ", i_r30 + 1, " ");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx_r15.roundsArray[i_r32]);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngForOf", ctx_r15.roundsArray[i_r30]);
 } }
 function GamePlayComponent_div_5_div_1_Template(rf, ctx) { if (rf & 1) {
-    const _r38 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    const _r36 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "h2", 7);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](2, "Game Waiting Room ");
@@ -394,11 +392,11 @@ function GamePlayComponent_div_5_div_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](69, "div", 36);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](70, "button", 37);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function GamePlayComponent_div_5_div_1_Template_button_click_70_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r38); const ctx_r37 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r37.showQuestions = false; });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function GamePlayComponent_div_5_div_1_Template_button_click_70_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r36); const ctx_r35 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r35.showQuestions = false; });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](71, "Close");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](72, "button", 38);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function GamePlayComponent_div_5_div_1_Template_button_click_72_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r38); const ctx_r39 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r39.setSettings(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function GamePlayComponent_div_5_div_1_Template_button_click_72_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r36); const ctx_r37 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r37.setSettings(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](73, "Confirm Settings");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](74, "button", 39);
@@ -431,7 +429,7 @@ function GamePlayComponent_div_5_div_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](91, "Close");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](92, "button", 45);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function GamePlayComponent_div_5_div_1_Template_button_click_92_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r38); const ctx_r40 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r40.setQuestions(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function GamePlayComponent_div_5_div_1_Template_button_click_92_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r36); const ctx_r38 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r38.setQuestions(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](93, "Save Questions");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
@@ -490,7 +488,7 @@ function GamePlayComponent_div_5_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("ngIf", ctx_r1.gameStarted === true);
 } }
 function GamePlayComponent_div_6_div_1_Template(rf, ctx) { if (rf & 1) {
-    const _r44 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
+    const _r42 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵgetCurrentView"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "h1");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](2, "Game Waiting Room");
@@ -508,23 +506,23 @@ function GamePlayComponent_div_6_div_1_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](10, "input", 67);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](11, "button", 49);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function GamePlayComponent_div_6_div_1_Template_button_click_11_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r44); const ctx_r43 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r43.rejoinGame(); });
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵlistener"]("click", function GamePlayComponent_div_6_div_1_Template_button_click_11_listener() { _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵrestoreView"](_r42); const ctx_r41 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2); return ctx_r41.rejoinGame(); });
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtext"](12, "Join");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    const ctx_r41 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
+    const ctx_r39 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"]("Meeting Pin: ", ctx_r41.roomPin, "");
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵtextInterpolate1"]("Meeting Pin: ", ctx_r39.roomPin, "");
 } }
 function GamePlayComponent_div_6_div_2_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div");
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](1, "app-game-play", 66);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementEnd"]();
 } if (rf & 2) {
-    const ctx_r42 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
+    const ctx_r40 = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵnextContext"](2);
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵadvance"](1);
-    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("roomPin", ctx_r42.roomPin)("hostDetails", ctx_r42.hostDetails)("player", ctx_r42.currentPlayer)("teams", ctx_r42.teams);
+    _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵproperty"]("roomPin", ctx_r40.roomPin)("hostDetails", ctx_r40.hostDetails)("player", ctx_r40.currentPlayer)("teams", ctx_r40.teams);
 } }
 function GamePlayComponent_div_6_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div");
@@ -680,11 +678,7 @@ class GamePlayComponent {
         for (let key of this.objectKeys(this.participantArray)) {
             this.participantArray[key].uid = this.generateCode();
         }
-        console.log(this.participantArray);
         this.socketioService.beginGame(this.roomPin, this.participantArray, this.hostDetails);
-        // this.socketioService.receiveTeams().subscribe((teams:any)=>{
-        //   this.teams = teams;
-        // });
         this.gameStarted = true;
     }
     playerReady() {
@@ -724,27 +718,6 @@ class GamePlayComponent {
             this.participantArray[partArray.id].ready = true;
             this.allPlayersReady = this.isAllReady();
         });
-    }
-    openTeamSettings() {
-        // let team = <HTMLInputElement> document.getElementById('teamNumber')!;
-        // this.isChecked = <HTMLInputElement> document.getElementById('hostCheckbox');
-        // let noOfPlayers: any;
-        // this.isChecked.addEventListener('change', (event:any) => {
-        //   if (this.isChecked.checked) {
-        //     noOfPlayers = this.objectKeys(this.participantArray).length;
-        //   } else {
-        //     noOfPlayers = (this.objectKeys(this.participantArray).length)-1;
-        //   }
-        // });
-        // // team.addEventListener('change', (event:any) => {
-        // //   this.teamNumber = parseInt(team.value); 
-        // //   let button = <HTMLInputElement> document.getElementById('setSettings');
-        // //   // if (this.teamNumber > 0 && this.teamNumber <= noOfPlayers && this.teamNumber < 11 && !(this.teamNumber === NaN)) {
-        // //   //   button.disabled = false;
-        // //   // } else {
-        // //   //   button.disabled = true;
-        // //   // }
-        // // });
     }
     setHost() {
         this.socketioService.claimHost(this.roomPin);
@@ -793,7 +766,6 @@ class GamePlayComponent {
         if (this.teamNumber > 0 && this.teamNumber <= noOfPlayers && this.teamNumber < 11 && !(this.teamNumber === NaN)) {
             // do something to save this?
             if (!(this.rounds === undefined) || (this.rounds === Array(1))) {
-                console.log(this.rounds);
                 if (this.rounds.length > 0) {
                     this.showQuestions = true;
                     this.roundsArray = [];
@@ -888,13 +860,37 @@ class GamePlayComponent {
         // find player with that unique id and update that current player w new PI and socketID
         let code = document.getElementById('lateCode');
         console.log(code.value);
+        console.log(this.currentPlayer);
         this.gameCreationService.getPlayers(this.roomPin).subscribe((data) => {
             let players = data.players;
+            console.log('players', data.players);
             //does it remove from db on disconnect??? shouldnt???
             for (let key of this.objectKeys(players)) {
                 console.log(players[key].uid, code.value);
                 if (players[key].uid === code.value) {
+                    this.currentPlayer.uid = players[key].uid;
                     this.currentPlayer.colour = players[key].colour;
+                    console.log(this.currentPlayer);
+                    // add CP to players
+                    console.log(players);
+                    players[this.currentPlayer.id] = this.currentPlayer;
+                    // updat teams + get socket id
+                    this.socketioService.rejoinPlayer(this.roomPin, players[players[key].id], this.currentPlayer);
+                    delete players[players[key].id];
+                    console.log(players);
+                    console.log(this.currentPlayer);
+                    this.previousPlayers = this.socketioService.getPreviousJoinedPlayers();
+                    for (let key of this.objectKeys(this.previousPlayers)) {
+                        console.log(this.previousPlayers[key], this.currentPlayer);
+                        if (key === this.currentPlayer.id) {
+                            this.previousPlayers[key].colour = this.currentPlayer.colour;
+                            this.previousPlayers[key].uid = this.currentPlayer.uid;
+                        }
+                    }
+                    console.log('PPs', this.previousPlayers);
+                    this.gameCreationService.setPlayers(this.roomPin, this.previousPlayers).subscribe(() => {
+                        console.log('message in Rejoin', this.previousPlayers);
+                    });
                     this.gameStarted = true;
                 }
             }
@@ -914,19 +910,24 @@ class GamePlayComponent {
     }
     receiveBeginGame() {
         this.socketioService.receiveBeginGame().subscribe((message) => {
-            this.participantArray = message;
-            console.log('message', message);
-            this.gameCreationService.setPlayers(this.roomPin, message).subscribe(() => {
-            });
-            setTimeout(() => {
-                if (!this.gameAlreadyBegun) {
-                    this.gameStarted = true;
-                }
-            }, 1000);
+            console.log('BG Mess', message);
+            // this.participantArray = message;
+            if (!this.gameAlreadyBegun) {
+                this.participantArray = message;
+                this.gameCreationService.setPlayers(this.roomPin, message).subscribe(() => {
+                    console.log('message in RBG', message);
+                });
+                this.gameStarted = true;
+                this.gameAlreadyBegun = true;
+            }
+            else {
+                console.log('gamebegun');
+            }
         });
     }
     receiveTeams() {
         this.socketioService.receiveTeams().subscribe((teams) => {
+            console.log('teams', teams);
             this.teams = teams;
         });
     }
@@ -942,7 +943,7 @@ GamePlayComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵdefine
     } if (rf & 2) {
         let _t;
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵloadQuery"]()) && (ctx.meet = _t.first);
-    } }, decls: 10, vars: 2, consts: [[1, "row"], [1, "col", 2, "padding", "0px"], [1, "jitsiMeet", 2, "padding", "0px"], ["meet", ""], [1, "col", 2, "padding-right", "0px"], [4, "ngIf"], ["type", "button", 1, "btn", "btn-outline-danger", 3, "click"], [2, "margin-bottom", "0px"], ["type", "button", 1, "btn", "btn-primary", "copyButton", 3, "cdkCopyToClipboard"], ["data-bs-backdrop", "static", "id", "settingsModal", "tabindex", "-1", "aria-hidden", "true", 1, "modal", "fade"], [1, "modal-dialog", "modal-dialog-centered", "modal-dialog-scrollable"], [1, "modal-content", 2, "max-height", "400px"], [1, "modal-header"], ["id", "exampleModalLabel", 1, "modal-title"], ["class", "alert alert-dismissible fade show alert-danger", 4, "ngIf"], ["type", "button", "data-bs-dismiss", "modal", "aria-label", "Close", 1, "btn-close"], [1, "modal-body"], [1, "card-text"], [1, "needs-validation"], [1, "mb-3"], ["for", "rounds", 2, "margin-top", "10px"], ["type", "text", "id", "rounds", "placeholder", "Enter number of rounds", 1, "form-control"], [1, "form-check", 2, "padding-left", "0rem"], ["type", "checkbox", "value", "", "id", "hostCheckbox", 1, "form-check-input"], ["for", "hostCheckbox", 1, "form-check-label", 2, "padding-left", "30px"], ["for", "teamNumber", 2, "margin-top", "10px"], ["type", "text", "id", "teamNumber", "placeholder", "Enter number of teams", 1, "form-control"], [1, "custom-control", "custom-switch"], ["type", "checkbox", "id", "buzzerToggle", "checked", "", 1, "custom-control-input"], ["for", "buzzerToggle", 1, "custom-control-label"], ["type", "checkbox", "id", "timerToggle", "checked", "", 1, "custom-control-input"], ["for", "timerToggle", 1, "custom-control-label"], ["for", "timerLength", 1, "form-label"], ["type", "range", "data-value", "0.5", "min", "0", "max", "5", "step", "0.5", "value", "timerLength", "id", "timerLength", 1, "form-range"], ["type", "checkbox", "id", "timerStart", 1, "custom-control-input"], ["for", "timerStart", 1, "custom-control-label"], [1, "modal-footer"], ["type", "button", "data-bs-dismiss", "modal", 1, "btn", "btn-secondary", 3, "click"], ["type", "button", "id", "setSettings", 1, "btn", "btn-primary", 3, "click"], ["type", "button", "id", "dismissModal", "data-bs-dismiss", "modal", "aria-hidden", "true", "hidden", "", 1, "btn"], ["data-bs-backdrop", "static", "id", "questionsModal", "tabindex", "-1", "aria-hidden", "true", 1, "modal", "fade"], ["type", "button", "data-bs-toggle", "modal", "data-bs-target", "#questionsModal", "data-bs-dismiss", "modal", "aria-label", "Close", 1, "btn-close"], [1, "modal-body", 2, "max-height", "400px"], [4, "ngFor", "ngForOf"], ["type", "button", "data-bs-dismiss", "modal", 1, "btn", "btn-secondary"], ["type", "button", "data-bs-dismiss", "modal", "id", "saveQuestions", 1, "btn", "btn-primary", 3, "click"], ["type", "button", "data-bs-toggle", "modal", "data-bs-target", "#settingsModal", "aria-hidden", "false"], [1, "card", "border-primary", "mb-3", 2, "max-width", "20rem", "margin-top", "16px", "padding", "10px"], [3, "ngClass"], ["type", "button", 1, "btn", "btn-outline-success", 3, "click"], [1, "text-success"], ["type", "button", "data-bs-toggle", "modal", "data-bs-target", "#settingsModal", 1, "btn", "btn-outline-secondary", 3, "click"], [1, "card-body", "row", 2, "padding", "5px"], ["class", "col", 4, "ngIf"], [1, "col"], ["id", "teamSettings", "type", "button", "data-bs-toggle", "modal", "data-bs-target", "#settingsModal", 1, "btn", "btn-outline-secondary", 3, "click"], ["id", "inputQuestions", "type", "button", "data-bs-toggle", "modal", "data-bs-target", "#questionsModal", 1, "btn", "btn-outline-secondary"], [1, "alert", "alert-dismissible", "fade", "show", "alert-danger"], ["type", "button", "data-dismiss", "alert", 1, "close"], [2, "margin-top", "10px", 3, "for"], ["type", "text", "placeholder", "Enter number of questions", 1, "form-control", 3, "id"], ["type", "button", "data-bs-toggle", "modal", "data-bs-target", "#questionsModal", 1, "btn", "btn-secondary"], [1, "input-group", "mb-3"], ["type", "text", "placeholder", "Paste or type your question", 1, "form-control", 3, "id"], [1, "input-group-text"], ["type", "text", 1, "form-control", 3, "id"], [3, "roomPin", "hostDetails", "player", "teams"], ["type", "text", "id", "lateCode", "placeholder", "e.g E14GV", 1, "form-control"]], template: function GamePlayComponent_Template(rf, ctx) { if (rf & 1) {
+    } }, decls: 10, vars: 2, consts: [[1, "row"], [1, "col", 2, "padding", "0px"], [1, "jitsiMeet", 2, "padding", "0px"], ["meet", ""], [1, "col", 2, "padding-right", "0px"], [4, "ngIf"], ["type", "button", 1, "btn", "btn-outline-danger", 3, "click"], [2, "margin-bottom", "0px"], ["type", "button", 1, "btn", "btn-primary", "copyButton", 3, "cdkCopyToClipboard"], ["data-bs-backdrop", "static", "id", "settingsModal", "tabindex", "-1", "aria-hidden", "true", 1, "modal", "fade"], [1, "modal-dialog", "modal-dialog-centered", "modal-dialog-scrollable"], [1, "modal-content", 2, "max-height", "400px"], [1, "modal-header"], ["id", "exampleModalLabel", 1, "modal-title"], ["class", "alert alert-dismissible fade show alert-danger", 4, "ngIf"], ["type", "button", "data-bs-dismiss", "modal", "aria-label", "Close", 1, "btn-close"], [1, "modal-body"], [1, "card-text"], [1, "needs-validation"], [1, "mb-3"], ["for", "rounds", 2, "margin-top", "10px"], ["type", "text", "id", "rounds", "placeholder", "Enter number of rounds", 1, "form-control"], [1, "form-check", 2, "padding-left", "0rem"], ["type", "checkbox", "value", "", "id", "hostCheckbox", 1, "form-check-input"], ["for", "hostCheckbox", 1, "form-check-label", 2, "padding-left", "30px"], ["for", "teamNumber", 2, "margin-top", "10px"], ["type", "text", "id", "teamNumber", "placeholder", "Enter number of teams", 1, "form-control"], [1, "custom-control", "custom-switch"], ["type", "checkbox", "id", "buzzerToggle", "checked", "", 1, "custom-control-input"], ["for", "buzzerToggle", 1, "custom-control-label"], ["type", "checkbox", "id", "timerToggle", "checked", "", 1, "custom-control-input"], ["for", "timerToggle", 1, "custom-control-label"], ["for", "timerLength", 1, "form-label"], ["type", "range", "data-value", "0.5", "min", "0", "max", "5", "step", "0.5", "value", "timerLength", "id", "timerLength", 1, "form-range"], ["type", "checkbox", "id", "timerStart", 1, "custom-control-input"], ["for", "timerStart", 1, "custom-control-label"], [1, "modal-footer"], ["type", "button", "data-bs-dismiss", "modal", 1, "btn", "btn-secondary", 3, "click"], ["type", "button", "id", "setSettings", 1, "btn", "btn-primary", 3, "click"], ["type", "button", "id", "dismissModal", "data-bs-dismiss", "modal", "aria-hidden", "true", "hidden", "", 1, "btn"], ["data-bs-backdrop", "static", "id", "questionsModal", "tabindex", "-1", "aria-hidden", "true", 1, "modal", "fade"], ["type", "button", "data-bs-toggle", "modal", "data-bs-target", "#questionsModal", "data-bs-dismiss", "modal", "aria-label", "Close", 1, "btn-close"], [1, "modal-body", 2, "max-height", "400px"], [4, "ngFor", "ngForOf"], ["type", "button", "data-bs-dismiss", "modal", 1, "btn", "btn-secondary"], ["type", "button", "data-bs-dismiss", "modal", "id", "saveQuestions", 1, "btn", "btn-primary", 3, "click"], ["type", "button", "data-bs-toggle", "modal", "data-bs-target", "#settingsModal", "aria-hidden", "false"], [1, "card", "border-primary", "mb-3", 2, "max-width", "20rem", "margin-top", "16px", "padding", "10px"], [3, "ngClass"], ["type", "button", 1, "btn", "btn-outline-success", 3, "click"], [1, "text-success"], ["type", "button", "data-bs-toggle", "modal", "data-bs-target", "#settingsModal", 1, "btn", "btn-outline-secondary", 3, "click"], [1, "card-body", "row", 2, "padding", "5px"], ["class", "col", 4, "ngIf"], [1, "col"], ["id", "teamSettings", "type", "button", "data-bs-toggle", "modal", "data-bs-target", "#settingsModal", 1, "btn", "btn-outline-secondary"], ["id", "inputQuestions", "type", "button", "data-bs-toggle", "modal", "data-bs-target", "#questionsModal", 1, "btn", "btn-outline-secondary"], [1, "alert", "alert-dismissible", "fade", "show", "alert-danger"], ["type", "button", "data-dismiss", "alert", 1, "close"], [2, "margin-top", "10px", 3, "for"], ["type", "text", "placeholder", "Enter number of questions", 1, "form-control", 3, "id"], ["type", "button", "data-bs-toggle", "modal", "data-bs-target", "#questionsModal", 1, "btn", "btn-secondary"], [1, "input-group", "mb-3"], ["type", "text", "placeholder", "Paste or type your question", 1, "form-control", 3, "id"], [1, "input-group-text"], ["type", "text", 1, "form-control", 3, "id"], [3, "roomPin", "hostDetails", "player", "teams"], ["type", "text", "id", "lateCode", "placeholder", "e.g E14GV", 1, "form-control"]], template: function GamePlayComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelementStart"](1, "div", 1);
         _angular_core__WEBPACK_IMPORTED_MODULE_1__["ɵɵelement"](2, "div", 2, 3);
@@ -1078,7 +1079,6 @@ class HomeComponent {
     joinRoom() {
         if (this.joinedDisplayNamed.length > 0) {
             this.roomPin = this.roomPin.toUpperCase();
-            console.log('RP', this.roomPin);
             const game = {
                 // hostName: '',
                 roomPin: this.roomPin,
@@ -1238,7 +1238,6 @@ class GameCreationService {
             displayName: '',
             players: players
         };
-        console.log(game);
         let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]();
         headers.append('Content-Type', 'application/json');
         return this.http.post('games/setPlayers', game, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])((res) => res));
@@ -1262,7 +1261,6 @@ class GameCreationService {
             displayName: '',
             questions: questionsObject
         };
-        console.log(game);
         let headers = new _angular_common_http__WEBPACK_IMPORTED_MODULE_0__["HttpHeaders"]();
         headers.append('Content-Type', 'application/json');
         return this.http.post('games/createQuestions', game, { headers: headers }).pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_1__["map"])((res) => res));
@@ -1730,14 +1728,9 @@ class ChatSocketIOService {
     constructor(socketioService) {
         this.socketioService = socketioService;
     }
-    // previousPlayers: any;
-    // gameBegan: any;
-    // hostDetails: any;
     ngOnInit() {
         this.socket = this.socketioService.getSocket();
         this.roomPin = this.socketioService.getRoomPin();
-        // this.receiveChatMessage();
-        console.log(this.socket);
     }
     chatMessage(roomPin, message, player) {
         this.socket.emit('chatMessage', { gameId: roomPin, message: message, player: player });
@@ -1745,7 +1738,6 @@ class ChatSocketIOService {
     receiveChatMessage() {
         return new rxjs__WEBPACK_IMPORTED_MODULE_0__["Observable"]((observer) => {
             this.socket.on('chatMessage', (message) => {
-                console.log(message);
                 observer.next(message);
             });
         });
@@ -1877,6 +1869,9 @@ class SocketioService {
         });
         return this.gameBegan;
     }
+    rejoinPlayer(roomPin, previousID, currentPlayer) {
+        this.socket.emit('rejoinPlayer', { gameId: roomPin, previousID: previousID, currentPlayer: currentPlayer });
+    }
     receiveHostDetails() {
         return new rxjs__WEBPACK_IMPORTED_MODULE_0__["Observable"]((observer) => {
             this.socket.on('getHostDetails', (message) => {
@@ -1915,7 +1910,6 @@ class SocketioService {
     receiveGameSettings() {
         return new rxjs__WEBPACK_IMPORTED_MODULE_0__["Observable"]((observer) => {
             this.socket.on('setGameSettings', (message) => {
-                console.log(message);
                 observer.next(message);
             });
         });
@@ -1930,7 +1924,6 @@ class SocketioService {
     receiveStartRound() {
         return new rxjs__WEBPACK_IMPORTED_MODULE_0__["Observable"]((observer) => {
             this.socket.on('startRound', (message) => {
-                console.log('STARTROUND', message);
                 observer.next(message);
             });
         });
@@ -1994,7 +1987,6 @@ class SocketioService {
     receiveStartTimer() {
         return new rxjs__WEBPACK_IMPORTED_MODULE_0__["Observable"]((observer) => {
             this.socket.on('startTimer', (message) => {
-                console.log(message);
                 observer.next(message);
             });
         });
@@ -2710,27 +2702,40 @@ class GameDetailsComponent {
     ngAfterViewInit() {
         this.teamNumber = this.hostDetails.teamNumber;
         this.currentPlayer = this.player;
+        // this.playerColour = this.currentPlayer.colour
+        console.log('CP on init', this.currentPlayer);
+        if (!(this.currentPlayer.colour === undefined)) {
+            this.playerColour = this.currentPlayer.colour;
+        }
         setTimeout(() => {
             this.gameCreationService.getPlayers(this.roomPin).subscribe((data) => {
-                console.log('PA', data.players);
-                console.log('CPB', this.currentPlayer);
+                console.log('data in GP', data);
+                console.log('players in GP', data.players);
                 this.participantArray = data.players;
-                // update w new fields?
-                this.currentPlayer = this.participantArray[this.currentPlayer.id];
-                console.log('CPA', this.currentPlayer);
+                console.log('PA[CP]', this.participantArray[this.currentPlayer.id]);
+                if (this.participantArray[this.currentPlayer.id] === undefined) {
+                    // rejoined player
+                    for (let keys of Object.keys(this.participantArray)) {
+                        if ((this.participantArray[keys].uid === this.currentPlayer.uid)) {
+                            // this.current
+                        }
+                    }
+                }
+                else {
+                    this.currentPlayer = this.participantArray[this.currentPlayer.id];
+                    console.log('in else?', this.currentPlayer);
+                }
             });
+            console.log('teams', this.teams);
             for (let colour of this.objectKeys(this.teams)) {
                 document.getElementById(colour).style.color = colour;
-                //remove?
                 for (let player of this.objectKeys(this.teams[colour])) {
                     if (this.currentPlayer.id === this.teams[colour][player].id) {
-                        //remove?
                         this.playerColour = colour;
                         this.currentPlayer.colour = colour;
                     }
                 }
             }
-            console.log(this.teams, this.currentPlayer);
             if (!this.hostDetails.include) {
                 this.playerColour = "darkgoldenrod";
             }
@@ -2739,10 +2744,8 @@ class GameDetailsComponent {
             }
             if (this.hostDetails.id === this.currentPlayer.id) {
                 this.host = true;
-                // this.participantArray = this.playerObject;
             }
         }, 500);
-        // setTimeout( () => {  }, 1000);
     }
     receiveBuzzerPressed() {
         this.socketioService.receiveBuzzerPressed().subscribe((player) => {
@@ -2751,9 +2754,6 @@ class GameDetailsComponent {
             this.buzzerDetails = player;
             this.buzzerPress = true;
         });
-    }
-    logCurrentPlayer() {
-        console.log(this.currentPlayer);
     }
     buzzerPressed() {
         this.socketioService.buzzerPressed(this.roomPin, this.currentPlayer.displayName, this.playerColour);
@@ -2808,11 +2808,6 @@ class GameDetailsComponent {
             else {
                 this.firstQuestionBool = true;
             }
-            // let element = <HTMLInputElement> document.getElementById('buzzer');
-            // if (!(this.showAllAnswersBool || this.showAnswersBool)){
-            //   element.disabled = false;
-            //   this.buzzerPress = false;
-            // }
             this.reset();
             if (this.timerAutoStart) {
                 this.startTimer();
@@ -2859,21 +2854,23 @@ class GameDetailsComponent {
             if (this.timerAutoStart) {
                 this.startTimer();
             }
-            // }
         });
     }
-    reconnectPlayer() {
-        console.log('reconnect');
-        console.log(this.participantArray);
-        this.reconnectPlayerBool = true;
-        // for (let player of this.objectKeys(this.participantArray)){
-        //   if 
-        //   // for (let play of this.objectKeys(this.playerObject)) {
-        //     if (this.playerObject[player]===undefined) {
-        //       console.log(this.participantArray[player]);
-        //     }
-        // }
-        // }
+    // reconnectPlayer(){
+    //   console.log('reconnect');
+    //   console.log(this.participantArray);
+    //   this.reconnectPlayerBool = true;
+    //   // for (let player of this.objectKeys(this.participantArray)){
+    //   //   if 
+    //   //   // for (let play of this.objectKeys(this.playerObject)) {
+    //   //     if (this.playerObject[player]===undefined) {
+    //   //       console.log(this.participantArray[player]);
+    //   //     }
+    //     // }
+    //   // }
+    // }
+    logCurrentPlayer() {
+        console.log(this.currentPlayer);
     }
     reset() {
         if (this.buzzerEnabled && this.showBuzzer) {
@@ -2889,7 +2886,6 @@ class GameDetailsComponent {
         if (this.timerAutoStart) {
             this.stopTimer();
         }
-        // this.timerStarted = false;
     }
     receiveNextRound() {
         this.socketioService.receiveNextRound().subscribe((data) => {
@@ -2921,8 +2917,6 @@ class GameDetailsComponent {
             else if (data === 'all') {
                 this.showAllAnswersBool = true;
                 this.showAnswersBool = false;
-                // this.currentRound = 1;
-                //answers pop up?
             }
             this.currentQuestion = 0;
             this.showBuzzer = false;
@@ -2932,11 +2926,9 @@ class GameDetailsComponent {
     receiveReset() {
         this.socketioService.receiveReset().subscribe((data) => {
             if (data === 'both') {
-                console.log('both');
                 this.reset();
             }
             else if (data === 't') {
-                console.log('t');
                 clearInterval(this.interVal);
                 document.getElementById('timer').innerHTML = this.timerLength + '';
                 this.currentTimer = this.timerLength;
@@ -2946,7 +2938,6 @@ class GameDetailsComponent {
                 let element = document.getElementById('buzzer');
                 element.disabled = false;
                 this.buzzerPress = false;
-                console.log('b');
             }
         });
     }
@@ -2961,27 +2952,19 @@ class GameDetailsComponent {
     }
     receiveGameSettings() {
         this.socketioService.receiveGameSettings().subscribe((data) => {
-            console.log('GAMESETTINGS', data);
             this.buzzerEnabled = data.buzzer;
             this.timerEnabled = data.timer;
             this.timerAutoStart = data.timerStart;
             this.timerLength = (parseFloat(data.timerLength) * 60);
-            // document.getElementById('timer')!.style.fontFamily = "Cabin Sketch";
-            // document.getElementById('timer')!.style.fontWeight = "500";
-            // document.getElementById('timer')!.style.fontSize ="xx-large";
-            // document.getElementById('timer')!.innerHTML = this.timerLength + '';
         });
     }
-    // cT < 1?
     receiveStartTimer() {
         this.socketioService.receiveStartTimer().subscribe((data) => {
             if (data) {
                 this.timerStarted = true;
-                // let time = this.timerLength;
                 if (this.currentTimer < 1) {
                     this.currentTimer = this.timerLength;
                 }
-                // if (!document.getElementById('timer')===null){
                 this.interVal = setInterval(() => {
                     this.currentTimer -= 1;
                     document.getElementById('timer').style.fontFamily = "Cabin Sketch";
@@ -2998,7 +2981,6 @@ class GameDetailsComponent {
                         clearInterval(this.interVal);
                     }
                 }, 1000);
-                // }
             }
             else {
                 this.timerStarted = false;
@@ -3941,12 +3923,10 @@ class GameChatComponent {
         setTimeout(() => {
             this.currentPlayer = this.player;
             this.playerColour = this.currentPlayer.colour;
-            console.log(this.currentPlayer, this.player);
         }, 500);
     }
     sendMessage() {
         let messageElement = document.getElementById('messageInput');
-        console.log(messageElement.value);
         if (messageElement.value) {
             this.chatSocketIOService.chatMessage(this.roomPin, messageElement.value, this.player);
             let item = document.createElement('div');

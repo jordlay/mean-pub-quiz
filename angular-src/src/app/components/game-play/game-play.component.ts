@@ -10,7 +10,6 @@ import { Router,  ActivatedRoute, ParamMap } from '@angular/router';
 })
 export class GameDetailsComponent implements OnInit {
   @Input() roomPin:any;
-  // @Input() playerObject: any;
   @Input() hostDetails: any;
   @Input() player: any;
   @Input() teams: any;
@@ -89,28 +88,39 @@ export class GameDetailsComponent implements OnInit {
   ngAfterViewInit(){
     this.teamNumber = this.hostDetails.teamNumber;
     this.currentPlayer = this.player;
+    // this.playerColour = this.currentPlayer.colour
+    console.log('CP on init', this.currentPlayer);
+    if (!(this.currentPlayer.colour === undefined)) {
+      this.playerColour = this.currentPlayer.colour;
+    }
     setTimeout( () => {
       this.gameCreationService.getPlayers(this.roomPin).subscribe((data:any) => {
-        console.log('PA', data.players);
-        console.log('CPB', this.currentPlayer);
+        console.log('data in GP', data);
+        console.log('players in GP', data.players);
         this.participantArray = data.players;
-        // update w new fields?
-        this.currentPlayer = this.participantArray[this.currentPlayer.id];
-        console.log('CPA', this.currentPlayer);
+        console.log('PA[CP]', this.participantArray[this.currentPlayer.id])
+        if (this.participantArray[this.currentPlayer.id] === undefined) {
+          // rejoined player
+          for (let keys of Object.keys(this.participantArray)) {
+            if ((this.participantArray[keys].uid === this.currentPlayer.uid)) {
+              // this.current
+            }
+          }
+        } else {
+          this.currentPlayer = this.participantArray[this.currentPlayer.id];
+          console.log('in else?', this.currentPlayer);
+        }
       });
-      
+      console.log('teams',this.teams);
       for (let colour of this.objectKeys(this.teams)){
         document.getElementById(colour)!.style.color = colour;
-        //remove?
         for (let player of this.objectKeys(this.teams[colour])){
           if (this.currentPlayer.id === this.teams[colour][player].id) {
-            //remove?
             this.playerColour = colour;
             this.currentPlayer.colour = colour;
           }
         }
       }
-      console.log(this.teams, this.currentPlayer);
       if (!this.hostDetails.include) {
         this.playerColour = "darkgoldenrod";
       }
@@ -119,10 +129,8 @@ export class GameDetailsComponent implements OnInit {
       }
       if (this.hostDetails.id === this.currentPlayer.id) {
         this.host = true;
-        // this.participantArray = this.playerObject;
       }
     }, 500)
-    // setTimeout( () => {  }, 1000);
   }
 
   receiveBuzzerPressed(){
@@ -134,9 +142,6 @@ export class GameDetailsComponent implements OnInit {
     });
   }
  
-  logCurrentPlayer(){
-    console.log(this.currentPlayer);
-  }
   buzzerPressed(){
     this.socketioService.buzzerPressed(this.roomPin, this.currentPlayer.displayName, this.playerColour);
   }
@@ -197,11 +202,6 @@ export class GameDetailsComponent implements OnInit {
       } else {
         this.firstQuestionBool = true;
       }
-      // let element = <HTMLInputElement> document.getElementById('buzzer');
-      // if (!(this.showAllAnswersBool || this.showAnswersBool)){
-      //   element.disabled = false;
-      //   this.buzzerPress = false;
-      // }
       this.reset();
       if (this.timerAutoStart) {
         this.startTimer()
@@ -250,21 +250,24 @@ export class GameDetailsComponent implements OnInit {
           if (this.timerAutoStart) {
             this.startTimer()
           }
-      // }
     });
   }
-  reconnectPlayer(){
-    console.log('reconnect');
-    console.log(this.participantArray);
-    this.reconnectPlayerBool = true;
-    // for (let player of this.objectKeys(this.participantArray)){
-    //   if 
-    //   // for (let play of this.objectKeys(this.playerObject)) {
-    //     if (this.playerObject[player]===undefined) {
-    //       console.log(this.participantArray[player]);
-    //     }
-      // }
-    // }
+  // reconnectPlayer(){
+  //   console.log('reconnect');
+  //   console.log(this.participantArray);
+  //   this.reconnectPlayerBool = true;
+  //   // for (let player of this.objectKeys(this.participantArray)){
+  //   //   if 
+  //   //   // for (let play of this.objectKeys(this.playerObject)) {
+  //   //     if (this.playerObject[player]===undefined) {
+  //   //       console.log(this.participantArray[player]);
+  //   //     }
+  //     // }
+  //   // }
+  // }
+
+  logCurrentPlayer(){
+    console.log(this.currentPlayer);
   }
 
   reset(){
@@ -281,7 +284,6 @@ export class GameDetailsComponent implements OnInit {
     if (this.timerAutoStart) {
       this.stopTimer();
     }
-    // this.timerStarted = false;
   }
 
   receiveNextRound(){
@@ -316,8 +318,6 @@ export class GameDetailsComponent implements OnInit {
       } else if (data === 'all') {
         this.showAllAnswersBool = true;
         this.showAnswersBool = false;
-        // this.currentRound = 1;
-        //answers pop up?
       }
       this.currentQuestion = 0;
       this.showBuzzer = false;
@@ -327,10 +327,8 @@ export class GameDetailsComponent implements OnInit {
   receiveReset(){
     this.socketioService.receiveReset().subscribe( (data:any) => {
       if (data === 'both') {
-        console.log('both');
         this.reset();
       } else if (data === 't') {
-        console.log('t');
         clearInterval(this.interVal);
         document.getElementById('timer')!.innerHTML = this.timerLength + '';
         this.currentTimer = this.timerLength;
@@ -339,7 +337,6 @@ export class GameDetailsComponent implements OnInit {
         let element = <HTMLInputElement> document.getElementById('buzzer');
         element.disabled = false;
         this.buzzerPress = false;
-        console.log('b');
       }
     });
   }
@@ -358,28 +355,20 @@ export class GameDetailsComponent implements OnInit {
   timerAutoStart:any;
   receiveGameSettings(){
     this.socketioService.receiveGameSettings().subscribe( (data:any) => {
-      console.log('GAMESETTINGS', data);
       this.buzzerEnabled = data.buzzer;
       this.timerEnabled = data.timer;
       this.timerAutoStart = data.timerStart
       this.timerLength = (parseFloat(data.timerLength) * 60);
-      // document.getElementById('timer')!.style.fontFamily = "Cabin Sketch";
-      // document.getElementById('timer')!.style.fontWeight = "500";
-      // document.getElementById('timer')!.style.fontSize ="xx-large";
-      // document.getElementById('timer')!.innerHTML = this.timerLength + '';
     });
   }
 
-  // cT < 1?
   receiveStartTimer(){
     this.socketioService.receiveStartTimer().subscribe( (data:any) => {
     if (data) {
       this.timerStarted = true;
-      // let time = this.timerLength;
       if (this.currentTimer < 1) {
         this.currentTimer = this.timerLength;
       }
-      // if (!document.getElementById('timer')===null){
         this.interVal = setInterval( () => {
           this.currentTimer -=1;
           document.getElementById('timer')!.style.fontFamily = "Cabin Sketch";
@@ -396,7 +385,6 @@ export class GameDetailsComponent implements OnInit {
             clearInterval(this.interVal);
           }
          }, 1000);
-      // }
     } else {
       this.timerStarted = false;
       clearInterval(this.interVal);

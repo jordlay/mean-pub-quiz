@@ -50,7 +50,7 @@
                                 <button id="inputQuestions" type="button" class="btn btn-outline-secondary"  data-bs-toggle="modal" data-bs-target="#questionsModal">Input Questions</button>
                             </div>
                             <div class="col">
-                                <button id="teamSettings" type="button" class="btn btn-outline-secondary"  data-bs-toggle="modal" data-bs-target="#settingsModal" (click)="openTeamSettings()">Team Settings</button>
+                                <button id="teamSettings" type="button" class="btn btn-outline-secondary"  data-bs-toggle="modal" data-bs-target="#settingsModal" >Change Settings</button>
                             </div>
                          </div>
                     </div>
@@ -253,7 +253,6 @@
                 <button type="button" class="btn btn-outline-success" (click)="rejoinGame()">Join</button>
             </div>
             <div *ngIf="this.gameStarted">
-
                 <app-game-play [roomPin]="this.roomPin"  [hostDetails]="this.hostDetails" [player]="this.currentPlayer" [teams]="this.teams"></app-game-play>
             </div>
         </div>

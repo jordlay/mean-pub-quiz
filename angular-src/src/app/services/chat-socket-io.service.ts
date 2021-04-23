@@ -14,15 +14,10 @@ export class ChatSocketIOService {
   socket!: Socket;
   socketID: any;
   roomPin:any;
-  // previousPlayers: any;
-  // gameBegan: any;
-  // hostDetails: any;
 
   ngOnInit(){
     this.socket = this.socketioService.getSocket();
     this.roomPin = this.socketioService.getRoomPin();
-    // this.receiveChatMessage();
-    console.log(this.socket);
   }
 
   chatMessage(roomPin:any, message:any, player:any){
@@ -32,7 +27,6 @@ export class ChatSocketIOService {
   receiveChatMessage(){
     return new Observable((observer) => {
       this.socket.on('chatMessage', (message: any) => {
-        console.log(message);
         observer.next(message);
       });
     });

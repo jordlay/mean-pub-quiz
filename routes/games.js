@@ -64,7 +64,7 @@ router.post('/getQuestions',(req,res,next) => {
     const game = req.body;
     console.log('GS', game)
         Game.getGameByPin(game.roomPin, (err,game) => {
-            console.log(game);
+            console.log('Game', game);
             if (err) { throw err; }
             return res.json({success: true, msg: 'Questions Created', questions: game.questions});
         });
@@ -83,7 +83,8 @@ router.post('/getPlayers',(req,res,next) => {
     const game = req.body;
     console.log('GP', game)
         Game.getGameByPin(game.roomPin, (err,game) => {
-            console.log(game);
+            console.log('GP game', game);
+            console.log('GP game players', game.players);
             if (err) { throw err; }
             return res.json({success: true, msg: 'Got Players', players: game.players});
         });

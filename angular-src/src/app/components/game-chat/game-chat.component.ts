@@ -27,17 +27,14 @@ export class GameChatComponent implements OnInit {
     setTimeout( ()=> {
       this.currentPlayer = this.player;
       this.playerColour = this.currentPlayer.colour;
-      console.log(this.currentPlayer, this.player);
     }, 500);
 
   }
 
   sendMessage(){
     let messageElement = <HTMLInputElement> document.getElementById('messageInput');
-    console.log(messageElement.value);
     if (messageElement.value) {
       this.chatSocketIOService.chatMessage(this.roomPin, messageElement.value, this.player);
-
       let item = document.createElement('div');
       var innerItem = document.createElement('span');
       innerItem.textContent = messageElement.value;

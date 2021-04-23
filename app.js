@@ -60,15 +60,12 @@ io.on("connection", (socket) => {
     });
 
     socket.on('setGameSettings', ({gameId, buzzer, timer, timerLength, timerStart}) => {
-        //store before emitting to all in case join late?
-        console.log(buzzer,timer,timerLength,timerStart);
         settings = {}
         settings[gameId] = {}
         settings[gameId].buzzer = buzzer
         settings[gameId].timer = timer
         settings[gameId].timerLength = timerLength
         settings[gameId].timerStart = timerStart
-        console.log(settings[gameId]);
         io.to(gameId).emit('setGameSettings', settings[gameId])
     });
 
@@ -76,9 +73,6 @@ io.on("connection", (socket) => {
         gameBegan[gameId] = true;
         previousHostDetails[gameId] = hostDetails;
         previousJoinedPlayers[gameId] = playerData
-        // move this to end with added team colours
-        // io.to(gameId).emit('startGame', playerData);
-       
         io.to(gameId).emit('getHostDetails', previousHostDetails[gameId])
         teams[gameId] = {}; 
         numberOfTeams = hostDetails.teamNumber;
@@ -90,8 +84,7 @@ io.on("connection", (socket) => {
         }
         for (let key of Object.keys(previousJoinedPlayers[gameId])) {
             playerNames.push(previousJoinedPlayers[gameId][key].displayName);
-            playerid.push(previousJoinedPlayers[gameId][key].id);
-            
+            playerid.push(previousJoinedPlayers[gameId][key].id); 
         }                                                                                                     
         if (!hostDetails.include) {
             let index = playerNames.indexOf(hostDetails.displayName);
@@ -108,18 +101,15 @@ io.on("connection", (socket) => {
                 teams[gameId][keys[j]][playerid[i]].displayName = playerNames[i];
                 teams[gameId][keys[j]][playerid[i]].id = playerid[i];
                 previousJoinedPlayers[gameId][playerid[i]].colour = keys[j];
-                console.log(previousJoinedPlayers[gameId][playerid[i]]);
                 i++
                 if (i === numberOfPlayers) {
                     break;
                 }
             }
         }
-        console.log(previousJoinedPlayers[gameId])
         io.to(gameId).emit('startGame', previousJoinedPlayers[gameId])
         io.to(gameId).emit('getTeams', teams[gameId])
         io.to(gameId).emit('setGameSettings', settings[gameId])
-        console.log('GS in SG', settings[gameId]);
         console.log('Game began ' + gameId);
     })
 
@@ -135,6 +125,35 @@ io.on("connection", (socket) => {
     socket.on('playerLeft', ({gameId, playerData}) => {
         delete previousJoinedPlayers[gameId][playerData.id];
     });
+    
+    socket.on('rejoinPlayer', ({gameId, previousID, currentPlayer}) => {
+        let keys = Object.keys(teams[gameId]);
+        console.log('teams', teams[gameId]);
+        for (let j = 0; j < keys.length; j++) {
+            let idKeys = Object.keys(teams[gameId][keys[j]]);
+            console.log('j', teams[gameId][keys[j]]);
+            for (let i = 0; i < idKeys.length; i++) {
+                console.log('i', teams[gameId][keys[j]][idKeys[i]], previousID);
+                if (teams[gameId][keys[j]][idKeys[i]].id === previousID.id) {
+                    console.log('match');
+                    teams[gameId][keys[j]][currentPlayer.id] = {};
+                    teams[gameId][keys[j]][currentPlayer.id].id = currentPlayer.id;
+                    teams[gameId][keys[j]][currentPlayer.id].displayName = currentPlayer.displayName;
+                    delete teams[gameId][keys[j]][previousID.id]
+                    console.log('after delete' , teams[gameId]);
+                    console.log(previousJoinedPlayers[gameId]);
+                    delete previousJoinedPlayers[gameId][previousID.id] 
+                    previousJoinedPlayers[gameId][currentPlayer.id] = {}
+                    previousJoinedPlayers[gameId][currentPlayer.id] = currentPlayer
+                    previousJoinedPlayers[gameId][currentPlayer.id].socketID = socket.id
+                    // socket.emit('getPreviousJoinedPlayers', previousJoinedPlayers[gameId]);
+                    console.log(previousJoinedPlayers[gameId]);
+                    io.to(gameId).emit('getPreviousJoinedPlayers', previousJoinedPlayers[gameId]);
+                    break;
+                }
+            }            
+        }
+    });
 
     socket.on('buzzerPressed', ({gameId, playerName, playerColour }) => {
         let buzzerDetail = {};
@@ -145,17 +164,10 @@ io.on("connection", (socket) => {
     });
 
     socket.on('startRound', ({gameId, round}) => {
-        console.log('ROUND', round)
         io.to(gameId).emit('startRound', round);
-        // if (settings[gameId].timerStart) {
-        //     io.to(gameId).emit('startTimer', true);
-        // }
     });
     socket.on('nextQuestion', ({gameId, questionNumber}) => {
         io.to(gameId).emit('nextQuestion', questionNumber);
-        // if (settings[gameId].timerStart) {
-        //     io.to(gameId).emit('startTimer', true);
-        // }
     });
     socket.on('nextRound', ({gameId}) => {
         io.to(gameId).emit('nextRound', gameId);
@@ -173,18 +185,14 @@ io.on("connection", (socket) => {
         io.to(gameId).emit('claimHost', gameId);
     });
     socket.on('startTimer', ({gameId, startBool}) => {
-        console.log(startBool);
         io.to(gameId).emit('startTimer', startBool);
     });
     socket.on('chatMessage', ({gameId, message, player}) => {
-        console.log(message);
-        console.log(player);
         chatMessage = {}
         chatMessage[gameId] = {}
         chatMessage[gameId][player.colour] ={}
         chatMessage[gameId][player.colour] = player
         chatMessage[gameId][player.colour].message = message;
-        console.log(chatMessage[gameId][player.colour]);
         socket.to(gameId).emit('chatMessage', chatMessage[gameId]);
       });
 });

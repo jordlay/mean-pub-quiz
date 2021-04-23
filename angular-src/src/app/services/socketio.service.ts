@@ -96,6 +96,9 @@ export class SocketioService {
     return this.gameBegan
   }
 
+  rejoinPlayer(roomPin:any, previousID:any, currentPlayer:any){
+    this.socket.emit('rejoinPlayer', {gameId : roomPin, previousID: previousID, currentPlayer:currentPlayer});
+  }
   receiveHostDetails(){
     return new Observable((observer) => {
       this.socket.on('getHostDetails', (message: any) => {
@@ -138,7 +141,6 @@ export class SocketioService {
   receiveGameSettings() {
     return new Observable((observer) => {
       this.socket.on('setGameSettings', (message: any) => {
-        console.log(message);
         observer.next(message);
       });
     });
@@ -154,7 +156,6 @@ export class SocketioService {
   receiveStartRound() {
     return new Observable((observer) => {
       this.socket.on('startRound', (message: any) => {
-        console.log('STARTROUND', message);
         observer.next(message);
       });
     });
@@ -226,7 +227,6 @@ export class SocketioService {
   receiveStartTimer(){
     return new Observable((observer) => {
       this.socket.on('startTimer', (message: any) => {
-        console.log(message);
         observer.next(message);
       });
     });

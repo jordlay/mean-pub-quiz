@@ -32,14 +32,12 @@ const GameSchema = mongoose.Schema( {
     }
 
     module.exports.createQuestions = function(game,callback){
-        console.log('G', game);
         const query = {roomPin : game.roomPin};
         const newQuestions = { $set: {questions: game.questions}}
         Game.updateOne(query, newQuestions, callback);
     }
 
     module.exports.setPlayers = function(game,callback){
-        console.log('G', game);
         const query = {roomPin : game.roomPin};
         const newPlayers = { $set: {players: game.players}}
         Game.updateOne(query, newPlayers, callback);
