@@ -366,48 +366,28 @@ export class GamePlayComponent implements OnInit {
   rejoinGame(){
     // find player with that unique id and update that current player w new PI and socketID
     let code = <HTMLInputElement> document.getElementById('lateCode')!;
-    console.log(code.value);
-    console.log(this.currentPlayer);
     this.gameCreationService.getPlayers(this.roomPin).subscribe((data:any) => {
       let players = data.players;
-      console.log('players', data.players)
-      //does it remove from db on disconnect??? shouldnt???
       for (let key of this.objectKeys(players)) {
-        console.log(players[key].uid, code.value);
         if (players[key].uid === code.value) {
           this.currentPlayer.uid = players[key].uid;
           this.currentPlayer.colour = players[key].colour;
-          
-          console.log(this.currentPlayer);
-          // add CP to players
-          console.log(players);
           players[this.currentPlayer.id] = this.currentPlayer;
-          // updat teams + get socket id
           this.socketioService.rejoinPlayer(this.roomPin, players[players[key].id], this.currentPlayer);
           delete players[players[key].id];
-          
-          console.log(players);
-          console.log(this.currentPlayer)
-
           this.previousPlayers = this.socketioService.getPreviousJoinedPlayers();
           for (let key of this.objectKeys(this.previousPlayers))  {
-            console.log(this.previousPlayers[key], this.currentPlayer);
             if (key === this.currentPlayer.id) {
               this.previousPlayers[key].colour = this.currentPlayer.colour;
               this.previousPlayers[key].uid = this.currentPlayer.uid;
             }
           }
-          console.log('PPs', this.previousPlayers);
           this.gameCreationService.setPlayers(this.roomPin, this.previousPlayers).subscribe(()=>{
-            console.log('message in Rejoin', this.previousPlayers);
           });
-
           this.gameStarted = true;
         }
       } 
     });
-
-
   }
 
   receiveHostDetails(){
@@ -426,24 +406,18 @@ export class GamePlayComponent implements OnInit {
 
   receiveBeginGame() {
     this.socketioService.receiveBeginGame().subscribe((message:any)=>{
-      console.log('BG Mess', message);
-      // this.participantArray = message;
       if (!this.gameAlreadyBegun){
         this.participantArray = message;
         this.gameCreationService.setPlayers(this.roomPin, message).subscribe(()=>{
-          console.log('message in RBG', message);
         });
         this.gameStarted = true;
         this.gameAlreadyBegun = true;
-      } else {
-        console.log('gamebegun');
-      }   
+      } 
     });
   }
 
   receiveTeams(){
     this.socketioService.receiveTeams().subscribe((teams:any)=>{
-      console.log('teams', teams)
       this.teams = teams;
     });
   }

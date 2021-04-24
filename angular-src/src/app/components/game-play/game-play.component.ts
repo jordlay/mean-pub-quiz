@@ -88,17 +88,12 @@ export class GameDetailsComponent implements OnInit {
   ngAfterViewInit(){
     this.teamNumber = this.hostDetails.teamNumber;
     this.currentPlayer = this.player;
-    // this.playerColour = this.currentPlayer.colour
-    console.log('CP on init', this.currentPlayer);
     if (!(this.currentPlayer.colour === undefined)) {
       this.playerColour = this.currentPlayer.colour;
     }
     setTimeout( () => {
       this.gameCreationService.getPlayers(this.roomPin).subscribe((data:any) => {
-        console.log('data in GP', data);
-        console.log('players in GP', data.players);
         this.participantArray = data.players;
-        console.log('PA[CP]', this.participantArray[this.currentPlayer.id])
         if (this.participantArray[this.currentPlayer.id] === undefined) {
           // rejoined player
           for (let keys of Object.keys(this.participantArray)) {
@@ -108,10 +103,8 @@ export class GameDetailsComponent implements OnInit {
           }
         } else {
           this.currentPlayer = this.participantArray[this.currentPlayer.id];
-          console.log('in else?', this.currentPlayer);
         }
       });
-      console.log('teams',this.teams);
       for (let colour of this.objectKeys(this.teams)){
         document.getElementById(colour)!.style.color = colour;
         for (let player of this.objectKeys(this.teams[colour])){
@@ -248,41 +241,29 @@ export class GameDetailsComponent implements OnInit {
           document.getElementById('timer')!.innerHTML = this.timerLength + '';
         }
           if (this.timerAutoStart) {
+            clearInterval(this.interVal);
+            this.currentTimer = this.timerLength;
             this.startTimer()
           }
     });
   }
-  // reconnectPlayer(){
-  //   console.log('reconnect');
-  //   console.log(this.participantArray);
-  //   this.reconnectPlayerBool = true;
-  //   // for (let player of this.objectKeys(this.participantArray)){
-  //   //   if 
-  //   //   // for (let play of this.objectKeys(this.playerObject)) {
-  //   //     if (this.playerObject[player]===undefined) {
-  //   //       console.log(this.participantArray[player]);
-  //   //     }
-  //     // }
-  //   // }
-  // }
 
   logCurrentPlayer(){
     console.log(this.currentPlayer);
   }
 
   reset(){
+    clearInterval(this.interVal);
+    this.timerStarted = false;
+    this.stopTimer();
+    this.currentTimer = this.timerLength;
     if (this.buzzerEnabled && this.showBuzzer) {
       let element = <HTMLInputElement> document.getElementById('buzzer');
       element.disabled = false;
       this.buzzerPress = false;
     }
-    if (this.timerEnabled && this.showTimer) {
-      clearInterval(this.interVal);
+    if (this.showTimer) {
       document.getElementById('timer')!.innerHTML = this.timerLength + '';
-      this.currentTimer = this.timerLength;
-    }
-    if (this.timerAutoStart) {
-      this.stopTimer();
     }
   }
 
@@ -301,6 +282,9 @@ export class GameDetailsComponent implements OnInit {
       }
       this.showTimer = false;
       this.showBuzzer = false;
+      // if (this.timerStarted) {
+      //   this.stopTimer()
+      // }
       this.reset();
     });
   }
@@ -319,9 +303,11 @@ export class GameDetailsComponent implements OnInit {
         this.showAllAnswersBool = true;
         this.showAnswersBool = false;
       }
+      clearInterval(this.interVal)
       this.currentQuestion = 0;
       this.showBuzzer = false;
       this.showTimer = false;
+      
     });
   }
   receiveReset(){
@@ -375,14 +361,9 @@ export class GameDetailsComponent implements OnInit {
           document.getElementById('timer')!.style.fontWeight = "500";
           document.getElementById('timer')!.style.fontSize ="xx-large";
           document.getElementById('timer')!.innerHTML = this.currentTimer + '';
-          if (this.currentTimer < 0) {
+          if (this.currentTimer <= 0) {
             clearInterval(this.interVal);
-            document.getElementById('timer')!.style.fontFamily = "Cabin Sketch";
-            document.getElementById('timer')!.style.fontWeight = "500";
-            document.getElementById('timer')!.style.fontSize ="x-large";
-            document.getElementById('timer')!.innerHTML = "Time's Up";
             this.timerStarted = false;
-            clearInterval(this.interVal);
           }
          }, 1000);
     } else {

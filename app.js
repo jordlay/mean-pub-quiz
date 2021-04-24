@@ -128,26 +128,18 @@ io.on("connection", (socket) => {
     
     socket.on('rejoinPlayer', ({gameId, previousID, currentPlayer}) => {
         let keys = Object.keys(teams[gameId]);
-        console.log('teams', teams[gameId]);
         for (let j = 0; j < keys.length; j++) {
             let idKeys = Object.keys(teams[gameId][keys[j]]);
-            console.log('j', teams[gameId][keys[j]]);
             for (let i = 0; i < idKeys.length; i++) {
-                console.log('i', teams[gameId][keys[j]][idKeys[i]], previousID);
                 if (teams[gameId][keys[j]][idKeys[i]].id === previousID.id) {
-                    console.log('match');
                     teams[gameId][keys[j]][currentPlayer.id] = {};
                     teams[gameId][keys[j]][currentPlayer.id].id = currentPlayer.id;
                     teams[gameId][keys[j]][currentPlayer.id].displayName = currentPlayer.displayName;
                     delete teams[gameId][keys[j]][previousID.id]
-                    console.log('after delete' , teams[gameId]);
-                    console.log(previousJoinedPlayers[gameId]);
                     delete previousJoinedPlayers[gameId][previousID.id] 
                     previousJoinedPlayers[gameId][currentPlayer.id] = {}
                     previousJoinedPlayers[gameId][currentPlayer.id] = currentPlayer
                     previousJoinedPlayers[gameId][currentPlayer.id].socketID = socket.id
-                    // socket.emit('getPreviousJoinedPlayers', previousJoinedPlayers[gameId]);
-                    console.log(previousJoinedPlayers[gameId]);
                     io.to(gameId).emit('getPreviousJoinedPlayers', previousJoinedPlayers[gameId]);
                     break;
                 }

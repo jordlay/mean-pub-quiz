@@ -859,37 +859,23 @@ class GamePlayComponent {
     rejoinGame() {
         // find player with that unique id and update that current player w new PI and socketID
         let code = document.getElementById('lateCode');
-        console.log(code.value);
-        console.log(this.currentPlayer);
         this.gameCreationService.getPlayers(this.roomPin).subscribe((data) => {
             let players = data.players;
-            console.log('players', data.players);
-            //does it remove from db on disconnect??? shouldnt???
             for (let key of this.objectKeys(players)) {
-                console.log(players[key].uid, code.value);
                 if (players[key].uid === code.value) {
                     this.currentPlayer.uid = players[key].uid;
                     this.currentPlayer.colour = players[key].colour;
-                    console.log(this.currentPlayer);
-                    // add CP to players
-                    console.log(players);
                     players[this.currentPlayer.id] = this.currentPlayer;
-                    // updat teams + get socket id
                     this.socketioService.rejoinPlayer(this.roomPin, players[players[key].id], this.currentPlayer);
                     delete players[players[key].id];
-                    console.log(players);
-                    console.log(this.currentPlayer);
                     this.previousPlayers = this.socketioService.getPreviousJoinedPlayers();
                     for (let key of this.objectKeys(this.previousPlayers)) {
-                        console.log(this.previousPlayers[key], this.currentPlayer);
                         if (key === this.currentPlayer.id) {
                             this.previousPlayers[key].colour = this.currentPlayer.colour;
                             this.previousPlayers[key].uid = this.currentPlayer.uid;
                         }
                     }
-                    console.log('PPs', this.previousPlayers);
                     this.gameCreationService.setPlayers(this.roomPin, this.previousPlayers).subscribe(() => {
-                        console.log('message in Rejoin', this.previousPlayers);
                     });
                     this.gameStarted = true;
                 }
@@ -910,24 +896,17 @@ class GamePlayComponent {
     }
     receiveBeginGame() {
         this.socketioService.receiveBeginGame().subscribe((message) => {
-            console.log('BG Mess', message);
-            // this.participantArray = message;
             if (!this.gameAlreadyBegun) {
                 this.participantArray = message;
                 this.gameCreationService.setPlayers(this.roomPin, message).subscribe(() => {
-                    console.log('message in RBG', message);
                 });
                 this.gameStarted = true;
                 this.gameAlreadyBegun = true;
-            }
-            else {
-                console.log('gamebegun');
             }
         });
     }
     receiveTeams() {
         this.socketioService.receiveTeams().subscribe((teams) => {
-            console.log('teams', teams);
             this.teams = teams;
         });
     }
@@ -2702,17 +2681,12 @@ class GameDetailsComponent {
     ngAfterViewInit() {
         this.teamNumber = this.hostDetails.teamNumber;
         this.currentPlayer = this.player;
-        // this.playerColour = this.currentPlayer.colour
-        console.log('CP on init', this.currentPlayer);
         if (!(this.currentPlayer.colour === undefined)) {
             this.playerColour = this.currentPlayer.colour;
         }
         setTimeout(() => {
             this.gameCreationService.getPlayers(this.roomPin).subscribe((data) => {
-                console.log('data in GP', data);
-                console.log('players in GP', data.players);
                 this.participantArray = data.players;
-                console.log('PA[CP]', this.participantArray[this.currentPlayer.id]);
                 if (this.participantArray[this.currentPlayer.id] === undefined) {
                     // rejoined player
                     for (let keys of Object.keys(this.participantArray)) {
@@ -2723,10 +2697,8 @@ class GameDetailsComponent {
                 }
                 else {
                     this.currentPlayer = this.participantArray[this.currentPlayer.id];
-                    console.log('in else?', this.currentPlayer);
                 }
             });
-            console.log('teams', this.teams);
             for (let colour of this.objectKeys(this.teams)) {
                 document.getElementById(colour).style.color = colour;
                 for (let player of this.objectKeys(this.teams[colour])) {
@@ -2852,39 +2824,27 @@ class GameDetailsComponent {
                 document.getElementById('timer').innerHTML = this.timerLength + '';
             }
             if (this.timerAutoStart) {
+                clearInterval(this.interVal);
+                this.currentTimer = this.timerLength;
                 this.startTimer();
             }
         });
     }
-    // reconnectPlayer(){
-    //   console.log('reconnect');
-    //   console.log(this.participantArray);
-    //   this.reconnectPlayerBool = true;
-    //   // for (let player of this.objectKeys(this.participantArray)){
-    //   //   if 
-    //   //   // for (let play of this.objectKeys(this.playerObject)) {
-    //   //     if (this.playerObject[player]===undefined) {
-    //   //       console.log(this.participantArray[player]);
-    //   //     }
-    //     // }
-    //   // }
-    // }
     logCurrentPlayer() {
         console.log(this.currentPlayer);
     }
     reset() {
+        clearInterval(this.interVal);
+        this.timerStarted = false;
+        this.stopTimer();
+        this.currentTimer = this.timerLength;
         if (this.buzzerEnabled && this.showBuzzer) {
             let element = document.getElementById('buzzer');
             element.disabled = false;
             this.buzzerPress = false;
         }
-        if (this.timerEnabled && this.showTimer) {
-            clearInterval(this.interVal);
+        if (this.showTimer) {
             document.getElementById('timer').innerHTML = this.timerLength + '';
-            this.currentTimer = this.timerLength;
-        }
-        if (this.timerAutoStart) {
-            this.stopTimer();
         }
     }
     receiveNextRound() {
@@ -2901,6 +2861,9 @@ class GameDetailsComponent {
             }
             this.showTimer = false;
             this.showBuzzer = false;
+            // if (this.timerStarted) {
+            //   this.stopTimer()
+            // }
             this.reset();
         });
     }
@@ -2918,6 +2881,7 @@ class GameDetailsComponent {
                 this.showAllAnswersBool = true;
                 this.showAnswersBool = false;
             }
+            clearInterval(this.interVal);
             this.currentQuestion = 0;
             this.showBuzzer = false;
             this.showTimer = false;
@@ -2971,14 +2935,9 @@ class GameDetailsComponent {
                     document.getElementById('timer').style.fontWeight = "500";
                     document.getElementById('timer').style.fontSize = "xx-large";
                     document.getElementById('timer').innerHTML = this.currentTimer + '';
-                    if (this.currentTimer < 0) {
+                    if (this.currentTimer <= 0) {
                         clearInterval(this.interVal);
-                        document.getElementById('timer').style.fontFamily = "Cabin Sketch";
-                        document.getElementById('timer').style.fontWeight = "500";
-                        document.getElementById('timer').style.fontSize = "x-large";
-                        document.getElementById('timer').innerHTML = "Time's Up";
                         this.timerStarted = false;
-                        clearInterval(this.interVal);
                     }
                 }, 1000);
             }
