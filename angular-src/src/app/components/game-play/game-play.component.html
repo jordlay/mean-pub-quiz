@@ -174,10 +174,12 @@
   </div>
   <div class="row color{{this.buzzerDetails.colour}}" style="padding-left:15px; padding-bottom: 5px;" id="buzzerDetails" *ngIf="this.buzzerPress">{{this.buzzerDetails.displayName}} pressed the buzzer for the {{this.buzzerDetails.colour}} team!</div>
 </div>
-<div *ngIf="this.currentPlayer" class="row">
+<div *ngIf="this.currentPlayer && !this.host" class="row">
   <app-game-chat [player]="this.currentPlayer"></app-game-chat>
 </div>
-
+<div *ngIf="this.currentPlayer && this.host && this.hostDetails.include" class="row">
+  <app-game-chat [player]="this.currentPlayer"></app-game-chat>
+</div>
 
 <div class="modal fade" data-bs-backdrop="static" id="settingsModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">

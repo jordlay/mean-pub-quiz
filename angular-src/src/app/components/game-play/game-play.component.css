@@ -49,6 +49,24 @@
     padding-bottom: 5px;
 }
 
+
+.Darkgoldenrod {
+    background-color: darkgoldenrod !important;
+    color: white !important;
+}
+.outlineDarkgoldenrod{
+    border-color: darkgoldenrod  !important;
+}
+.colorDarkgoldenrod{
+    color:darkgoldenrod  !important;
+}
+.backgroundDarkgoldenrod{
+    background-color: rgb(192, 160, 79)  !important;
+}
+.shadowDarkgoldenrod{
+    box-shadow: 0 5px rgb(192, 160, 79);
+}
+
 .Red {
     background-color: crimson !important;
     color: white !important;
