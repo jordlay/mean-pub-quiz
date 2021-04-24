@@ -2861,15 +2861,13 @@ class GameDetailsComponent {
             }
             this.showTimer = false;
             this.showBuzzer = false;
-            // if (this.timerStarted) {
-            //   this.stopTimer()
-            // }
             this.reset();
         });
     }
     receiveEndGamePlay() {
         this.socketioService.receiveEndGamePlay().subscribe((data) => {
             this.endOfGame = true;
+            clearInterval(this.interVal);
         });
     }
     receiveShowAnswers() {
@@ -2935,7 +2933,7 @@ class GameDetailsComponent {
                     document.getElementById('timer').style.fontWeight = "500";
                     document.getElementById('timer').style.fontSize = "xx-large";
                     document.getElementById('timer').innerHTML = this.currentTimer + '';
-                    if (this.currentTimer <= 0) {
+                    if (this.currentTimer < 1) {
                         clearInterval(this.interVal);
                         this.timerStarted = false;
                     }

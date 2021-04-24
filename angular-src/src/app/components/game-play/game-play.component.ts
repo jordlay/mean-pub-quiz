@@ -282,9 +282,7 @@ export class GameDetailsComponent implements OnInit {
       }
       this.showTimer = false;
       this.showBuzzer = false;
-      // if (this.timerStarted) {
-      //   this.stopTimer()
-      // }
+
       this.reset();
     });
   }
@@ -292,6 +290,7 @@ export class GameDetailsComponent implements OnInit {
   receiveEndGamePlay(){
     this.socketioService.receiveEndGamePlay().subscribe( (data:any) => {
       this.endOfGame = true;
+      clearInterval(this.interVal);
     });
   }
 
@@ -361,7 +360,7 @@ export class GameDetailsComponent implements OnInit {
           document.getElementById('timer')!.style.fontWeight = "500";
           document.getElementById('timer')!.style.fontSize ="xx-large";
           document.getElementById('timer')!.innerHTML = this.currentTimer + '';
-          if (this.currentTimer <= 0) {
+          if (this.currentTimer < 1) {
             clearInterval(this.interVal);
             this.timerStarted = false;
           }
