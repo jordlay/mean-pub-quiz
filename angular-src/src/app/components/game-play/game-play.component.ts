@@ -195,8 +195,8 @@ export class GameDetailsComponent implements OnInit {
       }
       this.reset();
       if (this.timerAutoStart && !this.timerStarted) {
-        // clearInterval(this.interVal);
-        // this.currentTimer = this.timerLength;
+        clearInterval(this.interVal);
+        this.currentTimer = this.timerLength;
         this.startTimer();
       }
     });
