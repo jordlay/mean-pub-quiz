@@ -94,14 +94,8 @@ export class GameDetailsComponent implements OnInit {
     setTimeout( () => {
       this.gameCreationService.getPlayers(this.roomPin).subscribe((data:any) => {
         this.participantArray = data.players;
-        if (this.participantArray[this.currentPlayer.id] === undefined) {
-          // rejoined player
-          for (let keys of Object.keys(this.participantArray)) {
-            if ((this.participantArray[keys].uid === this.currentPlayer.uid)) {
-              // this.current
-            }
-          }
-        } else {
+        //is if needed?
+        if (!(this.participantArray[this.currentPlayer.id] === undefined)) {
           this.currentPlayer = this.participantArray[this.currentPlayer.id];
         }
       });
@@ -114,15 +108,18 @@ export class GameDetailsComponent implements OnInit {
           }
         }
       }
-      if (!this.hostDetails.include) {
-        this.playerColour = "darkgoldenrod";
+      if (this.hostDetails.id === this.currentPlayer.id) {
+        this.host = true;
+        if (!this.hostDetails.include) {
+          this.playerColour = "Darkgoldenrod";
+          this.currentPlayer.colour = "Darkgoldenrod";
+        }
       }
+
       if (this.teams) {
         document.getElementById('teamButton')!.click();
       }
-      if (this.hostDetails.id === this.currentPlayer.id) {
-        this.host = true;
-      }
+
     }, 500)
   }
 
@@ -185,6 +182,7 @@ export class GameDetailsComponent implements OnInit {
   receiveNextQuestion(){
     this.socketioService.receiveNextQuestion().subscribe( (data:any) => {
       this.currentQuestion = data;
+      console.log('in NQ');
       if (this.currentQuestion+1 <= this.objectKeys(this.questionObject[this.currentRound]).length) {
         this.lastQuestionBool = false;
       } else {
@@ -196,8 +194,10 @@ export class GameDetailsComponent implements OnInit {
         this.firstQuestionBool = true;
       }
       this.reset();
-      if (this.timerAutoStart) {
-        this.startTimer()
+      if (this.timerAutoStart && !this.timerStarted) {
+        // clearInterval(this.interVal);
+        // this.currentTimer = this.timerLength;
+        this.startTimer();
       }
     });
   }
@@ -212,6 +212,7 @@ export class GameDetailsComponent implements OnInit {
 
   receiveStartRound(){
     this.socketioService.receiveStartRound().subscribe( (data:any) => {
+      console.log('Start Round');
       this.currentRound = data; 
       if (this.currentRound+1 <= this.objectKeys(this.questionObject).length) {
         this.lastRoundBool = false;
@@ -236,15 +237,16 @@ export class GameDetailsComponent implements OnInit {
         this.showTimer = true;
         this.buzzerPress = false;
       }
-        if (this.timerEnabled && this.showTimer && (!document.getElementById('timer') === null)){
-          clearInterval(this.interVal);
+      if (this.timerEnabled && this.showTimer && (!document.getElementById('timer') === null)){
+        // if (this.timerEnabled && this.showTimer){
           document.getElementById('timer')!.innerHTML = this.timerLength + '';
         }
-          if (this.timerAutoStart) {
-            clearInterval(this.interVal);
-            this.currentTimer = this.timerLength;
-            this.startTimer()
-          }
+        if (this.timerAutoStart && !this.timerStarted) {
+          //shouldnt need these 2 as in reset();
+          clearInterval(this.interVal);
+          this.currentTimer = this.timerLength;
+          this.startTimer()
+        }
     });
   }
 
@@ -253,22 +255,29 @@ export class GameDetailsComponent implements OnInit {
   }
 
   reset(){
-    clearInterval(this.interVal);
-    this.timerStarted = false;
-    this.stopTimer();
-    this.currentTimer = this.timerLength;
+    console.log('RESET', this.timerStarted);
+    if (this.timerEnabled) {
+      console.log('TimerEnabled');
+      //shouldnt need these 2 but ok for now (in stop timer)
+      clearInterval(this.interVal);
+      this.timerStarted = false;
+      this.stopTimer();
+      this.currentTimer = this.timerLength;
+        if (this.showTimer) {
+          console.log('SHOWTIMER');
+          document.getElementById('timer')!.innerHTML = this.timerLength + '';
+        }
+    }
     if (this.buzzerEnabled && this.showBuzzer) {
       let element = <HTMLInputElement> document.getElementById('buzzer');
       element.disabled = false;
       this.buzzerPress = false;
     }
-    if (this.showTimer) {
-      document.getElementById('timer')!.innerHTML = this.timerLength + '';
-    }
   }
 
   receiveNextRound(){
     this.socketioService.receiveNextRound().subscribe( (data:any) => {
+      console.log('NR');
       this.lastQuestionBool = false;
       this.currentQuestion = 0;
       this.currentRound +=1;
@@ -280,10 +289,9 @@ export class GameDetailsComponent implements OnInit {
         element.disabled = false;
         this.buzzerPress = false;
       }
+      this.reset();
       this.showTimer = false;
       this.showBuzzer = false;
-
-      this.reset();
     });
   }
 
@@ -350,22 +358,26 @@ export class GameDetailsComponent implements OnInit {
   receiveStartTimer(){
     this.socketioService.receiveStartTimer().subscribe( (data:any) => {
     if (data) {
+      console.log('STARTTIMER');
       this.timerStarted = true;
       if (this.currentTimer < 1) {
         this.currentTimer = this.timerLength;
       }
         this.interVal = setInterval( () => {
+          console.log('interval CT', this.currentTimer);
           this.currentTimer -=1;
           document.getElementById('timer')!.style.fontFamily = "Cabin Sketch";
           document.getElementById('timer')!.style.fontWeight = "500";
           document.getElementById('timer')!.style.fontSize ="xx-large";
           document.getElementById('timer')!.innerHTML = this.currentTimer + '';
           if (this.currentTimer < 1) {
-            clearInterval(this.interVal);
+            console.log('CT<1', this.currentTimer);
             this.timerStarted = false;
+            clearInterval(this.interVal);
           }
          }, 1000);
     } else {
+      console.log('STOPTIMER');
       this.timerStarted = false;
       clearInterval(this.interVal);
     }

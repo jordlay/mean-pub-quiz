@@ -87,7 +87,7 @@ io.on("connection", (socket) => {
             playerid.push(previousJoinedPlayers[gameId][key].id); 
         }                                                                                                     
         if (!hostDetails.include) {
-            let index = playerNames.indexOf(hostDetails.displayName);
+            let index = playerid.indexOf(hostDetails.id);
             playerNames.splice(index,1);
             playerid.splice(index,1);
             numberOfPlayers -= 1;
