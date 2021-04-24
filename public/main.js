@@ -984,8 +984,8 @@ __webpack_require__.r(__webpack_exports__);
 // The list of file replacements can be found in `angular.json`.
 const environment = {
     production: false,
-    // SOCKET_ENDPOINT: 'http://localhost:8080'
-    SOCKET_ENDPOINT: 'https://mean-pub-quiz.herokuapp.com/'
+    SOCKET_ENDPOINT: 'http://localhost:8080'
+    // SOCKET_ENDPOINT: 'https://mean-pub-quiz.herokuapp.com/'
 };
 /*
  * For easier debugging in development mode, you can import the following file
@@ -2850,8 +2850,12 @@ class GameDetailsComponent {
             if (this.timerEnabled && this.showTimer && (!document.getElementById('timer') === null)) {
                 clearInterval(this.interVal);
                 document.getElementById('timer').innerHTML = this.timerLength + '';
+                console.log('in SR, timer len', this.timerLength);
             }
             if (this.timerAutoStart) {
+                // this.reset();
+                clearInterval(this.interVal);
+                this.currentTimer = this.timerLength;
                 this.startTimer();
             }
         });
@@ -2873,19 +2877,31 @@ class GameDetailsComponent {
         console.log(this.currentPlayer);
     }
     reset() {
+        clearInterval(this.interVal);
+        this.timerStarted = false;
+        this.stopTimer();
+        this.currentTimer = this.timerLength;
         if (this.buzzerEnabled && this.showBuzzer) {
             let element = document.getElementById('buzzer');
             element.disabled = false;
             this.buzzerPress = false;
         }
-        if (this.timerEnabled && this.showTimer) {
-            clearInterval(this.interVal);
-            document.getElementById('timer').innerHTML = this.timerLength + '';
-            this.currentTimer = this.timerLength;
-        }
-        if (this.timerAutoStart) {
+        if (this.timerEnabled) {
+            // clearInterval(this.interVal);
+            // this.timerStarted = false;
             this.stopTimer();
+            this.currentTimer = this.timerLength;
+            if (this.showTimer) {
+                document.getElementById('timer').innerHTML = this.timerLength + '';
+                // this.currentTimer = this.timerLength;
+                // this.timerStarted = false;
+            }
         }
+        //shouldnt need this?
+        // if (this.timerAutoStart) {
+        //   clearInterval(this.interVal);
+        //   this.stopTimer();
+        // }
     }
     receiveNextRound() {
         this.socketioService.receiveNextRound().subscribe((data) => {
@@ -2901,6 +2917,9 @@ class GameDetailsComponent {
             }
             this.showTimer = false;
             this.showBuzzer = false;
+            // if (this.timerStarted) {
+            //   this.stopTimer()
+            // }
             this.reset();
         });
     }
@@ -2918,6 +2937,7 @@ class GameDetailsComponent {
                 this.showAllAnswersBool = true;
                 this.showAnswersBool = false;
             }
+            clearInterval(this.interVal);
             this.currentQuestion = 0;
             this.showBuzzer = false;
             this.showTimer = false;
@@ -2960,6 +2980,7 @@ class GameDetailsComponent {
     }
     receiveStartTimer() {
         this.socketioService.receiveStartTimer().subscribe((data) => {
+            console.log('ST', data, this.currentTimer);
             if (data) {
                 this.timerStarted = true;
                 if (this.currentTimer < 1) {
@@ -2971,20 +2992,24 @@ class GameDetailsComponent {
                     document.getElementById('timer').style.fontWeight = "500";
                     document.getElementById('timer').style.fontSize = "xx-large";
                     document.getElementById('timer').innerHTML = this.currentTimer + '';
-                    if (this.currentTimer < 0) {
+                    console.log(this.currentTimer);
+                    if (this.currentTimer <= 0) {
+                        console.log('CT<0', this.currentTimer);
                         clearInterval(this.interVal);
-                        document.getElementById('timer').style.fontFamily = "Cabin Sketch";
-                        document.getElementById('timer').style.fontWeight = "500";
-                        document.getElementById('timer').style.fontSize = "x-large";
-                        document.getElementById('timer').innerHTML = "Time's Up";
+                        // document.getElementById('timer')!.style.fontFamily = "Cabin Sketch";
+                        // document.getElementById('timer')!.style.fontWeight = "500";
+                        // document.getElementById('timer')!.style.fontSize ="x-large";
+                        // document.getElementById('timer')!.innerHTML = "Time's Up";
                         this.timerStarted = false;
-                        clearInterval(this.interVal);
+                        // clearInterval(this.interVal);
                     }
                 }, 1000);
             }
             else {
                 this.timerStarted = false;
+                console.log('stopT', this.currentTimer);
                 clearInterval(this.interVal);
+                console.log('stopTA', this.currentTimer);
             }
         });
     }
