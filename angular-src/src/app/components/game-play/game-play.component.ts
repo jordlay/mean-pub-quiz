@@ -88,17 +88,12 @@ export class GameDetailsComponent implements OnInit {
   ngAfterViewInit(){
     this.teamNumber = this.hostDetails.teamNumber;
     this.currentPlayer = this.player;
-    // this.playerColour = this.currentPlayer.colour
-    console.log('CP on init', this.currentPlayer);
     if (!(this.currentPlayer.colour === undefined)) {
       this.playerColour = this.currentPlayer.colour;
     }
     setTimeout( () => {
       this.gameCreationService.getPlayers(this.roomPin).subscribe((data:any) => {
-        console.log('data in GP', data);
-        console.log('players in GP', data.players);
         this.participantArray = data.players;
-        console.log('PA[CP]', this.participantArray[this.currentPlayer.id])
         if (this.participantArray[this.currentPlayer.id] === undefined) {
           // rejoined player
           for (let keys of Object.keys(this.participantArray)) {
@@ -108,10 +103,8 @@ export class GameDetailsComponent implements OnInit {
           }
         } else {
           this.currentPlayer = this.participantArray[this.currentPlayer.id];
-          console.log('in else?', this.currentPlayer);
         }
       });
-      console.log('teams',this.teams);
       for (let colour of this.objectKeys(this.teams)){
         document.getElementById(colour)!.style.color = colour;
         for (let player of this.objectKeys(this.teams[colour])){
@@ -246,29 +239,14 @@ export class GameDetailsComponent implements OnInit {
         if (this.timerEnabled && this.showTimer && (!document.getElementById('timer') === null)){
           clearInterval(this.interVal);
           document.getElementById('timer')!.innerHTML = this.timerLength + '';
-          console.log('in SR, timer len', this.timerLength)
         }
           if (this.timerAutoStart) {
-            // this.reset();
             clearInterval(this.interVal);
             this.currentTimer = this.timerLength;
             this.startTimer()
           }
     });
   }
-  // reconnectPlayer(){
-  //   console.log('reconnect');
-  //   console.log(this.participantArray);
-  //   this.reconnectPlayerBool = true;
-  //   // for (let player of this.objectKeys(this.participantArray)){
-  //   //   if 
-  //   //   // for (let play of this.objectKeys(this.playerObject)) {
-  //   //     if (this.playerObject[player]===undefined) {
-  //   //       console.log(this.participantArray[player]);
-  //   //     }
-  //     // }
-  //   // }
-  // }
 
   logCurrentPlayer(){
     console.log(this.currentPlayer);
@@ -284,23 +262,9 @@ export class GameDetailsComponent implements OnInit {
       element.disabled = false;
       this.buzzerPress = false;
     }
-    if (this.timerEnabled) {
-      // clearInterval(this.interVal);
-      // this.timerStarted = false;
-      this.stopTimer();
-      this.currentTimer = this.timerLength;
-      if (this.showTimer) {
-        document.getElementById('timer')!.innerHTML = this.timerLength + '';
-        // this.currentTimer = this.timerLength;
-        // this.timerStarted = false;
-      }
-
+    if (this.showTimer) {
+      document.getElementById('timer')!.innerHTML = this.timerLength + '';
     }
-    //shouldnt need this?
-    // if (this.timerAutoStart) {
-    //   clearInterval(this.interVal);
-    //   this.stopTimer();
-    // }
   }
 
   receiveNextRound(){
@@ -386,7 +350,6 @@ export class GameDetailsComponent implements OnInit {
 
   receiveStartTimer(){
     this.socketioService.receiveStartTimer().subscribe( (data:any) => {
-      console.log('ST', data, this.currentTimer);
     if (data) {
       this.timerStarted = true;
       if (this.currentTimer < 1) {
@@ -398,23 +361,14 @@ export class GameDetailsComponent implements OnInit {
           document.getElementById('timer')!.style.fontWeight = "500";
           document.getElementById('timer')!.style.fontSize ="xx-large";
           document.getElementById('timer')!.innerHTML = this.currentTimer + '';
-          console.log(this.currentTimer);
           if (this.currentTimer <= 0) {
-            console.log('CT<0', this.currentTimer);
             clearInterval(this.interVal);
-            // document.getElementById('timer')!.style.fontFamily = "Cabin Sketch";
-            // document.getElementById('timer')!.style.fontWeight = "500";
-            // document.getElementById('timer')!.style.fontSize ="x-large";
-            // document.getElementById('timer')!.innerHTML = "Time's Up";
             this.timerStarted = false;
-            // clearInterval(this.interVal);
           }
          }, 1000);
     } else {
       this.timerStarted = false;
-      console.log('stopT', this.currentTimer);
       clearInterval(this.interVal);
-      console.log('stopTA', this.currentTimer);
     }
     });
   }
