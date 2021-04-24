@@ -2938,24 +2938,27 @@ class GameDetailsComponent {
     receiveStartTimer() {
         this.socketioService.receiveStartTimer().subscribe((data) => {
             if (data) {
-                console.log('STARTTIMER');
-                this.timerStarted = true;
-                if (this.currentTimer < 1) {
-                    this.currentTimer = this.timerLength;
-                }
-                this.interVal = setInterval(() => {
-                    console.log('interval CT', this.currentTimer);
-                    this.currentTimer -= 1;
-                    document.getElementById('timer').style.fontFamily = "Cabin Sketch";
-                    document.getElementById('timer').style.fontWeight = "500";
-                    document.getElementById('timer').style.fontSize = "xx-large";
-                    document.getElementById('timer').innerHTML = this.currentTimer + '';
+                if (!this.timerStarted) {
+                    console.log('STARTTIMER', this.timerStarted);
+                    this.timerStarted = true;
                     if (this.currentTimer < 1) {
-                        console.log('CT<1', this.currentTimer);
-                        this.timerStarted = false;
-                        clearInterval(this.interVal);
+                        this.currentTimer = this.timerLength;
                     }
-                }, 1000);
+                    this.interVal = setInterval(() => {
+                        console.log('interval CT', this.currentTimer);
+                        this.currentTimer -= 1;
+                        document.getElementById('timer').style.fontFamily = "Cabin Sketch";
+                        document.getElementById('timer').style.fontWeight = "500";
+                        document.getElementById('timer').style.fontSize = "xx-large";
+                        document.getElementById('timer').innerHTML = this.currentTimer + '';
+                        if (this.currentTimer < 1) {
+                            console.log('CT<1', this.currentTimer);
+                            this.timerStarted = false;
+                            clearInterval(this.interVal);
+                            console.log('CT<1 after CI', this.currentTimer);
+                        }
+                    }, 1000);
+                }
             }
             else {
                 console.log('STOPTIMER');
