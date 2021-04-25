@@ -55,6 +55,8 @@ export class GamePlayComponent implements OnInit {
   roundsArray: Array<Array<Number>> = [];
   questionsObject: any;
   hostClaimed:any;
+  timerLength = 30;
+  saveGameBool: any;
 
   ngOnInit(): void {
     this.url = window.location.href;
@@ -169,7 +171,13 @@ export class GamePlayComponent implements OnInit {
     this.api.dispose();
     this.socketioService.endGame(this.roomPin);
     this.router.navigate(['/']);
-    this.gameCreationService.endGame(this.game).subscribe(()=>{});
+    if (!this.saveGameBool) {
+      this.gameCreationService.endGame(this.game).subscribe(()=>{});
+    }
+  }
+  
+  saveGame(){
+    this.saveGameBool = true;
   }
   generateCode() {
     return Math.random().toString(20).substr(2, 5).toUpperCase();
@@ -245,6 +253,11 @@ export class GamePlayComponent implements OnInit {
       } else {
         this.roundsEntered = false;
       }
+    });
+
+    let slider = <HTMLInputElement> document.getElementById("timerLength")!;
+    slider.addEventListener('change', (event:any) => {
+      this.timerLength = slider.valueAsNumber;
     });
   }
 
@@ -399,6 +412,7 @@ export class GamePlayComponent implements OnInit {
   receiveEndGame() {
     this.socketioService.receiveEndGame().subscribe((message: any)=>{
       if (message.includes('ended')) {
+        this.gameStarted = false;
         this.endGame();
       }
     });
