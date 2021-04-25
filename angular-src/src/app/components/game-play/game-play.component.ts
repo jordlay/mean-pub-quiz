@@ -30,7 +30,8 @@ export class GameDetailsComponent implements OnInit {
   currentQuestion = 0;
   firstQuestionBool: any;
   firstRoundBool: any;
-  timerLength = 30;
+  // timerLength = 30;
+  timerLength: any;
   questionObject: any;
   numberOfRounds: any;
   numberOfQuestions: any;
@@ -182,7 +183,6 @@ export class GameDetailsComponent implements OnInit {
   receiveNextQuestion(){
     this.socketioService.receiveNextQuestion().subscribe( (data:any) => {
       this.currentQuestion = data;
-      console.log('in NQ');
       if (this.currentQuestion+1 <= this.objectKeys(this.questionObject[this.currentRound]).length) {
         this.lastQuestionBool = false;
       } else {
@@ -212,7 +212,6 @@ export class GameDetailsComponent implements OnInit {
 
   receiveStartRound(){
     this.socketioService.receiveStartRound().subscribe( (data:any) => {
-      console.log('Start Round');
       this.currentRound = data; 
       if (this.currentRound+1 <= this.objectKeys(this.questionObject).length) {
         this.lastRoundBool = false;
@@ -255,16 +254,12 @@ export class GameDetailsComponent implements OnInit {
   }
 
   reset(){
-    console.log('RESET', this.timerStarted);
     if (this.timerEnabled) {
-      console.log('TimerEnabled');
-      //shouldnt need these 2 but ok for now (in stop timer)
       clearInterval(this.interVal);
       this.timerStarted = false;
       this.stopTimer();
       this.currentTimer = this.timerLength;
         if (this.showTimer) {
-          console.log('SHOWTIMER');
           document.getElementById('timer')!.innerHTML = this.timerLength + '';
         }
     }
@@ -277,7 +272,6 @@ export class GameDetailsComponent implements OnInit {
 
   receiveNextRound(){
     this.socketioService.receiveNextRound().subscribe( (data:any) => {
-      console.log('NR');
       this.lastQuestionBool = false;
       this.currentQuestion = 0;
       this.currentRound +=1;
@@ -351,7 +345,8 @@ export class GameDetailsComponent implements OnInit {
       this.buzzerEnabled = data.buzzer;
       this.timerEnabled = data.timer;
       this.timerAutoStart = data.timerStart
-      this.timerLength = (parseFloat(data.timerLength) * 60);
+      // this.timerLength = (parseFloat(data.timerLength) * 60);
+      this.timerLength = parseFloat(data.timerLength);
     });
   }
 
@@ -359,28 +354,23 @@ export class GameDetailsComponent implements OnInit {
     this.socketioService.receiveStartTimer().subscribe( (data:any) => {
     if (data) {
       if (!this.timerStarted) {
-        console.log('STARTTIMER', this.timerStarted);
         this.timerStarted = true;
         if (this.currentTimer < 1) {
           this.currentTimer = this.timerLength;
         }
           this.interVal = setInterval( () => {
-            console.log('interval CT', this.currentTimer);
             this.currentTimer -=1;
             document.getElementById('timer')!.style.fontFamily = "Cabin Sketch";
             document.getElementById('timer')!.style.fontWeight = "500";
             document.getElementById('timer')!.style.fontSize ="xx-large";
             document.getElementById('timer')!.innerHTML = this.currentTimer + '';
             if (this.currentTimer < 1) {
-              console.log('CT<1', this.currentTimer);
               this.timerStarted = false;
               clearInterval(this.interVal);
-              console.log('CT<1 after CI', this.currentTimer);
             }
            }, 1000);
       }
     } else {
-      console.log('STOPTIMER');
       this.timerStarted = false;
       clearInterval(this.interVal);
     }

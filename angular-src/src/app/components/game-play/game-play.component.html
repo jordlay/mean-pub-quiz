@@ -168,16 +168,13 @@
     </div>
   </div>
   <div *ngIf="this.host">
-    <button *ngIf="this.buzzerEnabled && this.showBuzzer" class="btn btn {{this.playerColour}}" (click)="onResetBuzzer()">Reset Buzzer</button>
-    <button *ngIf="this.timerEnabled && this.showTimer" class="btn btn {{this.playerColour}}" (click)="onResetTimer()">Reset Timer</button>
-    <button *ngIf="this.timerEnabled && this.showTimer && this.buzzerEnabled && this.showBuzzer" class="btn btn {{this.playerColour}}" (click)="onReset()">Reset All</button>
+    <button *ngIf="this.buzzerEnabled && this.showBuzzer" class="btn resetButton {{this.playerColour}}" (click)="onResetBuzzer()">Reset Buzzer</button>
+    <button *ngIf="this.timerEnabled && this.showTimer" class="btn resetButton btn {{this.playerColour}}" (click)="onResetTimer()">Reset Timer</button>
+    <button *ngIf="this.timerEnabled && this.showTimer && this.buzzerEnabled && this.showBuzzer" class="btn resetButton {{this.playerColour}}" (click)="onReset()">Reset All</button>
   </div>
-  <div class="row color{{this.buzzerDetails.colour}}" style="padding-left:15px; padding-bottom: 5px;" id="buzzerDetails" *ngIf="this.buzzerPress">{{this.buzzerDetails.displayName}} pressed the buzzer for the {{this.buzzerDetails.colour}} team!</div>
+  <div class="row color{{this.buzzerDetails.colour}}" style="margin: 0px; padding-left:15px; padding-bottom: 5px;" id="buzzerDetails" *ngIf="this.buzzerPress">{{this.buzzerDetails.displayName}} pressed the buzzer for the {{this.buzzerDetails.colour}} team!</div>
 </div>
-<div *ngIf="this.currentPlayer && !this.host" class="row">
-  <app-game-chat [player]="this.currentPlayer"></app-game-chat>
-</div>
-<div *ngIf="this.currentPlayer && this.host && this.hostDetails.include" class="row">
+<div *ngIf="this.currentPlayer && (!this.host || (this.host && this.hostDetails.include))" class="row">
   <app-game-chat [player]="this.currentPlayer"></app-game-chat>
 </div>
 
@@ -210,25 +207,17 @@
                 </div>
             </div>
             <div class="mb-3">
-                <label for="timerLength" class="form-label">Timer Length (Mins)</label>
-                <input type="range" data-value="0.5"  class="form-range" min="0" max="5" step="0.5" value="timerLength" id="timerLength">
-            </div>
+                <label for="timerLength" class="form-label">Timer Length (Seconds)</label>
+                <input type="range" class="form-range" min="0" max="300" step="30" value="{{this.timerLength}}" id="timerLength">
+                <p>Value: {{this.timerLength}}</p>
+            
+              </div>
             <div class="mb-3">
               <div class="custom-control custom-switch">
                   <input type="checkbox" class="custom-control-input" id="timerStart">
                   <label class="custom-control-label" for="timerStart">Autostart Timer on New Question</label>
               </div>
           </div>
-            <!-- <div class="mb-3">
-              <label for="reconnectButton" class="form-label">Reconnect a Player</label>
-              <button type="button" class="btn btn-secondary" id="reconnectButton" (click)="reconnectPlayer()"></button>
-            </div>
-            <div *ngIf="this.reconnectPlayer" class="mb-3">
-               left players -->
-              <!-- <div *ngFor="let key of objectKeys(this.participantArray)">
-                {{this.participantArray[key].displayName}} : {{this.participantArray[key].uid}}
-              </div> 
-            </div> -->
           </form>
         </div>
         <div class="modal-footer">

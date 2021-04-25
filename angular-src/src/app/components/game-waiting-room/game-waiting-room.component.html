@@ -56,40 +56,6 @@
                     </div>
                 </div>
          
-                <!-- <div class="modal fade" data-bs-backdrop="static" id="questionSettingsModal" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                    <div class="modal-content" style="max-height: 400px;">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Question Settings</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p class="card-text">If you would like your quiz questions to appear on the screen as you play, enter the number of rounds and questions</p>
-                            <p class="card-text">If not just close this form.</p>
-                        <form class="needs-validation">
-                            <div class="mb-3">
-                                <label for="rounds" style="margin-top:10px">Enter the number of rounds</label>
-                                <input type="text" class="form-control " id="rounds" placeholder="Enter number of rounds">
-                            </div>
-                              
-                            <div *ngIf="this.roundsEntered">
-                                <div class="mb-3">
-                                    <div *ngFor="let in of this.rounds; let i = index;">
-                                    <label for="round{{i+1}}questions" style="margin-top:10px">Enter the number of questions for round {{i+1}}</label>
-                                    <input type="text" class="form-control " id="round{{i+1}}questions" placeholder="Enter number of questions">
-                                </div>
-                            </div>
-                      
-                            </div>
-                        </form>
-                        </div>
-                        <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="this.showQuestions = false;">Close</button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="setQuestionSettings" (click)="setQuestionSettings()">Confirm Settings</button>
-                        </div>
-                    </div>
-                    </div>
-                </div> -->
                 <!-- Game Settings open when Confirm Host -->
                 <div class="modal fade" data-bs-backdrop="static" id="settingsModal" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
@@ -146,8 +112,9 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <label for="timerLength" class="form-label">Timer Length (Mins)</label>
-                                <input type="range" data-value="0.5"  class="form-range" min="0" max="5" step="0.5" value="timerLength" id="timerLength">
+                                <label for="timerLength" class="form-label">Timer Length (Seconds)</label>
+                                <input type="range" class="form-range" min="0" max="300" step="30" value="{{this.timerLength}}" id="timerLength">
+                                <p>Value: {{this.timerLength}}</p>
                             </div>
                             <div class="mb-3">
                                 <div class="custom-control custom-switch">
@@ -165,39 +132,7 @@
                     </div>
                     </div>
                 </div> 
-                
-                <!-- <div class="modal fade" data-bs-backdrop="static" id="settingsModal" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                    <div class="modal-content" style="max-height: 400px;">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Team Settings</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body" style="max-height: 400px;">
-                            <p class="card-text">Make sure all your players are in the waiting room as you cannot change the number of teams once the game has begun</p>
-                        
-                        <form class="needs-validation">
-                            <div class="mb-3">
-                                <div class="form-check" style="padding-left: 0rem;">
-                                <input class="form-check-input" type="checkbox" value ="" id="hostCheckbox">
-                                <label class="form-check-label" style="padding-left: 30px;" for="hostCheckbox">Include Host in Teams
-                                </label>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="teamNumber" style="margin-top:10px">How many teams would you like? (max 10)</label>
-                                <input type="text" class="form-control " id="teamNumber" placeholder="Enter number of teams">
-                            </div>
-                        </form>
-                        </div>
-                        <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" id="setSettings" (click)="setSettings()" disabled>Confirm Settings</button>
-                        </div>
-                    </div>
-                    </div>
-                </div> -->
-
+        
                 <div *ngIf="this.openQuestionModal">
                     <button type="button" class="btn btn-secondary"  data-bs-toggle="modal" data-bs-target="#questionsModal" >Open Questions</button>
                 </div>
@@ -238,7 +173,7 @@
                 </div>
                 
             </div>
-            <div *ngIf="this.gameStarted === true">
+            <div *ngIf="this.gameStarted">
                 <app-game-play [roomPin]="this.roomPin"  [hostDetails]="this.hostDetails" [player]="this.currentPlayer" [teams]="this.teams"></app-game-play>
             </div>
         <!-- </div> -->
@@ -260,7 +195,8 @@
 </div>
 
     <div>
-        <button type="button" class="btn btn-outline-danger" (click)="endGame()">End Game</button>
+        <button *ngIf="this.host" type="button" class="btn btn-outline-danger" (click)="endGame()">End Game</button>
+        <button *ngIf="this.host" type="button" class="btn btn-outline-warning" (click)="saveGame()">Save Game</button>
     </div>
     
 
