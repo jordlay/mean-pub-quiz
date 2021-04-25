@@ -123,7 +123,9 @@ io.on("connection", (socket) => {
     });
 
     socket.on('playerLeft', ({gameId, playerData}) => {
-        delete previousJoinedPlayers[gameId][playerData.id];
+        if (!(previousJoinedPlayers[gameId][playerData.id] === undefined)){
+            delete previousJoinedPlayers[gameId][playerData.id];
+        }
     });
     
     socket.on('rejoinPlayer', ({gameId, previousID, currentPlayer}) => {
